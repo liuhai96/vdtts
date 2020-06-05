@@ -2,3 +2,5 @@ spring:
   profiles:
     active:
       - thymeleaf
+      - mybatis
+      - druid

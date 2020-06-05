@@ -46,6 +46,13 @@
             <scope>runtime</scope>
         </dependency>
 
+        <!--Druid连接池-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+            <version>1.1.21</version>
+        </dependency>
+
         <!--写配置文件时自动补全-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
