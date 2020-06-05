@@ -1,4 +1,17 @@
 spring:
+  mvc:
+    hiddenmethod:
+      filter:
+        #在SpringBoot2.0之后要使用Restful中的Put和Delete必须要加上这个，2.0默认不支持Put和Delete，要把他们打开
+        enabled: true
+  servlet:
+    multipart:
+      #开启文件上传
+      enabled: true
+      #单个文件最大值
+      max-file-size: 10MB
+      #上传文件的最大值
+      max-request-size: 50MB
   profiles:
     active:
       - thymeleaf
