@@ -4,3 +4,4 @@ spring:
       - thymeleaf
       - mybatis
       - druid
+      - redis
