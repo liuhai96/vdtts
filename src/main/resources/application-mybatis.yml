@@ -1,4 +1,0 @@
-mybatis:
-  configuration:
-    # 打印SQL语句
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
