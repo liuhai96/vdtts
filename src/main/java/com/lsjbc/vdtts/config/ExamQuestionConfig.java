@@ -1,6 +1,15 @@
 package com.lsjbc.vdtts.config;
 
+import com.lsjbc.vdtts.entity.ExamQuestion;
+import com.lsjbc.vdtts.service.impl.ExamTestServiceImpl;
+import com.lsjbc.vdtts.service.intf.ExamTestService;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.Async;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * @ClassName: ExamQuestionConfig
@@ -13,4 +22,46 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class ExamQuestionConfig {
+
+    /**
+     * 科目四题库的Bean名
+     */
+    public static final String QUESTION_BANK_4 = "QuestionBank4";
+
+    /**
+     * 科目一题库的Bean名
+     */
+    public static final String QUESTION_BANK_1 = "QuestionBank1";
+
+    /**
+     * 程序启动时生成科目四题库
+     * 注意
+     * 极其耗时，上线时才放开
+     *
+     * @param service
+     * @return 科目四题库
+     * @author JX181114 --- 郑建辉
+     */
+    @Async
+    @Bean(name = ExamQuestionConfig.QUESTION_BANK_4)
+    public Map<Integer, List<ExamQuestion>> generateQuestionBank4(@Qualifier(ExamTestServiceImpl.NAME) ExamTestService service) {
+        return service.generateText(4);
+//        return null;
+    }
+
+    /**
+     * 程序启动时生成科目一题库
+     * 注意
+     * 极其耗时，上线时才放开
+     *
+     * @param service
+     * @return 科目四题库
+     * @author JX181114 --- 郑建辉
+     */
+    @Async
+    @Bean(name = ExamQuestionConfig.QUESTION_BANK_1)
+    public Map<Integer, List<ExamQuestion>> generateQuestionBank1(@Qualifier(ExamTestServiceImpl.NAME) ExamTestService service) {
+        return service.generateText(1);
+//        return null;
+    }
 }

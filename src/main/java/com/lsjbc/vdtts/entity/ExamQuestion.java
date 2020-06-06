@@ -3,6 +3,7 @@ package com.lsjbc.vdtts.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * @ClassName: ExamQuestion
@@ -44,6 +45,12 @@ public class ExamQuestion {
      */
     @Column(name = "`eq_level`")
     private Integer eqLevel;
+
+    /**
+     * 题目对应的答案
+     */
+    @Transient
+    private List<ExamAnswer> answers;
 
 
 }
