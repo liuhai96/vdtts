@@ -16,13 +16,13 @@ import java.util.concurrent.TimeUnit;
  * @Datetime: 2020/6/25   15:33
  * @Author: JX181114 --- 郑建辉
  */
-@Component(BaseRedisClient.BEAN_NAME)
+@Component(BaseRedisClient.NAME)
 public class BaseRedisClient {
 
     @Resource(name = "JsonRedisTemplate")
     private RedisTemplate<Object,Object> jsonRedisTemplate;
 
-    public static final String BEAN_NAME = "BaseRedisClient";
+    public static final String NAME = "BaseRedisClient";
 
     /**
      * 指定缓存失效时间

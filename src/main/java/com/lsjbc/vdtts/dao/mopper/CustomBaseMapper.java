@@ -53,43 +53,5 @@ public interface CustomBaseMapper<T> extends Mapper, MySqlMapper<T> {
      * 接口使用范例见：https://www.jianshu.com/p/336c71c68a52
      */
 
-    /**
-     * 通过主键来获取一个对象
-     *
-     * @param id 主键
-     * @return 对象
-     */
-    T getById(Integer id);
-
-    /**
-     * 新增对象
-     * 注意
-     * 调用这个方法，会自动的向对象中注入主键
-     * 所以返回的不是主键，而是受影响条数
-     *
-     * @param object 对象
-     * @return 受影响条数
-     */
-    Integer add(T object);
-
-    /**
-     * 根据ID来更新对象
-     * 注意
-     * 传入的obj对象中主键不得为空
-     * 否则会抛出异常
-     *
-     * @param object 对象
-     * @return 受影响条数
-     */
-    T updateById(T object);
-
-    /**
-     * 根据主键来删除记录
-     *
-     * @param id 主键
-     * @return 受影响条数
-     */
-    Integer deleteById(Integer id);
-
 
 }
