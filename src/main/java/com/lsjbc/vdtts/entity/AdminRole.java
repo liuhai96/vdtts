@@ -1,8 +1,10 @@
 package com.lsjbc.vdtts.entity;
 
+import lombok.Builder;
 import lombok.Data;
 
 @Data
+@Builder
 /**
  * 管理员-角色关系表
  */

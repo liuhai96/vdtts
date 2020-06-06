@@ -1,11 +1,16 @@
 package com.lsjbc.vdtts.entity;
 
+import lombok.Builder;
+import lombok.Data;
+
 /**
  * @ClassName: ExamQuestion
  * @Description: 题库表
  * @Datetime: 2020/6/6   11:25
  * @Author: JX181114 - 郑建辉
  */
+@Data
+@Builder
 public class ExamQuestion {
 
     /**

@@ -1,9 +1,11 @@
 package com.lsjbc.vdtts.entity;
 
 import jdk.nashorn.internal.objects.annotations.Getter;
+import lombok.Builder;
 import lombok.Data;
 
 @Data
+@Builder
 /**
  * 	学员表
  */
