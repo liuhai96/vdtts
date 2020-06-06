@@ -1,7 +1,6 @@
 package com.lsjbc.vdtts.entity;
 
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 /**
  * @ClassName: ExamAnswer
@@ -9,7 +8,11 @@ import lombok.Data;
  * @Datetime: 2020/6/6   11:29
  * @Author: JX181114 - 郑建辉
  */
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 @Builder
 public class ExamAnswer {
 

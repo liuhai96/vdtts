@@ -1,9 +1,12 @@
 package com.lsjbc.vdtts.entity;
 
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 @Builder
 /**
  * 管理员-角色关系表

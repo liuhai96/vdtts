@@ -1,10 +1,12 @@
 package com.lsjbc.vdtts.entity;
 
-import jdk.nashorn.internal.objects.annotations.Getter;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 @Builder
 /**
  * 	学员表
