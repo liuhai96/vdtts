@@ -1,9 +1,17 @@
 package com.lsjbc.vdtts.dao;
 
+import com.lsjbc.vdtts.constant.consist.CustomTimeConstant;
 import com.lsjbc.vdtts.dao.mapper.BaseDao;
+import com.lsjbc.vdtts.dao.mapper.ExamQuestionMapper;
 import com.lsjbc.vdtts.entity.ExamQuestion;
 import com.lsjbc.vdtts.service.BaseRedisClient;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
+
+import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @ClassName: ExamQuestionDao
@@ -12,12 +20,42 @@ import org.springframework.stereotype.Repository;
  * @Author: JX181114 - 郑建辉
  */
 @Repository(value = ExamQuestionDao.NAME)
+@Slf4j
 public class ExamQuestionDao extends BaseRedisClient implements BaseDao<ExamQuestion> {
 
     /**
      * Bean名
      */
     public static final String NAME = "ExamQuestionDao";
+
+    @Resource
+    private ExamQuestionMapper mapper;
+
+    /**
+     * 从数据库中读取科一/科四的所有题目
+     * 这个操作非常耗时，能不用尽量不要使用
+     *
+     * @param level 科目等级，如果是科一，传入1，如果是科四，传入4
+     * @return 某一个科目的所有题目
+     * @author JX181114 --- 郑建辉
+     */
+    public List<ExamQuestion> getAll(Integer level) {
+        //优先从redis中获取
+        List<ExamQuestion> all = getAllFromRedis();
+
+        //如果获取到，并且集合中有数据，说明读取正常，直接返回
+        if(all!=null&&all.size()>0){
+            return all;
+        }
+
+        //从数据库中查询数据
+        all = mapper.selectAll();
+
+        //把数据库中的数据保存到redis中
+        setAllToRedis(all);
+
+        return all;
+    }
 
     /**
      * 通过主键来获取一个对象
@@ -67,5 +105,125 @@ public class ExamQuestionDao extends BaseRedisClient implements BaseDao<ExamQues
     @Override
     public Integer deleteById(Integer id) {
         return null;
+    }
+
+    /**
+     * 读取redis中所有的数据
+     *
+     * @return 正常会返回集合，如果出现未捕获的异常，返回null
+     * @author JX181114 --- 郑建辉
+     */
+    private List<ExamQuestion> getAllFromRedis() {
+        List<ExamQuestion> result = new ArrayList<>();
+
+        try {
+            lGet("exam:question:all", 0, -1).forEach(item -> {
+                Integer id = (Integer) item;
+
+                ExamQuestion element = getFromRedisById(id);
+
+                if (element != null) {
+                    result.add(element);
+                }
+            });
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return null;
+        }
+
+        return result;
+    }
+
+    /**
+     * 把数据库中的所有数据写入redis中
+     *
+     * @param list 对象集合
+     * @return 如果集合为空返回-1
+     * @author JX181114 --- 郑建辉
+     */
+    private Integer setAllToRedis(List<ExamQuestion> list) {
+        if (list == null) {
+            return -1;
+        }
+
+        try {
+            list.forEach(item -> {
+                lSet("exam:question:all", item.getEqId(), CustomTimeConstant.SECOND_OF_HOUR);
+            });
+        } catch (Exception e) {
+            log.error(e.getMessage());
+        }
+
+        return setToRedisById(list);
+    }
+
+    /**
+     * 把多个对象以主键为索引推入redis中
+     *
+     * @param list 对象集合
+     * @return 失败个数，如果集合为空，会返回-1
+     * @author JX181114 --- 郑建辉
+     */
+    private Integer setToRedisById(List<ExamQuestion> list) {
+
+        if (list == null) {
+            return -1;
+        }
+
+        //声明原子变量，做失败的计数器
+        AtomicInteger failCount = new AtomicInteger();
+
+        list.forEach(item -> {
+            boolean success = setToRedisById(item);
+
+            //如果失败了，计数器+1
+            if (!success) {
+                failCount.incrementAndGet();
+            }
+        });
+
+        return failCount.get();
+    }
+
+    /**
+     * 把单个对象以主键为索引推入redis中
+     *
+     * @param object 对象，注意，这个对象主键属性不得为空
+     * @return 结果，成功：true，失败：false
+     * @author JX181114 --- 郑建辉
+     */
+    private boolean setToRedisById(ExamQuestion object) {
+        try {
+            hset("exam:question:" + object.getEqId(), "question", object.getEqQuestion(), CustomTimeConstant.SECOND_OF_HOUR);
+            hset("exam:question:" + object.getEqId(), "pic", object.getEqPic(), CustomTimeConstant.SECOND_OF_HOUR);
+            hset("exam:question:" + object.getEqId(), "level", object.getEqLevel(), CustomTimeConstant.SECOND_OF_HOUR);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * 从redis中根据主键读取单个对象
+     *
+     * @param id 主键
+     * @return 对象，如果找不到会返回null
+     * @author JX181114 --- 郑建辉
+     */
+    private ExamQuestion getFromRedisById(Integer id) {
+        ExamQuestion result = null;
+        try {
+            //读取数据
+            String question = String.valueOf(hget("exam:question:" + id, "question"));
+            String pic = String.valueOf(hget("exam:question:" + id, "pic"));
+            Integer level = (Integer) hget("exam:question:" + id, "level");
+
+            //装填数据并实例化对象
+            result = ExamQuestion.builder().eqId(id).eqQuestion(question).eqPic(pic).eqLevel(level).build();
+        } catch (Exception e) {
+            log.error(e.getMessage());
+        }
+        return result;
     }
 }
