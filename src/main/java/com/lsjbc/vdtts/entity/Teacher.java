@@ -26,7 +26,7 @@ public class Teacher
 	/**
 	 *驾校ID
 	 */
-	private Integer tSchooleId;
+	private Integer tSchoolId;
 
 	/**
 	 *身份证号
@@ -77,4 +77,11 @@ public class Teacher
 	 *本月限制毕业学员数
 	 */
 	private String tLimit;
+
+	/**
+	 *教练对应的驾校
+	 */
+	private School school;
+
+	private String sName;
 }
