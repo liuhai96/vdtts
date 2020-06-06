@@ -9,7 +9,7 @@ import lombok.*;
 @ToString
 @Builder
 /**
- * 	驾校表
+ * 	教练车表
  */
 public class Car
 {
