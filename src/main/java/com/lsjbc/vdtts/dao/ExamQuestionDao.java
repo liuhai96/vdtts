@@ -7,6 +7,7 @@ import com.lsjbc.vdtts.entity.ExamQuestion;
 import com.lsjbc.vdtts.service.BaseRedisClient;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
+import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -33,6 +34,7 @@ public class ExamQuestionDao extends BaseRedisClient implements BaseDao<ExamQues
 
     /**
      * 从数据库中读取科一/科四的所有题目
+     * 注意
      * 这个操作非常耗时，能不用尽量不要使用
      *
      * @param level 科目等级，如果是科一，传入1，如果是科四，传入4
@@ -40,8 +42,13 @@ public class ExamQuestionDao extends BaseRedisClient implements BaseDao<ExamQues
      * @author JX181114 --- 郑建辉
      */
     public List<ExamQuestion> getAll(Integer level) {
+
+        if(level==null){
+            return new ArrayList<>(0);
+        }
+
         //优先从redis中获取
-        List<ExamQuestion> all = getAllFromRedis();
+        List<ExamQuestion> all = getAllFromRedis(level);
 
         //如果获取到，并且集合中有数据，说明读取正常，直接返回
         if(all!=null&&all.size()>0){
@@ -49,10 +56,13 @@ public class ExamQuestionDao extends BaseRedisClient implements BaseDao<ExamQues
         }
 
         //从数据库中查询数据
-        all = mapper.selectAll();
+        Example example = new Example(ExamQuestion.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("eqLevel",level);
+        all = mapper.selectByExample(example);
 
         //把数据库中的数据保存到redis中
-        setAllToRedis(all);
+        setAllToRedis(all,level);
 
         return all;
     }
@@ -113,11 +123,19 @@ public class ExamQuestionDao extends BaseRedisClient implements BaseDao<ExamQues
      * @return 正常会返回集合，如果出现未捕获的异常，返回null
      * @author JX181114 --- 郑建辉
      */
-    private List<ExamQuestion> getAllFromRedis() {
+    /**
+     * 读取redis中所有的数据
+     *
+     * @param level 科目等级，如果是科目一,传入1  如果是科目四，传入4
+     * @return 正常会返回集合，如果出现未捕获的异常，返回null
+     * @author JX181114 --- 郑建辉
+     */
+    private List<ExamQuestion> getAllFromRedis(Integer level) {
         List<ExamQuestion> result = new ArrayList<>();
 
         try {
-            lGet("exam:question:all", 0, -1).forEach(item -> {
+            List<Object> source = lGet("exam:question:course"+level+":all", 0, -1);
+            source.forEach(item -> {
                 Integer id = (Integer) item;
 
                 ExamQuestion element = getFromRedisById(id);
@@ -138,17 +156,18 @@ public class ExamQuestionDao extends BaseRedisClient implements BaseDao<ExamQues
      * 把数据库中的所有数据写入redis中
      *
      * @param list 对象集合
+     * @level list 对象集合
      * @return 如果集合为空返回-1
      * @author JX181114 --- 郑建辉
      */
-    private Integer setAllToRedis(List<ExamQuestion> list) {
+    private Integer setAllToRedis(List<ExamQuestion> list,Integer level) {
         if (list == null) {
             return -1;
         }
 
         try {
             list.forEach(item -> {
-                lSet("exam:question:all", item.getEqId(), CustomTimeConstant.SECOND_OF_HOUR);
+                lSet("exam:question:course"+level+":all", item.getEqId(), CustomTimeConstant.SECOND_OF_HOUR);
             });
         } catch (Exception e) {
             log.error(e.getMessage());
@@ -194,9 +213,9 @@ public class ExamQuestionDao extends BaseRedisClient implements BaseDao<ExamQues
      */
     private boolean setToRedisById(ExamQuestion object) {
         try {
-            hset("exam:question:" + object.getEqId(), "question", object.getEqQuestion(), CustomTimeConstant.SECOND_OF_HOUR);
-            hset("exam:question:" + object.getEqId(), "pic", object.getEqPic(), CustomTimeConstant.SECOND_OF_HOUR);
-            hset("exam:question:" + object.getEqId(), "level", object.getEqLevel(), CustomTimeConstant.SECOND_OF_HOUR);
+            hset("exam:question:id:" + object.getEqId(), "question", object.getEqQuestion(), CustomTimeConstant.SECOND_OF_HOUR);
+            hset("exam:question:id:" + object.getEqId(), "pic", object.getEqPic(), CustomTimeConstant.SECOND_OF_HOUR);
+            hset("exam:question:id:" + object.getEqId(), "level", object.getEqLevel(), CustomTimeConstant.SECOND_OF_HOUR);
         } catch (Exception e) {
             log.error(e.getMessage());
             return false;
@@ -215,9 +234,9 @@ public class ExamQuestionDao extends BaseRedisClient implements BaseDao<ExamQues
         ExamQuestion result = null;
         try {
             //读取数据
-            String question = String.valueOf(hget("exam:question:" + id, "question"));
-            String pic = String.valueOf(hget("exam:question:" + id, "pic"));
-            Integer level = (Integer) hget("exam:question:" + id, "level");
+            String question = String.valueOf(hget("exam:question:id:" + id, "question"));
+            String pic = String.valueOf(hget("exam:question:id:" + id, "pic"));
+            Integer level = (Integer) hget("exam:question:id:" + id, "level");
 
             //装填数据并实例化对象
             result = ExamQuestion.builder().eqId(id).eqQuestion(question).eqPic(pic).eqLevel(level).build();

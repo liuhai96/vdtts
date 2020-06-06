@@ -6,6 +6,9 @@ import tk.mybatis.mapper.common.MySqlMapper;
 /**
  * @ClassName: CustomBaseMapper
  * @Description: 这是一个通用Mapper接口，通用Mapper接口只支持单表查询
+ * 这个接口不能被Spring的IOC容器扫描到
+ * 这个接口不能被Spring的IOC容器扫描到
+ * 这个接口不能被Spring的IOC容器扫描到
  * 多表查询请不要继承这个接口
  * 多表查询请不要继承这个接口
  * 多表查询请不要继承这个接口

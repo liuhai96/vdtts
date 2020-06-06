@@ -26,6 +26,7 @@ import tk.mybatis.spring.annotation.MapperScan;
 @EnableAsync
 /**
  * 会自动装配指定包下面所有Mapper，省的在每个Mapper上写@Mapper注解
+ * com.lsjbc.vdtts.dao.mopper包下时通用Mapper的接口，这个接口不能被扫描到
  */
 @MapperScan(basePackages = {
         "com.lsjbc.vdtts.dao.mapper"
