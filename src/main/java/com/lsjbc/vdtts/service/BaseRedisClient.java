@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
  * @ClassName: RedisClient
  * @Description: Redis的基本操作类
  * @Datetime: 2020/6/25   15:33
- * @Author: Engon
+ * @Author: JX181114 --- 郑建辉
  */
 @Component(BaseRedisClient.BEAN_NAME)
 public class BaseRedisClient {
