@@ -29,12 +29,12 @@ public class Teacher
 	private String tSfz;
 
 	/**
-	 *
+	 *姓名
 	 */
 	private String tName;
 
 	/**
-	 *
+	 *性别
 	 */
 	private String tSex;
 

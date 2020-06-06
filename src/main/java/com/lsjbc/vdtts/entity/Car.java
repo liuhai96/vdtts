@@ -9,7 +9,7 @@ import lombok.Data;
 public class Car
 {
 	/**
-	 *
+	 *主键
 	 */
 	private Integer cId;
 
