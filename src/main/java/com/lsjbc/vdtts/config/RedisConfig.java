@@ -23,7 +23,7 @@ import java.time.Duration;
  * @ClassName: RedisConfig
  * @Description: 配置Redis缓存
  * @Datetime: 2020/6/5   15:26
- * @Author: Engon
+ * @Author: JX181114 - 郑建辉
  */
 @Configuration
 public class RedisConfig {

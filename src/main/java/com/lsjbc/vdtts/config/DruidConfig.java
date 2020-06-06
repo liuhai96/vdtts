@@ -18,7 +18,7 @@ import java.util.Map;
  * @ClassName: DruidConfig
  * @Description: 配置Druid连接池
  * @Datetime: 2020/6/5   15:09
- * @Author: Engon
+ * @Author: JX181114 - 郑建辉
  */
 @Configuration
 public class DruidConfig {
