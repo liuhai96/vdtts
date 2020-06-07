@@ -14,42 +14,54 @@
     <title>驾校教练管理</title>
     <link rel="shortcut icon" href="#"/>
     <link rel="stylesheet" href=<%=path+"/static/layui/css/layui.css"%>>
+<%--    <link rel="stylesheet" href=<%=path+"/static/laydate/theme/default/laydate.css"%>>--%>
     <script type="text/javascript" src=<%=path+"/static/layui/layui.js"%>></script>
+<%--    <script type="text/javascript" src=<%=path+"/static/laydate/laydate.js"%>></script>--%>
 </head>
 <body>
+<blockquote class="layui-elem-quote">
+<%--    layDate 是目前 layui 独立维护的三大组件（即：layer、layim、layDate）之一。在 layui 2.0 的版本中，layDate 完成了一次巨大的逆袭。--%>
+    <a class="layui-btn layui-btn-normal" href="http://www.layui.com/laydate/" target="_blank">layDate官网</a>
+</blockquote>
 <div class="layui-container" style="margin-top: 15px">
     <table class="layui-hide" id="test" lay-filter="test"></table>
 </div>
 <form action="" id="addTeacher" style="display: none" class="layui-form">
     <div class="layui-form-item" id="accountDiv">
         <label class="layui-form-label">账号</label>
-        <div class="layui-input-inline" id="userAccount">
-            <input type="text"  name="userAccount" required  lay-verify="required" placeholder="请输入账号" autocomplete="off" class="layui-input">
+        <div class="layui-input-inline" id="teacherAccount">
+            <input type="text"  name="aAccount" required  lay-verify="required" placeholder="请输入账号" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">身份证号</label>
+        <div class="layui-input-inline" id="">
+            <input type="text"  name="tSfz" required  lay-verify="required" placeholder="请输入身份证号码" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">姓名</label>
         <div class="layui-input-inline">
-            <input type="text" name="userName" required  lay-verify="required" placeholder="请输入姓名" autocomplete="off" class="layui-input">
+            <input type="text" name="tName" required  lay-verify="required" placeholder="请输入姓名" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">密码</label>
         <div class="layui-input-inline">
-            <input type="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+            <input type="password" name="aPassword" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">电话</label>
         <div class="layui-input-inline">
-            <input type="text" name="userPhone" required  lay-verify="required" placeholder="请输入电话" autocomplete="off" class="layui-input">
+            <input type="text" name="tPhone" required  lay-verify="required" placeholder="请输入电话" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">性别</label>
         <div class="layui-input-block">
-            <input type="radio" name="sex" value="男" title="男" checked="">
-            <input type="radio" name="sex" value="女" title="女">
+            <input type="radio" name="tSex" value="男" title="男" checked="">
+            <input type="radio" name="tSex" value="女" title="女">
         </div>
     </div>
     <div class="layui-form-item">
@@ -110,52 +122,39 @@
                 layer.open({
                     type: 1,
                     area:["400","300px"],
+                    skin: 'layui-layer-rim',
+                    shadeClose: true,//点击其他地方关闭
                     content:$("#addTeacher"),
+                    cancel:function (index) {
+                    layer.close(index);
+             }
+                });
+                 layui.use('form', function(){
+                     var form = layui.form;
+                     form.on('submit(demo1)', function(data){
+                         $.ajax({
+                             type: 'POST',
+                             url: '/teacherController/addTeacher',
+                             dataType: 'JSON',
+                             data: data.field,
+                             success: function (msg) {
+                               if (msg.code==1){
+                                   layer.alert("添加教练成功");
+                                   $table.reload();
+                               }else if (msg.code==0 ) {
+                                   layer.alert("该账号已存在");
+                               }else{
+                                   layer.alert("添加教练失败");
+                               }
+                                 layer.close(layer.index);
+                             }
 
-                })
+                         })
+
+                         return false;
+                     });
+                 });
                  break;
-                // case 'addAdmin':
-                //     layer.open({
-                //         type:1
-                //         ,area:["400","300px"]
-                //         ,content: $("#addAdmin")
-                //         ,btn: ['确定', '取消']
-                //         ,yes: function(index, layero){
-                //             layer.alert($("select[name='adminRole'] option:selected").val());
-                //             $.ajax({
-                //                 url:"/text/ManageAdminServlet?methodName=addAdmin"
-                //                 ,type:"POST"
-                //                 ,dataType:"text"
-                //                 ,data:{
-                //                     adminAccount:$("input[name='adminAccount']").val(),
-                //                     adminName:$("input[name='adminName']").val(),
-                //                     adminPwd:$("input[name='password']").val(),
-                //                     adminRoleId:$("select[name='adminRole'] option:selected").val()
-                //                 },
-                //                 success:function (msg) {
-                //                     if(msg.trim()=="1"){
-                //                         layer.alert("添加成功");
-                //                         $table.reload();
-                //                         layer.close(index);
-                //                     }else {
-                //                         layer.alert("添加失败");
-                //                         layer.close(index);
-                //                     }
-                //                 }
-                //             })
-                //
-                //         }
-                //         ,cancel: function(index, layero){
-                //             //按钮【按钮二】的回调
-                //             //return false 开启该代码可禁止点击该按钮关闭
-                //         }
-                //     });
-                //     layui.use('form',function(){
-                //         var form = layui.form;
-                //         form.render();
-                //     });
-                //     break;
-
 
                 //自定义头工具栏右侧图标 - 提示
                 case 'LAYTABLE_TIPS':
@@ -188,5 +187,10 @@
             }
         });
     });
+    //
+    // laydate.render({
+    //     elem: '#test1'
+    // });
+
 </script>
 </html>

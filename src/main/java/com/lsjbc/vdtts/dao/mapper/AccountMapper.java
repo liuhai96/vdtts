@@ -1,4 +1,12 @@
 package com.lsjbc.vdtts.dao.mapper;
 
+import com.lsjbc.vdtts.entity.Account;
+import org.apache.ibatis.annotations.Param;
+
 public interface AccountMapper {
+
+        public Account findAccount(@Param("aAccount") String aAccount);
+        public int addAccount(Account account);
+
+
 }

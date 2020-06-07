@@ -2,6 +2,7 @@ package com.lsjbc.vdtts.dao.mapper;
 
 import com.lsjbc.vdtts.dao.mopper.CustomBaseMapper;
 import com.lsjbc.vdtts.entity.ExamAnswer;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * @ClassName: ExamAnswerMapper
@@ -9,7 +10,6 @@ import com.lsjbc.vdtts.entity.ExamAnswer;
  * @Datetime: 2020/6/6   13:10
  * @Author: JX181114 - 郑建辉
  */
-
 
 
 public interface ExamAnswerMapper extends CustomBaseMapper<ExamAnswer> {
