@@ -48,4 +48,32 @@ public class ResultData {
     public void put(String key, Object value) {
         data.put(key, value);
     }
+
+    /**
+     * 设置一个成功的Success对象，并传入一个数据
+     *
+     * @param key   数据-键
+     * @param value 数据-值
+     * @return 表示操作成功的ResultData对象
+     * @author JX181114 --- 郑建辉
+     */
+    public static ResultData success(String key, Object value) {
+        ResultData resultData = new ResultData();
+
+        resultData.getData().put(key, value);
+
+        return resultData;
+    }
+
+    /**
+     * 设置一个出错的Error对象，并设置错误编码和消息
+     *
+     * @param code 错误编码
+     * @param msg  消息
+     * @return 表示操作失败的ResultData对象
+     * @author JX181114 --- 郑建辉
+     */
+    public static ResultData error(Integer code, String msg) {
+        return ResultData.builder().code(code).msg(msg).build();
+    }
 }

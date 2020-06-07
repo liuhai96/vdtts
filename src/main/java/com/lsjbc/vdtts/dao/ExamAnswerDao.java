@@ -117,6 +117,13 @@ public class ExamAnswerDao extends BaseRedisClient implements BaseDao<ExamAnswer
     }
 
     /**
+     * Redis的默认超时时间
+     * 测试时使用30天
+     * 上线时使用1小时或10分钟
+     */
+    private Long defaultRedisSaveTime = CustomTimeConstant.SECOND_OF_30_DAY;
+
+    /**
      * 根据题目ID去获取redis中的数据
      * @param questionId 题目ID
      * @return 正常会返回集合，如果出现未捕获的异常，返回null
@@ -171,7 +178,7 @@ public class ExamAnswerDao extends BaseRedisClient implements BaseDao<ExamAnswer
                 return;
             }
 
-            lSet("exam:answer:questionId:"+questionId,item.getEaId(),CustomTimeConstant.SECOND_OF_HOUR);
+            lSet("exam:answer:questionId:"+questionId,item.getEaId(),defaultRedisSaveTime);
         });
 
         return failCount.get();
@@ -186,9 +193,9 @@ public class ExamAnswerDao extends BaseRedisClient implements BaseDao<ExamAnswer
      */
     private boolean setToRedisById(ExamAnswer object) {
         try {
-            hset("exam:answer:id:" + object.getEaId(), "questionId", object.getEaQuestionId(), CustomTimeConstant.SECOND_OF_HOUR);
-            hset("exam:answer:id:" + object.getEaId(), "answer", object.getEaAnswer(), CustomTimeConstant.SECOND_OF_HOUR);
-            hset("exam:answer:id:" + object.getEaId(), "right", object.getEaRight(), CustomTimeConstant.SECOND_OF_HOUR);
+            hset("exam:answer:id:" + object.getEaId(), "questionId", object.getEaQuestionId(), defaultRedisSaveTime);
+            hset("exam:answer:id:" + object.getEaId(), "answer", object.getEaAnswer(), defaultRedisSaveTime);
+            hset("exam:answer:id:" + object.getEaId(), "right", object.getEaRight(), defaultRedisSaveTime);
         } catch (Exception e) {
             log.error(e.getMessage());
             return false;

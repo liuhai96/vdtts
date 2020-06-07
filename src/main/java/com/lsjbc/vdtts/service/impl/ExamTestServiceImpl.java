@@ -1,5 +1,6 @@
 package com.lsjbc.vdtts.service.impl;
 
+import com.lsjbc.vdtts.constant.consist.ExamTextConstant;
 import com.lsjbc.vdtts.dao.ExamAnswerDao;
 import com.lsjbc.vdtts.dao.ExamQuestionDao;
 import com.lsjbc.vdtts.entity.ExamQuestion;
@@ -11,7 +12,7 @@ import java.util.*;
 
 /**
  * @ClassName: ExamTestServiceImpl
- * @Description:
+ * @Description: 模拟考试的Service层
  * @Datetime: 2020/6/6   22:35
  * @Author: JX181114 - 郑建辉
  */
@@ -44,7 +45,7 @@ public class ExamTestServiceImpl implements ExamTestService {
         List<ExamQuestion> list = examQuestionDao.getAll(level);
 
         //生成考卷
-        return list.size() > 100 ? generateManyTest(list) : generateOneTest(list);
+        return list.size() > ExamTextConstant.NUMBER_OF_QUESTIONS_ON_A_TEST ? generateManyTest(list) : generateOneTest(list);
     }
 
     /**
@@ -82,12 +83,12 @@ public class ExamTestServiceImpl implements ExamTestService {
         Integer questionCount = questions.length;
 
         //算出能生成的考卷总数
-        Integer examCount = questionCount / 100;
+        Integer examCount = questionCount / ExamTextConstant.NUMBER_OF_QUESTIONS_ON_A_TEST;
 
         //生成空考卷
         Map<Integer, List<ExamQuestion>> map = new HashMap<>(examCount);
         for (int i = 0; i < examCount; i++) {
-            map.put(i, new ArrayList<ExamQuestion>(100));
+            map.put(i, new ArrayList<ExamQuestion>(ExamTextConstant.NUMBER_OF_QUESTIONS_ON_A_TEST));
         }
 
         //生成随机数获取对象
@@ -96,11 +97,13 @@ public class ExamTestServiceImpl implements ExamTestService {
         //获取出每一套考卷
         for (List<ExamQuestion> value : map.values()) {
 
-            //当考卷的内记录的题目不满一百题时并且存在剩余题目时进入循环
-            //如果questionCount=1时进入下一次循环，在random.nextInt(questionCount-1);
-            //步骤时会抛出异常，因为nextInt()中的值必须大于1
-            //当考卷有100道题时，或者只剩下最后一道题时，会结束循环
-            while (value.size() < 100 && questionCount > 1) {
+            /**
+             * 考卷的内记录的题目不满一百题时并且存在剩余题目时进入循环
+             * 如果questionCount=1时进入下一次循环，在random.nextInt(questionCount-1);
+             * 步骤时会抛出异常，因为nextInt()中的值必须大于1
+             * 当考卷内的题目达到上限时，或者只剩下最后一道题时，会结束循环
+             */
+            while (value.size() < ExamTextConstant.NUMBER_OF_QUESTIONS_ON_A_TEST && questionCount > 1) {
 
                 //获取出随机的一个数组下标，并取出考题放入考卷
                 Integer index = random.nextInt(questionCount - 1);
@@ -110,20 +113,24 @@ public class ExamTestServiceImpl implements ExamTestService {
                 //读取考题的答案，并存入考题中
                 question.setAnswers(examAnswerDao.getByQuestionId(question.getEqId()));
 
-                //当前数组长度内的所有元素都没有被使用过
-                //获取到index地址的元素时，取出元素
-                //把最后一个元素覆盖到index地址的
-                //同时时长度减一，下次遍历就不会遍历到最后一个元素
-                //数组内的元素始终都是未被使用过的
-                //获取出最后一道考题，放入当前下标，填补考题空缺
+                /**
+                 * 当前数组长度内的所有元素都没有被使用过
+                 * 获取到index地址的元素时，取出元素
+                 * 把最后一个元素覆盖到index地址的
+                 * 同时时长度减一，下次遍历就不会遍历到最后一个元素
+                 * 数组内的元素始终都是未被使用过的
+                 * 获取出最后一道考题，放入当前下标，填补考题空缺
+                 */
                 questions[index] = questions[questionCount - 1];
 
                 //使数组的长度-1，过滤掉最后一条数据
                 questionCount--;
             }
 
-            //如果走到了这一步，说明这张考卷上的题目满了，或者是只剩下最后一道题目没存入
-            //这里进行判断，如果考卷没满，并且拥有最后一道题，直接存入考卷中
+            /**
+             * 如果走到了这一步，说明这张考卷上的题目满了，或者是只剩下最后一道题目没存入
+             * 这里进行判断，如果考卷没满，并且拥有最后一道题，直接存入考卷中
+             */
             if (questionCount == 1 && value.size() < 100) {
                 value.add(questions[0]);
             }

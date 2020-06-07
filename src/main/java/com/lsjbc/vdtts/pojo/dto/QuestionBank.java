@@ -9,8 +9,10 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 /**
  * @ClassName: QuestionBank
@@ -39,6 +41,11 @@ public class QuestionBank {
      */
     private Map<Integer, List<ExamQuestion>> bank4;
 
+    /**
+     * 随机数
+     */
+    private Random ra = new Random();
+
     @Resource(name = ExamTestServiceImpl.NAME)
     private ExamTestService service;
 
@@ -47,12 +54,14 @@ public class QuestionBank {
      * 这里我们可以在项目启动时，把题库和答案遍历出来，保存在内存中
      * 后期设置一个定时任务，定时的去更新内存中的题库
      * 极其耗时，上线时才放开
+     *
+     * @author JX181114 --- 郑建辉
      */
     @Async
     @PostConstruct
-    public void init(){
-//        bank1=service.generateText(1);
-//        bank4=service.generateText(4);
+    public void init() {
+//        bank1 = service.generateText(1);
+//        bank4 = service.generateText(4);
         System.out.println("正在更新内存中的题库");
         try {
             Thread.sleep(1000);
@@ -60,5 +69,57 @@ public class QuestionBank {
             e.printStackTrace();
         }
         System.out.println("更新内存中的题库完成");
+    }
+
+    /**
+     * 获取一张特定科目的考卷
+     *
+     * @param level 科目等级，如果时科一：1，如果时科四：4
+     * @return 一张特定科目的考卷
+     * @author JX181114 --- 郑建辉
+     */
+    public List<ExamQuestion> getRandomQuestion(Integer level) {
+        switch (level) {
+            case 1:
+                return getRandomQuestion1();
+            case 4:
+                return getRandomQuestion4();
+            default:
+                return new ArrayList<ExamQuestion>(0);
+        }
+    }
+
+    /**
+     * 获取科一题目
+     *
+     * @return 一张考卷
+     * @author JX181114 --- 郑建辉
+     */
+    private List<ExamQuestion> getRandomQuestion1() {
+        if (bank1.size() == 0) {
+            return new ArrayList<ExamQuestion>(0);
+        }
+        if (bank1.size() == 1) {
+            return bank1.get(0);
+        }
+        Integer randomNumber = ra.nextInt(bank1.size());
+        return bank1.get(randomNumber);
+    }
+
+    /**
+     * 获取科四题目
+     *
+     * @return 一张考卷
+     * @author JX181114 --- 郑建辉
+     */
+    private List<ExamQuestion> getRandomQuestion4() {
+        if (bank4.size() == 0) {
+            return new ArrayList<ExamQuestion>(0);
+        }
+        if (bank4.size() == 1) {
+            return bank4.get(0);
+        }
+        Integer randomNumber = ra.nextInt(bank4.size());
+        return bank4.get(randomNumber);
     }
 }
