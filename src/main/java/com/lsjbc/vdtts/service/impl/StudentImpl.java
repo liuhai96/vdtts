@@ -1,34 +1,46 @@
 package com.lsjbc.vdtts.service.impl;
 
+import com.lsjbc.vdtts.dao.mapper.StudentMapper;
 import com.lsjbc.vdtts.entity.Student;
 import com.lsjbc.vdtts.service.intf.StudentService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
-
+@Service("studentService")
 public class StudentImpl implements StudentService {
+    @Resource
+    private StudentMapper studentMapper;
+
     @Override
     public List<Student> selectAllInfo(Student student, int page, int limit) {
-        return null;
+        List<Student> selectAllInfo =studentMapper.selectAllInfo(student,page,limit);
+        return selectAllInfo;
     }
 
     @Override
-    public int inserttudent(Student student) {
-        return 0;
+    public int insertstudent(Student student) {
+        int inserttudent = studentMapper.insertstudent(student);
+        return inserttudent;
     }
 
     @Override
-    public int updatetudent(Student student) {
-        return 0;
+    public int updatestudent(Student student) {
+        int updatestudent = studentMapper.updatestudent(student);
+        return updatestudent;
     }
 
     @Override
     public int selectCount(Student student) {
-        return 0;
+        int selectCount = studentMapper.selectCount(student);
+        return selectCount;
     }
 
     @Override
-    public int deletetudent(Student student) {
-        return 0;
+    public int deletestudent(Student student) {
+        int deletestudent = studentMapper.deletestudent(student);
+        return deletestudent;
     }
 
 
