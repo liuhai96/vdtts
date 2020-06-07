@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lsjbc.vdtts.dao.mapper.TeacherMapper">
+<!--    查询所属驾校中的教练总数-->
+    <select id="findTeacherCount" parameterType="java.lang.Integer" resultType="int">
+        select count(*) from tb_teacher where t_school_id = #{tSchoolId}
+    </select>
+
+<!--    连表查询所属驾校的信息-->
+    <select id="findTeacherList" parameterType="java.lang.Integer" resultMap="findTeachList">
+        select * from tb_teacher where t_school_id = #{tSchoolId} limit ${start},#{pageSize}
+    </select>
+    <resultMap id="findTeachList" type="com.lsjbc.vdtts.entity.Teacher">
+        <result property="tSchoolId" column="t_school_id"></result>
+        <association property="school" column="t_school_id" javaType="com.lsjbc.vdtts.entity.School" select="findSchool"></association>
+    </resultMap>
+    <select id="findSchool" parameterType="com.lsjbc.vdtts.entity.School" resultType="com.lsjbc.vdtts.entity.School">
+        select * from tb_school where s_id = #{tSchoolId}
+    </select>
+<!--    连表查询结束-->
+
+    <select id="findTeacherList2" parameterType="java.lang.Integer" resultType="com.lsjbc.vdtts.entity.Teacher">
+        select t.*,s.s_name from tb_teacher t left join tb_school s on s.s_id = t.t_school_id where t.t_school_id = #{tSchoolId} limit ${start},#{pageSize}
+    </select>
+</mapper>
