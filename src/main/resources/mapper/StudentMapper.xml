@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lsjbc.vdtts.dao.mapper.TeacherMapper">
+<!--    查询所属驾校中的学员-->
+<!--    <select id="selectAdminInfo" resultType="com.sharefile.db.TbAdmin" parameterType="com.lsjbc.vdtts.entity.Teacher">-->
+<!--        select admin_name as adminName,admin_pwd as adminPwd from tb_admin where admin_name =#{adminName}-->
+<!--         and admin_pwd =#{adminPwd}-->
+<!--    </select>-->
+
+    <select id="selectAllInfo" resultType="com.lsjbc.vdtts.entity.Student"  parameterType="com.lsjbc.vdtts.entity.Student">
+        select * from tb_student
+        <where>
+            <if test="student.studentName!=null and tba.studentName!=''">
+                and s_name like CONCAT('%', #{student.studentName} ,'%')
+            </if>
+        </where>
+        limit #{page},#{limit}
+    </select>
+
+    <select id="selectCount" resultType="int"  parameterType="com.lsjbc.vdtts.entity.Student">
+        select count(*) from tb_student
+        <where>
+            <if test="student.studentName!=null and tba.studentName!=''">
+                and s_name like CONCAT('%', #{student.studentName} ,'%')
+            </if>
+        </where>
+    </select>
+
+    <insert id="insertStudent"  parameterType="com.lsjbc.vdtts.entity.Student">
+         insert into tb_student(s_name,s_pwd,s_id) values (#{sName},#{sPwd},#{sId})
+   </insert>
+
+    <insert id="updateStudent"  parameterType="com.lsjbc.vdtts.entity.Student">
+         update tb_student set s_name=#{sName},s_pwd=#{sPwd},role_id=#{roleId} where s_id =#{sId}
+   </insert>
+
+    <delete id="deleteStudent"  parameterType="com.lsjbc.vdtts.entity.Student">
+        delete from tb_student where s_id =#{sId}
+    </delete>
+
+</mapper>
