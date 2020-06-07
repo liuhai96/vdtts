@@ -6,4 +6,7 @@
     <select id="findAccount" parameterType="java.lang.String" resultType="com.lsjbc.vdtts.entity.Account">
         select * from tb_account where a_account = #{aAccount}
     </select>
+    <insert id="addAccount" useGeneratedKeys="true" parameterType="com.lsjbc.vdtts.entity.Account" keyProperty="aId">
+        insert into tb_account(a_account, a_password, a_type) values (#{aAccount},#{aPassword},#{aType})
+    </insert>
 </mapper>

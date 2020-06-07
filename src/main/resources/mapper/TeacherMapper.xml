@@ -24,4 +24,9 @@
     <select id="findTeacherList2" parameterType="java.lang.Integer" resultType="com.lsjbc.vdtts.entity.Teacher">
         select t.*,s.s_name from tb_teacher t left join tb_school s on s.s_id = t.t_school_id where t.t_school_id = #{tSchoolId}  limit ${start},#{pageSize}
     </select>
+
+    <insert id="addTeacher" parameterType="com.lsjbc.vdtts.entity.Teacher">
+    insert into tb_teacher(t_account_id, t_school_id, t_sfz, t_name, t_sex, t_birthday, t_phone,t_license_time)  values
+    (#{tAccountId},#{tSchoolId},#{tSfz},#{tName},#{tSex},#{tBirthday},#{tPhone},#{tLicenseTime})
+    </insert>
 </mapper>
