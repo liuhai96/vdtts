@@ -3,9 +3,8 @@ package com.lsjbc.vdtts.controller;
 import com.alibaba.fastjson.JSON;
 import com.lsjbc.vdtts.entity.Teacher;
 import com.lsjbc.vdtts.service.intf.TeacherService;
-import com.lsjbc.vdtts.util.LayuiData;
+import com.lsjbc.vdtts.tools.LayuiData;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,13 +18,14 @@ public class TeacherController {
     @Autowired
     private TeacherService teacherService;
     @RequestMapping(value = "/findTeacherList")
-   /*
-    *@Description:
-    *@Author:刘海
-    *@Param:[request, response]
-    *@return:java.lang.String
-    *@Date:2020/6/7 0:19
-    **/
+ /*
+  *@Description:
+  *@Author:刘海
+  *@Param:[request, response]
+  *@return:java.lang.String
+  *@Date:2020/6/7 11:56
+  **/
+  
     
     public String findTeacherList(HttpServletRequest request, HttpServletResponse response){
         String page = request.getParameter("page");//接收前端界面的分页在第几页

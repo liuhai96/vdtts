@@ -20,12 +20,49 @@
 <div class="layui-container" style="margin-top: 15px">
     <table class="layui-hide" id="test" lay-filter="test"></table>
 </div>
+<form action="" id="addTeacher" style="display: none" class="layui-form">
+    <div class="layui-form-item" id="accountDiv">
+        <label class="layui-form-label">账号</label>
+        <div class="layui-input-inline" id="userAccount">
+            <input type="text"  name="userAccount" required  lay-verify="required" placeholder="请输入账号" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">姓名</label>
+        <div class="layui-input-inline">
+            <input type="text" name="userName" required  lay-verify="required" placeholder="请输入姓名" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">密码</label>
+        <div class="layui-input-inline">
+            <input type="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">电话</label>
+        <div class="layui-input-inline">
+            <input type="text" name="userPhone" required  lay-verify="required" placeholder="请输入电话" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">性别</label>
+        <div class="layui-input-block">
+            <input type="radio" name="sex" value="男" title="男" checked="">
+            <input type="radio" name="sex" value="女" title="女">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
 <script type="text/html" id="toolbarDemo">
     <div class="layui-btn-container">
-        <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
-        <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
-        <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
-        <button class="layui-btn layui-btn-sm" lay-event="addAdmin">添加管理员</button>
+        <button class="layui-btn layui-btn-sm" lay-event="addTeacher">添加教练</button>
+        <button class="layui-btn layui-btn-sm" lay-event="findTeacher">查询</button>
     </div>
 </script>
 
@@ -67,18 +104,16 @@
         //头工具栏事件
         table.on('toolbar(test)', function(obj){
             var checkStatus = table.checkStatus(obj.config.id);
+            var $ = layui.jquery;
             switch(obj.event){
-                case 'getCheckData':
-                    var data = checkStatus.data;
-                    layer.alert(JSON.stringify(data));
-                    break;
-                case 'getCheckLength':
-                    var data = checkStatus.data;
-                    layer.msg('选中了：'+ data.length + ' 个');
-                    break;
-                case 'isAll':
-                    layer.msg(checkStatus.isAll ? '全选': '未全选');
-                    break;
+             case 'addTeacher':
+                layer.open({
+                    type: 1,
+                    area:["400","300px"],
+                    content:$("#addTeacher"),
+
+                })
+                 break;
                 // case 'addAdmin':
                 //     layer.open({
                 //         type:1

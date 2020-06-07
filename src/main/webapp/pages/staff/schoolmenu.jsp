@@ -19,18 +19,15 @@
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
     <div class="layui-header">
-        <div class="layui-logo">layui 后台布局</div>
+        <div class="layui-logo">宏鑫驾校</div>
         <!-- 头部区域（可配合layui已有的水平导航） -->
         <ul class="layui-nav layui-layout-left">
-            <li class="layui-nav-item"><a href="">控制台</a></li>
-            <li class="layui-nav-item"><a href="">商品管理</a></li>
-            <li class="layui-nav-item"><a href="">用户</a></li>
+            <li class="layui-nav-item"><a href="">驾校首页</a></li>
             <li class="layui-nav-item">
-                <a href="javascript:;">其它系统</a>
+                <a href="javascript:;">驾校信息</a>
                 <dl class="layui-nav-child">
-                    <dd><a href="">邮件管理</a></dd>
-                    <dd><a href="">消息管理</a></dd>
-                    <dd><a href="">授权管理</a></dd>
+                    <dd><a href="">驾校基础信息</a></dd>
+                    <dd><a href="">学员评价</a></dd>
                 </dl>
             </li>
         </ul>
@@ -45,7 +42,7 @@
                     <dd><a href="">安全设置</a></dd>
                 </dl>
             </li>
-            <li class="layui-nav-item"><a href="">退了</a></li>
+            <li class="layui-nav-item"><a href="">退出账号</a></li>
         </ul>
     </div>
 
@@ -54,39 +51,30 @@
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
             <ul class="layui-nav layui-nav-tree"  lay-filter="test">
                 <li class="layui-nav-item layui-nav-itemed">
-                    <a class="" href="javascript:;">所有商品</a>
+                    <a class="" href="javascript:;">驾校管理</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">列表一</a></dd>
-                        <dd><a href="javascript:;">列表二</a></dd>
-                        <dd><a href="javascript:;">列表三</a></dd>
-                        <dd><a href="">超链接</a></dd>
+                        <dd><a href="<%=path%>teachermanage.jsp" target="iframe_div_iframe">教练管理</a></dd>
+                        <dd><a href="javascript:;">教练违规处罚</a></dd>
+                        <dd><a href="javascript:;">教练车管理</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
-                    <a href="javascript:;">解决方案</a>
+                    <a href="javascript:;">学员管理</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">列表一</a></dd>
-                        <dd><a href="javascript:;">列表二</a></dd>
-                        <dd><a href="">超链接</a></dd>
+                        <dd><a href="javascript:;">学员考试安排</a></dd>
+                        <dd><a href="javascript:;">学员考试结果录入</a></dd>
+                        <dd><a href="">学员培训情况</a></dd>
+                        <dd><a href="">学员报名审核</a></dd>
                     </dl>
                 </li>
-                <li class="layui-nav-item"><a href="">云市场</a></li>
-                <li class="layui-nav-item"><a href="">发布商品</a></li>
             </ul>
         </div>
     </div>
-
     <div class="layui-body">
-        <!-- 内容主体区域 -->
-        <div style="padding: 15px;">内容主体区域</div>
+        <iframe id="iframe_div" style="width: 100%;height: 100%;" name="iframe_div_iframe" src=" " height="100%" width="100%" ></iframe>
     </div>
 
-    <div class="layui-footer">
-        <!-- 底部固定区域 -->
-        © layui.com - 底部固定区域
-    </div>
 </div>
-<script src="../src/layui.js"></script>
 <script>
     //JavaScript代码区域
     layui.use('element', function(){

@@ -22,6 +22,6 @@
 <!--    连表查询结束-->
 
     <select id="findTeacherList2" parameterType="java.lang.Integer" resultType="com.lsjbc.vdtts.entity.Teacher">
-        select t.*,s.s_name from tb_teacher t left join tb_school s on s.s_id = t.t_school_id where t.t_school_id = #{tSchoolId} limit ${start},#{pageSize}
+        select t.*,s.s_name from tb_teacher t left join tb_school s on s.s_id = t.t_school_id where t.t_school_id = #{tSchoolId}  limit ${start},#{pageSize}
     </select>
 </mapper>
