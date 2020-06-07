@@ -42,4 +42,17 @@ public class TeacherController {
         layuiData.setData(teacherList);
         return JSON.toJSONString(layuiData);//返回前端所需要的数据类型
     }
+
+
+    /*
+     *@Description:
+     *@Author:刘海
+     *@Param:
+     *@return:
+     *@Date:2020/6/7 14:50
+     **/
+
+    public String findAccount(){
+        return  null;
+    }
 }
