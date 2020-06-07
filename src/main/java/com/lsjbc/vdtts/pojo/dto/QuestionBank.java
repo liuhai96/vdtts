@@ -63,11 +63,11 @@ public class QuestionBank {
 //        bank1 = service.generateText(1);
 //        bank4 = service.generateText(4);
         System.out.println("正在更新内存中的题库");
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            Thread.sleep(1000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
         System.out.println("更新内存中的题库完成");
     }
 
