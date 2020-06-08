@@ -43,6 +43,7 @@ public class ExamSimulateRecordDao implements BaseDao<ExamSimulateRecord> {
      *
      * @param object 对象
      * @return 受影响条数
+     * @author JX181114 --- 郑建辉
      */
     @Override
     public Integer add(ExamSimulateRecord object) {

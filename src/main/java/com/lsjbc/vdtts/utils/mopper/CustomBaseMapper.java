@@ -1,4 +1,4 @@
-package com.lsjbc.vdtts.tools.mopper;
+package com.lsjbc.vdtts.utils.mopper;
 
 import tk.mybatis.mapper.common.Mapper;
 import tk.mybatis.mapper.common.MySqlMapper;

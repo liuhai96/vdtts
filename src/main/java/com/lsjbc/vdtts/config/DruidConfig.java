@@ -27,6 +27,7 @@ public class DruidConfig {
      * 根据配置文件中的属性来构造一个连接池对象
      *
      * @return DataSource
+     * @author JX181114 --- 郑建辉
      */
     @Bean
     @ConfigurationProperties(prefix = "spring.datasource")
@@ -38,6 +39,7 @@ public class DruidConfig {
      * 配置一个Druid的后台管理的Servlet
      *
      * @return ServletRegistrationBean
+     * @author JX181114 --- 郑建辉
      */
     @Bean
     public ServletRegistrationBean servletRegistrationBean() {
@@ -65,6 +67,7 @@ public class DruidConfig {
      * 配置一个Druid的过滤器
      *
      * @return FilterRegistrationBean
+     * @author JX181114 --- 郑建辉
      */
     @Bean
     public FilterRegistrationBean filterRegistrationBean() {
