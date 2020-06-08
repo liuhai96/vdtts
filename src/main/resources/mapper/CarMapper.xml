@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lsjbc.vdtts.dao.mapper.CarMapper">
+
+    <select id="findCarCount" parameterType="int" resultType="int">
+        select count(*) from tb_car where c_school_id = #{cSchoolId}
+    </select>
+<!--    两次链表查询各驾校的教练车-->
+    <select id="findCarList" resultMap="findCarList" parameterType="int">
+        select * from tb_car where c_school_id = #{cSchoolId} limit ${start},#{pageSize}
+    </select>
+    <resultMap id="findCarList" type="com.lsjbc.vdtts.entity.Car">
+        <result property="cTeacherId" column="c_teacher_id"></result>
+        <association property="cTeacherId" column="c_teacher_id" javaType="com.lsjbc.vdtts.entity.Teacher" select="findTeacher"></association>
+    </resultMap>
+    <select id="findTeacher" parameterType="com.lsjbc.vdtts.entity.Teacher" resultType="com.lsjbc.vdtts.entity.Teacher">
+        select * from tb_teacher where s_id = #{cTeacherId}
+    </select>
+
+</mapper>
