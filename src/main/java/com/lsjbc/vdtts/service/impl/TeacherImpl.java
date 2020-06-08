@@ -18,7 +18,6 @@ public class TeacherImpl implements TeacherService {
     @Resource
     private TeacherMapper teacherMapper;
 
-
     @Override
     /*
      *@Description:查询各个驾校的教练基本信息
