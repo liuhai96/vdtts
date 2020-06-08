@@ -42,7 +42,7 @@ public class StudentController {
                               @RequestParam(value = "account") String account ,@RequestParam(value = "pwd") String pwd ,
                               @RequestParam(value = "sex") String sex ,@RequestParam(value = "role") String role) {
         System.out.println("添加操作--- account:"+account+" pwd:"+pwd+" sex:"+sex+" role:" +role);
-        student.setsName(account);
+        student.setSName(account);
         int i=studentService.insertstudent(student);
         String res = "";
         if(i>0){
@@ -63,8 +63,8 @@ public class StudentController {
                               @RequestParam(value = "studentId") String studentId ) {
 
         System.out.println("修改操作--- account:"+account+" pwd:"+pwd+" studentId:"+studentId);
-        student.setsAccountId(Integer.valueOf(account));
-        student.setsId(Integer.valueOf(studentId));
+        student.setSAccountId(Integer.valueOf(account));
+        student.setSId(Integer.valueOf(studentId));
         int i=studentService.updatestudent(student);
         String res = "";
         if(i>0){
@@ -83,7 +83,7 @@ public class StudentController {
     public String deleteadmin(HttpServletRequest request, HttpServletResponse response,
                               @RequestParam(value = "studentId") String studentId ) {
         System.out.println(" studentId:"+studentId);
-        student.setsId(Integer.valueOf(studentId));
+        student.setSId(Integer.valueOf(studentId));
         int i=studentService.deletestudent(student);
         String res = "";
         if(i>0){
