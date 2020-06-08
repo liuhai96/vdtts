@@ -1,6 +1,6 @@
 package com.lsjbc.vdtts.dao.mapper;
 
-import com.lsjbc.vdtts.dao.mopper.CustomBaseMapper;
+import com.lsjbc.vdtts.tools.mopper.CustomBaseMapper;
 import com.lsjbc.vdtts.entity.ExamSimulateRecord;
 
 /**

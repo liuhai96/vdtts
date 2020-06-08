@@ -2,12 +2,10 @@ package com.lsjbc.vdtts.controller;
 
 import com.lsjbc.vdtts.entity.Student;
 import com.lsjbc.vdtts.service.intf.StudentService;
-import com.lsjbc.vdtts.tools.LayuiData;
+import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -32,7 +30,7 @@ public class StudentController {
         List<Student> list= studentService.selectAllInfo(student,page2,Integer.valueOf(limit));
         int count =studentService.selectCount(student);
         System.out.println("初始化操作--- list="+list+" count ="+count);
-        LayuiData layuiData = new LayuiData();
+        LayuiTableData layuiData = new LayuiTableData();
         layuiData.setCode(0);
         layuiData.setData(list);
         layuiData.setCount(count);

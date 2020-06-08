@@ -11,7 +11,7 @@ import javax.annotation.Resource;
 
 /**
  * @ClassName: ExamTestApi
- * @Description:
+ * @Description: 关于模拟考试的一些Ajax接口
  * @Datetime: 2020/6/7   9:54
  * @Author: JX181114 - 郑建辉
  */

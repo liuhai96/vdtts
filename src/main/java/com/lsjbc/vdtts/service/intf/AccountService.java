@@ -1,8 +1,7 @@
 package com.lsjbc.vdtts.service.intf;
 
-import com.lsjbc.vdtts.entity.Account;
-import com.lsjbc.vdtts.tools.LayuiData;
+import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 
 public interface AccountService {
-    public LayuiData findAccount(String account);
+    public LayuiTableData findAccount(String account);
 }

@@ -47,7 +47,7 @@ public class ExamSimulateRecordDao implements BaseDao<ExamSimulateRecord> {
     @Override
     public Integer add(ExamSimulateRecord object) {
         //插入时，会把对象中所有非空的值插入
-        return mapper.insertSelective(object);
+        return mapper.insert(object);
     }
 
     /**

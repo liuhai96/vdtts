@@ -5,7 +5,7 @@ import com.lsjbc.vdtts.dao.mapper.TeacherMapper;
 import com.lsjbc.vdtts.entity.Account;
 import com.lsjbc.vdtts.entity.Teacher;
 import com.lsjbc.vdtts.service.intf.TeacherService;
-import com.lsjbc.vdtts.tools.LayuiData;
+import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,12 +35,12 @@ public class TeacherImpl implements TeacherService {
      *@Description:
      *@Author:刘海
      *@Param:[teacher, teacherAccount]
-     *@return:com.lsjbc.vdtts.tools.LayuiData
+     *@return:com.lsjbc.vdtts.pojo.vo.LayuiData
      *@Date:2020/6/7 22:55
      **/
-    public LayuiData addTeacher(Teacher teacher,Account teacherAccount) {
+    public LayuiTableData addTeacher(Teacher teacher, Account teacherAccount) {
         Account rerultAccount = accountMapper.findAccount(teacherAccount.getAAccount());
-        LayuiData layuiData = new LayuiData();
+        LayuiTableData layuiData = new LayuiTableData();
         if(null==rerultAccount){
             int num = accountMapper.addAccount(teacherAccount);
             System.out.println("teacherAccount"+teacherAccount);

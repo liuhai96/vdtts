@@ -4,14 +4,13 @@ import com.alibaba.fastjson.JSON;
 import com.lsjbc.vdtts.entity.Account;
 import com.lsjbc.vdtts.entity.Teacher;
 import com.lsjbc.vdtts.service.intf.TeacherService;
-import com.lsjbc.vdtts.tools.LayuiData;
+import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.lang.reflect.AccessibleObject;
 import java.util.ArrayList;
 
 @RestController
@@ -37,7 +36,7 @@ public class TeacherController {
         int start = (Integer.parseInt(page)-1)*pageSize;//计算从数据库第几条开始查
         int teachCount = teacherService.findTeacherCount(1);
         ArrayList<Teacher> teacherList = teacherService.findTeacherList(start,pageSize,1);
-        LayuiData layuiData = new LayuiData();
+        LayuiTableData layuiData = new LayuiTableData();
         layuiData.setCode(0);
         layuiData.setMsg("查询成功");
         layuiData.setCount(teachCount);
@@ -56,7 +55,7 @@ public class TeacherController {
 
    @RequestMapping(value = "/addTeacher")
     public String addTeacher(Teacher teacher,Account teacherAccount){
-        LayuiData layuiData = teacherService.addTeacher(teacher,teacherAccount);
+        LayuiTableData layuiData = teacherService.addTeacher(teacher,teacherAccount);
         return JSON.toJSONString(layuiData);
     }
 }

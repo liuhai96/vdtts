@@ -13,7 +13,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @ToString
 @Builder
-@Table(name = "`tb_exam_question`")
+@Table(name = "`tb_exam_simulate_record`")
 public class ExamSimulateRecord {
 	/**
 	 *主键
