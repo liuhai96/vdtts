@@ -1,16 +1,15 @@
 package com.lsjbc.vdtts.entity;
 
 import lombok.*;
-
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-@ToString
-@Builder
 /**
  *前台人员账号表
  */
+@Getter
+@Setter
+@Builder
+@ToString
+@AllArgsConstructor
+@NoArgsConstructor
 public class Account
 {
 
@@ -34,4 +33,14 @@ public class Account
 	 */
 	private String aType;
 
+
+	@Override
+	public String toString() {
+		return "Account{" +
+				"aId=" + aId +
+				", aAccount='" + aAccount + '\'' +
+				", aPassword='" + aPassword + '\'' +
+				", aType='" + aType + '\'' +
+				'}';
+	}
 }

@@ -18,7 +18,7 @@
         <script src="https://www.layuicdn.com/layui/layui.js"></script>
         <link href="https://www.layuicdn.com/layui/css/layui.css" rel="stylesheet" type="text/css"/>
 
-        <script src="<%=path+"/home-page/home-page.js"%>"></script>
+        <script src="<%=path+"/pages/js/home-page.js"%>"></script>
     </head>
     <body>
     <input hidden="hidden" value="<%=path%>" id="path">

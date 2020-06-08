@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lsjbc.vdtts.dao.mapper.AccountMapper">
+    <select id="findAccount" parameterType="java.lang.String" resultType="com.lsjbc.vdtts.entity.Account">
+        select * from tb_account where a_account = #{aAccount}
+    </select>
+    <insert id="addAccount" useGeneratedKeys="true" parameterType="com.lsjbc.vdtts.entity.Account" keyProperty="aId">
+        insert into tb_account(a_account, a_password, a_type) values (#{aAccount},#{aPassword},#{aType})
+    </insert>
+</mapper>
