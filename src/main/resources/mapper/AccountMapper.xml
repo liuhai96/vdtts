@@ -9,4 +9,8 @@
     <insert id="addAccount" useGeneratedKeys="true" parameterType="com.lsjbc.vdtts.entity.Account" keyProperty="aId">
         insert into tb_account(a_account, a_password, a_type) values (#{aAccount},#{aPassword},#{aType})
     </insert>
+    <select id="UserLogin" parameterType="com.lsjbc.vdtts.entity.Account" resultType="com.lsjbc.vdtts.entity.Account">
+        select a_id as aId,a_account as aAccount,a_password as aPassword,a_type as aType
+        from tb_account where a_account = #{aAccount} and a_password = #{aPassword}
+    </select><!-- 登录——李浪写 -->
 </mapper>

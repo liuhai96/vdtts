@@ -7,12 +7,18 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class HomePageController {
-
+/*
+ *@Description:
+ *@Author:李浪_191019
+ *@Param:
+ *@return:modelAndView
+ *@Date:2020/6/7 14:05
+ **/
     @RequestMapping(value = "home")
     public ModelAndView InitHomePage(){
         ResultData resultData = new ResultData();
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("/home-page/home-page");
+        modelAndView.setViewName("/pages/homepage/home-page");
         modelAndView.addObject("resultData",resultData);
         return modelAndView;
     }
