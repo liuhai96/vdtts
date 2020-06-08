@@ -1,7 +1,8 @@
 package com.lsjbc.vdtts.service.intf;
 
 import com.lsjbc.vdtts.entity.School;
-import com.lsjbc.vdtts.pojo.vo.LayuiData;
+import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
+
 /*
  *@Description:
  *@Author:陈竑霖
@@ -11,6 +12,6 @@ import com.lsjbc.vdtts.pojo.vo.LayuiData;
  **/
 public interface SchoolService
 {
-    public LayuiData schoolList(School school, int page, int pageSize);
+    public LayuiTableData schoolList(School school, int page, int pageSize);
 
 }

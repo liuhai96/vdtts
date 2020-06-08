@@ -22,15 +22,23 @@ public interface ExamSimulateRecordService {
     Integer insertNewData(ExamSimulateRecordAdd object);
 
     /**
-     * 以学员ID，科目等级为搜索条件进行分页搜索模拟考试成绩
+     * 以学员ID，为搜索条件进行分页搜索模拟考试成绩
      *
      * @param studentId 学员ID
      * @param level     科目等级
-     * @param pageIndex 要查询的分页页数
+     * @param page      要查询的分页页数
+     * @param limit     要查询的单页数量
      * @return 分页信息
      * @author JX181114 --- 郑建辉
      */
-    Page<ExamSimulateRecord> getRecordByIdLevelAndPageIndex(Integer studentId, Integer level, Integer pageIndex);
+    Page<ExamSimulateRecord> getRecord(Integer studentId, Integer level, Integer page, Integer limit);
 
-
+    /**
+     * 根据模拟考试ID来删除记录
+     *
+     * @param id 主键
+     * @return 受影响条数
+     * @author JX181114 --- 郑建辉
+     */
+    Integer deleteByRecordId(Integer id);
 }
