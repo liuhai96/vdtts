@@ -47,4 +47,9 @@ public class Car
 	 * 	教练ID
 	 */
 	private Integer cTeacherId;
+
+	/**
+	 * 教练
+	 */
+	private Teacher teacher;
 }

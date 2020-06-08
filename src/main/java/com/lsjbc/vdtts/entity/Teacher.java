@@ -83,5 +83,7 @@ public class Teacher
 	 */
 	private School school;
 
+	private Account account;
+
 	private String sName;
 }
