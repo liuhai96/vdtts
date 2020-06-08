@@ -53,7 +53,7 @@
                 <li class="layui-nav-item layui-nav-itemed">
                     <a class="" href="javascript:;">驾校管理</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="<%=path%>teachermanage.jsp" target="iframe_div_iframe">教练管理</a></dd>
+                        <dd><a href="<%=path%>/pages/staff/teachermanage.jsp" target="iframe_div_iframe">教练管理</a></dd>
                         <dd><a href="javascript:;">教练违规处罚</a></dd>
                         <dd><a href="javascript:;">教练车管理</a></dd>
                     </dl>

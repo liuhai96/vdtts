@@ -33,15 +33,15 @@
             <input type="text"  name="aAccount" required  lay-verify="required" placeholder="请输入账号" autocomplete="off" class="layui-input">
         </div>
     </div>
-    <div class="layui-form-item">
+    <div class="layui-form-item" id="idNumberDiv">
         <label class="layui-form-label">身份证号</label>
-        <div class="layui-input-inline" id="">
+        <div class="layui-input-inline" id="idNumber">
             <input type="text"  name="tSfz" required  lay-verify="required" placeholder="请输入身份证号码" autocomplete="off" class="layui-input">
         </div>
     </div>
-    <div class="layui-form-item">
+    <div class="layui-form-item" id="teacherNameDiv">
         <label class="layui-form-label">姓名</label>
-        <div class="layui-input-inline">
+        <div class="layui-input-inline" id="teacherName">
             <input type="text" name="tName" required  lay-verify="required" placeholder="请输入姓名" autocomplete="off" class="layui-input">
         </div>
     </div>
@@ -71,6 +71,7 @@
         </div>
     </div>
 </form>
+
 <script type="text/html" id="toolbarDemo">
     <div class="layui-btn-container">
         <button class="layui-btn layui-btn-sm" lay-event="addTeacher">添加教练</button>
@@ -115,19 +116,19 @@
 
         //头工具栏事件
         table.on('toolbar(test)', function(obj){
-            var checkStatus = table.checkStatus(obj.config.id);
-            var $ = layui.jquery;
-            switch(obj.event){
-             case 'addTeacher':
-                layer.open({
-                    type: 1,
-                    area:["400","300px"],
-                    skin: 'layui-layer-rim',
-                    shadeClose: true,//点击其他地方关闭
-                    content:$("#addTeacher"),
-                    cancel:function (index) {
-                    layer.close(index);
-             }
+                        var checkStatus = table.checkStatus(obj.config.id);
+                        var $ = layui.jquery;
+                        switch(obj.event){
+                            case 'addTeacher':
+                                layer.open({
+                                    type: 1,
+                                    area:["400","300px"],
+                                    skin: 'layui-layer-rim',
+                                    shadeClose: true,//点击其他地方关闭
+                                    content:$("#addTeacher"),
+                                    cancel:function (index) {
+                                        layer.close(index);
+                                    }
                 });
                  layui.use('form', function(){
                      var form = layui.form;
@@ -139,17 +140,15 @@
                              data: data.field,
                              success: function (msg) {
                                if (msg.code==1){
-                                   layer.alert("添加教练成功");
-                                   $table.reload();
+                                   layer.msg("添加教练成功");
                                }else if (msg.code==0 ) {
-                                   layer.alert("该账号已存在");
+                                   layer.msg("该账号已存在");
                                }else{
-                                   layer.alert("添加教练失败");
+                                   layer.msg("添加教练失败");
                                }
-                                 layer.close(layer.index);
+                                 layer.close(index);
                              }
-
-                         })
+                         });
 
                          return false;
                      });
@@ -167,6 +166,7 @@
 
         //监听行工具事件
         table.on('tool(test)', function(obj){
+            var $ = layui.jquery;
             var data = obj.data;
             //console.log(obj)
             if(obj.event === 'del'){
@@ -175,14 +175,40 @@
                     layer.close(index);
                 });
             } else if(obj.event === 'edit'){
-                layer.prompt({
-                    formType: 2
-                    ,value: data.email
-                }, function(value, index){
-                    obj.update({
-                        email: value
+                layer.open({
+                    type: 1,
+                    area:["400","300px"],
+                    skin: 'layui-layer-rim',
+                    shadeClose: true,//点击其他地方关闭
+                    content:$("#addTeacher"),
+                    cancel:function (index) {
+                        layer.close(index);
+                    }
+                });
+                layui.use('form', function(){
+                    var form = layui.form;
+                    form.render();
+                    form.on('submit(demo1)', function(data){
+                        $.ajax({
+                            type: 'POST',
+                            url: '/teacherController/updateTeacherInfo',
+                            dataType: 'JSON',
+                            data: data.field,
+                            success: function (msg) {
+                                if (msg.code==1){
+                                    layer.alert("添加教练成功");
+                                    $table.reload();
+                                }else if (msg.code==0 ) {
+                                    layer.alert("该账号已存在");
+                                }else{
+                                    layer.alert("添加教练失败");
+                                }
+                                layer.close(layer.index);
+                            }
+                        });
+
+                        return false;
                     });
-                    layer.close(index);
                 });
             }
         });
