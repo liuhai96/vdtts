@@ -50,6 +50,16 @@ public class ResultData {
     }
 
     /**
+     * 设置一个成功的Success对象
+     *
+     * @return 表示操作成功的ResultData对象
+     * @author JX181114 --- 郑建辉
+     */
+    public static ResultData success() {
+        return ResultData.builder().msg("操作成功").build();
+    }
+
+    /**
      * 设置一个成功的Success对象，并传入一个数据
      *
      * @param key   数据-键
@@ -75,5 +85,26 @@ public class ResultData {
      */
     public static ResultData error(Integer code, String msg) {
         return ResultData.builder().code(code).msg(msg).build();
+    }
+
+    /**
+     * 设置一个出错的Error对象，并设置消息
+     *
+     * @param msg 消息
+     * @return 表示操作失败的ResultData对象
+     * @author JX181114 --- 郑建辉
+     */
+    public static ResultData error(String msg) {
+        return ResultData.builder().code(-1).msg(msg).build();
+    }
+
+    /**
+     * 设置一个出错的Error对象
+     *
+     * @return 表示操作失败的ResultData对象
+     * @author JX181114 --- 郑建辉
+     */
+    public static ResultData error() {
+        return ResultData.builder().code(-1).msg("出现未知错误").build();
     }
 }

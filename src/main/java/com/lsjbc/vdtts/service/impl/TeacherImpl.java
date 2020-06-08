@@ -42,8 +42,8 @@ public class TeacherImpl implements TeacherService {
         Account rerultAccount = accountMapper.findAccount(teacherAccount.getAAccount());
         LayuiTableData layuiData = new LayuiTableData();
         if(null==rerultAccount){
+            teacherAccount.setAType("teacher");
             int num = accountMapper.addAccount(teacherAccount);
-            System.out.println("teacherAccount"+teacherAccount);
             teacher.setTAccountId(teacherAccount.getAId());
             int num1 = teacherMapper.addTeacher(teacher);
             if(num>0&&num1>0){
@@ -51,7 +51,6 @@ public class TeacherImpl implements TeacherService {
             }else{
                 layuiData.setCode(2);
             }
-
         }else{
             layuiData.setCode(0);
         }
