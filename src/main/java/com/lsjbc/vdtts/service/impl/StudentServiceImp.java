@@ -16,6 +16,45 @@ public class StudentServiceImp implements StudentService
     public StudentMapper studentMapper;
 
 	@Override
+	public List<Student> selectAllInfo(Student student, int page, int limit) {
+		List<Student> selectAllInfo =studentMapper.selectAllInfo(student,page,limit);
+		return selectAllInfo;
+	}
+
+	@Override
+	public int insertstudent(Student student) {
+		int inserttudent = studentMapper.insertstudent(student);
+		return inserttudent;
+	}
+
+	@Override
+	public int updatestudent(Student student) {
+		int updatestudent = studentMapper.updatestudent(student);
+		return updatestudent;
+	}
+
+	@Override
+	public int selectCount(Student student) {
+		int selectCount = studentMapper.selectCount(student);
+		return selectCount;
+	}
+
+	@Override
+	public int deletestudent(Student student) {
+		int deletestudent = studentMapper.deletestudent(student);
+		return deletestudent;
+	}
+
+
+
+	/*
+	 *@Description:
+	 *@Author:陈竑霖
+	 *@Param:
+	 *@return:
+	 *@Date:2020/6/8 1591587038161
+	 **/
+	@Override
 	public LayuiData selectList(Student student, int page, int pageSize) {
 		int start = (page - 1) * pageSize;//计算出起始查询位置
 		if(start<0){
