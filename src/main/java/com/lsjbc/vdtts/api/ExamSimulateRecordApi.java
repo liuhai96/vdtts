@@ -1,13 +1,12 @@
 package com.lsjbc.vdtts.api;
 
+import com.github.pagehelper.Page;
+import com.lsjbc.vdtts.entity.ExamSimulateRecord;
 import com.lsjbc.vdtts.pojo.vo.ExamSimulateRecordAdd;
 import com.lsjbc.vdtts.pojo.vo.ResultData;
 import com.lsjbc.vdtts.service.impl.ExamSimulateRecordServiceImpl;
 import com.lsjbc.vdtts.service.intf.ExamSimulateRecordService;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
@@ -27,7 +26,26 @@ public class ExamSimulateRecordApi {
     private ExamSimulateRecordService examSimulateRecordService;
 
     /**
-     * 前天用户新增模拟考试记录
+     * 获取用户的模拟考试成绩
+     *
+     * @param studentId 学员ID
+     * @param level     科目等级
+     * @param pageIndex 指定页数
+     * @return 每页10条的用户模拟考试成绩
+     * @author JX181114 --- 郑建辉
+     */
+    @GetMapping("record/{studentId}/{level}/{page}")
+    public Page<ExamSimulateRecord> getStudentSimulateScore(@PathVariable("studentId") Integer studentId, @PathVariable("level") Integer level, @PathVariable("page") Integer pageIndex) {
+        Page<ExamSimulateRecord> page = examSimulateRecordService.getRecordByIdLevelAndPageIndex(studentId, level, pageIndex);
+
+        page.getPages();//总页数
+        page.getPageSize();//每页数据
+        page.getTotal();//总记录数
+        return page;
+    }
+
+    /**
+     * 用户新增模拟考试记录
      *
      * @param object 数据传输类
      * @return 操作结果
@@ -53,7 +71,6 @@ public class ExamSimulateRecordApi {
         } catch (Exception e) {
             result = ResultData.error(e.getMessage());
         }
-
 
         return result;
     }
