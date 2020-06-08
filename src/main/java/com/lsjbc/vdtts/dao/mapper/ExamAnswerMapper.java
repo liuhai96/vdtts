@@ -2,7 +2,6 @@ package com.lsjbc.vdtts.dao.mapper;
 
 import com.lsjbc.vdtts.dao.mopper.CustomBaseMapper;
 import com.lsjbc.vdtts.entity.ExamAnswer;
-import org.apache.ibatis.annotations.Mapper;
 
 /**
  * @ClassName: ExamAnswerMapper

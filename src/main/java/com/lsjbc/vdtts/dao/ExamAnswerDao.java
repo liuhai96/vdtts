@@ -34,14 +34,15 @@ public class ExamAnswerDao extends BaseRedisClient implements BaseDao<ExamAnswer
     private ExamAnswerMapper mapper;
 
     /**
+     * 通过题目ID来获取对应的答案
      *
-     * @param questionId
+     * @param questionId 题目ID
      * @return 题目的所有答案
      * @author JX181114 --- 郑建辉
      */
-    public List<ExamAnswer> getByQuestionId(Integer questionId){
+    public List<ExamAnswer> getByQuestionId(Integer questionId) {
 
-        if(questionId==null){
+        if (questionId == null) {
             return new ArrayList<>(0);
         }
 
@@ -49,18 +50,18 @@ public class ExamAnswerDao extends BaseRedisClient implements BaseDao<ExamAnswer
         List<ExamAnswer> answers = getFromRedisByQuestionId(questionId);
 
         //如果获取到，并且集合中有数据，说明读取正常，直接返回
-        if(answers!=null&&answers.size()>0){
+        if (answers != null && answers.size() > 0) {
             return answers;
         }
 
         //从数据库中查询数据
         Example example = new Example(ExamAnswer.class);
         Example.Criteria criteria = example.createCriteria();
-        criteria.andEqualTo("eaQuestionId",questionId);
+        criteria.andEqualTo("eaQuestionId", questionId);
         answers = mapper.selectByExample(example);
 
         //把数据库中的数据保存到redis中
-        setToRedisByQuestionId(answers,questionId);
+        setToRedisByQuestionId(answers, questionId);
 
         return answers;
     }
@@ -125,6 +126,7 @@ public class ExamAnswerDao extends BaseRedisClient implements BaseDao<ExamAnswer
 
     /**
      * 根据题目ID去获取redis中的数据
+     *
      * @param questionId 题目ID
      * @return 正常会返回集合，如果出现未捕获的异常，返回null
      * @author JX181114 --- 郑建辉
@@ -132,19 +134,19 @@ public class ExamAnswerDao extends BaseRedisClient implements BaseDao<ExamAnswer
     private List<ExamAnswer> getFromRedisByQuestionId(Integer questionId) {
         List<ExamAnswer> result = new ArrayList<>();
 
-        try{
-            List<Object> source = lGet("exam:answer:questionId:"+questionId, 0, -1);
+        try {
+            List<Object> source = lGet("exam:answer:questionId:" + questionId, 0, -1);
 
-            source.forEach(item->{
+            source.forEach(item -> {
                 Integer id = (Integer) item;
 
                 ExamAnswer element = getFromRedisById(id);
 
-                if(element!=null){
+                if (element != null) {
                     result.add(element);
                 }
             });
-        } catch (Exception e){
+        } catch (Exception e) {
             log.error(e.getMessage());
             return null;
         }
@@ -154,12 +156,12 @@ public class ExamAnswerDao extends BaseRedisClient implements BaseDao<ExamAnswer
     /**
      * 把多个对象以题目ID为索引推入redis中
      *
-     * @param list 对象集合
+     * @param list       对象集合
      * @param questionId 题目ID
      * @return 失败个数，如果集合为空，会返回-1
      * @author JX181114 --- 郑建辉
      */
-    private Integer setToRedisByQuestionId(List<ExamAnswer> list,Integer questionId) {
+    private Integer setToRedisByQuestionId(List<ExamAnswer> list, Integer questionId) {
 
         if (list == null) {
             return -1;
@@ -178,7 +180,7 @@ public class ExamAnswerDao extends BaseRedisClient implements BaseDao<ExamAnswer
                 return;
             }
 
-            lSet("exam:answer:questionId:"+questionId,item.getEaId(),defaultRedisSaveTime);
+            lSet("exam:answer:questionId:" + questionId, item.getEaId(), defaultRedisSaveTime);
         });
 
         return failCount.get();
