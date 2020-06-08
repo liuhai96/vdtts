@@ -10,4 +10,5 @@ public interface TeacherService {
     public int findTeacherCount(Integer tSchoolId);
     public ArrayList<Teacher> findTeacherList(int start,int pageSize,Integer tSchoolId);
     public LayuiTableData addTeacher(Teacher teacher, Account teacherAccount);
+
 }

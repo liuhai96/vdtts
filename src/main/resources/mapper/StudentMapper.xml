@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.lsjbc.vdtts.dao.mapper.TeacherMapper">
+<mapper namespace="com.lsjbc.vdtts.dao.mapper.StudentMapper">
 <!--    查询所属驾校中的学员-->
 <!--    <select id="selectAdminInfo" resultType="com.sharefile.db.TbAdmin" parameterType="com.lsjbc.vdtts.entity.Teacher">-->
 <!--        select admin_name as adminName,admin_pwd as adminPwd from tb_admin where admin_name =#{adminName}-->
@@ -28,20 +28,20 @@
         </where>
     </select>
 
-    <insert id="insertStudent"  parameterType="com.lsjbc.vdtts.entity.Student">
+    <insert id="insertstudent"  parameterType="com.lsjbc.vdtts.entity.Student">
          insert into tb_student(s_name,s_pwd,s_id) values (#{sName},#{sPwd},#{sId})
    </insert>
 
-    <insert id="updateStudent"  parameterType="com.lsjbc.vdtts.entity.Student">
+    <insert id="updatestudent"  parameterType="com.lsjbc.vdtts.entity.Student">
          update tb_student set s_name=#{sName},s_pwd=#{sPwd},role_id=#{roleId} where s_id =#{sId}
    </insert>
 
-    <delete id="deleteStudent"  parameterType="com.lsjbc.vdtts.entity.Student">
+    <delete id="deletestudent"  parameterType="com.lsjbc.vdtts.entity.Student">
         delete from tb_student where s_id =#{sId}
     </delete>
 
 
-
+<!--  陈竑霖-->
 <!--表单-->
     <select id="selectList" resultType="com.lsjbc.vdtts.entity.Student">
          select stu.s_id,sch.s_name schoolName,stu.s_sfz,stu.s_name,stu.s_sex,stu.s_birthday,stu.s_reg_time,stu.s_license_time,tea.t_name teacherName
