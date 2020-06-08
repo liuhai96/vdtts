@@ -45,7 +45,7 @@ public class StudentController {
                               @RequestParam(value = "sex") String sex ,@RequestParam(value = "role") String role) {
         System.out.println("添加操作--- account:"+account+" pwd:"+pwd+" sex:"+sex+" role:" +role);
         student.setsName(account);
-        int i=studentService.inserttudent(student);
+        int i=studentService.insertstudent(student);
         String res = "";
         if(i>0){
             res="success";
@@ -67,7 +67,7 @@ public class StudentController {
         System.out.println("修改操作--- account:"+account+" pwd:"+pwd+" studentId:"+studentId);
         student.setsAccountId(Integer.valueOf(account));
         student.setsId(Integer.valueOf(studentId));
-        int i=studentService.updatetudent(student);
+        int i=studentService.updatestudent(student);
         String res = "";
         if(i>0){
             res="success";
@@ -86,7 +86,7 @@ public class StudentController {
                               @RequestParam(value = "studentId") String studentId ) {
         System.out.println(" studentId:"+studentId);
         student.setsId(Integer.valueOf(studentId));
-        int i=studentService.deletetudent(student);
+        int i=studentService.deletestudent(student);
         String res = "";
         if(i>0){
             res="success";
