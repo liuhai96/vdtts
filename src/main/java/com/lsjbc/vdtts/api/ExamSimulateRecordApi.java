@@ -3,6 +3,7 @@ package com.lsjbc.vdtts.api;
 import com.github.pagehelper.Page;
 import com.lsjbc.vdtts.entity.ExamSimulateRecord;
 import com.lsjbc.vdtts.pojo.vo.ExamSimulateRecordAdd;
+import com.lsjbc.vdtts.pojo.vo.PageData;
 import com.lsjbc.vdtts.pojo.vo.ResultData;
 import com.lsjbc.vdtts.service.impl.ExamSimulateRecordServiceImpl;
 import com.lsjbc.vdtts.service.intf.ExamSimulateRecordService;
@@ -35,13 +36,22 @@ public class ExamSimulateRecordApi {
      * @author JX181114 --- 郑建辉
      */
     @GetMapping("record/{studentId}/{level}/{page}")
-    public Page<ExamSimulateRecord> getStudentSimulateScore(@PathVariable("studentId") Integer studentId, @PathVariable("level") Integer level, @PathVariable("page") Integer pageIndex) {
-        Page<ExamSimulateRecord> page = examSimulateRecordService.getRecordByIdLevelAndPageIndex(studentId, level, pageIndex);
+    public PageData<ExamSimulateRecord> getStudentSimulateScore(@PathVariable("studentId") Integer studentId, @PathVariable("level") Integer level, @PathVariable("page") Integer pageIndex) {
+        PageData<ExamSimulateRecord> pageData = new PageData<>();
 
-        page.getPages();//总页数
-        page.getPageSize();//每页数据
-        page.getTotal();//总记录数
-        return page;
+        try {
+            Page<ExamSimulateRecord> page = examSimulateRecordService.getRecordByIdLevelAndPageIndex(studentId, level, pageIndex);
+
+            pageData.setCode(0);
+            pageData.setCount(page.getTotal());
+            pageData.setPages(page.getPages());
+            pageData.setData(page.getResult());
+        } catch (Exception e){
+            pageData.setCode(-1);
+            pageData.setMsg(e.getMessage());
+        }
+
+        return pageData;
     }
 
     /**
