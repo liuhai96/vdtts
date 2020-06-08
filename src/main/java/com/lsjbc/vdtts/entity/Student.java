@@ -72,4 +72,14 @@ public class Student
 	 *所属教练ID
 	 */
 	private Integer sTeacherId;
+
+	/**
+	 *驾校姓名
+	 */
+	private String schoolName;
+
+	/**
+	 *s所属教练姓名
+	 */
+	private String teacherName;
 }

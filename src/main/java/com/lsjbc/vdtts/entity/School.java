@@ -11,7 +11,7 @@ import lombok.*;
 /**
  * 	驾校表
  */
-public class School
+public class  School
 {
 	/**
 	 * 	主键
