@@ -127,12 +127,6 @@ public class ExamQuestionDao extends BaseRedisClient implements BaseDao<ExamQues
     /**
      * 读取redis中所有的数据
      *
-     * @return 正常会返回集合，如果出现未捕获的异常，返回null
-     * @author JX181114 --- 郑建辉
-     */
-    /**
-     * 读取redis中所有的数据
-     *
      * @param level 科目等级，如果是科目一,传入1  如果是科目四，传入4
      * @return 正常会返回集合，如果出现未捕获的异常，返回null
      * @author JX181114 --- 郑建辉
