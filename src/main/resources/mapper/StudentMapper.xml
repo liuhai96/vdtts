@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lsjbc.vdtts.dao.mapper.StudentMapper">
+
+<!--表单-->
+    <select id="selectList" resultType="com.lsjbc.vdtts.entity.Student">
+         select stu.s_id,sch.s_name schoolName,stu.s_sfz,stu.s_name,stu.s_sex,stu.s_birthday,stu.s_reg_time,stu.s_license_time,tea.t_name teacherName
+         from tb_student stu,tb_school sch,tb_teacher tea where stu.s_school_id=sch.s_id and stu.s_teacher_id=tea.t_id
+
+            <if test="e.sName!=null and e.sName!=''"> and stu.s_name like concat('%',#{e.sName},'%')</if>
+--             <if test="e.sSex!=null and e.sSex!=''"> and stu.s_sex like concat('%',#{e.sSex},'%')</if>
+            <if test="e.sLicenseTime!=null and e.sLicenseTime!=''"> and stu.s_license_time like concat('%',#{e.sLicenseTime},'%')</if>
+
+        limit #{start},#{pageSize}
+    </select>
+<!--分页-->
+    <select id="selectListCount" resultType="int" parameterType="com.lsjbc.vdtts.entity.Student">
+        select count(s_id) from tb_student
+        <!--where自动帮我们取消掉多余的and或or-->
+        <where>
+            <if test="e.sName!=null and e.sName!=''"> and s_name like concat('%',#{e.sName},'%')</if>
+--             <if test="e.sSex!=null and e.sSex!=''"> and s_sex like concat('%',#{e.sSex},'%')</if>
+            <if test="e.sLicenseTime!=null and e.sLicenseTime!=''"> and s_license_time like concat('%',#{e.sLicenseTime},'%')</if>
+        </where>
+    </select>
+</mapper>
