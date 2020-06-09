@@ -9,4 +9,13 @@ public interface TeacherService {
     public LayuiTableData addTeacher(Teacher teacher, Account teacherAccount);
     public LayuiTableData deleteTeacher(int tId);
     public LayuiTableData updateTeacherInfo(Teacher teacher);
+
+    /*
+     *@Description:
+     *@Author:陈竑霖
+     *@Param:
+     *@return:
+     *@Date:2020/6/8 1591607662706
+     **/
+    public LayuiTableData teacherList(Teacher teacher, int page, int pageSize);
 }

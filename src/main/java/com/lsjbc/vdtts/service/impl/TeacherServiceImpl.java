@@ -12,12 +12,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.List;
+
 @Service
 @Transactional
 public class TeacherServiceImpl implements TeacherService {
     @Resource
     private TeacherMapper teacherMapper;
-
     @Override
     /*
      *@Description:查询各个驾校的教练基本信息
@@ -66,6 +67,35 @@ public class TeacherServiceImpl implements TeacherService {
             LayuiTableData.setCode(0);
         }
         return LayuiTableData;
+    }
+    /*
+     *@Description:
+     *@Author:陈竑霖
+     *@Param:
+     *@return:
+     *@Date:2020/6/8 1591587038161
+     **/
+    @Override
+    public LayuiTableData teacherList(Teacher teacher, int page, int pageSize) {
+        int start = (page - 1) * pageSize;//计算出起始查询位置
+        if(start<0){
+            start=0;
+        }
+        List<Teacher> list = teacherMapper.teacherlist(teacher, start, pageSize);
+        int count = teacherMapper.teacherlistcount(teacher);
+
+        LayuiTableData layuiTableData = new LayuiTableData();
+        if (list.size() > 0) {
+            layuiTableData.setCode(0);
+            layuiTableData.setMsg("");
+            layuiTableData.setCount(count);
+            layuiTableData.setData(list);
+            System.out.println(teacher);
+        } else {
+            layuiTableData.setCode(1);
+            layuiTableData.setMsg("查询失败");
+        }
+        return layuiTableData;
     }
 
     /*

@@ -55,4 +55,5 @@ public class LayuiTableData {
     public void setCount(Long count) {
         this.count = count;
     }
+
 }

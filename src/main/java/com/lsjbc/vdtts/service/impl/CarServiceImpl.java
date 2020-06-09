@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Transactional
@@ -33,6 +34,36 @@ public class CarServiceImpl implements CarService {
        layuiTableData.setCount(carCount);
        layuiTableData.setCode(0);
        layuiTableData.setData(carList);
+        return layuiTableData;
+    }
+
+    /*
+     *@Description:
+     *@Author:陈竑霖
+     *@Param:
+     *@return:
+     *@Date:2020/6/8 1591587038161
+     **/
+    @Override
+    public LayuiTableData carList(Car car, int page, int pageSize) {
+        int start = (page - 1) * pageSize;//计算出起始查询位置
+        if(start<0){
+            start=0;
+        }
+        List<Car> list = carMapper.finecarlist(car, start, pageSize);
+        int count = carMapper.carlistcount(car);
+
+        LayuiTableData layuiTableData = new LayuiTableData();
+        if (list.size() > 0) {
+            layuiTableData.setCode(0);
+            layuiTableData.setMsg("");
+            layuiTableData.setCount(count);
+            layuiTableData.setData(list);
+            System.out.println(car);
+        } else {
+            layuiTableData.setCode(1);
+            layuiTableData.setMsg("查询失败");
+        }
         return layuiTableData;
     }
 }
