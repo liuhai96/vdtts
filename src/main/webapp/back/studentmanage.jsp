@@ -1,10 +1,10 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: test
-  Date: 2020/5/17
-  Time: 19:09
-  To change this template use File | Settings | File Templates.
---%>
+/*
+*@Description:
+*@Author:周永哲
+*@Param:
+*@return:
+*@Date:2020/6/8 15860799877
+**/
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%String path = request.getContextPath();%>
 <!DOCTYPE html>
@@ -12,7 +12,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <title>管理员管理</title>
+    <title>学员管理</title>
     <link rel="stylesheet" href=<%=path+"/layui/css/layui.css"%>>
     <script type="text/javascript" src=<%=path+"/layui/layui.js"%>></script>
         <style>
@@ -26,18 +26,11 @@
 <script type="text/html" id="toolbarTest">
     <div class="demoTable">
         <div class="layui-inline">
-            <input type="text" class="layui-input" name="adminname" id="demoReload" autocomplete="off"placeholder="请输入管理员姓名">
+            <input type="text" class="layui-input" name="studentname" id="demoReload" autocomplete="off"placeholder="请输入学员姓名">
         </div>
         <button class="layui-btn layui-btn-normal" lay-event="search"  lay-submit lay-filter="search" data-type="reload">搜索</button>
-        <button class="layui-btn " lay-event="add" style="margin-left: 10%">添加管理员</button>
+        <button class="layui-btn " lay-event="add" style="margin-left: 10%">添加学员</button>
     </div>
-<%--    <div class="layui-form-item">--%>
-<%--        <button class="layui-btn  layui-btn-normal" lay-submit lay-filter="search" style="margin-top: 10px">搜 索</button>--%>
-<%--        <button class="layui-btn " lay-event="add" style="margin-left: 10%" style="margin-top: 12px">添加管理员</button>--%>
-<%--        <div class="layui-input-inline">--%>
-<%--            <input type="text" name="adminsearch" lay-verify="title" autocomplete="off" placeholder="请输入姓名" class="layui-input" style="margin-top: 10px">--%>
-<%--        </div>--%>
-<%--    </div>--%>
 </script>
 
 <script type="text/html" id="barDemo">
@@ -66,7 +59,7 @@
             ,height: 420
             ,method: "POST"
             ,toolbar: '#toolbarTest' //开启头部工具栏，并为其绑定左侧模板
-            ,url: '/sharefile/AdminControl/selectadmininfo' //数据接口
+            ,url: '/sharefile/studentControl/selectstudentinfo' //数据接口
             ,title: '用户表'
             ,page: true //开启分页
             ,limit: 5 //每行显示5页
@@ -75,9 +68,9 @@
             // ,id: 'testReload'
             ,cols: [[ //表头
                 {type: 'checkbox', fixed: 'left'}
-                ,{field: 'adminId', title: 'adminId', width:100, sort: true, fixed: 'left', }
-                ,{field: 'adminName', title: '管理员姓名', width:150}
-                ,{field: 'adminPwd', title: '密码', width: 100, sort: true, totalRow: true}
+                ,{field: 'studentId', title: 'studentId', width:100, sort: true, fixed: 'left', }
+                ,{field: 'studentName', title: '学员姓名', width:150}
+                ,{field: 'studentPwd', title: '密码', width: 100, sort: true, totalRow: true}
                 ,{field: 'sex', title: '性别', width:100, sort: true}
                 ,{field: 'score', title: '评分', width: 100, sort: true, totalRow: true}
                 ,{field: 'city', title: '城市', width:100}
@@ -89,16 +82,16 @@
         });
 
         //监听头工具栏事件
-        var addadmin =null;
-        var adminId2 = null;
+        var addstudent =null;
+        var studentId2 = null;
             table.on('toolbar(demo)', function(obj){
             var checkStatus = table.checkStatus(obj.config.id)
                 ,data = checkStatus.data; //获取选中的数据
             switch(obj.event){
                 case 'add':
-                 addadmin = layer.open({
+                 addstudent = layer.open({
                         type: 1,
-                        title:"管理员添加"
+                        title:"学员添加"
                         , offset: 'auto' //具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
                         ,id: 'layerDemo'+'auto' //防止重复弹出
                         ,content: $('#add')
@@ -131,12 +124,12 @@
                     var demoReload = $('#demoReload').val();
                     //执行重载
                     table.reload('demo', {
-                        url: "/sharefile/AdminControl/selectadmininfo",
+                        url: "/sharefile/studentControl/selectstudentinfo",
                         page: {
                             curr: 1 //重新从第 1 页开始
                         }
                         ,where: {
-                            adminName: demoReload,
+                            studentName: demoReload,
                             dealtype: "search",
                         }
                     });
@@ -154,27 +147,27 @@
                 layer.msg('查看操作');
             }
 
-            else if(layEvent === 'del'){       //删除管理员
-                var adminId = data.adminId;
-               var adminName= data.adminName;
-                layer.alert('adminId='+adminId);
+            else if(layEvent === 'del'){       //删除学员
+                var studentId = data.studentId;
+               var studentName= data.studentName;
+                layer.alert('studentId='+studentId);
                 var data ={
-                    adminId: adminId,
+                    studentId: studentId,
                     dealtype: "delete"
                 }
                 layer.alert('data='+JSON.stringify(data));
-                layer.confirm('确认删除此管理员信息？', function(index){
+                layer.confirm('确认删除此学员信息？', function(index){
                     obj.del(); //删除对应行（tr）的DOM结构
                     layer.close(index);
                     $.ajax({
-                        url: "/sharefile/AdminControl/deleteadmin",
+                        url: "/sharefile/studentControl/deletestudent",
                         type: "POST",
                         dataType: "text",
                         data: data,
                         success: function (msg) {
                             if (msg.trim() == "success") {
-                                alert("管理员"+adminName+"删除成功！");
-                                layer.close(addadmin);
+                                alert("学员"+studentName+"删除成功！");
+                                layer.close(addstudent);
                                 // location.href = "userlogin.jsp";
                             } else {
                                 alert(msg)
@@ -185,11 +178,11 @@
                 });
             }
 
-            else if(layEvent === 'edit'){ //修改管理员
-               adminId2 = data.adminId;
-                addadmin = layer.open({
+            else if(layEvent === 'edit'){ //修改学员
+               studentId2 = data.studentId;
+                addstudent = layer.open({
                     type: 1,
-                    title:"管理员信息修改"
+                    title:"学员信息修改"
                     , offset: 'auto' //具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
                     ,id: 'layerDemo'+'auto' //防止重复弹出
                     ,content: $('#update')
@@ -207,7 +200,7 @@
             var layer = layui.layer
                 , form = layui.form;
             var $ = layui.jquery;
-            form.on('submit(formDemo1)', function (data) {//添加管理员
+            form.on('submit(formDemo1)', function (data) {//添加学员
                 alert(JSON.stringify(data.field));
                 var account = $("input[name='account']").val();
                 var pwd = $("input[name='pwd']").val();
@@ -218,14 +211,14 @@
                     alert("姓名或密码不能为空！")
                 } else if (pwd == pwd2) {
                     $.ajax({
-                        url: "/sharefile/AdminControl/insertadmin",
+                        url: "/sharefile/studentControl/insertstudent",
                         type: "POST",
                         dataType: "text",
                         data: data.field,
                         success: function (msg) {
                             if (msg.trim() == "success") {
-                                alert("管理员添加成功！");
-                                layer.close(addadmin);
+                                alert("学员添加成功！");
+                                layer.close(addstudent);
                                 // location.href = "userlogin.jsp";
                             } else {
                                 alert(msg)
@@ -242,16 +235,16 @@
             var layer = layui.layer
                 , form = layui.form;
             var $ = layui.jquery;
-            form.on('submit(formDemo)', function (data) {//修改管理员信息
+            form.on('submit(formDemo)', function (data) {//修改学员信息
                 // alert(JSON.stringify(data.field));
                 var account = $("input[name='account1']").val();
-                var pwd = $("input[name='adminpwd']").val();
-                var pwd2 = $("input[name='adminpwd2']").val();
+                var pwd = $("input[name='studentpwd']").val();
+                var pwd2 = $("input[name='studentpwd2']").val();
                 var data={
                     account1:account,
                     pwd:pwd,
-                    dealtype: "updateadmin",
-                    adminId2:adminId2,
+                    dealtype: "updatestudent",
+                    studentId2:studentId2,
                 }
                 alert("data="+JSON.stringify(data));
                 if (pwd != pwd2) {
@@ -260,14 +253,14 @@
                     alert("姓名或密码不能为空!！")
                 } else if (pwd == pwd2) {
                     $.ajax({
-                        url: "/sharefile/AdminControl/updateadmin",
+                        url: "/sharefile/studentControl/updatestudent",
                         type: "POST",
                         dataType: "text",
                         data: data,
                         success: function (msg) {
                             if (msg.trim() == "success") {
-                                alert("管理员信息修改成功！");
-                                layer.close(addadmin);
+                                alert("学员信息修改成功！");
+                                layer.close(addstudent);
                                 // location.href = "userlogin.jsp";
                             } else {
                                 alert(msg)
@@ -280,40 +273,6 @@
             });
         });
 
-        // layui.use(['layer', 'form'], function () {
-        //     var layer = layui.layer
-        //         , form = layui.form;
-        //     var $ = layui.jquery;
-        //     form.on('submit(search)', function (data) {//搜索
-        //         var adminsearch = $("input[name='adminsearch']").val();
-        //         var data={
-        //             adminsearch:adminsearch,
-        //             dealtype: "search",
-        //         }
-        //         alert("data="+JSON.stringify(data));
-        //             $.ajax({
-        //                 url: "/sharefile/AdminControl/searchadmininfo",
-        //                 type: "POST",
-        //                 dataType: "text",
-        //                 data: data,
-        //                 success: function (msg) {
-        //                     alert(msg+"\n"+typeof msg)
-        //                     $table.render();//刷新
-        //                     if (msg.trim() == "failed") {
-        //                         alert("查无此管理员，请重新输入")
-        //                     }
-        //                 }
-        //             });
-        //         return false;
-        //     });
-        // });
-
-        // var $ = layui.$, active = {
-        //     reload: function(){
-        //         // alert("dddddddddd")
-        //
-        //     }
-        // };
 
         $('.demoTable .layui-btn').on('click', function(){
             var type = $(this).data('type');
@@ -322,10 +281,10 @@
 
 
         $("#cancle").click(function () {
-            layer.close(addadmin);
+            layer.close(addstudent);
         })
         $("#cancle2").click(function () {
-            layer.close(addadmin);
+            layer.close(addstudent);
         })
     });
 </script>
@@ -358,7 +317,7 @@
                     <select name="role" lay-filter="aihao">
                         <option value=""></option>
                         <option value="boss">boss</option>
-                        <option value="管理员" selected="">管理员</option>
+                        <option value="学员" selected="">学员</option>
                         <option value="普通人员">普通人员</option>
                     </select>
                 </div>
@@ -373,7 +332,7 @@
 
             <div class="layui-form-item">
                 <div class="layui-input-block">
-                    <input type="hidden" name="dealtype" value="addadmin" placeholder="" autocomplete="off" class="layui-input"
+                    <input type="hidden" name="dealtype" value="addstudent" placeholder="" autocomplete="off" class="layui-input"
                            lay-verify="required">
                     <button class="layui-btn layui-btn-primary" lay-submit lay-filter="formDemo1">添加</button>
                     <button type="button" id="cancle2"class="layui-btn layui-btn-primary" style="margin-right: 60px">取消</button>
@@ -393,14 +352,14 @@
         <div class="layui-form-item">
             <label class="layui-form-label">密码：</label>
             <div class="layui-input-inline">
-                <input type="password" name="adminpwd" placeholder="" autocomplete="off" class="layui-input"
+                <input type="password" name="studentpwd" placeholder="" autocomplete="off" class="layui-input"
                        lay-verify="required">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">再次输入：</label>
             <div class="layui-input-inline">
-                <input type="password" name="adminpwd2" placeholder="" autocomplete="off" class="layui-input"
+                <input type="password" name="studentpwd2" placeholder="" autocomplete="off" class="layui-input"
                        lay-verify="required">
             </div>
         </div>
@@ -410,7 +369,7 @@
                 <select name="role1" lay-filter="aihao">
                     <option value=""></option>
                     <option value="boss">boss</option>
-                    <option value="管理员" selected="">管理员</option>
+                    <option value="学员" selected="">学员</option>
                     <option value="普通人员">普通人员</option>
                 </select>
             </div>
@@ -425,9 +384,9 @@
 
         <div class="layui-form-item">
             <div class="layui-input-block">
-                <input type="hidden" name="dealtype" value="updateadmin" placeholder="" autocomplete="off" class="layui-input"
+                <input type="hidden" name="dealtype" value="updatestudent" placeholder="" autocomplete="off" class="layui-input"
                        lay-verify="required">
-<%--                <input type="hidden" name="adminId2" value="" placeholder="" autocomplete="off" class="layui-input"--%>
+<%--                <input type="hidden" name="studentId2" value="" placeholder="" autocomplete="off" class="layui-input"--%>
 <%--                       lay-verify="required">--%>
                 <button class="layui-btn layui-btn-primary" lay-submit lay-filter="formDemo">确认修改</button>
                 <button type="button" id="cancle" class="layui-btn layui-btn-primary" style="margin-right: 60px">取消</button>

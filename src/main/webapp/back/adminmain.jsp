@@ -1,10 +1,10 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: test
-  Date: 2020/5/15
-  Time: 23:43
-  To change this template use File | Settings | File Templates.
---%>
+/*
+*@Description:
+*@Author:周永哲
+*@Param:
+*@return:
+*@Date:2020/6/8 15860799877
+**/
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%String path = request.getContextPath();%>
 <!DOCTYPE html>
@@ -12,7 +12,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>后台管理端</title>
+    <title>驾校后台管理端</title>
     <link rel="stylesheet" href=<%=path+"/layui/css/layui.css"%>>
     <script type="text/javascript" src=<%=path+"/layui/layui.js"%>></script>
 
@@ -20,7 +20,7 @@
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
     <div class="layui-header">
-        <div class="layui-logo">共享文件系统用戶端</div>
+        <div class="layui-logo">传一驾校系统后台管理</div>
         <!-- 头部区域（可配合layui已有的水平导航） -->
         <ul class="layui-nav layui-layout-left">
             <li class="layui-nav-item"><a href="">控制台</a></li>
@@ -40,6 +40,7 @@
                 <a href="javascript:;">
                     <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
                     养猪场大姐
+<%--                    hello,${user.userName}--%>
                 </a>
                 <dl class="layui-nav-child">
                     <dd><a href="">基本资料</a></dd>
@@ -72,43 +73,43 @@
 <%--                    </dl>--%>
 <%--                </li>--%>
                 <li class="layui-nav-item">
-                    <a href="javascript:;">管理员管理</a>
+                    <a href="javascript:;">日常工作</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="adminmanage.jsp;" target="okframe">管理员管理</a></dd>
-<%--                        <dd><a href="javascript:;">下载文档</a></dd>--%>
-                        <%--                        <dd><a href="">超链接</a></dd>--%>
+                        <dd><a href="adminmanage.jsp;" target="okframe">学员管理</a></dd>
+                        <dd><a href="adminmanage.jsp;" target="okframe">驾校管理</a></dd>
+                        <dd><a href="adminmanage.jsp;" target="okframe">教练车管理</a></dd>
+                        <dd><a href="adminmanage.jsp;" target="okframe">教练管理</a></dd>
+                        <dd><a href="adminmanage.jsp;" target="okframe">题库管理</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
-                    <a href="javascript:;">用户管理</a>
+                    <a href="javascript:;">统计报表</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="usermanage.jsp;" target="okframe">用户查询</a></dd>
-                        <dd><a href="javascript:;">用户管理</a></dd>
+                        <dd><a href="usermanage.jsp;" target="okframe">学员人数统计</a></dd>
+                        <dd><a href="usermanage.jsp;" target="okframe">科目考试人数统计</a></dd>
 <%--                        <dd><a href="">超链接</a></dd>--%>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
-                    <a href="javascript:;">文档管理</a>
+                    <a href="javascript:;">门户管理</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">文档审核</a></dd>
-                        <dd><a href="javascript:;">文档配置</a></dd>
-<%--                        <dd><a href="">超链接</a></dd>--%>
+                        <dd><a href="usermanage.jsp;" target="okframe">行业动态发布</a></dd>
+                        <dd><a href="usermanage.jsp;" target="okframe">友情链接管理</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
-                    <a href="javascript:;">日志管理</a>
+                    <a href="javascript:;">系统管理</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">日志列表</a></dd>
-                        <dd><a href="javascript:;">日志查看</a></dd>
-<%--                        <dd><a href="">超链接</a></dd>--%>
+                        <dd><a href="usermanage.jsp;" target="okframe">日志管理</a></dd>
+                        <dd><a href="usermanage.jsp;" target="okframe">参数管理</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
-                    <a href="javascript:;">系统配置</a>
+                    <a href="javascript:;">其他</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">奖励配置</a></dd>
-<%--                        <dd><a href="javascript:;">下载文档</a></dd>--%>
-<%--                        <dd><a href="">超链接</a></dd>--%>
+                        <dd><a href="usermanage.jsp;" target="okframe">退出</a></dd>
+                        <dd><a href="usermanage.jsp;" target="okframe">修改账号密码</a></dd>
+                        <dd><a href="usermanage.jsp;" target="okframe">登录</a></dd>
                     </dl>
                 </li>
             </ul>

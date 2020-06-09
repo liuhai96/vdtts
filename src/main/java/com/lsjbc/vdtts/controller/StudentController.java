@@ -42,7 +42,7 @@ public class StudentController {
                               @RequestParam(value = "account") String account ,@RequestParam(value = "pwd") String pwd ,
                               @RequestParam(value = "sex") String sex ,@RequestParam(value = "role") String role) {
         System.out.println("添加操作--- account:"+account+" pwd:"+pwd+" sex:"+sex+" role:" +role);
-        student.setSName(account);
+        student.(account);
         int i=studentService.insertstudent(student);
         String res = "";
         if(i>0){
