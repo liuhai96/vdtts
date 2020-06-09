@@ -6,7 +6,7 @@ function AjaxTransfer(url,sendData,funY,fnuN,type,dataType) { //ajax封装方法
   if (funY == undefined) funY = function(msg){alert("返回数据为："+msg);}
   if (fnuN == undefined) fnuN = function(){alert("你的操作非法！\n或服务器正忙，请重试！");}
   if (type == undefined)type = "POST";
-  if (dataType == undefined)dataType = "json";
+  if (dataType == undefined)dataType = "JSON";
   $.ajax( {
     type: type, url: url, data: sendData,
     dataType: dataType, success:funY, error:fnuN
@@ -50,3 +50,22 @@ function done(input, LengthBegin, LengthEnd) {//测试账号密码中仅为数�
 // console.log(done(one, 0,20));
 // console.log(done(two, 0, 10));
 // console.log(done(three,0, 30));
+
+function cutOut(str,begin,end) {//截取字符
+    if (begin == undefined)begin = 0;
+    if (end == undefined)str = str.length;
+    let strs = "";
+    for (let i = begin;i <end;i++) strs += str.charAt(i);
+    return strs;
+}
+
+// function isCardNo(Idcardnumber) {
+// // 身份证号码为15位或者18位，15位时全为数字，18位前17位为数字，最后一位是校验位，可能为数字或字符X
+//     var id=$("#Idcardnumber").val();//var id=$("#Idcardnumber")是获取Input文本框对象， .val（）;是获取文本框里面的值
+//     var reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
+//     if(reg.test(id) === false)
+//     {
+//         alert("身份证输入不合法");
+//         return false;
+//     }
+// }

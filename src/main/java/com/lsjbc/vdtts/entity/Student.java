@@ -79,7 +79,7 @@ public class Student
 	private String schoolName;
 
 	/**
-	 *s所属教练姓名
+	 *所属教练姓名
 	 */
 	private String teacherName;
 

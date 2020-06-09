@@ -8,6 +8,13 @@ import lombok.*;
 @NoArgsConstructor
 @ToString
 @Builder
+/*
+ *@Description:
+ *@Author:陈竑霖
+ *@Param:
+ *@return:
+ *@Date:2020/6/9 1591684823042
+ **/
 /**
  * 	教练车表
  */
@@ -49,7 +56,20 @@ public class Car
 	private Integer cTeacherId;
 
 	/**
+	 * 所属驾校名
+	 */
+	private String schoolName;
+
+
+	/**
 	 * 教练
 	 */
 	private Teacher teacher;
+
+
+
+	/**
+	 * 教练名字
+	 */
+	private String tName;
 }

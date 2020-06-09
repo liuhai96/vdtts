@@ -1,4 +1,5 @@
-<%@ page import="com.lsjbc.vdtts.tools.Tool" %><%--
+<%@ page import="com.lsjbc.vdtts.utils.Tool" %>
+<%--
   Created by IntelliJ IDEA.
   User: Lilang9725
   Date: 2020/6/5
@@ -13,6 +14,7 @@
     cookie.setMaxAge(-3);
     cookie.setPath(request.getContextPath());
     response.addCookie(cookie);
+//    resultData = request.getSession().getAttribute("account");
     String[] bulletinInformation = {"恭喜学员：李*科目二通过","恭喜学员：郑*威从本驾校毕业","恭喜学员：刘*科目三通过"};
 %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -44,14 +46,14 @@
                     22px; color: #FF5722;">&#xe663;</i>&nbsp;&nbsp;题库</a></li>
                 <li class="layui-nav-item"><a href=""><i class="layui-icon" style="font-size:
                     22px; color: #FF5722;">&#xe630;</i>&nbsp;&nbsp;车型</a></li>
-                <li class="layui-nav-item"><a href=""><i class="layui-icon" style="font-size:
+                <li class="layui-nav-item"><a href="<%=path+"/pages/homepage/driving-to-find/driving-to-find.jsp"%>"><i class="layui-icon" style="font-size:
                     22px; color: #FF5722;">&#xe66c;</i>&nbsp;&nbsp;驾校</a></li>
                 <li class="layui-nav-item"><a href=""><i class="layui-icon" style="font-size:
                     22px; color: #FF5722;">&#xe705;</i>&nbsp;&nbsp;资讯</a></li>
                 <li class="layui-nav-item"><a href=""><i class="layui-icon" style="font-size:
                     22px; color: #FF5722;">&#xe6ed;</i>&nbsp;&nbsp;视频</a></li>
                 <c:if test="${resultData eq null}">
-                    <li class="layui-nav-item" style="float: right"><a href="">注册</a></li>|
+                    <li class="layui-nav-item" style="float: right"><a href="<%=path+"/pages/homepage/register.jsp"%>">注册</a></li>|
                     <li class="layui-nav-item layui-bg-blue" style="float: right" lay-unselect=""><a href="javascript:;">登录</a>
                         <dl class="layui-nav-child">
                             <dd><a href="<%=path+"/pages/homepage/login.jsp?type=1011010"%>">学员登录</a></dd>

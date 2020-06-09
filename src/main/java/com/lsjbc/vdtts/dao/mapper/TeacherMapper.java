@@ -5,6 +5,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.ArrayList;
+import java.util.List;
+
 @Mapper
 public interface TeacherMapper {
     public int findTeacherCount(@Param("tSchoolId") Integer tSchoolId);
@@ -13,4 +15,17 @@ public interface TeacherMapper {
     public Teacher findAccountId(@Param("tId") int tId);
     public int deleteTeacher(@Param("tId") int tId);
     public int updateTeacherInfo(Teacher teacher);
+    public ArrayList<Teacher> findTeacher(@Param("tSchoolId") int tSchoolId);
+    public int updateTeacherApplyState(int tId);
+    public int updateTeacherAccountLockState(int tId);
+
+    /*
+     *@Description:
+     *@Author:陈竑霖
+     *@Param:
+     *@return:
+     *@Date:2020/6/8 1591607995566
+     **/
+    public int teacherlistcount(@Param("e") Teacher teacher);
+    public List<Teacher> teacherlist(@Param("e") Teacher teacher, @Param("start") int start, @Param("pageSize") int pageSize);
 }

@@ -23,5 +23,7 @@ public interface StudentMapper {
     public int updatestudent(Student student);
     public int selectCount(Student student);
     public int deletestudent(Student student);
+    public int addStudentMessage(Student student);
+
 
 }

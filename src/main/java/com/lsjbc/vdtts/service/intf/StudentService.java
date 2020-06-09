@@ -4,6 +4,7 @@ import com.lsjbc.vdtts.entity.Student;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 @Service
@@ -22,5 +23,7 @@ public interface StudentService {
      *@Date:2020/6/8 1591600767377
      **/
 	public LayuiTableData selectList(Student student, int page, int pageSize);
+
+    public int registerStudent(Student student);
 
 }

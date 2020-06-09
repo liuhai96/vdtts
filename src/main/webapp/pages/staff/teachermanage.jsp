@@ -14,15 +14,9 @@
     <title>驾校教练管理</title>
     <link rel="shortcut icon" href="#"/>
     <link rel="stylesheet" href=<%=path+"/static/layui/css/layui.css"%>>
-<%--    <link rel="stylesheet" href=<%=path+"/static/laydate/theme/default/laydate.css"%>>--%>
     <script type="text/javascript" src=<%=path+"/static/layui/layui.js"%>></script>
-<%--    <script type="text/javascript" src=<%=path+"/static/laydate/laydate.js"%>></script>--%>
 </head>
 <body>
-<blockquote class="layui-elem-quote">
-<%--    layDate 是目前 layui 独立维护的三大组件（即：layer、layim、layDate）之一。在 layui 2.0 的版本中，layDate 完成了一次巨大的逆袭。--%>
-    <a class="layui-btn layui-btn-normal" href="http://www.layui.com/laydate/" target="_blank">layDate官网</a>
-</blockquote>
 <div class="layui-container" style="margin-top: 15px">
     <table class="layui-hide" id="test" lay-filter="test"></table>
 </div>
@@ -110,13 +104,16 @@
     <div class="layui-btn-container">
         <button class="layui-btn layui-btn-sm" lay-event="addTeacher">添加教练</button>
         <button class="layui-btn layui-btn-sm" lay-event="findTeacher">查询</button>
+        <button class="layui-btn layui-btn-sm" lay-event="noRegistration">禁止学员报名</button>
+        <button class="layui-btn layui-btn-sm" lay-event="findTeacher">账号锁定</button>
     </div>
 </script>
 
 <script type="text/html" id="barDemo">
-
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="noRegistration">禁止学员报名</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="accountLock">账号锁定</a>
 
 </script>
 
@@ -147,7 +144,7 @@
                 ,{field:'tLicenseTime', title:'获取驾照时间'}
                 ,{field:'tLimit', title:'本月限制通过学员人数'}
                 ,{title:'所属驾校名',templet:'<div>{{d.school.sName}}</div>'}
-                ,{fixed: 'right', title:'操作', toolbar: '#barDemo'}
+                ,{fixed: 'right', title:'操作', toolbar: '#barDemo',width: 400}
             ]]
             ,page: {limit: 5,//指定每页显示的条数
                 limits: [5, 10, 15, 20,
@@ -195,11 +192,6 @@
                  });
                  break;
 
-                //自定义头工具栏右侧图标 - 提示
-                case 'LAYTABLE_TIPS':
-                    layer.alert('这是工具栏右侧自定义的一个图标按钮');
-                    break;
-
             };
 
         });
@@ -208,7 +200,6 @@
         table.on('tool(test)', function(obj){
             var $ = layui.jquery;
             var data = obj.data
-            alert(JSON.stringify(data.tId));
             var tId = data.tId;
             if(obj.event === 'del'){
                 layer.confirm('真的删除行么',{
@@ -272,7 +263,57 @@
                         return false;
                     });
                 });
+            }else if (obj.event === 'noRegistration'){
+                layer.confirm('真的锁定此账号么',{
+                    btn:["确定","取消"],
+                    btn2:function (index) {
+                        layer.close(index);
+                    },
+                    btn1:function () {
+                        $.ajax({
+                            type: 'POST',
+                            url: '/teacherController/updateTeacherApplyState',
+                            dataType: 'JSON',
+                            data: {
+                                tId: data.tId,
+                            },
+                            success: function (msg) {
+                                if (msg.code == 1) {
+                                    layer.msg("禁止报名成功");
+                                } else {
+                                    layer.msg("未找到教练相关信息");
+                                }
+                            }
+                        });
+                    }
+                    });
+            }else if (obj.event === 'accountLock'){
+                    layer.confirm('真的锁定此账号么',{
+                            btn:["确定","取消"],
+                            btn2:function (index) {
+                                layer.close(index);
+                            },
+                            btn1:function () {
+                                $.ajax({
+                                    type: 'POST',
+                                    url: '/teacherController/updateTeacherAccountLockState',
+                                    dataType: 'JSON',
+                                    data:{
+                                        tId:data.tId
+                                    },
+                                    success: function (msg) {
+                                        if(msg.code==1){
+                                            layer.msg("您已成功锁定该教练账号,该教练下的学员需要您重新分配教练");
+                                        }else{
+                                            layer.msg("未找到该教练信息");
+                                        }
+                                    }
+                                });
+                            }
+                        }
+                    );
             }
+
         });
     });
     //

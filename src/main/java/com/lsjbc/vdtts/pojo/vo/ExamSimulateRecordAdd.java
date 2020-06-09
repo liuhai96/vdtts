@@ -1,10 +1,15 @@
 package com.lsjbc.vdtts.pojo.vo;
 
+import com.lsjbc.vdtts.entity.ExamError;
 import com.lsjbc.vdtts.entity.ExamSimulateRecord;
 import lombok.*;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @ClassName: ExamSimulateRecordAdd
@@ -18,6 +23,7 @@ import javax.validation.constraints.Min;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Slf4j
 public class ExamSimulateRecordAdd {
 
     /**
@@ -39,12 +45,49 @@ public class ExamSimulateRecordAdd {
     private Integer level;
 
     /**
+     * 错题ID集合
+     */
+//    private List<Integer> errorQuestions;
+    private Integer[] errorQuestions;
+
+    /**
+     * 返回ExamError错题集合
+     *
+     * @param record 考试记录(主键不得为空的考试记录)
+     * @return 错题集合
+     */
+    public List<ExamError> createErrorList(ExamSimulateRecord record) {
+
+//        if(errorQuestions==null||errorQuestions.size()==0){
+//            return new ArrayList<>();
+//        }
+
+        if(errorQuestions==null||errorQuestions.length==0){
+            return new ArrayList<>();
+        }
+
+        List<ExamError> examErrors = new ArrayList<>(0);
+        try {
+//            examErrors = errorQuestions.stream().map(item -> {
+//                return ExamError.builder().eeRecordId(record.getEsrId()).eeQuestionId(item).build();
+//            }).collect(Collectors.toList());
+            for(int index = 0;index<errorQuestions.length;index++){
+                examErrors.add(ExamError.builder().eeRecordId(record.getEsrId()).eeQuestionId(errorQuestions[index]).build());
+            }
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return new ArrayList<>(0);
+        }
+        return examErrors;
+    }
+
+    /**
      * 根据现有对象，创建出一个ExamSimulateRecord对象
      *
      * @return ExamSimulateRecord对象
      * @author JX181114 --- 郑建辉
      */
-    public ExamSimulateRecord createBean() {
+    public ExamSimulateRecord createRecord() {
         return ExamSimulateRecord.builder().esrLevel(this.level).esrStudentId(this.studentId).esrScore(this.score).build();
     }
 }

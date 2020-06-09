@@ -49,4 +49,32 @@
     <update id="updateTeacherInfo" parameterType="com.lsjbc.vdtts.entity.Teacher">
         update tb_teacher set t_phone = #{tPhone},t_limit=#{tLimit} where t_id = #{tId}
     </update>
+
+<!--    查询教练-->
+    <select id="findTeacher" parameterType="int" resultType="com.lsjbc.vdtts.entity.Teacher">
+        select * from tb_teacher where t_school_id = #{tSchoolId}
+    </select>
+
+    <update id="updateTeacherApplyState" parameterType="int">
+        update tb_teacher set t_teach = 'false' where t_id = #{tId}
+    </update>
+
+    <update id="updateTeacherAccountLockState" parameterType="int">
+        update tb_teacher set t_lock = 'false' where t_id = #{tId}
+    </update>
+
+    <!--    陈竑霖-->
+    <!--    教练表-->
+    <select id="teacherlist" resultType="com.lsjbc.vdtts.entity.Teacher">
+        select tea.*,sch.s_name schoolName from tb_teacher tea,tb_school sch where tea.t_school_id=sch.s_id
+        <if test="e.tName!=null and e.tName!=''"> and tea.t_name like concat('%',#{e.tName},'%')</if>
+        limit ${start},#{pageSize}
+    </select>
+    <!--分页-->
+    <select id="teacherlistcount"  resultType="int" parameterType="com.lsjbc.vdtts.entity.Teacher" >
+        select count(t_id) from tb_teacher
+        <where>
+            <if test="e.tName!=null and e.tName!=''"> and t_name like concat('%',#{e.tName},'%')</if>
+        </where>
+    </select>
 </mapper>
