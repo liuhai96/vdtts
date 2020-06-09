@@ -8,25 +8,35 @@
 <!--        select admin_name as adminName,admin_pwd as adminPwd from tb_admin where admin_name =#{adminName}-->
 <!--         and admin_pwd =#{adminPwd}-->
 <!--    </select>-->
-
+    <!--  周永哲，学员信息初始化-->
     <select id="selectAllInfo" resultType="com.lsjbc.vdtts.entity.Student"  parameterType="com.lsjbc.vdtts.entity.Student">
-        select * from tb_student
+--         select a.*,b.s_name 'schoolName',c.t_name 'teacherName'from tb_student a left join tb_school b on a.s_school_id = b.s_id left join tb_teacher c on a.s_teacher_id = c.t_idselect * from tb_student
+--         select * from tb_student
+        select a.*,b.s_name school_name,c.t_name teacher_name from tb_student a
+        left join tb_school b on a.s_school_id = b.s_id
+        left join tb_teacher c on a.s_teacher_id = c.t_id
         <where>
-            <if test="student.studentName!=null and tba.studentName!=''">
-                and s_name like CONCAT('%', #{student.studentName} ,'%')
+            <if test="student.sName!=null and student.sName!=''">
+                and a.s_name like CONCAT('%', #{student.sName} ,'%')
             </if>
         </where>
         limit #{page},#{limit}
     </select>
 
+    <!--  周永哲，统计学员信息条数-->
     <select id="selectCount" resultType="int"  parameterType="com.lsjbc.vdtts.entity.Student">
         select count(*) from tb_student
         <where>
-            <if test="student.studentName!=null and tba.studentName!=''">
-                and s_name like CONCAT('%', #{student.studentName} ,'%')
+            <if test="student.sName!=null and student.sName!=''">
+                and s_name like CONCAT('%', #{student.sName} ,'%')
             </if>
         </where>
     </select>
+
+    <!--  周永哲，学员重置密码-->
+    <update id="resetPwd" parameterType="com.lsjbc.vdtts.entity.Account">
+        update tb_account set a_password = '1234' where a_id = #{aAccount}
+    </update>
 
     <insert id="insertstudent"  parameterType="com.lsjbc.vdtts.entity.Student">
          insert into tb_student(s_name,s_pwd,s_id) values (#{sName},#{sPwd},#{sId})

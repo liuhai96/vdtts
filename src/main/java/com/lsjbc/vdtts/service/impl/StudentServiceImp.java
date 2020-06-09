@@ -14,8 +14,6 @@ public class StudentServiceImp implements StudentService
 {
 	@Autowired
     public StudentMapper studentMapper;
-
-	@Override
 	/**
 	 * student 里面所有的属性将会作为查询条件
 	 * page 要查询的特定页数
@@ -24,11 +22,36 @@ public class StudentServiceImp implements StudentService
 	 * List<Student 最终返回的查询结果
 	 * @author  周永哲
 	 */
+	@Override
 	public List<Student> selectAllInfo(Student student, int page, int limit) {
 		List<Student> selectAllInfo =studentMapper.selectAllInfo(student,page,limit);
 		return selectAllInfo;
 	}
+	/*
+	 *@Description:
+	 *@Author:周永哲
+	 *@Param:
+	 *@return:
+	 *@Date:2020/6/8 15860799877
+	 **/
+	@Override
+	public int selectCount(Student student) {
+		int selectCount = studentMapper.selectCount(student);
+		return selectCount;
+	}
 
+	/*
+	 *@Description:
+	 *@Author:周永哲
+	 *@Param:
+	 *@return:
+	 *@Date:2020/6/8 15860799877
+	 **/
+	@Override
+	public int resetPwd(String studentId) {
+		int resetPwd = studentMapper.resetPwd(studentId);
+		return resetPwd;
+	}
 	@Override
 	public int insertstudent(Student student) {
 		int inserttudent = studentMapper.insertstudent(student);
@@ -41,11 +64,7 @@ public class StudentServiceImp implements StudentService
 		return updatestudent;
 	}
 
-	@Override
-	public int selectCount(Student student) {
-		int selectCount = studentMapper.selectCount(student);
-		return selectCount;
-	}
+
 
 	@Override
 	public int deletestudent(Student student) {

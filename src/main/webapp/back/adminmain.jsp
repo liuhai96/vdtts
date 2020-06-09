@@ -1,10 +1,4 @@
-/*
-*@Description:
-*@Author:周永哲
-*@Param:
-*@return:
-*@Date:2020/6/8 15860799877
-**/
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%String path = request.getContextPath();%>
 <!DOCTYPE html>
@@ -13,9 +7,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>驾校后台管理端</title>
-    <link rel="stylesheet" href=<%=path+"/layui/css/layui.css"%>>
-    <script type="text/javascript" src=<%=path+"/layui/layui.js"%>></script>
-
+    <link rel="stylesheet" href=<%=path+"/static/layui/css/layui.css"%>>
+    <script type="text/javascript" src=<%=path+"/static/layui/layui.js"%>></script>
+    <style>
+    </style>
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
@@ -55,31 +50,14 @@
         <div class="layui-side-scroll">
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
             <ul class="layui-nav layui-nav-tree"  lay-filter="test">
-<%--                <li class="layui-nav-item layui-nav-itemed">--%>
-<%--                    <a class="" href="javascript:;">个人信息</a>--%>
-<%--                    <dl class="layui-nav-child">--%>
-<%--                        <dd><a href="javascript:;"title="fontlogin.jsp" onclick="changepath(this)" target="okframe">我的信息</a></dd>--%>
-<%--                        <dd><a href="register.jsp;" target="okframe">我的文档</a></dd>--%>
-<%--                        <dd><a href="javascript:;">我的积分</a></dd>--%>
-<%--&lt;%&ndash;                        <dd><a href="">超链接</a></dd>&ndash;%&gt;--%>
-<%--                    </dl>--%>
-<%--                </li>--%>
-<%--                <li class="layui-nav-item">--%>
-<%--                    <a href="javascript:;">文档中心</a>--%>
-<%--                    <dl class="layui-nav-child">--%>
-<%--                        <dd><a href="javascript:;">上传文档</a></dd>--%>
-<%--                        <dd><a href="javascript:;">下载文档</a></dd>--%>
-<%--&lt;%&ndash;                        <dd><a href="">超链接</a></dd>&ndash;%&gt;--%>
-<%--                    </dl>--%>
-<%--                </li>--%>
-                <li class="layui-nav-item">
+                <li class="layui-nav-item layui-nav-itemed">
                     <a href="javascript:;">日常工作</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="adminmanage.jsp;" target="okframe">学员管理</a></dd>
-                        <dd><a href="adminmanage.jsp;" target="okframe">驾校管理</a></dd>
-                        <dd><a href="adminmanage.jsp;" target="okframe">教练车管理</a></dd>
-                        <dd><a href="adminmanage.jsp;" target="okframe">教练管理</a></dd>
-                        <dd><a href="adminmanage.jsp;" target="okframe">题库管理</a></dd>
+                        <dd><a href="studentmanage.jsp;" target="okframe">学员管理</a></dd>
+                        <dd><a href="studentmanage.jsp;" target="okframe">驾校管理</a></dd>
+                        <dd><a href="studentmanage.jsp;" target="okframe">教练车管理</a></dd>
+                        <dd><a href="studentmanage.jsp;" target="okframe">教练管理</a></dd>
+                        <dd><a href="studentmanage.jsp;" target="okframe">题库管理</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">

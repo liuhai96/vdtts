@@ -26,7 +26,7 @@ public class Student
 	/**
 	 *驾校ID
 	 */
-	private Integer sSchooleId;
+	private Integer sSchoolId;
 
 	/**
 	 *身份证号
@@ -82,7 +82,5 @@ public class Student
 	 *所属教练姓名
 	 */
 	private String teacherName;
-
-
 
 }

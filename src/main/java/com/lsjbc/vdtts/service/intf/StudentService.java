@@ -10,9 +10,10 @@ import java.util.List;
 @Service
 public interface StudentService {
     public List<Student> selectAllInfo(@Param("student") Student student, @Param("page") int page, @Param("limit") int limit);
+    public int selectCount(Student student);
+    public int resetPwd(String studentId);
     public int insertstudent(Student student);
     public int updatestudent(Student student);
-    public int selectCount(Student student);
     public int deletestudent(Student student);
 
     /*
