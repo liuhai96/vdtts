@@ -16,6 +16,14 @@ public class StudentServiceImp implements StudentService
     public StudentMapper studentMapper;
 
 	@Override
+	/**
+	 * student 里面所有的属性将会作为查询条件
+	 * page 要查询的特定页数
+	 * limit 每页条数
+	 *
+	 * List<Student 最终返回的查询结果
+	 * @author  周永哲
+	 */
 	public List<Student> selectAllInfo(Student student, int page, int limit) {
 		List<Student> selectAllInfo =studentMapper.selectAllInfo(student,page,limit);
 		return selectAllInfo;

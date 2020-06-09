@@ -2,22 +2,15 @@ package com.lsjbc.vdtts.entity;
 
 import lombok.*;
 
+/**
+ * 	学员表
+ */
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
 @Builder
-/*
- *@Description:
- *@Author:陈竑霖
- *@Param:
- *@return:
- *@Date:2020/6/8 1591588637630
- **/
-/**
- * 	学员表
- */
 public class Student
 {
 	/**
