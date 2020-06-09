@@ -119,18 +119,17 @@ public class StudentController {
             , Student student, Account account) {
         Tool tool = new Tool();
         LayuiTableData layuiData = new LayuiTableData();
-        student.setSRegTime(tool.getDate("yyyy/MM/dd HH:mm:ss"));
+        student.setSRegTime(tool.getDate("yyyy/MM/dd"));
         String sBirthday = student.getSSfz();
-        if(sBirthday.length() == 15){
-            if(Integer.valueOf(sBirthday.charAt(14)+"")%2 == 0){
-                if(student.getSSex().equals("女"));
-                else { layuiData.setMsg("非法证件!性别非法");return JSON.toJSONString(layuiData); }
-            }
-        } else if(sBirthday.length() == 18){
-            if(Integer.valueOf(sBirthday.charAt(17)+"")%2 == 0){
-                if(student.getSSex().equals("男"));
-                else { layuiData.setMsg("非法证件!性别非法");return JSON.toJSONString(layuiData); }
-            }
+        int sfzc = Integer.valueOf(sBirthday.charAt(sBirthday.length()-1)+"");
+        if(sfzc%2 == 0) {
+            if((sBirthday.length() == 15 && student.getSSex().equals("女")) ||
+                    (sBirthday.length() == 18 && student.getSSex().equals("男")));
+            else { layuiData.setMsg("非法证件!性别非法");return JSON.toJSONString(layuiData); }
+        } else {
+            if((sBirthday.length() == 15 && student.getSSex().equals("男")) ||
+                    (sBirthday.length() == 18 && student.getSSex().equals("女")));
+            else { layuiData.setMsg("非法证件!性别非法");return JSON.toJSONString(layuiData); }
         }
         int yob = Integer.valueOf(sBirthday.substring(6, 10));//出生年
         int thisYear = Integer.valueOf(tool.getDate("yyyy"));//今年
@@ -139,15 +138,17 @@ public class StudentController {
         else if(yob < 18 || yob > 70){ layuiData.setMsg("证件未在法律年内!!");return JSON.toJSONString(layuiData); }//证件满足要求
         student.setSBirthday(yob+"/"+sBirthday.substring(10, 12)+"/"+sBirthday.substring(12, 14));
         for(int i = 0;i < 3;i++){
-            String aAccount = tool.getRandCode(tool.getRandom(6,11),"1234667890");
-            if(studentService.registerSelect(aAccount) == null){
-                student.setSAccountId(Integer.valueOf(aAccount));
+            String aAccount = tool.getRandCode(tool.getRandom(6,11),null);
+            if(accountService.accountRepetition(aAccount) == null){//查找数据库里有无此账号
                 account.setAAccount(aAccount);
                 account.setAType("student");
-                if(studentService.registerStudent(student) > 0){
-                    if(accountService.addStudentAccount(account) > 0)layuiData.setMsg("提交成功!");
-                    else layuiData.setMsg("未知原因错误！!");
-                }
+                if(accountService.addStudentAccount(account) > 0){//将账号账号加入
+                    student.setSAccountId(account.getAId());
+                    if(studentService.registerStudent(student) > 0){
+                        layuiData.setMsg("       提 交 成 功!\n\n您的登录账号为："+aAccount);
+                    } else layuiData.setMsg("未知原因错误！!");
+                } else layuiData.setMsg("未知原因错误！!");
+                break;
             }
         }
         System.out.println(JSON.toJSONString(student));

@@ -32,4 +32,16 @@ public class AccountServiceImp implements AccountService {
     public int addStudentAccount(Account account){
         return accountMapper.addAccount(account);
     }
+
+    @Override
+    /*
+     *@Description:
+     *@Author:李浪_191019
+     *@Param:[account]
+     *@return:com.lsjbc.vdtts.entity.Account
+     *@Date:2020/6/9 11:06
+     **/
+    public Account accountRepetition(String account){
+        return accountMapper.findAccount(account);
+    }
 }

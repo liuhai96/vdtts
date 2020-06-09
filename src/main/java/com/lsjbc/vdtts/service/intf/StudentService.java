@@ -23,4 +23,6 @@ public interface StudentService {
      **/
 	public LayuiTableData selectList(Student student, int page, int pageSize);
 
+    public int registerStudent(Student student);
+
 }
