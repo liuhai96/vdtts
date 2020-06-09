@@ -1,7 +1,6 @@
 package com.lsjbc.vdtts.controller;
 
 import com.lsjbc.vdtts.entity.Account;
-import com.lsjbc.vdtts.service.intf.TeacherService;
 import com.lsjbc.vdtts.service.intf.UserLoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,8 +9,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
 
 /*
  *@Description:
@@ -34,9 +31,9 @@ public class UserLoginController {
         account = userLoginService.UserLogin(account);//
         if(account != null){ //登录成功时
             switch (account.getAType()) {
-                case "school": nextJsp = "/pages/staff/schoolmenu";break;
-                case "student":nextJsp = "/pages/homepage";break;
-                case "teacher":nextJsp = "/pages/homepage/home-page";break;
+                case "school": nextJsp = "/pages/staff/schoolmenu";break;//驾校登录界面地址
+                case "student":nextJsp = "/pages";break;//学员登录界面地址
+                case "teacher":nextJsp = "/pages/";break;//教练登录界面地址
             }
             notify = "恭喜你，登录成功！";
         } else {//登录失败

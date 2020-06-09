@@ -20,13 +20,23 @@ public class TeacherImpl implements TeacherService {
     @Resource
     private TeacherMapper teacherMapper;
     @Override
-    public int findTeacherCount(Integer tSchoolId) {
-        return teacherMapper.findTeacherCount(tSchoolId);
-    }
-
-    @Override
-    public ArrayList<Teacher> findTeacherList(int start, int pageSize, Integer tSchoolId) {
-        return teacherMapper.findTeacherList(start,pageSize,tSchoolId);
+    /*
+     *@Description:查询各个驾校的教练基本信息
+     *@Author:刘海
+     *@Param:[start, pageSize, tSchoolId]
+     *@return:com.lsjbc.vdtts.pojo.vo.LayuiTableData
+     *@Date:2020/6/8 19:02
+     **/
+    public LayuiTableData findTeacherList(int start, int pageSize, Integer tSchoolId) {
+        ArrayList<Teacher> teacherList = teacherMapper.findTeacherList(start,pageSize,tSchoolId);
+        System.out.println("teacherList>>>>>>"+teacherList);
+        int teachCount = teacherMapper.findTeacherCount(tSchoolId);
+        LayuiTableData layuiData = new LayuiTableData();
+        layuiData.setCode(0);
+        layuiData.setMsg("查询成功");
+        layuiData.setCount(teachCount);
+        layuiData.setData(teacherList);
+        return layuiData;//返回前端所需要的数据类型
     }
 
 
@@ -84,6 +94,43 @@ public class TeacherImpl implements TeacherService {
         } else {
             layuiTableData.setCode(1);
             layuiTableData.setMsg("查询失败");
+        }
+        return layuiTableData;
+    }
+
+    /*
+     *@Description:
+     *@Author:刘海
+     *@Param:[teacher]
+     *@return:
+     *@Date:2020/6/8 16:15
+     **/
+
+    @Override
+    public LayuiTableData deleteTeacher(int tId) {
+        LayuiTableData layuiTableData = new LayuiTableData();
+        Teacher teacher = teacherMapper.findAccountId(tId);
+        if(null!=teacher.getTAccountId()){
+            int num = teacherMapper.deleteTeacher(tId);
+            int num1 = accountMapper.deleteAccount(teacher.getTAccountId());
+            if(num>0&&num1>0){
+                layuiTableData.setCode(1);
+            }else{
+                layuiTableData.setCode(0);
+            }
+        }else{
+            layuiTableData.setCode(2);
+        }
+
+        return layuiTableData;
+    }
+
+    @Override
+    public LayuiTableData updateTeacherInfo(Teacher teacher) {
+        LayuiTableData layuiTableData = new LayuiTableData();
+        int num = teacherMapper.updateTeacherInfo(teacher);
+        if(num>0){
+            layuiTableData.setCode(1);
         }
         return layuiTableData;
     }

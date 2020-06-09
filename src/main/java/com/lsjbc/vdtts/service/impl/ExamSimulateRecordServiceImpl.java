@@ -2,6 +2,7 @@ package com.lsjbc.vdtts.service.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.lsjbc.vdtts.dao.ExamErrorDao;
 import com.lsjbc.vdtts.dao.ExamSimulateRecordDao;
 import com.lsjbc.vdtts.entity.ExamSimulateRecord;
 import com.lsjbc.vdtts.pojo.vo.ExamSimulateRecordAdd;
@@ -10,7 +11,6 @@ import com.lsjbc.vdtts.utils.CustomTimeUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * @ClassName: ExamSimulateRecordServiceImpl
@@ -28,6 +28,9 @@ public class ExamSimulateRecordServiceImpl implements ExamSimulateRecordService 
 
     @Resource(name = ExamSimulateRecordDao.NAME)
     private ExamSimulateRecordDao simulateRecordDao;
+
+    @Resource(name = ExamErrorDao.NAME)
+    private ExamErrorDao errorDao;
 
     /**
      * 根据VO对象，来生成一个新的模拟考试成绩记录
@@ -49,18 +52,34 @@ public class ExamSimulateRecordServiceImpl implements ExamSimulateRecordService 
     }
 
     /**
-     * 以学员ID，科目等级为搜索条件进行分页搜索模拟考试成绩
+     * 以学员ID，为搜索条件进行分页搜索模拟考试成绩
      *
      * @param studentId 学员ID
      * @param level     科目等级
-     * @param pageIndex 要查询的分页页数
+     * @param page      要查询的分页页数
+     * @param limit     要查询的单页数量
      * @return 分页信息
      * @author JX181114 --- 郑建辉
      */
     @Override
-    public Page<ExamSimulateRecord> getRecordByIdLevelAndPageIndex(Integer studentId, Integer level, Integer pageIndex) {
-        Page<ExamSimulateRecord> page = PageHelper.startPage(pageIndex,10,true);
-        simulateRecordDao.getByStudentIdAndLevel(studentId, level);
-        return page;
+    public Page<ExamSimulateRecord> getRecord(Integer studentId, Integer level, Integer page, Integer limit) {
+        Page<ExamSimulateRecord> pageResult = PageHelper.startPage(page,limit,true);
+        simulateRecordDao.getByStudentId(studentId,level);
+        return pageResult;
+    }
+
+    /**
+     * 根据模拟考试ID来删除记录
+     *
+     * @param id 主键
+     * @return 受影响条数
+     * @author JX181114 --- 郑建辉
+     */
+    @Override
+    public Integer deleteByRecordId(Integer id) {
+
+        errorDao.deleteByRecordId(id);
+        //功能还不完整，修改表之后需要把错题记录表中的数据也删除
+        return simulateRecordDao.deleteById(id);
     }
 }

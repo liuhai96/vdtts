@@ -3,6 +3,7 @@ package com.lsjbc.vdtts.api;
 import com.github.pagehelper.Page;
 import com.lsjbc.vdtts.entity.ExamSimulateRecord;
 import com.lsjbc.vdtts.pojo.vo.ExamSimulateRecordAdd;
+import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.pojo.vo.ResultData;
 import com.lsjbc.vdtts.service.impl.ExamSimulateRecordServiceImpl;
 import com.lsjbc.vdtts.service.intf.ExamSimulateRecordService;
@@ -29,19 +30,50 @@ public class ExamSimulateRecordApi {
      * 获取用户的模拟考试成绩
      *
      * @param studentId 学员ID
-     * @param level     科目等级
-     * @param pageIndex 指定页数
+     * @param page 指定页数
      * @return 每页10条的用户模拟考试成绩
      * @author JX181114 --- 郑建辉
      */
-    @GetMapping("record/{studentId}/{level}/{page}")
-    public Page<ExamSimulateRecord> getStudentSimulateScore(@PathVariable("studentId") Integer studentId, @PathVariable("level") Integer level, @PathVariable("page") Integer pageIndex) {
-        Page<ExamSimulateRecord> page = examSimulateRecordService.getRecordByIdLevelAndPageIndex(studentId, level, pageIndex);
+    @GetMapping("record/{studentId}")
+    public LayuiTableData getStudentSimulateScore(@PathVariable("studentId") Integer studentId, Integer level, Integer page, Integer limit) {
+        LayuiTableData tableData = new LayuiTableData();
 
-        page.getPages();//总页数
-        page.getPageSize();//每页数据
-        page.getTotal();//总记录数
-        return page;
+        try {
+            Page<ExamSimulateRecord> pageResult = examSimulateRecordService.getRecord(studentId, level, page, limit);
+
+            tableData.setCode(0);
+            tableData.setCount(pageResult.getTotal());
+            tableData.setData(pageResult.getResult());
+        } catch (Exception e){
+            tableData.setCode(-1);
+            tableData.setMsg(e.getMessage());
+        }
+
+        return tableData;
+    }
+
+    @DeleteMapping("record")
+    public ResultData delRecord(Integer recordId){
+
+        ResultData result = null;
+
+        try {
+            //根据返回的受影响条数来生成不同的返回值
+            Integer row = examSimulateRecordService.deleteByRecordId(recordId);
+
+            //返回1：正常
+            if (row == 1) {
+                result = ResultData.success();
+
+                //返回0：数据没有插入成功
+            } else if (row == 0) {
+                result = ResultData.error("删除失败，请重试");
+            }
+        } catch (Exception e) {
+            result = ResultData.error(e.getMessage());
+        }
+
+        return result;
     }
 
     /**

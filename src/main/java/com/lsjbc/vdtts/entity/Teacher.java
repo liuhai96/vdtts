@@ -83,8 +83,9 @@ public class Teacher
 	 */
 	private School school;
 
+	private Account account;
 	/**
-	 *所属驾校名
+	 *教练所属的学校名
 	 */
 	private String sName;
 }

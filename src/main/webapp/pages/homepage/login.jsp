@@ -10,7 +10,7 @@
 <%
     String schoolName = null;//名称
     String path = request.getContextPath();
-    int type = 0;
+    int type = 1011010;
     try { type = Integer.parseInt(request.getParameter("type")); } catch (Exception e){}
     Cookie[] cookies = request.getCookies();
     for (Cookie cookie:cookies)
@@ -38,7 +38,7 @@
             <div class="layui-col-md-offset9" style="font-size: 18px;">
                 <a href="<%=path+"/pages/homepage/home-page.jsp"%>" style="color: #2aa8ff">首页</a>&nbsp;|
                 <a href="<%=path%>" style="color: #ffb840;background-color: #528bff">登录</a>&nbsp;|
-                <a href="<%=path+"/pages/homepage/"%>" style="color: #2aa8ff">注册</a>
+                <a href="<%=path+"/pages/homepage/register.jsp"%>" style="color: #2aa8ff">注册</a>
             </div>
         </div>
         <div class="layui-col-md3 layui-col-md-offset7" style="height: 70%;text-align: center;background: rgba(82,139,255,0.3);">
@@ -53,7 +53,7 @@
                 <label id="passNotify" style="color:#ff0a29;text-align: left;"></label>
                 <br><br>
                 <a href="" class="layui-col-md-offset6" style="color:#229bff;">忘记密码</a>|
-                <a href="" style="color:#229bff;">快速注册</a><br><br><br>
+                <a href="<%=path+"/pages/homepage/register.jsp"%>" style="color:#229bff;">快速注册</a><br><br><br>
 
                <input type="button" style="font-size: 25px" class="layui-btn layui-btn-normal"
                        value="&nbsp;&nbsp;登&nbsp;录&nbsp;&nbsp;" onclick="ToLogin()"><br><br><br>

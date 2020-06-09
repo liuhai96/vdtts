@@ -63,17 +63,40 @@ public class StudentServiceImp implements StudentService
 		List<Student> list = studentMapper.selectList(student, start, pageSize);
 		int count = studentMapper.selectListCount(student);
 
-		LayuiTableData layuiTableData = new LayuiTableData();
+        LayuiTableData layuiData = new LayuiTableData();
 		if (list.size() > 0) {
-			layuiTableData.setCode(0);
-			layuiTableData.setMsg("");
-			layuiTableData.setCount(count);
-			layuiTableData.setData(list);
+			layuiData.setCode(0);
+			layuiData.setMsg("");
+			layuiData.setCount(count);
+			layuiData.setData(list);
 			System.out.println(student);
 		} else {
-			layuiTableData.setCode(1);
-			layuiTableData.setMsg("查询失败");
+			layuiData.setCode(1);
+			layuiData.setMsg("查询失败");
 		}
-		return layuiTableData;
+		return layuiData;
 	}
+
+	@Override
+    public String registerSelect(String aAccount){
+        /*
+         *@Description:
+         *@Author:李浪_191019
+         *@Param:[aAccount]
+         *@return:java.lang.String
+         *@Date:2020/6/9 0:57
+         **/
+        return studentMapper.registerSelect(aAccount);
+    }
+    @Override
+    public int registerStudent(Student student){
+	    /*
+	     *@Description:
+	     *@Author:李浪_191019
+	     *@Param:[student]
+	     *@return:int
+	     *@Date:2020/6/9 1:27
+	     **/
+	    return studentMapper.addStudentMessage(student);
+    }
 }

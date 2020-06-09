@@ -32,17 +32,17 @@ public class SchoolServiceImp implements SchoolService
 		List<School> list = schoolMapper.schoolList(school, start, pageSize);
 		int count = schoolMapper.schoolcount(school);
 
-		LayuiTableData layuiTableData = new LayuiTableData();
+		LayuiTableData layuiData = new LayuiTableData();
 		if (list.size() > 0) {
-			layuiTableData.setCode(0);
-			layuiTableData.setMsg("");
-			layuiTableData.setCount(count);
-			layuiTableData.setData(list);
+			layuiData.setCode(0);
+			layuiData.setMsg("");
+			layuiData.setCount(count);
+			layuiData.setData(list);
 			System.out.println(school);
 		} else {
-			layuiTableData.setCode(1);
-			layuiTableData.setMsg("查询失败");
+			layuiData.setCode(1);
+			layuiData.setMsg("查询失败");
 		}
-		return layuiTableData;
+		return layuiData;
 	}
 }

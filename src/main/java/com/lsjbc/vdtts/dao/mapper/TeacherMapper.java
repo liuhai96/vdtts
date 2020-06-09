@@ -12,6 +12,9 @@ public interface TeacherMapper {
     public int findTeacherCount(@Param("tSchoolId") Integer tSchoolId);
     public ArrayList<Teacher> findTeacherList(@Param("start") int start,@Param("pageSize") int pageSize,@Param("tSchoolId") Integer tSchoolId);
     public int addTeacher(Teacher teacher);
+    public Teacher findAccountId(@Param("tId") int tId);
+    public int deleteTeacher(@Param("tId") int tId);
+    public int updateTeacherInfo(Teacher teacher);
 
     /*
      *@Description:
