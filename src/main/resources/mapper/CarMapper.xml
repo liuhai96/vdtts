@@ -19,4 +19,19 @@
         select * from tb_teacher where s_id = #{cTeacherId}
     </select>
 
+    <!--    陈竑霖-->
+    <!--    车辆表-->
+    <select id="finecarlist" resultType="com.lsjbc.vdtts.entity.Car">
+        select car.*,sch.s_name schoolName from tb_car car,tb_school sch
+         where car.c_school_id=sch.s_id
+        <if test="e.cNumber!=null and e.cNumber!=''"> and car.c_number like concat('%',#{e.cNumber},'%')</if>
+        limit ${start},#{pageSize}
+    </select>
+    <!--分页-->
+    <select id="carlistcount"  resultType="int" parameterType="com.lsjbc.vdtts.entity.Car" >
+    select count(c_id) from tb_car
+    <where>
+      <if test="e.cNumber!=null and e.cNumber!=''"> and c_number like concat('%',#{e.cNumber},'%')</if>
+    </where>
+    </select>
 </mapper>

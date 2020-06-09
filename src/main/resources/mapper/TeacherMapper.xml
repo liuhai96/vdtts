@@ -50,9 +50,8 @@
         update tb_teacher set t_phone = #{tPhone},t_limit=#{tLimit} where t_id = #{tId}
     </update>
 
-
-<!--    陈竑霖-->
-<!--    教练表-->
+    <!--    陈竑霖-->
+    <!--    教练表-->
     <select id="teacherlist" resultType="com.lsjbc.vdtts.entity.Teacher">
         select tea.*,sch.s_name schoolName from tb_teacher tea,tb_school sch where tea.t_school_id=sch.s_id
         <if test="e.tName!=null and e.tName!=''"> and tea.t_name like concat('%',#{e.tName},'%')</if>
