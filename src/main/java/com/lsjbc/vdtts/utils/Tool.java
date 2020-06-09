@@ -1,4 +1,4 @@
-package com.lsjbc.vdtts.tools;
+package com.lsjbc.vdtts.utils;
 
 import java.io.File;
 import java.io.FileInputStream;

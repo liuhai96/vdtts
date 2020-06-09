@@ -1,4 +1,5 @@
-<%@ page import="com.lsjbc.vdtts.tools.Tool" %><%--
+<%@ page import="com.lsjbc.vdtts.utils.Tool" %>
+<%--
   Created by IntelliJ IDEA.
   User: Lilang9725
   Date: 2020/6/5
@@ -51,7 +52,7 @@
                 <li class="layui-nav-item"><a href=""><i class="layui-icon" style="font-size:
                     22px; color: #FF5722;">&#xe6ed;</i>&nbsp;&nbsp;视频</a></li>
                 <c:if test="${resultData eq null}">
-                    <li class="layui-nav-item" style="float: right"><a href="">注册</a></li>|
+                    <li class="layui-nav-item" style="float: right"><a href="<%=path+"/pages/homepage/register.jsp"%>">注册</a></li>|
                     <li class="layui-nav-item layui-bg-blue" style="float: right" lay-unselect=""><a href="javascript:;">登录</a>
                         <dl class="layui-nav-child">
                             <dd><a href="<%=path+"/pages/homepage/login.jsp?type=1011010"%>">学员登录</a></dd>

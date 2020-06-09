@@ -2,17 +2,17 @@ package com.lsjbc.vdtts.service.impl;
 
 import com.lsjbc.vdtts.entity.Student;
 import com.lsjbc.vdtts.dao.mapper.StudentMapper;
+import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.service.intf.StudentService;
-import com.lsjbc.vdtts.pojo.vo.LayuiData;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
-@SuppressWarnings("all")
+//@SuppressWarnings("all")
 @Service("studentService")
 public class StudentServiceImp implements StudentService
 {
-	@Autowired
+	@Resource
     public StudentMapper studentMapper;
 
 	@Override
@@ -55,7 +55,7 @@ public class StudentServiceImp implements StudentService
 	 *@Date:2020/6/8 1591587038161
 	 **/
 	@Override
-	public LayuiData selectList(Student student, int page, int pageSize) {
+	public LayuiTableData selectList(Student student, int page, int pageSize) {
 		int start = (page - 1) * pageSize;//计算出起始查询位置
 		if(start<0){
 			start=0;
@@ -63,7 +63,7 @@ public class StudentServiceImp implements StudentService
 		List<Student> list = studentMapper.selectList(student, start, pageSize);
 		int count = studentMapper.selectListCount(student);
 
-		LayuiData layuiData = new LayuiData();
+        LayuiTableData layuiData = new LayuiTableData();
 		if (list.size() > 0) {
 			layuiData.setCode(0);
 			layuiData.setMsg("");
@@ -76,4 +76,27 @@ public class StudentServiceImp implements StudentService
 		}
 		return layuiData;
 	}
+
+	@Override
+    public String registerSelect(String aAccount){
+        /*
+         *@Description:
+         *@Author:李浪_191019
+         *@Param:[aAccount]
+         *@return:java.lang.String
+         *@Date:2020/6/9 0:57
+         **/
+        return studentMapper.registerSelect(aAccount);
+    }
+    @Override
+    public int registerStudent(Student student){
+	    /*
+	     *@Description:
+	     *@Author:李浪_191019
+	     *@Param:[student]
+	     *@return:int
+	     *@Date:2020/6/9 1:27
+	     **/
+	    return studentMapper.addStudentMessage(student);
+    }
 }

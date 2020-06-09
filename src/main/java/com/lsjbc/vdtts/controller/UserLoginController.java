@@ -34,9 +34,9 @@ public class UserLoginController {
         account = userLoginService.UserLogin(account);//
         if(account != null){ //登录成功时
             switch (account.getAType()) {
-                case "school": nextJsp = "/pages/staff/schoolmenu";break;
-                case "student":nextJsp = "/pages/homepage";break;
-                case "teacher":nextJsp = "/pages/homepage/home-page";break;
+                case "school": nextJsp = "/pages/staff/schoolmenu";break;//驾校登录界面地址
+                case "student":nextJsp = "/pages";break;//学员登录界面地址
+                case "teacher":nextJsp = "/pages/";break;//教练登录界面地址
             }
             notify = "恭喜你，登录成功！";
         } else {//登录失败
