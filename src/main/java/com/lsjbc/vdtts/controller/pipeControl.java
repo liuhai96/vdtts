@@ -3,7 +3,7 @@ package com.lsjbc.vdtts.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.lsjbc.vdtts.entity.Student;
-import com.lsjbc.vdtts.pojo.vo.LayuiData;
+import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.service.intf.StudentService;
 import com.lsjbc.vdtts.service.intf.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +46,7 @@ public class pipeControl
 			Student student = new Student();
 			student.setSName(sName);
 			student.setSLicenseTime(sLicenseTime);
-			LayuiData layuiData = studentService.selectList(student, Integer.parseInt(pageStr), Integer.parseInt(pageSizeStr));
+			LayuiTableData layuiData = studentService.selectList(student, Integer.parseInt(pageStr), Integer.parseInt(pageSizeStr));
 			return JSON.toJSONString(layuiData);
 		}
 //	//教练表查看

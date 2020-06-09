@@ -2,44 +2,37 @@ package com.lsjbc.vdtts.entity;
 
 import lombok.*;
 
+import javax.persistence.*;
+
+/**
+ * 错题记录表
+ */
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
 @Builder
-/**
- * 错题记录表
- */
+@Table(name = "`tb_exam_error`")
 public class ExamError
 {
 	/**
 	 * 主键
 	 */
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "`ee_id`")
 	private Integer eeId;
 
 	/**
-	 *学员ID
+	 * 模拟考试记录ID
 	 */
-	private Integer eeStudentId;
+	@Column(name = "`ee_record_id`")
+	private Integer eeRecordId;
 
 	/**
 	 *错题ID
 	 */
+	@Column(name = "`ee_question_id`")
 	private Integer eeQuestionId;
-
-	/**
-	 *正确答案ID
-	 */
-	private Integer eeAnswerRightId;
-
-	/**
-	 *错误答案ID
-	 */
-	private Integer eeAnswerWrongId;
-
-	/**
-	 *错题产生时间
-	 */
-	private String eeTime;
 }
