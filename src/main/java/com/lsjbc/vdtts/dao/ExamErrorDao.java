@@ -4,8 +4,10 @@ import com.lsjbc.vdtts.dao.mapper.BaseDao;
 import com.lsjbc.vdtts.dao.mapper.ExamErrorMapper;
 import com.lsjbc.vdtts.entity.ExamError;
 import org.springframework.stereotype.Repository;
+import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @ClassName: ExamErrorDao
@@ -30,6 +32,35 @@ public class ExamErrorDao implements BaseDao<ExamError> {
      */
     public Integer deleteByRecordId(Integer recordId) {
         return mapper.delete(ExamError.builder().eeRecordId(recordId).build());
+    }
+
+    /**
+     * 根据考试记录来查询错题
+     *
+     * @param recordId 考试记录ID
+     * @return 错题集合
+     */
+    public List<ExamError> getByRecordId(Integer recordId) {
+        Example example = new Example(ExamError.class);
+        Example.Criteria criteria = example.createCriteria();
+
+        criteria.andEqualTo("eeRecordId", recordId);
+        return mapper.selectByExample(example);
+    }
+
+    /**
+     * 批量插入
+     *
+     * @param list 要插入的记录集合
+     * @return 受影响条数
+     */
+    public Integer add(List<ExamError> list) {
+
+        if(list==null||list.size()==0){
+            return 0;
+        }
+
+        return mapper.insertList(list);
     }
 
     /**

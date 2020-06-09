@@ -72,10 +72,22 @@ public class ExamQuestionDao extends BaseRedisClient implements BaseDao<ExamQues
      *
      * @param id 主键
      * @return 对象
+     * @author JX181114 --- 郑建辉
      */
     @Override
     public ExamQuestion getById(Integer id) {
-        return null;
+
+        ExamQuestion object = getFromRedisById(id);
+
+        if(object!=null){
+            return object;
+        }
+
+        object = (ExamQuestion) mapper.selectByPrimaryKey(id);
+
+        setToRedisById(object);
+
+        return object;
     }
 
     /**

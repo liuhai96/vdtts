@@ -27,10 +27,10 @@ public class ExamSimulateRecordServiceImpl implements ExamSimulateRecordService 
     public static final String NAME = "ExamSimulateRecordService";
 
     @Resource(name = ExamSimulateRecordDao.NAME)
-    private ExamSimulateRecordDao simulateRecordDao;
+    private ExamSimulateRecordDao examSimulateRecordDao;
 
     @Resource(name = ExamErrorDao.NAME)
-    private ExamErrorDao errorDao;
+    private ExamErrorDao examErrorDao;
 
     /**
      * 根据VO对象，来生成一个新的模拟考试成绩记录
@@ -43,12 +43,18 @@ public class ExamSimulateRecordServiceImpl implements ExamSimulateRecordService 
     public Integer insertNewData(ExamSimulateRecordAdd object) {
 
         //根据现有的VO对象来生成一个新的记录
-        ExamSimulateRecord record = object.createBean();
+        ExamSimulateRecord record = object.createRecord();
 
         //将当前时间填入到记录中
         record.setEsrTime(CustomTimeUtils.getTime1());
 
-        return simulateRecordDao.add(record);
+        Integer row = examSimulateRecordDao.add(record);
+
+        if(row>=1){
+            examErrorDao.add(object.createErrorList(record));
+        }
+
+        return row;
     }
 
     /**
@@ -64,7 +70,7 @@ public class ExamSimulateRecordServiceImpl implements ExamSimulateRecordService 
     @Override
     public Page<ExamSimulateRecord> getRecord(Integer studentId, Integer level, Integer page, Integer limit) {
         Page<ExamSimulateRecord> pageResult = PageHelper.startPage(page,limit,true);
-        simulateRecordDao.getByStudentId(studentId,level);
+        examSimulateRecordDao.getByStudentId(studentId,level);
         return pageResult;
     }
 
@@ -78,8 +84,8 @@ public class ExamSimulateRecordServiceImpl implements ExamSimulateRecordService 
     @Override
     public Integer deleteByRecordId(Integer id) {
 
-        errorDao.deleteByRecordId(id);
+        examErrorDao.deleteByRecordId(id);
         //功能还不完整，修改表之后需要把错题记录表中的数据也删除
-        return simulateRecordDao.deleteById(id);
+        return examSimulateRecordDao.deleteById(id);
     }
 }

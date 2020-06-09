@@ -52,6 +52,12 @@ public class ExamSimulateRecordApi {
         return tableData;
     }
 
+    /**
+     * 用户删除模拟考试成绩
+     *
+     * @param recordId 模拟考试记录ID
+     * @return 删除结果
+     */
     @DeleteMapping("record")
     public ResultData delRecord(Integer recordId){
 
