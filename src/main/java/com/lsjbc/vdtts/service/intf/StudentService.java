@@ -13,8 +13,14 @@ public interface StudentService {
     public int updatestudent(Student student);
     public int selectCount(Student student);
     public int deletestudent(Student student);
+
+    /*
+     *@Description:
+     *@Author:陈竑霖
+     *@Param:
+     *@return:
+     *@Date:2020/6/8 1591600767377
+     **/
 	public LayuiTableData selectList(Student student, int page, int pageSize);
-    public String registerSelect(String aAccount);//ll
-    public int registerStudent(Student student);//ll
 
 }

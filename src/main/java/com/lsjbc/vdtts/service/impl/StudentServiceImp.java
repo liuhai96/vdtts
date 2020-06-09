@@ -4,15 +4,15 @@ import com.lsjbc.vdtts.entity.Student;
 import com.lsjbc.vdtts.dao.mapper.StudentMapper;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.service.intf.StudentService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.List;
-//@SuppressWarnings("all")
+@SuppressWarnings("all")
 @Service("studentService")
 public class StudentServiceImp implements StudentService
 {
-	@Resource
+	@Autowired
     public StudentMapper studentMapper;
 
 	@Override

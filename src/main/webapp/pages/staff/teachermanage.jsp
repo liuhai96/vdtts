@@ -71,6 +71,40 @@
         </div>
     </div>
 </form>
+<form id="updateTeacher" style="display: none" class="layui-form">
+    <div class="layui-form-item" style="display:none" >
+        <label class="layui-form-label" >教练Id</label>
+        <div class="layui-input-inline">
+            <input id="teacherId" type="text" name="tId" required  lay-verify="required" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item" id="account_div">
+    <label class="layui-form-label">账号</label>
+    <label class="layui-form-label" id="account"></label>
+    </div>
+    <div class="layui-form-item" id="name_div">
+        <label class="layui-form-label">姓名</label>
+        <label class="layui-form-label" id="name"></label>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">电话</label>
+        <div class="layui-input-inline">
+            <input type="text" name="tPhone" required  lay-verify="required" placeholder="请输入电话" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">修改本月限制人数</label>
+        <div class="layui-input-inline">
+            <input type="text"  name="tLimit" required  lay-verify="required" placeholder="请输修改数量" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo2">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
 
 <script type="text/html" id="toolbarDemo">
     <div class="layui-btn-container">
@@ -80,8 +114,10 @@
 </script>
 
 <script type="text/html" id="barDemo">
+
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+
 </script>
 
 
@@ -102,11 +138,15 @@
             ,cols: [[
                 {type: 'checkbox', fixed: 'left'}
                 ,{field:'tId', title:'ID', width:80, fixed: 'left', unresize: true, sort: true}
+                ,{title:'账号',templet: '<div>{{d.account.aAccount}}</div>'}
                 ,{field:'tName', title:'姓名', edit: 'text'}
                 ,{field:'tSfz', title:'身份证号'}
                 ,{field:'tSex', title:'性别'}
-                ,{title:'所属驾校名',templet: '<div>{{d.school.sName}}</div>'}
-
+                ,{field:'tBirthday', title:'生日'}
+                ,{field:'tPhone', title:'电话'}
+                ,{field:'tLicenseTime', title:'获取驾照时间'}
+                ,{field:'tLimit', title:'本月限制通过学员人数'}
+                ,{title:'所属驾校名',templet:'<div>{{d.school.sName}}</div>'}
                 ,{fixed: 'right', title:'操作', toolbar: '#barDemo'}
             ]]
             ,page: {limit: 5,//指定每页显示的条数
@@ -120,7 +160,7 @@
                         var $ = layui.jquery;
                         switch(obj.event){
                             case 'addTeacher':
-                                layer.open({
+                              var index =   layer.open({
                                     type: 1,
                                     area:["400","300px"],
                                     skin: 'layui-layer-rim',
@@ -167,20 +207,47 @@
         //监听行工具事件
         table.on('tool(test)', function(obj){
             var $ = layui.jquery;
-            var data = obj.data;
-            //console.log(obj)
+            var data = obj.data
+            alert(JSON.stringify(data.tId));
+            var tId = data.tId;
             if(obj.event === 'del'){
-                layer.confirm('真的删除行么', function(index){
-                    obj.del();
-                    layer.close(index);
-                });
+                layer.confirm('真的删除行么',{
+                    btn:["确定","取消"],
+                    btn2:function (index) {
+                        alert(data.tId);
+                        layer.close(index);
+                    },
+                    btn1:function () {
+                       $.ajax({
+                           type: 'POST',
+                           url: '/teacherController/deleteTeacher',
+                           dataType: 'JSON',
+                           data:{
+                               tId:tId
+                           },
+                           success: function (msg) {
+                               if(msg.code==1){
+                                   layer.msg("您已成功删除该教练信息");
+                               }else if(msg.code==0 ){
+                                   layer.msg("删除失败");
+                               }else{
+                                   layer.msg("该教练的账号信息不存在");
+                               }
+                           }
+                       });
+                    }
+                    }
+                );
             } else if(obj.event === 'edit'){
-                layer.open({
+                $("#account").html(data.account.aAccount);
+                $("#name").html(data.tName);
+                $("#teacherId").val(data.tId);
+                var index1 = layer.open({
                     type: 1,
                     area:["400","300px"],
                     skin: 'layui-layer-rim',
                     shadeClose: true,//点击其他地方关闭
-                    content:$("#addTeacher"),
+                    content:$("#updateTeacher"),
                     cancel:function (index) {
                         layer.close(index);
                     }
@@ -188,25 +255,20 @@
                 layui.use('form', function(){
                     var form = layui.form;
                     form.render();
-                    form.on('submit(demo1)', function(data){
+                    form.on('submit(demo2)', function(data){
                         $.ajax({
                             type: 'POST',
                             url: '/teacherController/updateTeacherInfo',
-                            dataType: 'JSON',
+                            dataType:'JSON',
                             data: data.field,
                             success: function (msg) {
                                 if (msg.code==1){
-                                    layer.alert("添加教练成功");
+                                    layer.alert("修改教练基本信息成功");
                                     $table.reload();
-                                }else if (msg.code==0 ) {
-                                    layer.alert("该账号已存在");
-                                }else{
-                                    layer.alert("添加教练失败");
                                 }
-                                layer.close(layer.index);
+                                layer.close(index1);
                             }
                         });
-
                         return false;
                     });
                 });

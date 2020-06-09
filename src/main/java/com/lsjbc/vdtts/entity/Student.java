@@ -8,6 +8,13 @@ import lombok.*;
 @NoArgsConstructor
 @ToString
 @Builder
+/*
+ *@Description:
+ *@Author:陈竑霖
+ *@Param:
+ *@return:
+ *@Date:2020/6/8 1591588637630
+ **/
 /**
  * 	学员表
  */

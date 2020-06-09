@@ -1,6 +1,7 @@
 package com.lsjbc.vdtts.pojo.vo;
 
 import com.lsjbc.vdtts.entity.ExamSimulateRecord;
+import lombok.*;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -11,6 +12,12 @@ import javax.validation.constraints.Min;
  * @Datetime: 2020/6/8   10:37
  * @Author: JX181114 - 郑建辉
  */
+@Getter
+@Setter
+@ToString
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class ExamSimulateRecordAdd {
 
     /**
@@ -38,6 +45,6 @@ public class ExamSimulateRecordAdd {
      * @author JX181114 --- 郑建辉
      */
     public ExamSimulateRecord createBean() {
-        return ExamSimulateRecord.builder().esrLevel(level).esrStudentId(studentId).esrScore(score).build();
+        return ExamSimulateRecord.builder().esrLevel(this.level).esrStudentId(this.studentId).esrScore(this.score).build();
     }
 }
