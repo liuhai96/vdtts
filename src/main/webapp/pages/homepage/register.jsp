@@ -188,7 +188,7 @@
                 AjaxTransfer("/StudentController/studentRegister","sName="+sName.val()+"&aPassword="+aPassword.val() +"&sSfz="+
                     sSfz.val()+"&sPhone="+ sPhone.val()+"&sSex="+sSex.val()+"&sPic=//t.cn/RCzsdCq",function (mag) {
                     alert(mag.msg);
-                    skipPage("/pages/homepage/register.jsp");
+                    // skipPage("/pages/homepage/register.jsp");
                 });
             }
         }
