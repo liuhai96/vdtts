@@ -39,11 +39,11 @@ public class StudentController {
         List<Student> list= studentService.selectAllInfo(student,page2, valueOf(limit));
         int count =studentService.selectCount(student);
         System.out.println("初始化操作--- list="+list+" count ="+count);
-        LayuiTableData layuiData = new LayuiTableData();
-        layuiData.setCode(0);
-        layuiData.setData(list);
-        layuiData.setCount(count);
-        return layuiData;
+        LayuiTableData LayuiTableData = new LayuiTableData();
+        LayuiTableData.setCode(0);
+        LayuiTableData.setData(list);
+        LayuiTableData.setCount(count);
+        return LayuiTableData;
     }
 
     @RequestMapping(value = "/insertstudent")//添加学员

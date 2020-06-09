@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 @Service
 @Transactional
-public class CarImpl implements CarService {
+public class CarServiceImpl implements CarService {
     @Autowired
     private CarMapper carMapper;
 
