@@ -9,6 +9,9 @@ public interface TeacherService {
     public LayuiTableData addTeacher(Teacher teacher, Account teacherAccount);
     public LayuiTableData deleteTeacher(int tId);
     public LayuiTableData updateTeacherInfo(Teacher teacher);
+    public LayuiTableData findTeacher( int tSchoolId);
+    public LayuiTableData updateTeacherApplyState(int tId);
+    public LayuiTableData updateTeacherAccountLockState(int tId);
 
     /*
      *@Description:

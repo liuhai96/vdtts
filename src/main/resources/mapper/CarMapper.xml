@@ -19,6 +19,24 @@
         select * from tb_teacher where s_id = #{cTeacherId}
     </select>
 
+
+    <select id="findCarManageList" parameterType="int" resultType="com.lsjbc.vdtts.entity.Car">
+        select c.*,t.t_name from tb_car c left join  tb_teacher t on c.c_teacher_id = t.t_id where c.c_school_id = #{cSchoolId}
+    </select>
+
+
+    <update id="updateCarInfo" parameterType="com.lsjbc.vdtts.entity.Car">
+        update tb_car set c_teacher_id = #{cTeacherId} where c_id = #{cId}
+    </update>
+
+    <delete id="deleteCar" parameterType="int">
+        delete from tb_car where c_id = #{cId}
+    </delete>
+
+    <insert id="addCar" parameterType="com.lsjbc.vdtts.entity.Car">
+        insert into tb_car(c_school_id, c_logo, c_model, c_color, c_number) values (#{cSchoolId},#{cLogo},#{cModel},#{cColor},#{cNumber})
+    </insert>
+
     <!--    陈竑霖-->
     <!--    车辆表-->
     <select id="finecarlist" resultType="com.lsjbc.vdtts.entity.Car">

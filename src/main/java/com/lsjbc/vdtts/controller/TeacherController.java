@@ -8,9 +8,8 @@ import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.service.intf.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -47,7 +46,6 @@ public class TeacherController {
   *@return:
   *@Date:2020/6/7 23:09
   **/
-
    @RequestMapping(value = "/addTeacher")
     public String addTeacher(Teacher teacher,Account teacherAccount){
         LayuiTableData LayuiTableData = teacherService.addTeacher(teacher,teacherAccount);
@@ -109,4 +107,20 @@ public class TeacherController {
         return JSON.toJSONString(layuiTableData);
     }
 
+
+
+   @RequestMapping(value = "/findTeacher")
+    public String findTeacher(){
+        return JSON.toJSONString(teacherService.findTeacher(1));
+    }
+
+    @RequestMapping(value = "/updateTeacherApplyState")
+    public Object updateTeacherApplyState(String tId){
+        return  JSON.toJSONString(teacherService.updateTeacherApplyState(Integer.parseInt(tId)));
+    }
+
+    @RequestMapping(value = "/updateTeacherAccountLockState")
+   public Object updateTeacherAccountLockState(String tId){
+        return  JSON.toJSONString(teacherService.updateTeacherAccountLockState(Integer.parseInt(tId)));
+    }
 }

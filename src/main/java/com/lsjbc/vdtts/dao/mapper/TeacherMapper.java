@@ -15,6 +15,9 @@ public interface TeacherMapper {
     public Teacher findAccountId(@Param("tId") int tId);
     public int deleteTeacher(@Param("tId") int tId);
     public int updateTeacherInfo(Teacher teacher);
+    public ArrayList<Teacher> findTeacher(@Param("tSchoolId") int tSchoolId);
+    public int updateTeacherApplyState(int tId);
+    public int updateTeacherAccountLockState(int tId);
 
     /*
      *@Description:

@@ -6,7 +6,6 @@ import com.lsjbc.vdtts.entity.Student;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.service.intf.AccountService;
 import com.lsjbc.vdtts.service.intf.StudentService;
-import com.lsjbc.vdtts.utils.Tool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
-import static java.lang.Integer.valueOf;
+import static java.lang.Integer.*;
 
 @RestController
 @RequestMapping("/StudentController")

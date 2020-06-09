@@ -54,17 +54,22 @@ public class Car
 	 * 	教练ID
 	 */
 	private Integer cTeacherId;
-	
+
 	/**
 	 * 所属驾校名
 	 */
 	private String schoolName;
-	
-	
+
+
 	/**
 	 * 教练
 	 */
 	private Teacher teacher;
 
-	
+
+
+	/**
+	 * 教练名字
+	 */
+	private String tName;
 }

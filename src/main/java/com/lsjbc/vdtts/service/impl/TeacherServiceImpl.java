@@ -126,11 +126,72 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
+    /*
+     *@Description:修改教练基本信息
+     *@Author:刘海
+     *@Param:[teacher]
+     *@return:com.lsjbc.vdtts.pojo.vo.LayuiTableData
+     *@Date:2020/6/9 15:26
+     **/
     public LayuiTableData updateTeacherInfo(Teacher teacher) {
         LayuiTableData layuiTableData = new LayuiTableData();
         int num = teacherMapper.updateTeacherInfo(teacher);
         if(num>0){
             layuiTableData.setCode(1);
+        }
+        return layuiTableData;
+    }
+
+    @Override
+    /*
+     *@Description:
+     *@Author:刘海
+     *@Param:[tSchoolId]
+     *@return:com.lsjbc.vdtts.pojo.vo.LayuiTableData
+     *@Date:2020/6/9 15:27
+     **/
+
+    public LayuiTableData findTeacher(int tSchoolId) {
+        LayuiTableData layuiTableData = new LayuiTableData();
+        ArrayList<Teacher> teacherList = teacherMapper.findTeacher(tSchoolId);
+        layuiTableData.setData(teacherList);
+        return layuiTableData;
+    }
+
+    @Override
+    /*
+     *@Description:
+     *@Author:刘海
+     *@Param:[cId]
+     *@return:com.lsjbc.vdtts.pojo.vo.LayuiTableData
+     *@Date:2020/6/9 21:39
+     **/
+    public LayuiTableData updateTeacherApplyState(int tId) {
+        LayuiTableData layuiTableData = new LayuiTableData();
+        int num = teacherMapper.updateTeacherApplyState(tId);
+        if(num>0){
+            layuiTableData.setCode(1);
+        }else{
+            layuiTableData.setCode(0);
+        }
+        return layuiTableData;
+    }
+
+    @Override
+    /*
+     *@Description:
+     *@Author:刘海
+     *@Param:[tId]
+     *@return:com.lsjbc.vdtts.pojo.vo.LayuiTableData
+     *@Date:2020/6/9 22:25
+     **/
+    public LayuiTableData updateTeacherAccountLockState(int tId) {
+        LayuiTableData layuiTableData = new LayuiTableData();
+        int num = teacherMapper.updateTeacherAccountLockState(tId);
+        if(num>0){
+            layuiTableData.setCode(1);
+        }else{
+            layuiTableData.setCode(0);
         }
         return layuiTableData;
     }

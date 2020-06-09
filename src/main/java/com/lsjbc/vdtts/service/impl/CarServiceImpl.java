@@ -18,22 +18,81 @@ public class CarServiceImpl implements CarService {
     private CarMapper carMapper;
 
 
+//
+//    @Override
+//    /*
+//     *@Description:查询加校内的教练车
+//     *@Author:刘海
+//     *@Param:[cSchoolId]
+//     *@return:com.lsjbc.vdtts.pojo.vo.LayuiTableData
+//     *@Date:2020/6/8 23:19
+//     **/
+//    public LayuiTableData findCarList(int start,int pageSize,int cSchoolId) {
+//        LayuiTableData layuiTableData = new LayuiTableData();
+//        int carCount = carMapper.findCarCount(cSchoolId);
+//       ArrayList<Car> carList = carMapper.findCarList(start,pageSize,cSchoolId);
+//        System.out.println("carList"+carList);
+//       layuiTableData.setCount(carCount);
+//       layuiTableData.setCode(0);
+//       layuiTableData.setData(carList);
+//        return layuiTableData;
+//    }
 
     @Override
     /*
-     *@Description:查询加校内的教练车
+     *@Description:查询教练车
      *@Author:刘海
-     *@Param:[cSchoolId]
+     *@Param:[start, pageSize, cSchoolId]
      *@return:com.lsjbc.vdtts.pojo.vo.LayuiTableData
-     *@Date:2020/6/8 23:19
+     *@Date:2020/6/9 14:35
      **/
-    public LayuiTableData findCarList(int start,int pageSize,int cSchoolId) {
+    public LayuiTableData findCarManageList(int start, int pageSize, int cSchoolId) {
         LayuiTableData layuiTableData = new LayuiTableData();
         int carCount = carMapper.findCarCount(cSchoolId);
-       ArrayList<Car> carList = carMapper.findCarList(start,pageSize,cSchoolId);
-       layuiTableData.setCount(carCount);
-       layuiTableData.setCode(0);
-       layuiTableData.setData(carList);
+        ArrayList<Car> carList = carMapper.findCarManageList(start,pageSize,cSchoolId);
+        System.out.println("carList"+carList);
+        layuiTableData.setCount(carCount);
+        layuiTableData.setCode(0);
+        layuiTableData.setData(carList);
+        return layuiTableData;
+    }
+
+    @Override
+    public LayuiTableData updateCarInfo(Car car) {
+        LayuiTableData layuiTableData = new LayuiTableData();
+        if(car.getCTeacherId()==0){
+            layuiTableData.setCode(0);
+        }else{
+            int num = carMapper.updateCarInfo(car);
+            if(num>0){
+                layuiTableData.setCode(1);
+            }else{
+                layuiTableData.setCode(2);
+            }
+
+        }
+        return layuiTableData;
+    }
+
+    @Override
+    public LayuiTableData deleteCar(int cId) {
+        LayuiTableData layuiTableData = new LayuiTableData();
+        int num = carMapper.deleteCar(cId);
+        if(num>0){
+            layuiTableData.setCode(1);
+        }else{
+            layuiTableData.setCode(0);
+        }
+        return layuiTableData;
+    }
+
+    @Override
+    public LayuiTableData addCar(Car car) {
+        LayuiTableData layuiTableData = new LayuiTableData();
+        int num = carMapper.addCar(car);
+        if(num>0){
+            layuiTableData.setCode(1);
+        }
         return layuiTableData;
     }
 

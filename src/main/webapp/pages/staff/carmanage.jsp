@@ -24,18 +24,78 @@
 <body>
 
 <table class="layui-hide" id="test" lay-filter="test"></table>
+<form action="" id="updateTeacher" style="display: none" class="layui-form">
+    <div class="layui-form-item" id="account_div">
+        <label class="layui-form-label">车牌号</label>
+        <label class="layui-form-label" id="carNumber"></label>
+    </div>
+    <div class="layui-form-item" id="name_div">
+        <label class="layui-form-label">车品牌</label>
+        <label class="layui-form-label" id="carLogo"></label>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">教练</label>
+        <div class="layui-input-block">
+            <select name="interest" lay-filter="aihao"  id="teacherSelect">
+                <option value="0">请选择教练</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo2">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
+
+<form action="" id="addCar" style="display: none" class="layui-form">
+    <div class="layui-form-item">
+        <label class="layui-form-label">车品牌</label>
+        <div class="layui-input-inline">
+            <input type="text"  name="cLogo" required  lay-verify="required" placeholder="请输入车品牌" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">车牌号</label>
+        <div class="layui-input-inline">
+            <input type="text"  name="cNumber" required  lay-verify="required" placeholder="请输车牌号" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">车型</label>
+        <div class="layui-input-inline">
+            <input type="text" name="cModel" required  lay-verify="required" placeholder="请输入车型" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">车颜色</label>
+        <div class="layui-input-inline">
+            <input type="text" name="cColor" required  lay-verify="required" placeholder="请输入车颜色" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
 
 <script type="text/html" id="toolbarDemo">
     <div class="layui-btn-container">
-        <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
-        <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
-        <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
+        <button class="layui-btn layui-btn-sm" lay-event="addCar">添加教练车</button>
     </div>
 </script>
 
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    {{#  if(d.tName!=null){}}
+    <a class="layui-btn layui-btn-xs" lay-event="edit">更换教练</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    {{#  }else{}}
+    <a class="layui-btn layui-btn-xs" lay-event="edit">分配教练</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    {{#  } }}
 </script>
 
 
@@ -43,7 +103,7 @@
     layui.use('table', function(){
         var table = layui.table;
 
-        table.render({
+        var $table=table.render({
             elem: '#test'
             ,url:'/carControl/findCarList'
             ,toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
@@ -60,7 +120,8 @@
                 ,{field:'cModel', title:'车型', width:80, edit: 'text', sort: true}
                 ,{field:'cColor', title:'车辆颜色', width:100}
                 ,{field:'cNumber', title:'车牌号'}
-                ,{title:'所属教练',templet: '<div>{{d.teacher.tName}}</div>'}
+                ,{field:'tName', title:'分配教练'}
+                // ,{title:'所属教练',templet: '<div>{{d.teacher.tName}}</div>'}
                 ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:150}
             ]]
             ,page: {limit: 5,//指定每页显示的条数
@@ -71,18 +132,40 @@
         //头工具栏事件
         table.on('toolbar(test)', function(obj){
             var checkStatus = table.checkStatus(obj.config.id);
+             var $= layui.jquery;
             switch(obj.event){
-                case 'getCheckData':
+                case 'addCar':
                     var data = checkStatus.data;
-                    layer.alert(JSON.stringify(data));
-                    break;
-                case 'getCheckLength':
-                    var data = checkStatus.data;
-                    layer.msg('选中了：'+ data.length + ' 个');
-                    break;
-                case 'isAll':
-                    layer.msg(checkStatus.isAll ? '全选': '未全选');
-                    break;
+                    var index =   layer.open({
+                        type: 1,
+                        area:["400","300px"],
+                        skin: 'layui-layer-rim',
+                        shadeClose: true,//点击其他地方关闭
+                        content:$("#addCar"),
+                        cancel:function (index) {
+                            layer.close(index);
+                        }
+                    });
+                    layui.use('form', function(){
+                        var form = layui.form;
+                        form.on('submit(demo1)', function(data){
+                            $.ajax({
+                                type: 'POST',
+                                url: '/carControl/addCar',
+                                dataType: 'JSON',
+                                data: data.field,
+                                success: function (msg) {
+                                    if (msg.code==1){
+                                        layer.msg("添加教练车成功");
+                                        $table.reload();
+                                    }
+                                    layer.close(index);
+                                }
+                            });
+
+                            return false;
+                        });
+                    });
 
                 //自定义头工具栏右侧图标 - 提示
                 case 'LAYTABLE_TIPS':
@@ -94,21 +177,101 @@
         //监听行工具事件
         table.on('tool(test)', function(obj){
             var data = obj.data;
+            var $ = layui.jquery;
+            var teacherId="";
             //console.log(obj)
             if(obj.event === 'del'){
-                layer.confirm('真的删除行么', function(index){
-                    obj.del();
-                    layer.close(index);
+                var cId = data.cId;
+                layer.confirm('真的删除行么',{
+                    btn:["确定","取消"],
+                    btn2:function (index) {
+                        alert(data.tId);
+                        layer.close(index);
+                    },
+                    btn1:function () {
+                        $.ajax({
+                            type: 'POST',
+                            url: '/carControl/deleteCar',
+                            dataType: 'JSON',
+                            data:{
+                                cId:cId
+                            },
+                            success: function (msg) {
+                                if(msg.code==1){
+                                    layer.msg("您已成功删除该教练车信息");
+                                }else if(msg.code==0 ){
+                                    layer.msg("删除失败");
+                                }else{
+                                    layer.msg("该教练的账号信息不存在");
+                                }
+                            }
+                        });
+                        $table.reload();
+                    }
+
                 });
             } else if(obj.event === 'edit'){
-                layer.prompt({
-                    formType: 2
-                    ,value: data.email
-                }, function(value, index){
-                    obj.update({
-                        email: value
+                $("#carNumber").html(data.cNumber);
+                $("#carLogo").html(data.cLogo);
+                $.ajax({
+                    type: 'POST',
+                    url: '/teacherController/findTeacher',
+                    dataType: 'JSON',
+                    success: function (msg) {
+                       alert(JSON.stringify(msg.data));
+                       $.each(msg.data,function (i,item) {
+                           $("#teacherSelect").append("<option value='" + item.tId + "'>" + item.tName + "</option>");
+                       });
+                        layui.use('form',function(){
+                            var form = layui.form;
+                            form.render();
+                        });
+                    }});
+                var index1 = layer.open({
+                    type: 1,
+                    area:["500","400px"],
+                    skin: 'layui-layer-rim',
+                    shadeClose: true,//点击其他地方关闭
+                    content:$("#updateTeacher"),
+                    cancel:function (index) {
+                        layer.close(index);
+                    },
+                });
+                layui.use('form', function(){
+                    var form = layui.form
+                    var cId = data.cId;
+                    form.render();
+                    form.on('submit(demo2)', function(data){
+                        teacherId = $("#teacherSelect").val();
+                        layer.msg(teacherId);
+                        // layer.msg(data.cId);
+                        $.ajax({
+                            type: 'POST',
+                            url: '/carControl/updateCarInfo',
+                            dataType:'JSON',
+                            data:{
+                                cTeacherId:teacherId,
+                                cId:cId
+                            },
+                            success: function (msg) {
+                                if (msg.code==0){
+                                  layer.msg("请选择教练");
+                                }else if(msg.code==1){
+                                    layer.msg("修改成功");
+                                    layer.close(index1);
+                                    $table.reload();
+                                }else{
+                                    layer.msg("未找到该教练信息");
+                                    layer.close(index1);
+                                }
+                                layui.use('form',function(){
+                                    var form = layui.form;
+                                    form.render();
+                                });
+                            }
+                        });
+                        return false;
                     });
-                    layer.close(index);
                 });
             }
         });

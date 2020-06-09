@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.lsjbc.vdtts.entity.Car;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
+import com.lsjbc.vdtts.entity.Car;
 import com.lsjbc.vdtts.service.intf.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,7 +34,37 @@ public class CarControl {
 //        String tSchoolId = request.getParameter("tShoolId");//接收前端保存的驾校id
         int pageSize = Integer.parseInt(limit);
         int start = (Integer.parseInt(page)-1)*pageSize;//计算从数据库第几条开始查
-        return JSON.toJSONString(carService.findCarList(start,pageSize,1),SerializerFeature.DisableCircularReferenceDetect);
+        return JSON.toJSONString(carService.findCarManageList(start,pageSize,1),SerializerFeature.DisableCircularReferenceDetect);
+    }
+
+
+    /*
+     *@Description:修改教练车的信息
+     *@Author:刘海
+     *@Param:[car]
+     *@return:java.lang.String
+     *@Date:2020/6/9 19:49
+     **/
+    @RequestMapping(value = "/updateCarInfo")
+    public String updateCarInfo(Car car){
+        return JSON.toJSONString(carService.updateCarInfo(car));
+    }
+
+    /*
+     *@Description:
+     *@Author:刘海
+     *@Param:[cId]
+     *@return:java.lang.String
+     *@Date:2020/6/9 20:48
+     **/
+    @RequestMapping(value = "/deleteCar")
+    public  String deleteCar(int cId){
+        return JSON.toJSONString(carService.deleteCar(cId));
+    }
+
+    @RequestMapping(value = "/addCar")
+    public Object addCar(Car car){
+        return JSON.toJSONString(carService.addCar(car));
     }
 /*
  *@Description:
