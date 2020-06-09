@@ -72,8 +72,8 @@
 				{type: 'checkbox', fixed: 'left'}
 				,{field:'tId', title:'教练ID', width:115, fixed: 'left', unresize: true, sort: true}
 				,{field:'tName', title:'教练名字', width:130, edit: 'text'}
-				,{field:'schoolName', title:'所属驾校', width:150, edit: 'text'}
-				,{field:'tSfz', title:'教练身份证', width:130, sort: true}
+				,{field:'schoolName', title:'所属驾校', width:110, edit: 'text'}
+				,{field:'tSfz', title:'教练身份证', width:200, sort: true}
 				,{field:'tSex', title:'教练性别', width:115}
 				,{field:'tBirthday', title:'教练出生日期', width:150}
 				,{field:'tPhone', title:'教练电话', width:150}
@@ -82,8 +82,6 @@
 				,{field:'tLock', title:'是否允许登录', width:150}
 				,{field:'tCount', title:'本月毕业学员数', width:150}
 				,{field:'tLimit', title:'本月限制毕业学员数', width:150}
-				// ,{field:'teacherName', title:'所属驾校姓名', width:150}
-				// ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:150}
 			]]
 			,page: true
 		});
@@ -113,7 +111,7 @@
 		//表单查询
 		form.on('submit(search)',function (data) {
 
-			var sName = $("#sName").val();
+			var tName = $("#tName").val();
 			// var sSex=$("#sSex").val();
             // var sLicenseTime=$("#sLicenseTime").val();
 			tableinf.reload({
@@ -122,7 +120,7 @@
 					curr: 1 //重新从第 1 页开始
 				},
 				where:{
-					sName:sName
+					tName:tName
 					// ,sLicenseTime:sLicenseTime
 					// ,sSex:sSex
 				}
