@@ -54,17 +54,15 @@
 <!--    陈竑霖-->
 <!--    教练表-->
     <select id="teacherlist" resultType="com.lsjbc.vdtts.entity.Teacher">
-        select * from tb_teacher
-        <where>
-            <if test="e.sName!=null and e.sName!=''"> and s_name like concat('%',#{e.sName},'%')</if>
-        </where>
+        select tea.*,sch.s_name shoolName from tb_teacher tea,tb_school sch where tea.t_school_id=sch.s_id
+            <if test="e.tName!=null and e.tName!=''"> and tea.t_name like ctoncat('%',#{e.tName},'%')</if>
         limit ${start},#{pageSize}
     </select>
     <!--分页-->
     <select id="teacherlistcount"  resultType="int" parameterType="com.lsjbc.vdtts.entity.Teacher" >
         select count(t_id) from tb_teacher
         <where>
-            <if test="e.sName!=null and e.sName!=''"> and s_name like concat('%',#{e.sName},'%')</if>
+            <if test="e.tName!=null and e.tName!=''"> and t_name like concat('%',#{e.tName},'%')</if>
         </where>
     </select>
 </mapper>

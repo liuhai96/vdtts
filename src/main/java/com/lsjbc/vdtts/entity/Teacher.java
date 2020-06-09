@@ -79,13 +79,11 @@ public class Teacher
 	private String tLimit;
 
 	/**
-	 *教练对应的驾校
+	 *教练对应的驾校名
 	 */
-	private School school;
+	private School schoolName;
 
 	private Account account;
-	/**
-	 *教练所属的学校名
-	 */
+
 	private String sName;
 }
