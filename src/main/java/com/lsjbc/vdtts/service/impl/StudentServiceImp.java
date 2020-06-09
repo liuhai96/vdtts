@@ -76,4 +76,17 @@ public class StudentServiceImp implements StudentService
 		}
 		return layuiData;
 	}
+
+
+    @Override
+    /*
+     *@Description:
+     *@Author:李浪_191019
+     *@Param:[student]
+     *@return:int
+     *@Date:2020/6/9 1:27
+     **/
+    public int registerStudent(Student student){
+	    return studentMapper.addStudentMessage(student);
+    }
 }
