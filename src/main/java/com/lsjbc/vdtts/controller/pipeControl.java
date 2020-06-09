@@ -3,7 +3,7 @@ package com.lsjbc.vdtts.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.lsjbc.vdtts.entity.Student;
-import com.lsjbc.vdtts.pojo.vo.LayuiData;
+import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.service.intf.StudentService;
 import com.lsjbc.vdtts.service.intf.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,26 +46,11 @@ public class pipeControl
 			Student student = new Student();
 			student.setSName(sName);
 			student.setSLicenseTime(sLicenseTime);
-			LayuiData layuiData = studentService.selectList(student, Integer.parseInt(pageStr), Integer.parseInt(pageSizeStr));
-			return JSON.toJSONString(layuiData);
+			LayuiTableData layuiTableData = studentService.selectList(student, Integer.parseInt(pageStr), Integer.parseInt(pageSizeStr));
+			return JSON.toJSONString(layuiTableData);
 		}
 //	//教练表查看
-//	@RequestMapping(value = "/teacherList",produces = {"application/json;charset=UTF-8"})
-//	@ResponseBody
-//	public String teacherList(HttpServletRequest request, HttpServletResponse response) {
-//		String pageStr = request.getParameter("page");//页码
-//		String pageSizeStr = request.getParameter("limit");//每页记录数
-////		//查名字
-////		String sName = request.getParameter("sName");
-////		//查驾照时间
-////		String sLicenseTime=request.getParameter("sLicenseTime");
-//		String draw = request.getParameter("draw");//重绘次数 和前台对应
-//
-//		Student student = new Student();
-////		student.setSName(sName);
-////		student.setSLicenseTime(sLicenseTime);
-//		LayuiData layuiData = studentService.selectList(student, Integer.parseInt(pageStr), Integer.parseInt(pageSizeStr));
-//		return JSON.toJSONString(layuiData);
-//	}
+
+
 }
 

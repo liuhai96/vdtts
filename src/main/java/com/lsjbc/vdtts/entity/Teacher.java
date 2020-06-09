@@ -83,5 +83,8 @@ public class Teacher
 	 */
 	private School school;
 
+	/**
+	 *所属驾校名
+	 */
 	private String sName;
 }

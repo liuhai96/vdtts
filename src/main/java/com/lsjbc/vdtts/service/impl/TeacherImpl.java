@@ -4,14 +4,16 @@ import com.lsjbc.vdtts.dao.mapper.AccountMapper;
 import com.lsjbc.vdtts.dao.mapper.TeacherMapper;
 import com.lsjbc.vdtts.entity.Account;
 import com.lsjbc.vdtts.entity.Teacher;
-import com.lsjbc.vdtts.service.intf.TeacherService;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
+import com.lsjbc.vdtts.service.intf.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.List;
+
 @Service
 @Transactional
 public class TeacherImpl implements TeacherService {
@@ -55,5 +57,34 @@ public class TeacherImpl implements TeacherService {
             layuiData.setCode(0);
         }
         return layuiData;
+    }
+    /*
+     *@Description:
+     *@Author:陈竑霖
+     *@Param:
+     *@return:
+     *@Date:2020/6/8 1591587038161
+     **/
+    @Override
+    public LayuiTableData teacherList(Teacher teacher, int page, int pageSize) {
+        int start = (page - 1) * pageSize;//计算出起始查询位置
+        if(start<0){
+            start=0;
+        }
+        List<Teacher> list = teacherMapper.teacherlist(teacher, start, pageSize);
+        int count = teacherMapper.teacherlistcount(teacher);
+
+        LayuiTableData layuiTableData = new LayuiTableData();
+        if (list.size() > 0) {
+            layuiTableData.setCode(0);
+            layuiTableData.setMsg("");
+            layuiTableData.setCount(count);
+            layuiTableData.setData(list);
+            System.out.println(teacher);
+        } else {
+            layuiTableData.setCode(1);
+            layuiTableData.setMsg("查询失败");
+        }
+        return layuiTableData;
     }
 }

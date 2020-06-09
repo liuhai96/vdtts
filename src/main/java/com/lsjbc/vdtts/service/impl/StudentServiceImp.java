@@ -1,9 +1,9 @@
 package com.lsjbc.vdtts.service.impl;
 
-import com.lsjbc.vdtts.entity.Student;
 import com.lsjbc.vdtts.dao.mapper.StudentMapper;
+import com.lsjbc.vdtts.entity.Student;
+import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.service.intf.StudentService;
-import com.lsjbc.vdtts.pojo.vo.LayuiData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -55,7 +55,7 @@ public class StudentServiceImp implements StudentService
 	 *@Date:2020/6/8 1591587038161
 	 **/
 	@Override
-	public LayuiData selectList(Student student, int page, int pageSize) {
+	public LayuiTableData selectList(Student student, int page, int pageSize) {
 		int start = (page - 1) * pageSize;//计算出起始查询位置
 		if(start<0){
 			start=0;
@@ -63,17 +63,17 @@ public class StudentServiceImp implements StudentService
 		List<Student> list = studentMapper.selectList(student, start, pageSize);
 		int count = studentMapper.selectListCount(student);
 
-		LayuiData layuiData = new LayuiData();
+		LayuiTableData layuiTableData = new LayuiTableData();
 		if (list.size() > 0) {
-			layuiData.setCode(0);
-			layuiData.setMsg("");
-			layuiData.setCount(count);
-			layuiData.setData(list);
+			layuiTableData.setCode(0);
+			layuiTableData.setMsg("");
+			layuiTableData.setCount(count);
+			layuiTableData.setData(list);
 			System.out.println(student);
 		} else {
-			layuiData.setCode(1);
-			layuiData.setMsg("查询失败");
+			layuiTableData.setCode(1);
+			layuiTableData.setMsg("查询失败");
 		}
-		return layuiData;
+		return layuiTableData;
 	}
 }

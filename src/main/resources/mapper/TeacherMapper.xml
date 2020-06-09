@@ -29,4 +29,22 @@
     insert into tb_teacher(t_account_id, t_school_id, t_sfz, t_name, t_sex, t_birthday, t_phone,t_license_time)  values
     (#{tAccountId},#{tSchoolId},#{tSfz},#{tName},#{tSex},#{tBirthday},#{tPhone},#{tLicenseTime})
     </insert>
+
+
+<!--    陈竑霖-->
+<!--    教练表-->
+    <select id="teacherlist" resultType="com.lsjbc.vdtts.entity.Teacher">
+        select * from tb_teacher
+        <where>
+            <if test="e.sName!=null and e.sName!=''"> and s_name like concat('%',#{e.sName},'%')</if>
+        </where>
+        limit ${start},#{pageSize}
+    </select>
+    <!--分页-->
+    <select id="teacherlistcount"  resultType="int" parameterType="com.lsjbc.vdtts.entity.Teacher" >
+        select count(t_id) from tb_teacher
+        <where>
+            <if test="e.sName!=null and e.sName!=''"> and s_name like concat('%',#{e.sName},'%')</if>
+        </where>
+    </select>
 </mapper>
