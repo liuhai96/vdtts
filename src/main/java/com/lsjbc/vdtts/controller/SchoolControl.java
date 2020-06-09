@@ -31,7 +31,7 @@ public class SchoolControl {
 
 		School school = new School();
 		school.setSName(sName);
-		LayuiTableData layuiData = schoolService.schoolList(school, Integer.parseInt(pageStr), Integer.parseInt(pageSizeStr));
-		return JSON.toJSONString(layuiData);
+		LayuiTableData LayuiTableData = schoolService.schoolList(school, Integer.parseInt(pageStr), Integer.parseInt(pageSizeStr));
+		return JSON.toJSONString(LayuiTableData);
 	}
 }

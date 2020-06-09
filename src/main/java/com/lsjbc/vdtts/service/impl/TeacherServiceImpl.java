@@ -14,7 +14,7 @@ import javax.annotation.Resource;
 import java.util.ArrayList;
 @Service
 @Transactional
-public class TeacherImpl implements TeacherService {
+public class TeacherServiceImpl implements TeacherService {
     @Resource
     private TeacherMapper teacherMapper;
 
@@ -30,12 +30,12 @@ public class TeacherImpl implements TeacherService {
         ArrayList<Teacher> teacherList = teacherMapper.findTeacherList(start,pageSize,tSchoolId);
         System.out.println("teacherList>>>>>>"+teacherList);
         int teachCount = teacherMapper.findTeacherCount(tSchoolId);
-        LayuiTableData layuiData = new LayuiTableData();
-        layuiData.setCode(0);
-        layuiData.setMsg("查询成功");
-        layuiData.setCount(teachCount);
-        layuiData.setData(teacherList);
-        return layuiData;//返回前端所需要的数据类型
+        LayuiTableData LayuiTableData = new LayuiTableData();
+        LayuiTableData.setCode(0);
+        LayuiTableData.setMsg("查询成功");
+        LayuiTableData.setCount(teachCount);
+        LayuiTableData.setData(teacherList);
+        return LayuiTableData;//返回前端所需要的数据类型
     }
 
 
@@ -46,26 +46,26 @@ public class TeacherImpl implements TeacherService {
      *@Description:
      *@Author:刘海
      *@Param:[teacher, teacherAccount]
-     *@return:com.lsjbc.vdtts.pojo.vo.LayuiData
+     *@return:com.lsjbc.vdtts.pojo.vo.LayuiTableData
      *@Date:2020/6/7 22:55
      **/
     public LayuiTableData addTeacher(Teacher teacher, Account teacherAccount) {
         Account rerultAccount = accountMapper.findAccount(teacherAccount.getAAccount());
-        LayuiTableData layuiData = new LayuiTableData();
+        LayuiTableData LayuiTableData = new LayuiTableData();
         if(null==rerultAccount){
             teacherAccount.setAType("teacher");
             int num = accountMapper.addAccount(teacherAccount);
             teacher.setTAccountId(teacherAccount.getAId());
             int num1 = teacherMapper.addTeacher(teacher);
             if(num>0&&num1>0){
-                layuiData.setCode(1);
+                LayuiTableData.setCode(1);
             }else{
-                layuiData.setCode(2);
+                LayuiTableData.setCode(2);
             }
         }else{
-            layuiData.setCode(0);
+            LayuiTableData.setCode(0);
         }
-        return layuiData;
+        return LayuiTableData;
     }
 
     /*

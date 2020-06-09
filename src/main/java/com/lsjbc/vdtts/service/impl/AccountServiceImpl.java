@@ -3,7 +3,7 @@
 //import com.lsjbc.vdtts.dao.mapper.AccountMapper;
 //import com.lsjbc.vdtts.entity.Account;
 //import com.lsjbc.vdtts.service.intf.AccountService;
-//import com.lsjbc.vdtts.pojo.vo.LayuiData;
+//import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.stereotype.Service;
 //
@@ -13,13 +13,13 @@
 //    @Autowired
 //    private AccountMapper accountMapper;
 ////    @Override
-// /*   public LayuiData findAccount(String schoolAccount) {
+// /*   public LayuiTableData findAccount(String schoolAccount) {
 //        Account account = accountMapper.findAccount(schoolAccount);
-//        LayuiData layuiData = new LayuiData();
+//        LayuiTableData LayuiTableData = new LayuiTableData();
 //        if(account==null){
 //
 //        }else{
-//            layuiData.setCode(0);
+//            LayuiTableData.setCode(0);
 //        }
 //        return null;
 //    }*/

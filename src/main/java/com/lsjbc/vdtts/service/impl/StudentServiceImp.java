@@ -2,8 +2,8 @@ package com.lsjbc.vdtts.service.impl;
 
 import com.lsjbc.vdtts.entity.Student;
 import com.lsjbc.vdtts.dao.mapper.StudentMapper;
-import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.service.intf.StudentService;
+import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -76,27 +76,4 @@ public class StudentServiceImp implements StudentService
 		}
 		return layuiData;
 	}
-
-	@Override
-    public String registerSelect(String aAccount){
-        /*
-         *@Description:
-         *@Author:李浪_191019
-         *@Param:[aAccount]
-         *@return:java.lang.String
-         *@Date:2020/6/9 0:57
-         **/
-        return studentMapper.registerSelect(aAccount);
-    }
-    @Override
-    public int registerStudent(Student student){
-	    /*
-	     *@Description:
-	     *@Author:李浪_191019
-	     *@Param:[student]
-	     *@return:int
-	     *@Date:2020/6/9 1:27
-	     **/
-	    return studentMapper.addStudentMessage(student);
-    }
 }

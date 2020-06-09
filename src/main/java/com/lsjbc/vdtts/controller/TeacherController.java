@@ -47,8 +47,8 @@ public class TeacherController {
   **/
    @RequestMapping(value = "/addTeacher")
     public String addTeacher(Teacher teacher,Account teacherAccount){
-        LayuiTableData layuiData = teacherService.addTeacher(teacher,teacherAccount);
-        return JSON.toJSONString(layuiData);
+        LayuiTableData LayuiTableData = teacherService.addTeacher(teacher,teacherAccount);
+        return JSON.toJSONString(LayuiTableData);
     }
 
 
