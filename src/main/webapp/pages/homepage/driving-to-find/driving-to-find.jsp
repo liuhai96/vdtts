@@ -209,11 +209,9 @@
                 <dd>学车交流ＱＱ群：xxxxxxxxx</dd>
             </dl>
             <ul>
-                <c:forEach items="${links}" step="0" begin="1" end="10" var="link">
-                    <a href="<%=path%>${link.lkUrl}">${link.lkName}</a>
+                <c:forEach items="${links}" step="1" begin="0" end="10" var="link">
+                    <a href="${link.lkUrl}">${link.lkName}</a>
                 </c:forEach>
-<%--                <a href="http://news.jsyks.com/">驾考资讯</a>--%>
-<%--                <a href="http://xcsp.jsyks.com/">学车视频</a>--%>
             </ul>
         </div>
     </div>

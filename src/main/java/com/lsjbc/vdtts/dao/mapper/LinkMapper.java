@@ -1,6 +1,7 @@
 package com.lsjbc.vdtts.dao.mapper;
 
 import com.lsjbc.vdtts.entity.Link;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -10,6 +11,6 @@ import java.util.List;
  */
 
 public interface LinkMapper {
-    public List<Link> getBlogroll(Link link);
+    public List<Link> getBlogroll(@Param("e") Link link, @Param("start")int start, @Param("size")int size);
 
 }

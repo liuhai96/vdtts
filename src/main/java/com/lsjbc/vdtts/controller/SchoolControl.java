@@ -1,9 +1,11 @@
 package com.lsjbc.vdtts.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.lsjbc.vdtts.entity.Link;
 import com.lsjbc.vdtts.entity.School;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.pojo.vo.ResultData;
+import com.lsjbc.vdtts.service.intf.LinkServive;
 import com.lsjbc.vdtts.service.intf.SchoolService;
 import com.lsjbc.vdtts.utils.Tool;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,8 @@ import java.util.Map;
 public class SchoolControl {
 	@Autowired
 	private SchoolService schoolService;
+	@Autowired
+    private LinkServive linkServive;
 
 	@RequestMapping(value = "/findSchoolList",produces = {"application/json;charset=UTF-8"})//初始化学员信息表
 	@ResponseBody
@@ -91,7 +95,7 @@ public class SchoolControl {
         modelAndView.addObject("schoola",schoola);
         modelAndView.addObject("schoolc",schoolc);
         modelAndView.addObject("schoolr",schoolr);
-
+        modelAndView.addObject("links",linkServive.drivingSchoolBlogroll(new Link()));
         modelAndView.setViewName("/pages/homepage/driving-to-find/driving-to-find");
 	    return modelAndView;
     }

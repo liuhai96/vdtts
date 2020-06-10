@@ -17,8 +17,14 @@ public class LinkServiceImp implements LinkServive {
     @Autowired
     private LinkMapper linkMapper;
     @Override
-    public List<Link> drivingSchoolBlogroll(Link link){
-
-        return null;
+    /*
+     *@Description:
+     *@Author:李浪_191019
+     *@Param:[link]
+     *@return:java.util.List<com.lsjbc.vdtts.entity.Link>
+     *@Date:2020/6/10 13:54
+     **/
+    public List<Link> drivingSchoolBlogroll(Link link){//驾校友情链接
+        return linkMapper.getBlogroll(link,2,10);
     }
 }

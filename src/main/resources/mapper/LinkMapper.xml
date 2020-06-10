@@ -3,11 +3,12 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lsjbc.vdtts.dao.mapper.LinkMapper">
-    <select id="getBlogroll" parameterType="com.lsjbc.vdtts.entity.Link">
+    <select id="getBlogroll" resultType="com.lsjbc.vdtts.entity.Link">
         select * from tb_link
         <where> 1 = 1
-            <if test="lkId!=null and lkId!=''"> and lk_id = #{lkId}</if>
+            <if test="e.lkId != null and e.lkId != ''"> and lk_id = #{e.lkId}</if>
         </where>
+        limit ${start},#{size}
     </select>
 
 </mapper>
