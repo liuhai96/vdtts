@@ -39,6 +39,7 @@ public class ExamErrorDao implements BaseDao<ExamError> {
      *
      * @param recordId 考试记录ID
      * @return 错题集合
+     * @author JX181114 --- 郑建辉
      */
     public List<ExamError> getByRecordId(Integer recordId) {
         Example example = new Example(ExamError.class);
@@ -53,6 +54,7 @@ public class ExamErrorDao implements BaseDao<ExamError> {
      *
      * @param list 要插入的记录集合
      * @return 受影响条数
+     * @author JX181114 --- 郑建辉
      */
     public Integer add(List<ExamError> list) {
 
@@ -107,9 +109,10 @@ public class ExamErrorDao implements BaseDao<ExamError> {
      *
      * @param id 主键
      * @return 受影响条数
+     * @author JX181114 --- 郑建辉
      */
     @Override
     public Integer deleteById(Integer id) {
-        return null;
+        return mapper.deleteByPrimaryKey(id);
     }
 }

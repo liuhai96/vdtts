@@ -70,7 +70,7 @@ public class ResultData {
     public static ResultData success(String key, Object value) {
         ResultData resultData = new ResultData();
 
-        resultData.getData().put(key, value);
+        resultData.put(key, value);
 
         return resultData;
     }
@@ -96,6 +96,17 @@ public class ResultData {
      */
     public static ResultData error(String msg) {
         return ResultData.builder().code(-1).msg(msg).build();
+    }
+
+    /**
+     * 设置一个警告的Warning对象，并设置消息
+     *
+     * @param msg 消息
+     * @return 表示操作异常的ResultData对象
+     * @author JX181114 --- 郑建辉
+     */
+    public static ResultData warning(String msg) {
+        return ResultData.builder().code(-2).msg(msg).build();
     }
 
     /**
