@@ -8,7 +8,7 @@ function openLogin(a) {//转登录方法
 }
 
 function openReg(a) {//注册方法
-    skipPage("/pages/homepage/register.jsp");
+    skipPage("/pages/homepage/driving-in/driving-in.jsp");
     // yxl_mask("\u6ce8\u518c", "url=/login.php?reg=y&style=minWin", "400", "500")
 }
 

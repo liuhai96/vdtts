@@ -65,7 +65,7 @@
                 <label class="layui-col-md1 layui-col-md-offset2">男<i class="layui-icon ">&#xe662;</i>
                     <input type="checkbox" checked="checked" onclick="Change(true)" id="boy"></label>
                 <label class="layui-col-md1 layui-col-md-offset2">女<i class="layui-icon">&#xe661;</i>
-                    <input type="checkbox" onclick="Change(false)" id="girl"></label><br><br>
+                <input type="checkbox" onclick="Change(false)" id="girl"></label><br><br>
                 <input type="text" value="" placeholder="请输入验证码" class="input-val" style="height: 35px;width: 30%;">
                 <canvas id="canvas" class="layui-col-md3" style="height: 35px;background-color: ghostwhite; margin: 0 0 0 10%;"></canvas>
             </div><br>
