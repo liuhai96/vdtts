@@ -96,6 +96,11 @@ public class CarServiceImpl implements CarService {
         return layuiTableData;
     }
 
+    @Override
+    public LayuiTableData findCarList(int start, int pageSize, int cSchoolId) {
+        return null;
+    }
+
     /*
      *@Description:
      *@Author:陈竑霖
