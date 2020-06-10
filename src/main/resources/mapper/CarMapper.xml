@@ -4,26 +4,14 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lsjbc.vdtts.dao.mapper.CarMapper">
 
+<!--    刘海-->
     <select id="findCarCount" parameterType="int" resultType="int">
         select count(*) from tb_car where c_school_id = #{cSchoolId}
     </select>
-<!--    两次链表查询各驾校的教练车-->
-    <select id="findCarList" resultMap="findCarList" parameterType="int">
-        select * from tb_car where c_school_id = #{cSchoolId} limit ${start},#{pageSize}
-    </select>
-    <resultMap id="findCarList" type="com.lsjbc.vdtts.entity.Car">
-        <result property="cTeacherId" column="c_teacher_id"></result>
-        <association property="cTeacherId" column="c_teacher_id" javaType="com.lsjbc.vdtts.entity.Teacher" select="findTeacher"></association>
-    </resultMap>
-    <select id="findTeacher" parameterType="com.lsjbc.vdtts.entity.Teacher" resultType="com.lsjbc.vdtts.entity.Teacher">
-        select * from tb_teacher where s_id = #{cTeacherId}
-    </select>
-
 
     <select id="findCarManageList" parameterType="int" resultType="com.lsjbc.vdtts.entity.Car">
         select c.*,t.t_name from tb_car c left join  tb_teacher t on c.c_teacher_id = t.t_id where c.c_school_id = #{cSchoolId}
     </select>
-
 
     <update id="updateCarInfo" parameterType="com.lsjbc.vdtts.entity.Car">
         update tb_car set c_teacher_id = #{cTeacherId} where c_id = #{cId}
@@ -36,6 +24,7 @@
     <insert id="addCar" parameterType="com.lsjbc.vdtts.entity.Car">
         insert into tb_car(c_school_id, c_logo, c_model, c_color, c_number) values (#{cSchoolId},#{cLogo},#{cModel},#{cColor},#{cNumber})
     </insert>
+<!--    刘海&#45;&#45;结束-->
 
     <!--    陈竑霖-->
     <!--    车辆表-->

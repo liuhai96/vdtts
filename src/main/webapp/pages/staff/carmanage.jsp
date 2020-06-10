@@ -218,7 +218,6 @@
                     url: '/teacherController/findTeacher',
                     dataType: 'JSON',
                     success: function (msg) {
-                       alert(JSON.stringify(msg.data));
                        $.each(msg.data,function (i,item) {
                            $("#teacherSelect").append("<option value='" + item.tId + "'>" + item.tName + "</option>");
                        });
@@ -243,8 +242,6 @@
                     form.render();
                     form.on('submit(demo2)', function(data){
                         teacherId = $("#teacherSelect").val();
-                        layer.msg(teacherId);
-                        // layer.msg(data.cId);
                         $.ajax({
                             type: 'POST',
                             url: '/carControl/updateCarInfo',

@@ -92,6 +92,18 @@ public class ResultData {
     /**
      * 设置一个出错的Error对象，并设置错误编码和消息
      *
+     * @param code 成功编码
+     * @param msg  消息
+     * @return 表示操作成功的ResultData对象
+     * @author JX191012 --- 刘海
+     */
+    public static ResultData success(Integer code, String msg) {
+        return ResultData.builder().code(code).msg(msg).build();
+    }
+
+    /**
+     * 设置一个出错的Error对象，并设置错误编码和消息
+     *
      * @param code 错误编码
      * @param msg  消息
      * @return 表示操作失败的ResultData对象

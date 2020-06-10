@@ -31,7 +31,7 @@ public class ExamResult
 	/**
 	 *科一考试状态
 	 */
-	private String erState1;
+	private Integer erState1;
 
 	/**
 	 *科二学时
@@ -46,7 +46,7 @@ public class ExamResult
 	/**
 	 *科二考试状态
 	 */
-	private String erState2;
+	private Integer erState2;
 
 	/**
 	 *科三学时
@@ -61,7 +61,7 @@ public class ExamResult
 	/**
 	 *科三考试状态
 	 */
-	private String erState3;
+	private Integer erState3;
 
 	/**
 	 *科四学时
@@ -76,5 +76,9 @@ public class ExamResult
 	/**
 	 *科四考试状态
 	 */
-	private String erState4;
+	private Integer erState4;
+
+	private Student student;
+
+	private String tName;
 }

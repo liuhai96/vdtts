@@ -1,0 +1,187 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: 刘海
+  Date: 2020/6/10
+  Time: 14:10
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    String path = request.getContextPath();
+%>
+<html>
+<head>
+    <title>驾校门户管理</title>
+    <link rel="shortcut icon" href="#"/>
+    <link rel="stylesheet" href=<%=path+"/static/layui/css/layui.css"%>>
+    <script type="text/javascript" src=<%=path+"/static/layui/layui.js"%>></script>
+</head>
+<body>
+
+<table class="layui-hide" id="test" lay-filter="test"></table>
+<form id="scheduleExam" style="display: none" class="layui-form">
+    <div class="layui-form-item">
+        <label class="layui-form-label">考试学员</label>
+        <label class="layui-form-label" id="studentName"></label>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">考试科目</label>
+        <div class="layui-input-block">
+            <select name="interest" lay-filter="aihao"  id="examSelect">
+                <option value="0">请选择考试科目</option>
+                <option value="1">科目一</option>
+                <option value="2">科目二</option>
+                <option value="3">科目三</option>
+                <option value="3">科目四</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
+
+<script type="text/html" id="toolbarDemo">
+    <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
+        <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
+        <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
+    </div>
+</script>
+
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">考试安排</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+<script>
+    layui.use('table', function(){
+        var $ = layui.jquery;
+        var table = layui.table;
+      var $table = table.render({
+            elem: '#test'
+            ,url:'/examResultController/selectStudentExamList'
+            ,toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
+            ,defaultToolbar: ['filter', 'exports', 'print', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
+                title: '提示'
+                ,layEvent: 'LAYTABLE_TIPS'
+                ,icon: 'layui-icon-tips'
+            }]
+            ,title: '用户数据表'
+            ,cols: [[
+                {type: 'checkbox', fixed: 'left'}
+                ,{field:'erId', title:'ID', width:80, fixed: 'left', unresize: true, sort: true}
+                ,{field:'sId',title:'学生Id',templet: '<div>{{d.student.sId}}</div>',width:80}
+                ,{title:'学生姓名',templet: '<div>{{d.student.sName}}</div>',width:80}
+                ,{title:'性别',templet: '<div>{{d.student.sSex}}</div>',width:80}
+                ,{field:'erState1', title:'科目一考试状态',sort: true,width:80}
+                ,{field:'erState2', title:'科目二考试状态',sort: true,width:80}
+                ,{field:'erState3', title:'科目三考试状态',sort: true,width:80}
+                ,{field:'erState4', title:'科目四考试状态',sort: true,width:80}
+                ,{field:'tName', title:'所属教练',sort: true,width:80}
+                ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:150}
+                ,{title:'性别',templet: '<div>{{d.student.sTeacherId}}</div>',width:80}
+            ]]
+            ,page: {limit: 5,//指定每页显示的条数
+                limits: [5, 10, 15, 20,
+                    25, 30, 35, 40, 45, 50],}//每页条数的选择项
+            ,done: function (res, curr, count) {
+            $("[data-field='erState1'],[data-field='erState2'],[data-field='erState3'],[data-field='erState4']").children().each(function () {
+                if ($(this).text() == '0') {
+                    $(this).text("未通过")
+                } else if ($(this).text() == '1') {
+                    $(this).text("已通过")
+                } else if ($(this).text() == '2'){
+                    $(this).text("正在考试中")
+                }
+            });
+        }
+        });
+
+        //头工具栏事件
+        table.on('toolbar(test)', function(obj){
+            var checkStatus = table.checkStatus(obj.config.id);
+            switch(obj.event){
+                case 'getCheckData':
+                    var data = checkStatus.data;
+                    layer.alert(JSON.stringify(data));
+                    break;
+                case 'getCheckLength':
+                    var data = checkStatus.data;
+                    layer.msg('选中了：'+ data.length + ' 个');
+                    break;
+                case 'isAll':
+                    layer.msg(checkStatus.isAll ? '全选': '未全选');
+                    break;
+
+                //自定义头工具栏右侧图标 - 提示
+                case 'LAYTABLE_TIPS':
+                    layer.alert('这是工具栏右侧自定义的一个图标按钮');
+                    break;
+            };
+        });
+
+        //监听行工具事件
+        table.on('tool(test)', function(obj){
+            var examSujectId ="";
+            var data = obj.data;
+            var sId = data.student.sId;
+            var erId = data.erId;
+            layer.alert(erId);
+            var teacherId = data.student.sTeacherId;
+            //console.log(obj)
+            if(obj.event === 'del'){
+                layer.confirm('真的删除行么', function(index){
+                    obj.del();
+                    layer.close(index);
+                });
+            } else if(obj.event === 'edit'){
+                $("#studentName").html(data.student.sName);
+                var index = layer.open({
+                    type: 1,
+                    area:["400","300px"],
+                    skin: 'layui-layer-rim',
+                    shadeClose: true,//点击其他地方关闭
+                    content:$("#scheduleExam"),
+                    cancel:function (index) {
+                        layer.close(index);
+                    }
+                });
+                layui.use('form', function(){
+                    var form = layui.form;
+                    form.on('submit(demo1)', function(data){
+                        examSujectId = $("#examSelect").val();
+                        $.ajax({
+                            type: 'POST',
+                            url: '/examResultController/arringeExam',
+                            dataType: 'JSON',
+                            data: {
+                                sId:sId,
+                                erId:erId,
+                                examSujectId:examSujectId,
+                                teacherId:teacherId
+                            },
+                            success: function (remsg) {
+                                if (remsg.code==0){
+                                    layer.msg(remsg.msg);
+                                    layer.close(index);
+                                    $table.reload();
+                                }else{
+                                    layer.msg(remsg.msg);
+                                }
+
+                            }
+                        });
+
+                        return false;
+                    });
+                });
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
