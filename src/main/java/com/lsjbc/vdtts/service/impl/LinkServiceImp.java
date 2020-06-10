@@ -5,6 +5,7 @@ import com.lsjbc.vdtts.entity.Link;
 import com.lsjbc.vdtts.service.intf.LinkServive;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -26,5 +27,11 @@ public class LinkServiceImp implements LinkServive {
      **/
     public List<Link> drivingSchoolBlogroll(Link link){//驾校友情链接
         return linkMapper.getBlogroll(link,2,10);
+    }
+    @Override
+    public ModelAndView HomePageBlogroll(Link link,ModelAndView modelAndView){
+        modelAndView.addObject("approve",linkMapper.getBlogroll(link,0,2));//获取实名认证
+        modelAndView.addObject("blogroll",linkMapper.getBlogroll(link,2,10));//获取友情链接
+        return modelAndView;
     }
 }

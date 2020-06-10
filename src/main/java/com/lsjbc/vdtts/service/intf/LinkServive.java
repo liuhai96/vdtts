@@ -1,6 +1,7 @@
 package com.lsjbc.vdtts.service.intf;
 
 import com.lsjbc.vdtts.entity.Link;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -10,4 +11,5 @@ import java.util.List;
  */
 public interface LinkServive {
     public List<Link> drivingSchoolBlogroll(Link link);
+    public ModelAndView HomePageBlogroll(Link link,ModelAndView modelAndView);
 }

@@ -24,12 +24,12 @@ public class Notice
 	private String nName;
 
 	/**
-	 *点击跳转路径
+	 *发布时间
 	 */
 	private String nTime;
 
 	/**
-	 *发布时间
+	 *点击跳转路径
 	 */
 	private String nUrl;
 
