@@ -9,7 +9,7 @@ public interface CarService {
     public LayuiTableData updateCarInfo(Car car);
     public LayuiTableData deleteCar(int cId);
     public LayuiTableData addCar(Car car);
-    public LayuiTableData findCarList(int start,int pageSize,int cSchoolId);
+//     public LayuiTableData findCarList(int start,int pageSize,int cSchoolId);
 
     /*
      *@Description:
