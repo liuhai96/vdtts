@@ -116,4 +116,24 @@ public class StudentServiceImp implements StudentService
     public int registerStudent(Student student){
 	    return studentMapper.addStudentMessage(student);
     }
+
+	@Override
+	/*
+	 *@Description:查询学员考试情况
+	 *@Author:刘海
+	 *@Param:[sSchoolId]
+	 *@return:com.lsjbc.vdtts.pojo.vo.ResultData
+	 *@Date:2020/6/10 14:43
+	 **/
+	public LayuiTableData selectStudentExamList(Integer sSchoolId) {
+		LayuiTableData layuiTableData = new LayuiTableData();
+		if(sSchoolId==null){
+			 layuiTableData.setCode(-1);
+		}else{
+			layuiTableData.setCode(0);
+			layuiTableData.setData(studentMapper.selectStudentExamList(sSchoolId));
+		}
+
+		return layuiTableData;
+	}
 }

@@ -114,7 +114,6 @@
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="noRegistration">禁止学员报名</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="accountLock">账号锁定</a>
-
 </script>
 
 
