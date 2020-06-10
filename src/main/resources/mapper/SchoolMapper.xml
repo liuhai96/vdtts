@@ -20,5 +20,4 @@
             <if test="e.sName!=null and e.sName!=''"> and s_name like concat('%',#{e.sName},'%')</if>
         </where>
     </select>
-
 </mapper>

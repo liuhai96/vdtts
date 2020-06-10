@@ -3,6 +3,7 @@ package com.lsjbc.vdtts.controller;
 import com.alibaba.fastjson.JSON;
 import com.lsjbc.vdtts.entity.Account;
 import com.lsjbc.vdtts.entity.Student;
+import com.lsjbc.vdtts.service.intf.StudentService;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.service.intf.AccountService;
 import com.lsjbc.vdtts.service.intf.StudentService;
@@ -173,8 +174,7 @@ public class StudentController {
                 if(accountService.addStudentAccount(account) > 0){
                     student.setSAccountId(account.getAId());
                     if(studentService.registerStudent(student) > 0)
-                        layuiData.setMsg("      提 交 成 功!\n" +
-                                         "您的登录账号为："+aAccount);
+                        layuiData.setMsg("      提 交 成 功!\n您的登录账号为："+aAccount);
                     else layuiData.setMsg("未知原因错误！!");
                 }
                 else layuiData.setMsg("未知原因错误！!");

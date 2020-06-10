@@ -77,4 +77,9 @@ public class  School
 	 *法人代表证件
 	 */
 	private String sOwnerPic;
+
+    /**
+     *驾校报名费
+     */
+    private Integer sRegisteryFee;
 }
