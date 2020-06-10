@@ -11,6 +11,8 @@
     String thisYear = new Tool().getDate("yyyy");
     String schoolName = "老司机驾考";
     Cookie cookie = new Cookie("schoolName",schoolName);//存放学校名称
+    int aId = 0;
+    try{ aId = Integer.valueOf(request.getSession().getAttribute("aId").toString());} catch (Exception e){}
     cookie.setMaxAge(-3);
     cookie.setPath(request.getContextPath());
     response.addCookie(cookie);
@@ -52,7 +54,7 @@
                     22px; color: #FF5722;">&#xe705;</i>&nbsp;&nbsp;资讯</a></li>
                 <li class="layui-nav-item"><a href=""><i class="layui-icon" style="font-size:
                     22px; color: #FF5722;">&#xe6ed;</i>&nbsp;&nbsp;视频</a></li>
-                <c:if test="${resultData eq null}">
+                <c:if test="<%=aId == 0%>">
                     <li class="layui-nav-item" style="float: right"><a href="<%=path+"/pages/homepage/register.jsp"%>">注册</a></li>|
                     <li class="layui-nav-item layui-bg-blue" style="float: right" lay-unselect=""><a href="javascript:;">登录</a>
                         <dl class="layui-nav-child">
@@ -62,7 +64,7 @@
                         </dl>
                     </li>
                 </c:if>
-                <c:if test="${resultData ne null}">
+                <c:if test="<%=aId != 0%>">
                     <li class="layui-nav-item layui-bg-blue" style="float: right" lay-unselect=""><a href="javascript:;">
                         <img src="//t.cn/RCzsdCq" class="layui-nav-img">我</a>
                         <dl class="layui-nav-child">

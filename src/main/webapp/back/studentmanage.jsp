@@ -156,7 +156,7 @@
                     obj.del(); //删除对应行（tr）的DOM结构
                     layer.close(index);
                     $.ajax({
-                        url: "/studentController/resetpwd",
+                        url: "/studentController/resetPwd",
                         type: "POST",
                         dataType: "text",
                         data: data,

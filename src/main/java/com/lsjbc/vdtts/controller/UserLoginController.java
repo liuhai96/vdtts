@@ -1,9 +1,11 @@
 package com.lsjbc.vdtts.controller;
 
 import com.lsjbc.vdtts.entity.Account;
+import com.lsjbc.vdtts.pojo.vo.ResultData;
 import com.lsjbc.vdtts.service.intf.UserLoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,31 +24,28 @@ public class UserLoginController {
     private UserLoginService userLoginService;
 
     @RequestMapping(value = "/userLogin")
-    public void UserLogin(HttpServletRequest request, HttpServletResponse response, Account account){
+    @ResponseBody
+    public ResultData UserLogin(HttpServletRequest request, HttpServletResponse response, Account account){
         String nextJsp = null;//下一个界面的路径
         String notify = "";//弹窗通知信息
         response.setContentType("text/html;charset=utf-8");
         response.setContentType("text/html;charset=utf-8");
         account = userLoginService.UserLogin(account);//
-
         if(account != null){ //登录成功时
             switch (account.getAType()) {
-                case "school": nextJsp = "pages/staff/schoolmenu";break;//驾校登录界面地址
+                case "school": nextJsp = "pages/staff/schoolmenu.jsp";break;//驾校登录界面地址
                 case "student":nextJsp = "pages/s";break;//学员登录界面地址
                 case "teacher":nextJsp = "pages/";break;//教练登录界面地址
             }
-
             request.getSession().setAttribute("aId", account.getAId());
             request.getSession().setAttribute("aType", account.getAType());
             notify = "恭喜你，登录成功！";
         } else {//登录失败
-            nextJsp = "pages/homepage/login";
+            nextJsp = "pages/homepage/login.jsp";
             notify = "此用户名不存在，请核对信息!";
         }
-        try {
-            response.getWriter().write("<script>alert('"+notify+"');location.href='"+nextJsp+".jsp';</script>");
-            response.getWriter().flush();
-            response.getWriter().close();
-        } catch (Exception e) {}
+        ResultData resultData = ResultData.success(notify);
+        resultData.put("url",nextJsp);
+        return resultData;
     }
 }

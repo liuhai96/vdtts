@@ -39,6 +39,9 @@ public class ResultData {
     @Builder.Default
     private Map<String, Object> data = new HashMap<>(10);
 
+
+    //res.data.url
+
     /**
      * 向Data中存入数据
      *
@@ -57,6 +60,17 @@ public class ResultData {
      */
     public static ResultData success() {
         return ResultData.builder().msg("操作成功").build();
+    }
+
+    /*
+     *@Description:
+     *@Author:李浪_191019
+     *@Param:
+     *@return:
+     *@Date:2020/6/10 11:57
+     **/
+    public static ResultData success(String msg){
+        return ResultData.builder().msg(msg).build();
     }
 
     /**

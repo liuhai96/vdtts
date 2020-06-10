@@ -76,6 +76,6 @@
 
     <insert id="addStudentMessage" parameterType="com.lsjbc.vdtts.entity.Student" keyProperty="sId" useGeneratedKeys="true">
         insert into tb_student (s_account_id, s_school_id, s_sfz, s_name, s_phone, s_sex, s_birthday, s_pic, s_reg_time, s_license_time, s_teacher_id)
-        values (#{sAccountId},#{sSchooleId},#{sSfz},#{sName},#{sPhone},#{sSex},#{sBirthday},#{sPic},#{sRegTime},#{sLicenseTime},#{sTeacherId})
+        values (#{sAccountId},#{sSchoolId},#{sSfz},#{sName},#{sPhone},#{sSex},#{sBirthday},#{sPic},#{sRegTime},#{sLicenseTime},#{sTeacherId})
     </insert><!--  李浪  -->
 </mapper>

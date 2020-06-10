@@ -45,4 +45,12 @@ public class SchoolServiceImp implements SchoolService
 		}
 		return layuiData;
 	}
+	@Override
+    public int schoolcount(School school){
+	    return schoolMapper.schoolcount(school);
+    }
+    @Override
+    public List<School> schoolMessageList(School school,int stripStart, int stripEnd){
+	    return schoolMapper.schoolList(school,stripStart, stripEnd);
+    }
 }
