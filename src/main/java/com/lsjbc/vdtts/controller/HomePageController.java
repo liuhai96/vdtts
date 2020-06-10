@@ -18,6 +18,9 @@ public class HomePageController {
     public ModelAndView InitHomePage(){
         ResultData resultData = new ResultData();
         ModelAndView modelAndView = new ModelAndView();
+
+
+        modelAndView.addObject("isInit", true);
         modelAndView.setViewName("/pages/homepage/home-page");
         modelAndView.addObject("resultData",resultData);
         return modelAndView;

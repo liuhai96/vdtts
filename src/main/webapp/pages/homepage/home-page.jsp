@@ -30,10 +30,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
         <script src="https://www.layuicdn.com/layui/layui.js"></script>
         <link href="https://www.layuicdn.com/layui/css/layui.css" rel="stylesheet" type="text/css"/>
-
     </head>
     <body>
     <input hidden="hidden" value="<%=path%>" id="path">
+    <c:if test="${!isInit}"><%-- 初始化界面 --%>
+        <form action="<%=path+"/home"%>" method="post" id="init"></form>
+        <script type="text/javascript">$(function () {$("#init").submit();})</script>
+    </c:if><%-- 初始化界面 --%>
         <!-- 顶部功能所在区代码 -->
         <div class="layui-col-md12">
             <ul class="layui-nav layui-bg-blue">
