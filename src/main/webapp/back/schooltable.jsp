@@ -23,10 +23,11 @@
 		<div class="layui-inline">
 			<label class="layui-form-label">审核状态</label>
 			<div class="layui-input-inline">
-				<select name="sVerificattion" id="sVerificattion">
+				<select name="sVerification" id="sVerification">
 					<option value="">选择审核状态查询</option>
-					<option value="true">true</option>
-					<option value="false">false</option>
+					<option value=" ">未审核</option>
+					<option value="true">已通过</option>
+					<option value="false">未通过</option>
 				</select>
 			</div>
 		</div>
@@ -91,13 +92,24 @@
 				,{field:'sBusinessId', title:'统一信用代码', width:130}
 				,{field:'sBusinessPic', title:'营业执照照片保存路径', width:200}
 				,{field:'sOwnerId', title:'法人身份证', width:200}
-				,{field:'sVerificattion', title:'是否通过审核', width:130}
+				,{field:'sVerification', title:'是否通过审核', width:130}
 				,{field:'sRecruit', title:'是否允许招生', width:130}
 				,{field:'sLock', title:'是否允许登录', width:130}
 				,{field:'sRegTime', title:'注册时间', width:100}
 				,{field:'sOwnerPic', title:'法人代表证件', width:130}
 			]]
 			,page: true
+			, done: function (res, curr, count) {
+				$("[data-field='sVerification']").children().each(function () {
+					if ($(this).text() == 'false') {
+						$(this).text("未通过")
+					} else if ($(this).text() == 'true') {
+						$(this).text("已通过")
+					} else if ($(this).text() == '') {
+						$(this).text("未审核")
+					}
+				});
+			}
 		});
 
 		//头工具栏事件
@@ -127,7 +139,7 @@
 
 			var sName = $("#sName").val();
 			var sLock=$("#sLock").val();
-            var sVerificattion=$("#sVerificattion").val();
+            var sVerification=$("#sVerification").val();
 			var sRecruit=$("#sRecruit").val();
 			tableinf.reload({
 				url:'/SchoolControl/findSchoolList',
@@ -137,7 +149,7 @@
 				where:{
 					sName:sName
 					,sLock:sLock
-					,sVerificattion:sVerificattion
+					,sVerification:sVerification
 					,sRecruit:sRecruit
 
 				}

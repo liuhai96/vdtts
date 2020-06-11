@@ -29,8 +29,14 @@ public class SchoolControl {
 	private SchoolService schoolService;
 	@Autowired
     private LinkServive linkServive;
-
-	@RequestMapping(value = "/findSchoolList",produces = {"application/json;charset=UTF-8"})//初始化学员信息表
+/*
+ *@Description:
+ *@Author:陈竑霖
+ *@Param:
+ *@return:
+ *@Date:2020/6/11 1591846535905
+ **/
+	@RequestMapping(value = "/findSchoolList",produces = {"application/json;charset=UTF-8"})//驾校查询
 	@ResponseBody
 	public Object findSchoolList(HttpServletRequest request, HttpServletResponse response ,School school){
 		String pageStr = request.getParameter("page");//页码

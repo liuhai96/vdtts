@@ -11,7 +11,7 @@
         <where>
          <if test="e.sName!=null and e.sName!=''"> and s_name like concat('%',#{e.sName},'%')</if>
             <if test="e.sLock!=null and e.sLock!=''"> and s_lock = #{e.sLock}</if>
-            <if test="e.sVerificattion!=null and e.sVerificattion!=''"> and s_verificattion = #{e.sVerificattion}</if>
+            <if test="e.sVerification!=null and e.sVerification!=''"> and s_verification = #{e.sVerification}</if>
             <if test="e.sRecruit!=null and e.sRecruit!=''"> and s_recruit = #{e.sRecruit}</if>
         </where>
          limit ${start},#{pageSize}
@@ -22,7 +22,7 @@
         <where>
             <if test="e.sName!=null and e.sName!=''"> and s_name like concat('%',#{e.sName},'%')</if>
             <if test="e.sLock!=null and e.sLock!=''"> and s_lock = #{e.sLock}</if>
-            <if test="e.sVerificattion!=null and e.sVerificattion!=''"> and s_verificattion = #{e.sVerificattion}</if>
+            <if test="e.sVerification!=null and e.sVerification!=''"> and s_verification = #{e.sVerification}</if>
             <if test="e.sRecruit!=null and e.sRecruit!=''"> and s_recruit = #{e.sRecruit}</if>
         </where>
     </select>
