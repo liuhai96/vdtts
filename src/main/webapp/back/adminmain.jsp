@@ -56,7 +56,7 @@
                         <dd><a href="studentmanage.jsp;" target="okframe">学员管理</a></dd>
                         <dd><a href="schoolmanage.jsp;" target="okframe">驾校管理</a></dd>
                         <dd><a href="carmanage.jsp;" target="okframe">教练车管理</a></dd>
-                        <dd><a href="studentmanage.jsp;" target="okframe">教练管理</a></dd>
+                        <dd><a href="teachermanage.jsp;" target="okframe">教练管理</a></dd>
                         <dd><a href="studentmanage.jsp;" target="okframe">题库管理</a></dd>
                     </dl>
                 </li>

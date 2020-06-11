@@ -25,6 +25,7 @@ public interface CarMapper {
      **/
     public int carlistcount(@Param("e") Car car);
     public List<Car> finecarlist(@Param("e") Car car, @Param("start") int start, @Param("pageSize") int pageSize);
+
     /*
      *@Description:
      *@Author:周永哲
