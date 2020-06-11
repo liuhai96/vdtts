@@ -9,17 +9,20 @@ import com.lsjbc.vdtts.service.intf.LinkServive;
 import com.lsjbc.vdtts.service.intf.SchoolService;
 import com.lsjbc.vdtts.utils.Tool;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.*;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 @SuppressWarnings("all")
-@Controller
+@RestController
 @RequestMapping("/SchoolControl")
 public class SchoolControl {
 	@Autowired
@@ -35,11 +38,16 @@ public class SchoolControl {
  **/
 	@RequestMapping(value = "/findSchoolList",produces = {"application/json;charset=UTF-8"})//驾校查询
 	@ResponseBody
-	public Object findSchoolList(HttpServletRequest request, HttpServletResponse response ,School school){
+	public Object findSchoolList(HttpServletRequest request, HttpServletResponse response){
 		String pageStr = request.getParameter("page");//页码
 		String pageSizeStr = request.getParameter("limit");//每页记录数
+		//查名字
+		String sName = request.getParameter("sName");
+
 		String draw = request.getParameter("draw");//重绘次数 和前台对应
 
+		School school = new School();
+		school.setSName(sName);
 		LayuiTableData layuiTableData = schoolService.schoolList(school, Integer.parseInt(pageStr), Integer.parseInt(pageSizeStr));
 		return JSON.toJSONString(layuiTableData);
 	}
@@ -97,6 +105,20 @@ public class SchoolControl {
         modelAndView.addObject("links",linkServive.drivingSchoolBlogroll(new Link()));
         modelAndView.setViewName("/pages/homepage/driving-to-find/driving-to-find");
 	    return modelAndView;
+    }
+
+    /*
+     *@Description:
+     *@Author:刘海
+     *@Param:[request, response]
+     *@return:java.lang.Object
+     *@Date:2020/6/11 23:15
+     **/
+
+    @RequestMapping(value = "/findSchoolInfo")
+    public Object findSchoolInfo(HttpServletRequest request, HttpServletResponse response){
+        System.out.println(JSON.toJSONString(schoolService.findSchoolInfo(request,response)));
+	    return schoolService.findSchoolInfo(request,response);
     }
 
     @RequestMapping(value = "/drivingIn")

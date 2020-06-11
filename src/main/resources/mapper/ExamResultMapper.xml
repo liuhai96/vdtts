@@ -46,18 +46,39 @@
         update tb_exam_result
         <set>
             <if test="examSujectId==1">
-                er_state1=2,
+                er_state1=#{erState},
             </if>
             <if test="examSujectId==2">
-                er_state2=2,
+                er_state2=#{erState},
             </if>
             <if test="examSujectId==3">
-                er_state3=2,
+                er_state3=#{erState},
             </if>
             <if test="examSujectId==4">
-                er_state4=2,
+                er_state4=#{erState},
             </if>
         </set>
         where er_id = #{erId}
     </update>
+
+    <update id="updateStudentScore" parameterType="int">
+        update tb_exam_result
+        <set>
+            <if test="examSujectId==1">
+                er_score1=#{erScore},
+            </if>
+            <if test="examSujectId==2">
+                er_score2=#{erScore},
+            </if>
+            <if test="examSujectId==3">
+                er_score3=#{erScore},
+            </if>
+            <if test="examSujectId==4">
+                er_score4=#{erScore},
+            </if>
+        </set>
+        where er_id = #{erId}
+    </update>
+
+
 </mapper>

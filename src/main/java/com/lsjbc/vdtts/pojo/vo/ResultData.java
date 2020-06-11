@@ -89,6 +89,7 @@ public class ResultData {
         return resultData;
     }
 
+
     /**
      * 设置一个出错的Error对象，并设置错误编码和消息
      *
