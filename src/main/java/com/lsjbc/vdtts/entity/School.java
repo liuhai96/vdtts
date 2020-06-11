@@ -56,7 +56,7 @@ public class  School
 	/**
 	 *是否通过审核
 	 */
-	private String sVerificattion;
+	private String sVerification;
 
 	/**
 	 *是否允许招生

@@ -91,18 +91,11 @@ public class TeacherController {
     //教练表查看
     @RequestMapping(value = "/teacherList",produces = {"application/json;charset=UTF-8"})
     @ResponseBody
-    public String teacherList(HttpServletRequest request, HttpServletResponse response) {
+    public String teacherList(HttpServletRequest request, HttpServletResponse response,Teacher teacher) {
         String pageStr = request.getParameter("page");//页码
         String pageSizeStr = request.getParameter("limit");//每页记录数
-        //查名字
-        String tName = request.getParameter("tName");
-//        //查驾照时间
-//        String sLicenseTime=request.getParameter("sLicenseTime");
         String draw = request.getParameter("draw");//重绘次数 和前台对应
 
-        Teacher teacher = new Teacher();
-        teacher.setTName(tName);
-//        student.setSLicenseTime(sLicenseTime);
         LayuiTableData layuiTableData = teacherService.teacherList(teacher, Integer.parseInt(pageStr), Integer.parseInt(pageSizeStr));
         return JSON.toJSONString(layuiTableData);
     }

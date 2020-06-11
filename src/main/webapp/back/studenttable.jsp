@@ -20,16 +20,16 @@
 				<input type="text" name="sName" id="sName" placeholder="请输入姓名" class="layui-input">
 			</div>
 		</div>
-<%--		<div class="layui-inline">--%>
-<%--			<label class="layui-form-label">性别</label>--%>
-<%--			<div class="layui-input-inline">--%>
-<%--				<select name="sSex" lay-verify="required" lay-search="">--%>
-<%--					<option value="0">选择性别查询</option>--%>
-<%--					<option value="男">男</option>--%>
-<%--					<option value="女">女</option>--%>
-<%--				</select>--%>
-<%--			</div>--%>
-<%--		</div>--%>
+		<div class="layui-inline">
+			<label class="layui-form-label">性别</label>
+			<div class="layui-input-inline">
+				<select id="sSex" name="sSex" >
+					<option value="">选择性别查询</option>
+					<option value="男">男</option>
+					<option value="女">女</option>
+				</select>
+			</div>
+		</div>
 		<div class="layui-inline">
 			<label class="layui-form-label">获取时间：</label>
 			<div class="layui-input-block">
@@ -110,7 +110,7 @@
 		form.on('submit(search)',function (data) {
 
 			var sName = $("#sName").val();
-			// var sSex=$("#sSex").val();
+			var sSex=$("#sSex").val();
             var sLicenseTime=$("#sLicenseTime").val();
 			tableinf.reload({
 				url:'/pipeControl/studentList',
@@ -119,7 +119,7 @@
 				},
 				where:{
 					sName:sName,sLicenseTime:sLicenseTime
-					// ,sSex:sSex
+					,sSex:sSex
 				}
 			});
 
