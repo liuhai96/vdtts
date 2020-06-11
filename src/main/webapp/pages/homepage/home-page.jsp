@@ -159,7 +159,7 @@
                     <a href="${link.lkUrl}" class="layui-btn layui-btn-warm" target="_blank">${link.lkName}</a>
                 </c:forEach><br><br><br>
                 <c:forEach items="${law}" begin="0" step="1" end="100" var="nc">
-                    <a href="${nc.NUrl}" target="_blank">${nc.NName}</a><br><br>
+                    <a href="${nc.NContent}" target="_blank">${nc.NName}</a><br><br>
                 </c:forEach>
             </div>
 
