@@ -49,7 +49,7 @@ public class NoticeDao implements BaseDao<Notice> {
      */
     @Override
     public Notice getById(Integer id) {
-        return null;
+        return (Notice) mapper.selectByPrimaryKey(id);
     }
 
     /**
