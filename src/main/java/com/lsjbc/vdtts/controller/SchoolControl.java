@@ -1,10 +1,13 @@
 package com.lsjbc.vdtts.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.lsjbc.vdtts.dao.mapper.AccountMapper;
+import com.lsjbc.vdtts.entity.Account;
 import com.lsjbc.vdtts.entity.Link;
 import com.lsjbc.vdtts.entity.School;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.pojo.vo.ResultData;
+import com.lsjbc.vdtts.service.intf.AccountService;
 import com.lsjbc.vdtts.service.intf.LinkServive;
 import com.lsjbc.vdtts.service.intf.SchoolService;
 import com.lsjbc.vdtts.utils.Tool;
@@ -26,6 +29,8 @@ public class SchoolControl {
 	private SchoolService schoolService;
 	@Autowired
     private LinkServive linkServive;
+	@Autowired
+    private AccountService accountService;
 /*
  *@Description:
  *@Author:陈竑霖
@@ -59,7 +64,7 @@ public class SchoolControl {
         Map map = new HashMap();
         Tool tool = new Tool();
         School school = new School();
-        int count = schoolService.schoolcount(school);
+        int count = schoolService.schoolCount(school);
         int start = 0;
         if(count > 20) start = tool.getRandom(0,count-count/2);
         else start = 0;
@@ -108,10 +113,17 @@ public class SchoolControl {
      *@Date:2020/6/11 11:52
      **/
     @ResponseBody
-    private String DrivingIn(School school){
+    private String DrivingIn(School school, Account account){
+        Tool tool = new Tool();
+//        byte psw = Byte.decode(account.getAPassword());
+//        int c = psw | 'x';
+
+//        account.setAPassword(String.);
         if(school.getSRegisteryFee() < 10) school.setSRegisteryFee(4000);
-
-
-	    return JSON.toJSONString(school);
+        school.setSRegTime(tool.getDate("yyyy/MM/dd HH:mm:ss"));
+        account.setAType("school");
+        accountService.addAccountData(account);//加入登录账号
+        school.setSAccountId(account.getAId());
+	    return JSON.toJSONString(schoolService.schoolToProduct(school,account.getAAccount()));
     }
 }

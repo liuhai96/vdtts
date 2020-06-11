@@ -26,4 +26,11 @@
             <if test="e.sRecruit!=null and e.sRecruit!=''"> and s_recruit = #{e.sRecruit}</if>
         </where>
     </select>
+    <!-- 驾校入驻 -->
+    <insert id="addSchool" keyProperty="sId" useGeneratedKeys="true">
+        insert into tb_school (s_account_id, s_name, s_address, s_phone, s_business_id, s_business_pic,
+         s_owner_id, s_owner_pic, s_verification, s_recruit, s_lock, s_reg_time, s_registery_fee)
+         values (#{sAccountId}, #{sName}, #{sAddress}, #{sPhone}, #{sBusinessId}, #{sBusinessPic},
+         #{sOwnerId}, #{sOwnerPic}, #{sVerification}, #{sRecruit}, #{sLock}, #{sRegTime}, #{sRegisteryFee})
+    </insert>
 </mapper>

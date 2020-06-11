@@ -1,8 +1,10 @@
 package com.lsjbc.vdtts.service.impl;
 
+import com.lsjbc.vdtts.dao.mapper.AccountMapper;
 import com.lsjbc.vdtts.dao.mapper.SchoolMapper;
 import com.lsjbc.vdtts.entity.School;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
+import com.lsjbc.vdtts.pojo.vo.ResultData;
 import com.lsjbc.vdtts.service.intf.SchoolService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +16,7 @@ import java.util.List;
 public class SchoolServiceImpl implements SchoolService
 {
 	@Autowired
-    public SchoolMapper schoolMapper;
+    private SchoolMapper schoolMapper;
 	/*
 	 *@Description:
 	 *@Author:陈竑霖
@@ -46,11 +48,25 @@ public class SchoolServiceImpl implements SchoolService
 		return layuiData;
 	}
 	@Override
-    public int schoolcount(School school){
+    public int schoolCount(School school){
 	    return schoolMapper.schoolcount(school);
     }
     @Override
     public List<School> schoolMessageList(School school,int stripStart, int stripEnd){
 	    return schoolMapper.schoolList(school,stripStart, stripEnd);
     }
+    @Override
+    public ResultData schoolToProduct(School school,String id){
+        ResultData resultData = ResultData.success();
+        if(schoolMapper.addSchool(school) > 0){
+            resultData.put("result","恭喜！"+school.getSName()+" 已经成入驻本平台\n\n" +
+                    "你的平台管理账号为："+id+
+                "\n\n在审核通过后，您就可以在本平台上管理您的驾校了");
+        } else {
+            resultData.put("result","很遗憾！未知原因导致"+school.getSName()+"未能成功入驻本平台\n\n" +
+                    "请重试或者联系我们的工作人员！给您带来的不便敬请谅解！");
+        }
+        return resultData;
+    }
+
 }
