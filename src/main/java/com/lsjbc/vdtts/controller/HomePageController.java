@@ -27,6 +27,7 @@ public class HomePageController {
     public ModelAndView InitHomePage(){
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("isInit", true);
+
         modelAndView = linkServive.HomePageBlogroll(new Link(),modelAndView);
         modelAndView = noticeSerivice.HomePageNoticeOrLaw(new Notice(), modelAndView);
         modelAndView.setViewName("/pages/homepage/home-page");

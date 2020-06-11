@@ -27,6 +27,8 @@ public class NoticeSeriviceImp implements NoticeSerivice {
     public ModelAndView HomePageNoticeOrLaw(Notice notice, ModelAndView modelAndView) {
         Tool tool = new Tool();
 
+        notice.setNType("law");//法律
+        modelAndView.addObject("law",noticeMapper.getNoticeOrLaw(notice,null));
         int month = Integer.parseInt(tool.getDate("MM"))-1;
         String n_time = "";
         /*只公告前一个月内的通知*/
@@ -40,9 +42,7 @@ public class NoticeSeriviceImp implements NoticeSerivice {
         notice.setNTime(n_time);
         notice.setNType("notice");//通知
         modelAndView.addObject("notice",noticeMapper.getNoticeOrLaw(notice,tool.getDate("yyyy/MM/dd HH:mm:ss")));
-        notice.setNType("law");//法律
-        notice.setNTime(null);
-        modelAndView.addObject("law",noticeMapper.getNoticeOrLaw(notice,null));
+
         return modelAndView;
     }
 }

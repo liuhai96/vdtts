@@ -30,8 +30,10 @@ public class LinkServiceImp implements LinkServive {
     }
     @Override
     public ModelAndView HomePageBlogroll(Link link,ModelAndView modelAndView){
-        modelAndView.addObject("approve",linkMapper.getBlogroll(link,0,2));//获取实名认证
-        modelAndView.addObject("blogroll",linkMapper.getBlogroll(link,2,10));//获取友情链接
+        //获取实名认证
+        modelAndView.addObject("approve",linkMapper.getBlogroll(link,0,2));
+        //获取友情链接
+        modelAndView.addObject("blogroll",linkMapper.getBlogroll(link,2,10));
         return modelAndView;
     }
 }
