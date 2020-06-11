@@ -2,9 +2,8 @@ package com.lsjbc.vdtts.controller;
 
 import com.lsjbc.vdtts.entity.Link;
 import com.lsjbc.vdtts.entity.Notice;
-import com.lsjbc.vdtts.pojo.vo.ResultData;
 import com.lsjbc.vdtts.service.intf.LinkServive;
-import com.lsjbc.vdtts.service.intf.NoticeSerivice;
+import com.lsjbc.vdtts.service.intf.NoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +14,7 @@ public class HomePageController {
     @Autowired
     private LinkServive linkServive;
     @Autowired
-    private NoticeSerivice noticeSerivice;
+    private NoticeService noticeSerivice;
 /*
  *@Description:
  *@Author:李浪_191019

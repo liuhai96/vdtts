@@ -16,6 +16,33 @@ import javax.persistence.*;
 @Table(name = "`tb_exam_error`")
 public class ExamError
 {
+
+	/**
+	 * 所有非数据库的字段通通加上@Transient注解
+	 * 所有非数据库的字段通通加上@Transient注解
+	 * 所有非数据库的字段通通加上@Transient注解
+	 * 所有非数据库的字段通通加上@Transient注解
+	 * 所有非数据库的字段通通加上@Transient注解
+	 * 所有非数据库的字段通通加上@Transient注解
+	 * 所有非数据库的字段通通加上@Transient注解
+	 * 所有非数据库的字段通通加上@Transient注解
+	 * 所有非数据库的字段通通加上@Transient注解
+	 * 所有非数据库的字段通通加上@Transient注解
+	 * 所有非数据库的字段通通加上@Transient注解
+	 * 所有非数据库的字段通通加上@Transient注解
+	 * 所有非数据库的字段通通加上@Transient注解
+	 * 所有非数据库的字段通通加上@Transient注解
+	 * 所有非数据库的字段通通加上@Transient注解
+	 * 所有非数据库的字段通通加上@Transient注解
+	 * 所有非数据库的字段通通加上@Transient注解
+	 * 所有非数据库的字段通通加上@Transient注解
+	 * 所有非数据库的字段通通加上@Transient注解
+	 * 所有非数据库的字段通通加上@Transient注解
+	 * 所有非数据库的字段通通加上@Transient注解
+	 * 所有非数据库的字段通通加上@Transient注解
+	 */
+
+
 	/**
 	 * 主键
 	 */

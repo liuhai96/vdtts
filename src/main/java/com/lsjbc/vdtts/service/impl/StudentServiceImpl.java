@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 @SuppressWarnings("all")
 @Service("studentService")
-public class StudentServiceImp implements StudentService
+public class StudentServiceImpl implements StudentService
 {
 	@Autowired
     public StudentMapper studentMapper;

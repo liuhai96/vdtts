@@ -13,7 +13,7 @@ import java.util.List;
 
 @SuppressWarnings("all")
 @Service("schoolService")
-public class SchoolServiceImp implements SchoolService
+public class SchoolServiceImpl implements SchoolService
 {
 	@Autowired
     public SchoolMapper schoolMapper;
