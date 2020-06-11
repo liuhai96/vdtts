@@ -10,6 +10,14 @@ import java.util.List;
  * @date 2020/6/10 11:27
  */
 public interface LinkServive {
-    public List<Link> drivingSchoolBlogroll(Link link);
-    public ModelAndView HomePageBlogroll(Link link,ModelAndView modelAndView);
+    List<Link> drivingSchoolBlogroll(Link link);
+    ModelAndView HomePageBlogroll(Link link,ModelAndView modelAndView);
+
+    /**
+     * 获取页面底部的友情链接
+     *
+     * @return 友情链接集合
+     * @author JX181114 --- 郑建辉
+     */
+    List<Link> getFooterFriendLink();
 }

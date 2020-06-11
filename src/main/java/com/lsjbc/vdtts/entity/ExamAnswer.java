@@ -20,6 +20,31 @@ import javax.persistence.*;
 public class ExamAnswer {
 
     /**
+     * 所有非数据库的字段通通加上@Transient注解
+     * 所有非数据库的字段通通加上@Transient注解
+     * 所有非数据库的字段通通加上@Transient注解
+     * 所有非数据库的字段通通加上@Transient注解
+     * 所有非数据库的字段通通加上@Transient注解
+     * 所有非数据库的字段通通加上@Transient注解
+     * 所有非数据库的字段通通加上@Transient注解
+     * 所有非数据库的字段通通加上@Transient注解
+     * 所有非数据库的字段通通加上@Transient注解
+     * 所有非数据库的字段通通加上@Transient注解
+     * 所有非数据库的字段通通加上@Transient注解
+     * 所有非数据库的字段通通加上@Transient注解
+     * 所有非数据库的字段通通加上@Transient注解
+     * 所有非数据库的字段通通加上@Transient注解
+     * 所有非数据库的字段通通加上@Transient注解
+     * 所有非数据库的字段通通加上@Transient注解
+     * 所有非数据库的字段通通加上@Transient注解
+     * 所有非数据库的字段通通加上@Transient注解
+     * 所有非数据库的字段通通加上@Transient注解
+     * 所有非数据库的字段通通加上@Transient注解
+     * 所有非数据库的字段通通加上@Transient注解
+     * 所有非数据库的字段通通加上@Transient注解
+     */
+
+    /**
      * ID
      */
     @Id

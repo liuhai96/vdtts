@@ -20,6 +20,33 @@ import java.util.List;
 @Table(name = "`tb_exam_question`")
 public class ExamQuestion {
 
+
+
+    /**
+     * 所有非数据库的字段通通加上@Transient注解
+     * 所有非数据库的字段通通加上@Transient注解
+     * 所有非数据库的字段通通加上@Transient注解
+     * 所有非数据库的字段通通加上@Transient注解
+     * 所有非数据库的字段通通加上@Transient注解
+     * 所有非数据库的字段通通加上@Transient注解
+     * 所有非数据库的字段通通加上@Transient注解
+     * 所有非数据库的字段通通加上@Transient注解
+     * 所有非数据库的字段通通加上@Transient注解
+     * 所有非数据库的字段通通加上@Transient注解
+     * 所有非数据库的字段通通加上@Transient注解
+     * 所有非数据库的字段通通加上@Transient注解
+     * 所有非数据库的字段通通加上@Transient注解
+     * 所有非数据库的字段通通加上@Transient注解
+     * 所有非数据库的字段通通加上@Transient注解
+     * 所有非数据库的字段通通加上@Transient注解
+     * 所有非数据库的字段通通加上@Transient注解
+     * 所有非数据库的字段通通加上@Transient注解
+     * 所有非数据库的字段通通加上@Transient注解
+     * 所有非数据库的字段通通加上@Transient注解
+     * 所有非数据库的字段通通加上@Transient注解
+     * 所有非数据库的字段通通加上@Transient注解
+     */
+
     /**
      * ID
      */
