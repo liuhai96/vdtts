@@ -115,7 +115,7 @@ $(function(){
         if(val=='')alert('请输入验证码！');
         else {
             if(val == num){
-                toService();
+                toService();//在对应界面的文件名（类似于接口）
             } else alert('验证码错误！请重新输入！');
             $(".input-val").val('');
             draw(show_num);
