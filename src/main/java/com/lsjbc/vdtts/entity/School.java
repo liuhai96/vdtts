@@ -24,6 +24,11 @@ public class  School
 	private Integer sAccountId;
 
 	/**
+	 * 	账号表中账号
+	 */
+	private Integer sAccount;
+
+	/**
 	 * 	驾校名
 	 */
 	private String sName;

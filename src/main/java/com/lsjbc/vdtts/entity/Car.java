@@ -72,4 +72,9 @@ public class Car
 	 * 教练名字
 	 */
 	private String tName;
+
+	/**
+	 * 车辆禁用
+	 */
+	private String cLock;
 }

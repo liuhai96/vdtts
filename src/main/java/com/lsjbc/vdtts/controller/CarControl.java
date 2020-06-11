@@ -2,22 +2,29 @@ package com.lsjbc.vdtts.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.lsjbc.vdtts.entity.Account;
 import com.lsjbc.vdtts.entity.Car;
+import com.lsjbc.vdtts.entity.School;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.service.intf.CarService;
+import com.lsjbc.vdtts.service.intf.SchoolService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 @RestController
 @RequestMapping("/carControl")
 public class CarControl {
     @Autowired
     private CarService carService;
+    @Autowired
+    private SchoolService schoolService;
 
     /*
      *@Description:查询驾校内教练车辆基本信息
@@ -82,5 +89,83 @@ public class CarControl {
 
         LayuiTableData layuiTableData = carService.carList(car, Integer.parseInt(pageStr), Integer.parseInt(pageSizeStr));
         return JSON.toJSONString(layuiTableData);
+    }
+
+    /*
+     *@Description:
+     *@Author:周永哲
+     *@Param:
+     *@return:
+     *@Date:2020/6/10 15860799877
+     **/
+    @RequestMapping(value = "/selectCarInfo")//初始化教练车信息表
+    public String selectCarInfo(HttpServletRequest request, HttpServletResponse response,
+                                   @RequestParam(value = "page") String page , @RequestParam(value = "limit") String limit,
+                                   Car car) {
+        int page2 = (Integer.valueOf(page)-1)*Integer.valueOf(limit);
+        System.out.println(" ---carpage="+page2);
+        List<Car> list= carService.selectAllInfo(car,page2,Integer.valueOf(limit));
+        int count =carService.selectCount(car);
+        System.out.println("教练车信息初始化操作--- list="+list+" count ="+count);
+        LayuiTableData layuiData = new LayuiTableData();
+        layuiData.setCode(0);
+        layuiData.setData(list);
+        layuiData.setCount(count);
+        return JSON.toJSONString(layuiData);
+    }
+
+    /*
+     *@Description:
+     *@Author:周永哲
+     *@Param:
+     *@return:
+     *@Date:2020/6/10 15860799877
+     **/
+    @RequestMapping(value = "/deleteSchool")//重置密码
+    public String deleteSchool(HttpServletRequest request, HttpServletResponse response,
+                               @RequestParam(value = "schoolId") String schoolId ) {
+        System.out.println(" schoolId:"+schoolId);
+        int i=schoolService.deleteSchool(schoolId);
+        String res = "";
+        if(i>0){
+            res="success";
+            System.out.println("删除驾校成功");
+            return res;
+        }else {
+            res="failed";
+            System.out.println("删除驾校失败");
+            return res;
+        }
+    }
+    /*
+     *@Description:
+     *@Author:周永哲
+     *@Param:
+     *@return:
+     *@Date:2020/6/10 15860799877
+     **/
+    @RequestMapping(value = "insertSchool")
+    public  String insertSchool (HttpServletRequest request, HttpServletResponse response,
+                                 @RequestParam(value = "school") School school, @RequestParam(value = "account") Account account){
+        System.out.println(" 添加驾校school list="+school.toString());
+        System.out.println(" 添加驾校account="+account.getAAccount()+" pwd="+account.getAPassword());
+        int a = schoolService.insertSchoolAccount(account);
+        String res = "";
+        if(a>0){
+            System.out.println("成功添加驾校账号，此 a_id="+account.getAId());
+            school.setSAccountId(account.getAId());
+            int i = schoolService.insertSchool(school);
+            if(i>0){
+                res="success";
+                System.out.println("添加驾校成功");
+            }else {
+                res="failed";
+                System.out.println("添加驾校失败");
+            }
+        }else {
+            System.out.println("添加驾校失败");
+            res="failed";
+        }
+        return res;
     }
 }

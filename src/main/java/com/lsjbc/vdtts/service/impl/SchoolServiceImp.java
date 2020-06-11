@@ -1,7 +1,9 @@
 package com.lsjbc.vdtts.service.impl;
 
 import com.lsjbc.vdtts.dao.mapper.SchoolMapper;
+import com.lsjbc.vdtts.entity.Account;
 import com.lsjbc.vdtts.entity.School;
+import com.lsjbc.vdtts.entity.Student;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.service.intf.SchoolService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ public class SchoolServiceImp implements SchoolService
 {
 	@Autowired
     public SchoolMapper schoolMapper;
+
 	/*
 	 *@Description:
 	 *@Author:陈竑霖
@@ -53,4 +56,42 @@ public class SchoolServiceImp implements SchoolService
     public List<School> schoolMessageList(School school,int stripStart, int stripEnd){
 	    return schoolMapper.schoolList(school,stripStart, stripEnd);
     }
+
+
+	/*
+	 *@Description:
+	 *@Author:周永哲
+	 *@Param:
+	 *@return:
+	 *@Date:2020/6/10
+	 **/
+	@Override
+	public List<School> selectAllInfo(School school, int page, int limit) {
+		List<School> selectAllInfo = schoolMapper.selectAllInfo(school,page,limit);
+		return selectAllInfo;
+	}
+
+	@Override
+	public int selectCount(School school) {
+		int selectCount = schoolMapper.selectCount(school);
+		return selectCount;
+	}
+
+	@Override
+	public int deleteSchool(String schoolId) {
+		int deleteSchool = schoolMapper.deleteSchool(schoolId);
+		return deleteSchool;
+	}
+
+	@Override
+	public int insertSchool(School school) {
+		int insertSchool = schoolMapper.insertSchool(school);
+		return insertSchool;
+	}
+
+	@Override
+	public int insertSchoolAccount(Account account) {
+		int insertSchoolAccount = schoolMapper.insertSchoolAccount(account);
+		return insertSchoolAccount;
+	}
 }

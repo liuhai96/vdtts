@@ -1,13 +1,13 @@
 package com.lsjbc.vdtts.dao.mapper;
 
 import com.lsjbc.vdtts.entity.Car;
+import com.lsjbc.vdtts.entity.School;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Mapper
 public interface CarMapper {
     public int findCarCount(@Param("cSchoolId") int cSchoolId);
     public ArrayList<Car> findCarManageList(@Param("start") int start,@Param("pageSize") int pageSize,@Param("cSchoolId") int cSchoolId);
@@ -25,4 +25,13 @@ public interface CarMapper {
      **/
     public int carlistcount(@Param("e") Car car);
     public List<Car> finecarlist(@Param("e") Car car, @Param("start") int start, @Param("pageSize") int pageSize);
+    /*
+     *@Description:
+     *@Author:周永哲
+     *@Param:
+     *@return:
+     *@Date:2020/6/11
+     **/
+    public List<Car> selectAllInfo(@Param("car") Car car, @Param("page") int page, @Param("limit") int limit);
+    public int selectCount(@Param("car") Car car);
 }
