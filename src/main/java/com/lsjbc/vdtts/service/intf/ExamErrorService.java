@@ -1,6 +1,7 @@
 package com.lsjbc.vdtts.service.intf;
 
 import com.lsjbc.vdtts.entity.ExamQuestion;
+import com.lsjbc.vdtts.pojo.vo.ExamQuestionWithEeId;
 
 import java.util.List;
 
@@ -17,7 +18,17 @@ public interface ExamErrorService {
      *
      * @param recordId 模拟考试ID
      * @return 错题集合
+     * @author JX181114 --- 郑建辉
      */
-    List<ExamQuestion> getErrorQuestionByRecordId(Integer recordId);
+    List<ExamQuestionWithEeId> getErrorQuestionByRecordId(Integer recordId);
+
+    /**
+     * 根据错题ID来删除记录
+     *
+     * @param ids 错题ID集合
+     * @return 受影响条数
+     * @author JX181114 --- 郑建辉
+     */
+    Integer deleteErrorQuestionByRecordId(Integer[] ids);
 
 }

@@ -1,3 +1,17 @@
+$(function () {
+
+});
+
+function openLogin(a) {//转登录方法
+    skipPage("/pages/homepage/login.jsp");
+    // yxl_mask("\u767b\u5f55", "url="+$("#path").val()+"/pages/homepage/login.jsp", "400", "500")
+}
+
+function openReg(a) {//注册方法
+    skipPage("/pages/homepage/driving-in/driving-in.jsp");
+    // yxl_mask("\u6ce8\u518c", "url=/login.php?reg=y&style=minWin", "400", "500")
+}
+
 function ExpStr(a) {
     var b = new Date;
     return b.setTime(b.getTime() + 1e3 * a), b.toGMTString()
@@ -278,13 +292,7 @@ function yxl_mask_gray(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o) {
     yxl_mask(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o), $(".YXL_Mask").addClass("YXL_Mask_gray"), $(".YXL_MaskCnt").addClass("YXL_MaskCnt_gray"), a ? ($(".YXL_MaskCnt dl").removeClass("ch"), $(".YXL_MaskCnt p.tit").removeClass("titTop")) : ($(".YXL_MaskCnt dl").addClass("ch"), $(".YXL_MaskCnt p.tit").addClass("titTop"))
 }
 
-function openLogin(a) {
-    yxl_mask("\u767b\u5f55", "url=/login.php?style=minWin", "400", "500")
-}
-
-function openReg(a) {
-    yxl_mask("\u6ce8\u518c", "url=/login.php?reg=y&style=minWin", "400", "500")
-}
-
 var WinkI = 0, WindowWidth = document.documentElement.clientWidth || "", itl = setInterval("getWW()", 500),
     yxl_mask_htmlcode = '<div class="YXL_Mask"></div><div class="YXL_MaskCnt"><p class="tit"></p><dl><dd></dd><dt></dt></dl></div>';
+
+

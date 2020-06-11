@@ -17,7 +17,6 @@ public interface StudentMapper {
 	public List<Student> selectList(@Param("e") Student student, @Param("start") int start, @Param("pageSize") int pageSize);
 	public int selectListCount(@Param("e") Student student);
 
-
     /*
      *@Description:
      *@Author:周永哲
@@ -32,6 +31,5 @@ public interface StudentMapper {
     public int updatestudent(Student student);
     public int deletestudent(Student student);
     public int addStudentMessage(Student student);
-
 
 }

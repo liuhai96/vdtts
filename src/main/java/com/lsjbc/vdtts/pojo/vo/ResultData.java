@@ -39,6 +39,9 @@ public class ResultData {
     @Builder.Default
     private Map<String, Object> data = new HashMap<>(10);
 
+
+    //res.data.url
+
     /**
      * 向Data中存入数据
      *
@@ -59,6 +62,17 @@ public class ResultData {
         return ResultData.builder().msg("操作成功").build();
     }
 
+    /*
+     *@Description:
+     *@Author:李浪_191019
+     *@Param:
+     *@return:
+     *@Date:2020/6/10 11:57
+     **/
+    public static ResultData success(String msg){
+        return ResultData.builder().msg(msg).build();
+    }
+
     /**
      * 设置一个成功的Success对象，并传入一个数据
      *
@@ -70,9 +84,21 @@ public class ResultData {
     public static ResultData success(String key, Object value) {
         ResultData resultData = new ResultData();
 
-        resultData.getData().put(key, value);
+        resultData.put(key, value);
 
         return resultData;
+    }
+
+    /**
+     * 设置一个出错的Error对象，并设置错误编码和消息
+     *
+     * @param code 成功编码
+     * @param msg  消息
+     * @return 表示操作成功的ResultData对象
+     * @author JX191012 --- 刘海
+     */
+    public static ResultData success(Integer code, String msg) {
+        return ResultData.builder().code(code).msg(msg).build();
     }
 
     /**
@@ -96,6 +122,17 @@ public class ResultData {
      */
     public static ResultData error(String msg) {
         return ResultData.builder().code(-1).msg(msg).build();
+    }
+
+    /**
+     * 设置一个警告的Warning对象，并设置消息
+     *
+     * @param msg 消息
+     * @return 表示操作异常的ResultData对象
+     * @author JX181114 --- 郑建辉
+     */
+    public static ResultData warning(String msg) {
+        return ResultData.builder().code(-2).msg(msg).build();
     }
 
     /**

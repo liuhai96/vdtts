@@ -57,6 +57,7 @@ public class ExamSimulateRecordApi {
      *
      * @param recordId 模拟考试记录ID
      * @return 删除结果
+     * @author JX181114 --- 郑建辉
      */
     @DeleteMapping("record")
     public ResultData delRecord(Integer recordId){

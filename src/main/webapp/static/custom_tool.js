@@ -58,14 +58,3 @@ function cutOut(str,begin,end) {//截取字符
     for (let i = begin;i <end;i++) strs += str.charAt(i);
     return strs;
 }
-
-// function isCardNo(Idcardnumber) {
-// // 身份证号码为15位或者18位，15位时全为数字，18位前17位为数字，最后一位是校验位，可能为数字或字符X
-//     var id=$("#Idcardnumber").val();//var id=$("#Idcardnumber")是获取Input文本框对象， .val（）;是获取文本框里面的值
-//     var reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
-//     if(reg.test(id) === false)
-//     {
-//         alert("身份证输入不合法");
-//         return false;
-//     }
-// }

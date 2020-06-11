@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
-    String schoolName = null;//名称
+    String schoolName = "老司机驾考";//名称
     String path = request.getContextPath();
     int type = 1011010;
     try { type = Integer.parseInt(request.getParameter("type")); } catch (Exception e){}
@@ -28,6 +28,7 @@
     <script src="<%=path+"/static/custom_tool.js"%>"></script>
 </head>
     <body background="<%=path+"/image/home-page/loginGround.png"%>" style="background-size: 100%">
+    <input hidden="hidden" value="<%=path%>" id="path">
         <div class="layui-col-md12" style="height: 20%;">
             <br><label class="layui-col-md-offset3" style="font-size: 35px;color:#ffda90;"><%=schoolName%></label>
             <br><label class="layui-col-md-offset4" style="font-size: 25px;color: crimson">
@@ -43,7 +44,7 @@
         </div>
         <div class="layui-col-md3 layui-col-md-offset7" style="height: 70%;text-align: center;background: rgba(82,139,255,0.3);">
             <br><br><label style="font-size: 30px">欢迎登录</label><br><br><br>
-            <form class="layui-form" action="<%=path+"/userLogin"%>" id="login" method="post">
+            <form class="layui-form">
                 <input type="text" name="aAccount" required placeholder="请输入你的账号"
                        class="layui-input" style="width: 67%;margin: 0 0 0 18%">
                 <label id="idNotify" style="color:#ff0a29;text-align: left;"></label>
@@ -60,6 +61,7 @@
                 <a href="https://graph.qq.com/oauth2.0/show?which=Login&display=pc&response_type=code&client_id=100227517
                 &redirect_uri=http%3A%2F%2Fauth.cysq.com%2Flogin%2Fapp_QQ.php%3Fstyle%3D" class="layui-col-md-offset7">
                     <i class="layui-icon" style="width: 40px;height: 40px;color: crimson">&#xe676;</i>QQ登录账号</a><!-- QQ登录接口 -->
+
             </form>
         </div>
         <script>
@@ -78,7 +80,10 @@
                 if (aPassword.length < 6) {passNotify.html("*密码长度不得少于6位！");isStop = true;}
                 else if (!done(aPassword,0,aPassword.length)){passNotify.html("*密码中含有法字符！");isStop = true;}
                 else passNotify.html("");
-                if (!isStop) $("#login").submit();
+                AjaxTransfer($("#path").val()+"/userLogin","aAccount="+aAccount+"&aPassword="+aPassword,function (mag) {
+                    alert(mag.msg);
+                    skipPage($("#path").val()+"/"+mag.data.url);
+                });
             }
         </script>
     </body>

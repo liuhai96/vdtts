@@ -116,4 +116,6 @@ public class StudentServiceImp implements StudentService
     public int registerStudent(Student student){
 	    return studentMapper.addStudentMessage(student);
     }
+
+
 }

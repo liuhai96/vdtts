@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
-    String schoolName = null;//名称
+    String schoolName = "老司机驾考";//名称
     String path = request.getContextPath();
     Cookie[] cookies = request.getCookies();
     for (Cookie cookie:cookies)
@@ -65,7 +65,7 @@
                 <label class="layui-col-md1 layui-col-md-offset2">男<i class="layui-icon ">&#xe662;</i>
                     <input type="checkbox" checked="checked" onclick="Change(true)" id="boy"></label>
                 <label class="layui-col-md1 layui-col-md-offset2">女<i class="layui-icon">&#xe661;</i>
-                    <input type="checkbox" onclick="Change(false)" id="girl"></label><br><br>
+                <input type="checkbox" onclick="Change(false)" id="girl"></label><br><br>
                 <input type="text" value="" placeholder="请输入验证码" class="input-val" style="height: 35px;width: 30%;">
                 <canvas id="canvas" class="layui-col-md3" style="height: 35px;background-color: ghostwhite; margin: 0 0 0 10%;"></canvas>
             </div><br>
@@ -185,10 +185,10 @@
             else if (!done(sSfz.val(),sSfz.val().length-2,sSfz.val().length)){sSfzNotify.html("*身份证号中含有非法字符！");isPass = false;}
             else {sSfzNotify.html("");}
             if (isPass){
-                AjaxTransfer("/StudentController/studentRegister","sName="+sName.val()+"&aPassword="+aPassword.val() +"&sSfz="+
+                AjaxTransfer("/studentController/studentRegister","sName="+sName.val()+"&aPassword="+aPassword.val() +"&sSfz="+
                     sSfz.val()+"&sPhone="+ sPhone.val()+"&sSex="+sSex.val()+"&sPic=//t.cn/RCzsdCq",function (mag) {
                     alert(mag.msg);
-                    // skipPage("/pages/homepage/register.jsp");
+                    skipPage("/pages/homepage/register.jsp");
                 });
             }
         }

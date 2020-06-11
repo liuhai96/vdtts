@@ -11,11 +11,11 @@
     String thisYear = new Tool().getDate("yyyy");
     String schoolName = "老司机驾考";
     Cookie cookie = new Cookie("schoolName",schoolName);//存放学校名称
+    int aId = 0;
+    try{ aId = Integer.valueOf(request.getSession().getAttribute("aId").toString());} catch (Exception e){}
     cookie.setMaxAge(-3);
     cookie.setPath(request.getContextPath());
     response.addCookie(cookie);
-//    resultData = request.getSession().getAttribute("account");
-    String[] bulletinInformation = {"恭喜学员：李*科目二通过","恭喜学员：郑*威从本驾校毕业","恭喜学员：刘*科目三通过"};
 %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -28,10 +28,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
         <script src="https://www.layuicdn.com/layui/layui.js"></script>
         <link href="https://www.layuicdn.com/layui/css/layui.css" rel="stylesheet" type="text/css"/>
-
     </head>
     <body>
     <input hidden="hidden" value="<%=path%>" id="path">
+    <c:if test="${!isInit}"><%-- 初始化界面 --%>
+        <form action="<%=path+"/home"%>" method="post" id="init"></form>
+        <script type="text/javascript">$(function () {$("#init").submit();})</script>
+    </c:if><%-- 初始化界面 --%>
         <!-- 顶部功能所在区代码 -->
         <div class="layui-col-md12">
             <ul class="layui-nav layui-bg-blue">
@@ -52,7 +55,7 @@
                     22px; color: #FF5722;">&#xe705;</i>&nbsp;&nbsp;资讯</a></li>
                 <li class="layui-nav-item"><a href=""><i class="layui-icon" style="font-size:
                     22px; color: #FF5722;">&#xe6ed;</i>&nbsp;&nbsp;视频</a></li>
-                <c:if test="${resultData eq null}">
+                <c:if test="<%=aId == 0%>">
                     <li class="layui-nav-item" style="float: right"><a href="<%=path+"/pages/homepage/register.jsp"%>">注册</a></li>|
                     <li class="layui-nav-item layui-bg-blue" style="float: right" lay-unselect=""><a href="javascript:;">登录</a>
                         <dl class="layui-nav-child">
@@ -62,7 +65,7 @@
                         </dl>
                     </li>
                 </c:if>
-                <c:if test="${resultData ne null}">
+                <c:if test="<%=aId != 0%>">
                     <li class="layui-nav-item layui-bg-blue" style="float: right" lay-unselect=""><a href="javascript:;">
                         <img src="//t.cn/RCzsdCq" class="layui-nav-img">我</a>
                         <dl class="layui-nav-child">
@@ -82,14 +85,13 @@
         <div style="background-color: white;height: 80%" class="layui-col-md1">
 
         </div>
-
         <!-- 公告区 -->
         <div style="background-color: seashell;" class="layui-col-md10">
             <div class="layui-carousel" id="test0" lay-anim="default" lay-indicator="none" lay-arrow="none">
                 <div carousel-item="">
-                    <c:forEach items="<%=bulletinInformation%>" begin="0" step="1" end="100" var="bi">
+                    <c:forEach items="${notice}" begin="0" step="1" end="100" var="nc">
                         <div style="margin: auto;"><i class="layui-icon" style="font-size:22px;color: darksalmon;">
-                            &#xe645;</i><a>${bi}</a></div>
+                            &#xe645;</i><a>${nc.NName}  发布时间:${nc.NTime}</a></div>
                     </c:forEach>
                 </div>
                 <style>#test0 .layui-carousel-ind,.layui-carousel-arrow {position:static;}</style>
@@ -152,15 +154,15 @@
                 <a  href="" style="font-size: 22px;color: cornflowerblue;" class="layui-col-md-offset1" target="_blank">
                     <%=schoolName%><%=thisYear%> 科目四　提供<%=thisYear%>新题库小车科目四模拟考试和2020新交规小车安全文明</a>
             </div><%--  科二简绍  --%><br><br><br><br><br>
-            <div><!-- 数据库链接 -->
-                <c:forEach items="${resultData.data}" begin="0" step="1" end="100" var="data">
-                    <c:forEach items="${data.key eq 'advertising'}" begin="0" step="1" end="100" var="key">
-                        <c:forEach items="${key.value}" begin="0" step="1" end="100" var="advertising">
-                            <a href="${advertising.href}" class="layui-btn layui-btn-warm" target="_blank">${advertising.name}</a>
-                        </c:forEach>
-                    </c:forEach>
+            <div style="text-align: center"><!-- 数据库链接 -->
+                <c:forEach items="${blogroll}" begin="0" step="1" end="100" var="link">
+                    <a href="${link.lkUrl}" class="layui-btn layui-btn-warm" target="_blank">${link.lkName}</a>
+                </c:forEach><br><br><br>
+                <c:forEach items="${law}" begin="0" step="1" end="100" var="nc">
+                    <a href="${nc.NContent}" target="_blank">${nc.NName}</a><br><br>
                 </c:forEach>
             </div>
+
         </div>
 
         <!-- 右侧功能所在区代码 -->
@@ -181,9 +183,10 @@
                 <label>版权所有：传一科技有限公司&nbsp;&nbsp;JX1910班老司机生产组&nbsp;&nbsp;</label>
                 <label>xx网备：1910xxxxxxxxx&nbsp;&nbsp;</label>
                 <label>xxx许可证：1910xxxxxxxxx&nbsp;&nbsp;</label><br><br>
-                <img src="<%=path+"/image/home-page/realNameAuthentication.png"%>" style="height: 80%;width: 8%">&nbsp;&nbsp;
-                <img src="<%=path+"/image/home-page/realNameAuthentication2.png"%>" style="height: 80%;width: 8%">
-                <br><br>
+                <c:forEach items="${approve}" begin="0" step="1" end="10" var="link">
+                    <a href="<%=path%>${link.lkUrl}"><img alt="${link.lkName}" src="<%=path%>${link.lkPic}" style="height: 80%;width: 8%"></a>
+                </c:forEach>
+               <br><br>
 
             </div>
         </div>

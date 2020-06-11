@@ -29,7 +29,20 @@ class VdttsApplicationTests {
 
     @Test
     void contextLoads() {
+        for (int i=0;i<25;i++){
+            int year = 2020;
+            int month = (ra.nextInt(12))+1;
+            int day = (ra.nextInt(31))+1;
+            int hour = ra.nextInt(24);
+            int min = ra.nextInt(60);
+            int se = ra.nextInt(60);
+            int score = ra.nextInt(101);
+            ExamSimulateRecord record = ExamSimulateRecord.builder()
+                    .esrStudentId(1).esrLevel(1).esrScore(score).esrTime(""+year+"/"+month+"/"+day+" "+hour+":"+min+":"+se+"")
+                    .build();
 
+            examSimulateRecordDao.add(record);
+        }
     }
 
 

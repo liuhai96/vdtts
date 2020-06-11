@@ -47,30 +47,27 @@ public class ExamSimulateRecordAdd {
     /**
      * 错题ID集合
      */
-//    private List<Integer> errorQuestions;
     private Integer[] errorQuestions;
 
     /**
-     * 返回ExamError错题集合
+     * 根据现有数据返回ExamError错题集合
      *
      * @param record 考试记录(主键不得为空的考试记录)
      * @return 错题集合
+     * @author JX181114 --- 郑建辉
      */
     public List<ExamError> createErrorList(ExamSimulateRecord record) {
 
-//        if(errorQuestions==null||errorQuestions.size()==0){
-//            return new ArrayList<>();
-//        }
-
-        if(errorQuestions==null||errorQuestions.length==0){
+        //如果传上来的分数为满分或错题表为空，则表示没有错题
+        if(score==100|errorQuestions==null||errorQuestions.length==0){
             return new ArrayList<>();
         }
 
+
         List<ExamError> examErrors = new ArrayList<>(0);
+
+        //遍历错题ID，生成错题对象
         try {
-//            examErrors = errorQuestions.stream().map(item -> {
-//                return ExamError.builder().eeRecordId(record.getEsrId()).eeQuestionId(item).build();
-//            }).collect(Collectors.toList());
             for(int index = 0;index<errorQuestions.length;index++){
                 examErrors.add(ExamError.builder().eeRecordId(record.getEsrId()).eeQuestionId(errorQuestions[index]).build());
             }

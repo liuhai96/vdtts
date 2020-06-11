@@ -26,5 +26,4 @@
             <if test="e.sRecruit!=null and e.sRecruit!=''"> and s_recruit = #{e.sRecruit}</if>
         </where>
     </select>
-
 </mapper>

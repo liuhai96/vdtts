@@ -24,17 +24,17 @@ public class Notice
 	private String nName;
 
 	/**
-	 *点击跳转路径
-	 */
-	private String nTime;
-
-	/**
 	 *发布时间
 	 */
-	private String nUrl;
+	private String nTime;
 
 	/**
 	 *类型（法律法规/通知公告）
 	 */
 	private String nType;
+
+	/**
+	 * 通知公告内容
+	 */
+	private String nContent;
 }

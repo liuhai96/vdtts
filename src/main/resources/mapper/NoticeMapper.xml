@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lsjbc.vdtts.dao.mapper.NoticeMapper">
+    <select id="getNoticeOrLaw" resultType="com.lsjbc.vdtts.entity.Notice">
+        select * from tb_notice <where> 1=1
+            <if test="e.nTime != null and e.nTime != '' and currentTime == null"> and n_time = #{e.nTime}</if>
+            <if test="e.nTime != null and e.nTime != '' and currentTime != null and currentTime != ''">
+             and n_time between #{e.nTime} and #{currentTime}</if>
+            <if test="e.nContent != null and e.nContent != ''"> and n_content = #{e.nContent}</if>
+            <if test="e.nType != null and e.nType != ''"> and n_type = #{e.nType}</if>
+        </where>
+    </select>
+
+</mapper>
