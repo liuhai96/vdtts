@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.lsjbc.vdtts.entity.Car;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
-import com.lsjbc.vdtts.entity.Car;
 import com.lsjbc.vdtts.service.intf.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -76,15 +75,11 @@ public class CarControl {
 //车辆表
     @RequestMapping(value = "/carList",produces = {"application/json;charset=UTF-8"})
     @ResponseBody
-    public String carList(HttpServletRequest request, HttpServletResponse response) {
+    public String carList(HttpServletRequest request, HttpServletResponse response,Car car) {
         String pageStr = request.getParameter("page");//页码
         String pageSizeStr = request.getParameter("limit");//每页记录数
-        //查车牌
-        String cNumber = request.getParameter("cNumber");
         String draw = request.getParameter("draw");//重绘次数 和前台对应
 
-        Car car = new Car();
-        car.setCNumber(cNumber);
         LayuiTableData layuiTableData = carService.carList(car, Integer.parseInt(pageStr), Integer.parseInt(pageSizeStr));
         return JSON.toJSONString(layuiTableData);
     }

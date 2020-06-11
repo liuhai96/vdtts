@@ -20,36 +20,36 @@
 				<input type="text" name="sName" id="sName" placeholder="请输入姓名" class="layui-input">
 			</div>
 		</div>
-<%--		<div class="layui-inline">--%>
-<%--			<label class="layui-form-label">审核状态</label>--%>
-<%--			<div class="layui-input-inline">--%>
-<%--				<select name="sVerificattion" lay-verify="required" lay-search="">--%>
-<%--					<option value="0">选择审核状态查询</option>--%>
-<%--					<option value="通过">通过</option>--%>
-<%--					<option value="未通过">未通过</option>--%>
-<%--				</select>--%>
-<%--			</div>--%>
-<%--		</div>--%>
-<%--		<div class="layui-inline">--%>
-<%--			<label class="layui-form-label">招生状态</label>--%>
-<%--			<div class="layui-input-inline">--%>
-<%--				<select name="sRecruit" lay-verify="required" lay-search="">--%>
-<%--					<option value="0">选择招生状态查询</option>--%>
-<%--					<option value="可招生">可招生</option>--%>
-<%--					<option value="不可招生">不可招生</option>--%>
-<%--				</select>--%>
-<%--			</div>--%>
-<%--		</div>--%>
-<%--		<div class="layui-inline">--%>
-<%--			<label class="layui-form-label">登录状态</label>--%>
-<%--			<div class="layui-input-inline">--%>
-<%--				<select name="sLock" lay-verify="required" lay-search="">--%>
-<%--					<option value="0">选择登录状态查询</option>--%>
-<%--					<option value="允许">允许</option>--%>
-<%--					<option value="不允许">不允许</option>--%>
-<%--				</select>--%>
-<%--			</div>--%>
-<%--		</div>--%>
+		<div class="layui-inline">
+			<label class="layui-form-label">审核状态</label>
+			<div class="layui-input-inline">
+				<select name="sVerificattion" id="sVerificattion">
+					<option value="">选择审核状态查询</option>
+					<option value="true">true</option>
+					<option value="false">false</option>
+				</select>
+			</div>
+		</div>
+		<div class="layui-inline">
+			<label class="layui-form-label">招生状态</label>
+			<div class="layui-input-inline">
+				<select name="sRecruit" id="sRecruit">
+					<option value="">选择招生状态查询</option>
+					<option value="true">true</option>
+					<option value="false">false</option>
+				</select>
+			</div>
+		</div>
+		<div class="layui-inline">
+			<label class="layui-form-label">登录状态</label>
+			<div class="layui-input-inline">
+				<select name="sLock" id="sLock">
+					<option value="">选择登录状态查询</option>
+					<option value="true">true</option>
+					<option value="false">false</option>
+				</select>
+			</div>
+		</div>
 		<div class="layui-inline">
 			<button class="layui-btn" lay-submit="search_submits" lay-filter="search">查询</button>
 		</div>
@@ -126,8 +126,9 @@
 		form.on('submit(search)',function (data) {
 
 			var sName = $("#sName").val();
-			// var sRecruit=$("#sRecruit").val();
-            // var sLock=$("#sLock").val();
+			var sLock=$("#sLock").val();
+            var sVerificattion=$("#sVerificattion").val();
+			var sRecruit=$("#sRecruit").val();
 			tableinf.reload({
 				url:'/SchoolControl/findSchoolList',
 				page: {
@@ -135,8 +136,9 @@
 				},
 				where:{
 					sName:sName
-					// ,sRecruit:sRecruit
-					// ,sLock:sLock
+					,sLock:sLock
+					,sVerificattion:sVerificattion
+					,sRecruit:sRecruit
 
 				}
 			});

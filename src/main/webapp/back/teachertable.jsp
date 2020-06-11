@@ -20,22 +20,27 @@
 				<input type="text" name="tName" id="tName" placeholder="请输入姓名" class="layui-input">
 			</div>
 		</div>
-<%--		<div class="layui-inline">--%>
-<%--			<label class="layui-form-label">性别</label>--%>
-<%--			<div class="layui-input-inline">--%>
-<%--				<select name="sSex" lay-verify="required" lay-search="">--%>
-<%--					<option value="0">选择性别查询</option>--%>
-<%--					<option value="男">男</option>--%>
-<%--					<option value="女">女</option>--%>
-<%--				</select>--%>
-<%--			</div>--%>
-<%--		</div>--%>
-<%--		<div class="layui-inline">--%>
-<%--			<label class="layui-form-label">获取时间：</label>--%>
-<%--			<div class="layui-input-block">--%>
-<%--				<input type="text" name="sLicenseTime" id="sLicenseTime" placeholder="请输入姓名" class="layui-input">--%>
-<%--			</div>--%>
-<%--		</div>--%>
+		<div class="layui-inline">
+			<label class="layui-form-label">学员状态</label>
+			<div class="layui-input-inline">
+				<select name="tTeach"id="tTeach" >
+					<option value="">选择状态查询</option>
+					<option value="true">true</option>
+					<option value="false">false</option>
+				</select>
+			</div>
+		</div>
+		<div class="layui-inline">
+			<label class="layui-form-label">登录状态</label>
+			<div class="layui-input-inline">
+				<select name="tLock"id="tLock" >
+					<option value="">选择状态查询</option>
+					<option value="true">true</option>
+					<option value="false">false</option>
+				</select>
+			</div>
+		</div>
+
 		<div class="layui-inline">
 			<button class="layui-btn" lay-submit="search_submits" lay-filter="search">查询</button>
 		</div>
@@ -112,8 +117,8 @@
 		form.on('submit(search)',function (data) {
 
 			var tName = $("#tName").val();
-			// var sSex=$("#sSex").val();
-            // var sLicenseTime=$("#sLicenseTime").val();
+			var tLock=$("#tLock").val();
+            var tTeach=$("#tTeach").val();
 			tableinf.reload({
 				url:'/teacherController/teacherList',
 				page: {
@@ -121,8 +126,8 @@
 				},
 				where:{
 					tName:tName
-					// ,sLicenseTime:sLicenseTime
-					// ,sSex:sSex
+					,tLock:tLock
+					,tTeach:tTeach
 				}
 			});
 

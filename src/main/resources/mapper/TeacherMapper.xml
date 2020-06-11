@@ -68,6 +68,8 @@
     <select id="teacherlist" resultType="com.lsjbc.vdtts.entity.Teacher">
         select tea.*,sch.s_name schoolName from tb_teacher tea,tb_school sch where tea.t_school_id=sch.s_id
         <if test="e.tName!=null and e.tName!=''"> and tea.t_name like concat('%',#{e.tName},'%')</if>
+        <if test="e.tLock!=null and e.tLock!=''"> and tea.t_lock = #{e.tLock}</if>
+        <if test="e.tTeach!=null and e.tTeach!=''"> and tea.t_teach = #{e.tTeach}</if>
         limit ${start},#{pageSize}
     </select>
     <!--分页-->
@@ -75,6 +77,8 @@
         select count(t_id) from tb_teacher
         <where>
             <if test="e.tName!=null and e.tName!=''"> and t_name like concat('%',#{e.tName},'%')</if>
+            <if test="e.tLock!=null and e.tLock!=''"> and t_lock = #{e.tLock}</if>
+            <if test="e.tTeach!=null and e.tTeach!=''"> and t_teach = #{e.tTeach}</if>
         </where>
     </select>
 </mapper>
