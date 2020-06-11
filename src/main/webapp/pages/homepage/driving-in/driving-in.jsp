@@ -27,6 +27,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no,user-scalable=no">
     <title>老司机驾考·企业版 入驻</title>
     <link href="driving-in_files/main.css" rel="stylesheet" type="text/css">
+    <script src="<%=path+"/static/custom_tool.js"%>"></script>
 </head>
     <body>
     <input hidden="hidden" value="<%=path%>" id="path">
@@ -44,41 +45,62 @@
                     <div class="cooperate-form">
                         <div class="form">
                             <div class="err-tip"></div>
-                            <div class="form-group radio-form">
+                            <div class="form-group radio-form" id="test1" onclick="" type="button">
                                 <label skip="true">驾校图片<i>*</i></label>
-                                <div class="user-type-conatiner">
-                                    <div class="user-type active" ref="radioWrap" data-index="0" style="width: 60%">
-                                        <i class="avatar" skip="true"></i>
+                                <div class="user-type-conatiner layui-upload">
+                                    <div class="user-type active layui-upload-list" ref="radioWrap" data-index="0"
+                                         style="width: 60%"  >
                                         <b skip="true">宣传图片</b>
-                                        <p skip="true">会展示到<%=schoolName%>中，入驻需认证，用于营销、招生、管理</p>
+                                        <img src="" class="layui-upload-img" id="demo1" <%--<%=path+"/image/home-page/sml_002.png"%>--%>
+                                             property="" alt="会展示到<%=schoolName%>中，入驻需认证，用于营销、招生、管理">
+                                        <p id="demoText"></p>
                                     </div>
                                 </div>
                             </div>
+                            <div class="err-tip"></div>
                             <div class="form-group">
                                 <label>驾校名称<i skip="true">*</i></label>
-                                <input class="" type="text" name="" placeholder="请输入驾校所在的城市">
+                                <input class="" type="text" name="fName" placeholder="请输入驾校所在的城市">
                             </div>
+                            <label id="fNameNotify" style="color: crimson"></label>
                             <div class="err-tip"></div>
                             <div class="form-group">
                                 <label skip="true">所在城市<i>*</i></label>
-                                <input class="" type="text" name="city" placeholder="请输入驾校所在的城市">
+                                <input class="" type="text" name="sAddress" placeholder="请输入驾校所在的城市">
                             </div>
+                            <label id="sAddressNotify" style="color: crimson"></label>
                             <div class="err-tip"></div>
                             <div class="form-group ">
                                 <label skip="true">法人证号<i>*</i></label>
-                                <input class="" type="text" name="jiaxiaoFullName" ref="input"
+                                <input class="" type="text" name="sOwnerId" ref="input"
                                        placeholder="请填写法人身份证号" maxlength="40">
                             </div>
+                            <label id="sOwnerIdNotify" style="color: crimson"></label>
+                            <div class="err-tip "></div>
+                            <div class="form-group radio-form" id="test10" onclick="" type="button">
+                                <label skip="true">法人证件照<i>*</i></label>
+                                <div class="user-type-conatiner layui-upload">
+                                    <div class="user-type active layui-upload-list" ref="radioWrap" data-index="0"
+                                         style="width: 60%">
+                                        <b skip="true">法人证件照</b>
+                                        <img src="" class="layui-upload-img" id="demo10" <%--<%=path+"/image/home-page/sml_002.png"%>--%>
+                                             property="" alt="用于管理">
+                                        <p id="demoText10"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <label id="sRecruitNotify" style="color: crimson"></label>
                             <div class="err-tip "></div>
                             <div class="form-group">
-                                <label skip="true">法人姓名<i>*</i></label>
-                                <input class="" type="text" name="userName" ref="input" placeholder="请输入管理员姓名" maxlength="20">
+                                <label skip="true">报名费用<i>*</i></label>
+                                <input class="" type="text" name="sRegisteryFee" ref="input" placeholder="请输入报名费用" maxlength="20">
                             </div>
                             <div class="err-tip"></div>
                             <div class="form-group">
                                 <label skip="true">招生电话<i>*</i>
-                                </label><input class="" type="text" name="phone" ref="input" placeholder="招生电话" maxlength="11">
+                                </label><input class="" type="text" name="sPhone" ref="input" placeholder="招生电话" maxlength="11">
                             </div>
+                            <label id="sPhoneNotify" style="color: crimson"></label>
                             <div class="err-tip"></div>
                             <div class="form-group">
                                 <label skip="true">验证码<i>*</i></label>
@@ -88,10 +110,13 @@
 <%--                                <div class="form-btn " ref="send-smscode">获取验证码</div>--%>
                             </div>
                             <div class="err-tip"></div>
-                            <div class="submit" skip="true"><span class="form-btn">提交</span></div>
+                            <div skip="true">
+                                <span class="form-btn btn layui-btn layui-btn-normal layui-btn-radius"
+                                      style="width: 30%;margin: 0 0 0 30%">&nbsp;&nbsp;提&nbsp;&nbsp;交&nbsp;&nbsp;</span>
+                            </div>
                             <div class="protocol">
                                 <div class="protocol-checkbox checked" ref="protocol-checkbox"></div>
-                                <div skip="true">我已阅读并接受
+                                <div>我已阅读并接受
                                     <a href="" target="_blank">《驾校用户使用协议》</a><%-- https://qiye.jiakaobaodian.com/xieyi1.html--%>
                                     和<a href="" target="_blank">《企业版隐私政策》</a><%--https://qiye.jiakaobaodian.com/xieyi2.html--%>
                                 </div>
@@ -99,87 +124,64 @@
                         </div>
                     </div>
                     <div class="copyright" skip="true"><span>Copyright ©xxxxxx信息技术有限公司 |<span class="beian"></span><a
-                            style="color: #333" target="_blank"
-                            href="">吓公安网备 xxxxxxxxx号</a>&nbsp;&nbsp;<a
-                            style="color: #333" target="_blank"
-                            href="">吓ICP备xxxxxxxxx号xxx</a></span>
+                            style="color: #333" target="_blank" href="">吓公安网备 xxxxxxxxx号</a>&nbsp;&nbsp;
+                        <a style="color: #333" target="_blank" href="">吓ICP备xxxxxxxxx号xxx</a></span>
                     </div>
                 </div>
             </div>
         </div>
-    <script>
-        let genders = true;
-        $(function(){
-            let show_num = [];
-            draw(show_num);
-            $("#canvas").on('click',function(){
-                draw(show_num);
-            })
-            $(".btn").on('click',function(){
-                var val = $(".input-val").val().toLowerCase();
-                var num = show_num.join("");
-                if(val=='')alert('请输入验证码！');
-                else {
-                    if(val == num){
-                        toRegister();
-                    } else alert('验证码错误！请重新输入！');
-                    $(".input-val").val('');
-                    draw(show_num);
+        <script>
+            let sBusinessPic = "";//学校宣传图
+            let sRecruit = "";//法人证件
+            Layui_uploadImage("#test1",$("#path").val()+'/upImage',$('#demo1'),function (mag) {
+                sBusinessPic = mag.fPath;},$('#demoText'));//学校宣传图
+            Layui_uploadImage("#test10",$("#path").val()+'/upImage',$('#demo10'),function (mag) {
+                sRecruit = mag.fPath;},$('#demoText10'));//法人证件图
+            function toService() {
+                let isPass = true;
+                let fName = $("input[name='fName']");
+                let fNameNotify =  $("#fNameNotify");
+                let sOwnerId = $("input[name='sOwnerId']");
+                let sOwnerIdSfzNotify = $("#sOwnerIdNotify");
+                let sAddress = $("input[name='sAddress']");
+                let sAddressNotify = $("#sAddressNotify");
+                let sPhone = $("input[name='sPhone']");
+                let sPhoneNotify = $("#sPhoneNotify");
+
+                if ( fName.val() == "") {fNameNotify.html("*法人证件照为必要证件，证件照必须上传！");isPass = false;}
+                else fNameNotify.html("");
+
+                if (sRecruit == null || sRecruit == "") {$("#sRecruitNotify").html("*法人证件照为必要证件，证件照必须上传！");isPass = false;}
+                else $("#sRecruitNotify").html("");
+                //校验身份证
+                if (sOwnerId.val().length < 1){sOwnerIdSfzNotify.html("*身份证号为必填项目！");isPass = false;}
+                else if (sOwnerId.val().length != 15 && sOwnerId.val().length  != 18){sOwnerIdSfzNotify.html("*身份证号长度未15位,或18位！");isPass = false;}
+                else if (!number.test(cutOut(sOwnerId.val(),undefined,sOwnerId.val().length-1))){sOwnerIdSfzNotify.html("*身份证号中含有非法字符！");isPass = false;}
+                else if (!done(sOwnerId.val(),sOwnerId.val().length-2,sOwnerId.val().length)){sOwnerIdSfzNotify.html("*身份证号中含有非法字符！");isPass = false;}
+                else {sOwnerIdSfzNotify.html("");}
+                //校验驾校地址
+                if (sAddress.val() == "") {sAddressNotify.html("*驾校所在地必须填写！");isPass = false;}
+                else if (sAddress.val().length < 5) {sAddressNotify.html("*驾校所在地必须大于5位");isPass = false;}
+                else sAddressNotify.html("");
+                //校验联系方式
+                if (sPhone.val().length < 1){sPhoneNotify.html("*联系方式为必填项目！");isPass = false;}
+                else if (sPhone.val().length < 3 || sPhone.val().length  > 11){
+                    sPhoneNotify.html("*联系方式长度大于3,小于12位！");
+                    isPass = false;
+                } else if (!number.test(sPhone.val())){
+                    sPhoneNotify.html("*联系方式仅限制数字号码！");
+                    isPass = false;
+                } else sPhoneNotify.html("");
+                if (isPass){
+                    AjaxTransfer($("#path").val()+"/SchoolControl/drivingIn","fName="+fName.val()+"&sBusinessPic="+
+                        sBusinessPic+"&sRecruit="+sRecruit+"&sOwnerId="+sOwnerId.val()+"&sAddress="+sAddress.val()+"&sPhone="
+                        +sPhone.val()+"&sRegisteryFee="+$("input[name='sRegisteryFee']").val(),function () {
+
+                    });
                 }
-            })
-        })
-        function draw(show_num) {
-            var canvas_width=$('#canvas').width();
-            var canvas_height=$('#canvas').height();
-            var canvas = document.getElementById("canvas");//获取到canvas的对象，演员
-            var context = canvas.getContext("2d");//获取到canvas画图的环境，演员表演的舞台
-            canvas.width = canvas_width;
-            canvas.height = canvas_height;
-            var sCode = "A,B,C,E,F,G,H,J,K,L,M,N,P,Q,R,S,T,W,X,Y,Z,1,2,3,4,5,6,7,8,9,0";
-            var aCode = sCode.split(",");
-            var aLength = aCode.length;//获取到数组的长度
 
-            for (var i = 0; i <= 3; i++) {
-                var j = Math.floor(Math.random() * aLength);//获取到随机的索引值
-                var deg = Math.random() * 30 * Math.PI / 180;//产生0~30之间的随机弧度
-                var txt = aCode[j];//得到随机的一个内容
-                show_num[i] = txt.toLowerCase();
-                var x = 10 + i * 35;//文字在canvas上的x坐标
-                var y = 20 + Math.random() * 8;//文字在canvas上的y坐标
-                context.font = "bold 23px 微软雅黑";
 
-                context.translate(x, y);
-                context.rotate(deg);
-
-                context.fillStyle = randomColor();
-                context.fillText(txt, 0, 0);
-
-                context.rotate(-deg);
-                context.translate(-x, -y);
             }
-            for (var i = 0; i <= 10; i++) { //验证码上显示线条
-                context.strokeStyle = randomColor();
-                context.beginPath();
-                context.moveTo(Math.random() * canvas_width, Math.random() * canvas_height);
-                context.lineTo(Math.random() * canvas_width, Math.random() * canvas_height);
-                context.stroke();
-            }
-            for (var i = 0; i <= 50; i++) { //验证码上显示小点
-                context.strokeStyle = randomColor();
-                context.beginPath();
-                var x = Math.random() * canvas_width;
-                var y = Math.random() * canvas_height;
-                context.moveTo(x, y);
-                context.lineTo(x + 1, y + 1);
-                context.stroke();
-            }
-        }
-        function randomColor() {//得到随机的颜色值
-            var r = Math.floor(Math.random() * 256);
-            var g = Math.floor(Math.random() * 256);
-            var b = Math.floor(Math.random() * 256);
-            return "rgb(" + r + "," + g + "," + b + ")";
-        }
         </script>
     </body>
 </html>

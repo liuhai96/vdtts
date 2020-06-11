@@ -11,15 +11,17 @@ import com.lsjbc.vdtts.utils.Tool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.io.File;
+import java.io.IOException;
+import java.util.*;
 
 @SuppressWarnings("all")
 @Controller
@@ -45,6 +47,7 @@ public class SchoolControl {
 		LayuiTableData layuiTableData = schoolService.schoolList(school, Integer.parseInt(pageStr), Integer.parseInt(pageSizeStr));
 		return JSON.toJSONString(layuiTableData);
 	}
+
 	@RequestMapping(value = "/drivingFindInit")
     /*
      *@Description:
@@ -98,5 +101,21 @@ public class SchoolControl {
         modelAndView.addObject("links",linkServive.drivingSchoolBlogroll(new Link()));
         modelAndView.setViewName("/pages/homepage/driving-to-find/driving-to-find");
 	    return modelAndView;
+    }
+
+    @RequestMapping(value = "/drivingIn")
+    /*
+     *@Description:
+     *@Author:李浪_191019
+     *@Param:[file]
+     *@return:java.lang.Object
+     *@Date:2020/6/11 11:52
+     **/
+    @ResponseBody
+    private String DrivingIn(School school){
+        if(school.getSRegisteryFee() < 10) school.setSRegisteryFee(4000);
+
+
+	    return JSON.toJSONString(school);
     }
 }
