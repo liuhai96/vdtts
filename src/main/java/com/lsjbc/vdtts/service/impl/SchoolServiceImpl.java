@@ -9,6 +9,8 @@ import com.lsjbc.vdtts.service.intf.SchoolService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @SuppressWarnings("all")
@@ -69,4 +71,16 @@ public class SchoolServiceImpl implements SchoolService
         return resultData;
     }
 
+
+	@Override
+	public ResultData findSchoolInfo(HttpServletRequest request, HttpServletResponse response) {
+		School school = schoolMapper.findSchoolInfo(1);
+		ResultData resultData = null;
+		if(school!=null){
+			resultData = ResultData.success("school",school);
+		}else{
+			resultData = ResultData.error(-1,"系统出错请稍后尝试");
+		}
+		return resultData;
+	}
 }

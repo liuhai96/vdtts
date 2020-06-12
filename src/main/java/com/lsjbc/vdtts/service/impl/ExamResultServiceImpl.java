@@ -50,6 +50,7 @@ public class ExamResultServiceImpl implements ExamResultService {
      **/
     public ResultData arringeExam(int erId, int erStudentId, int examSujectId, int teacherId) {
         ResultData resultData = null;
+        Integer erState = 2;
         int count = 0;
         ExamResult examResult = examResultMapper.findSubjectExamState(erId,erStudentId);
         switch (examSujectId){
@@ -58,19 +59,27 @@ public class ExamResultServiceImpl implements ExamResultService {
                 break;
             case 1:
                 count = examResultMapper.findSubjectExamCount(teacherId,examSujectId);
-                if(count>=5){
-                    resultData = ResultData.error(-1,"该科目考试人数已满请重新选择考试科目");
-                }else{
-                    int num = examResultMapper.updateStudentExanState(examSujectId,erId);
-                    if(num>0){
-                        resultData = ResultData.success(0,"您已成功为该学员安排科目一考试");
-                    }
+                if(examResult.getErState1()==1){
+                    resultData = ResultData.error(-1,"该学员的科目一已通过");
+                }else if(examResult.getErState1()==2){
+                    resultData = ResultData.error(-1,"该学员的科目一已通过或正在考试中");
+                } else{
+                    if(count>=5){
+                        resultData = ResultData.error(-1,"该科目考试人数已满请重新选择考试科目");
+                    }else{
+                        int num = examResultMapper.updateStudentExanState(examSujectId,erId,erState);
+                        if(num>0){
+                            resultData = ResultData.success(0,"您已成功为该学员安排科目一考试");
+                        }
 
+                    }
                 }
                 break;
             case 2:
-                if(examResult.getErState2()==2||examResult.getErState2()==1){
-                    resultData = ResultData.error(-1,"该学员的科目二已通过或正在考试中");
+                if(examResult.getErState2()==2){
+                    resultData = ResultData.error(-1,"该学员的科目二或正在考试中");
+                }else if(examResult.getErState2()==1){
+                    resultData = ResultData.error(-1,"该学员的科目二已通过");
                 }else{
                     if(examResult.getErState1()==1){
                         if(examResult.getErTime2()>280){
@@ -78,7 +87,7 @@ public class ExamResultServiceImpl implements ExamResultService {
                             if(count>=5){
                                 resultData = ResultData.error(-1,"该科目考试人数已满请重新选择考试科目");
                             }else{
-                                int num = examResultMapper.updateStudentExanState(examSujectId,erId);
+                                int num = examResultMapper.updateStudentExanState(examSujectId,erId,erState);
                                 if(num>0){
                                     resultData = ResultData.success(0,"您已成功为该学员安排科目二考试");
                                 }
@@ -93,8 +102,10 @@ public class ExamResultServiceImpl implements ExamResultService {
 
                 break;
             case 3:
-                if(examResult.getErState3()==2||examResult.getErState3()==1){
-                    resultData = ResultData.error(-1,"该学员的科目三已通过或正在考试中");
+                if(examResult.getErState3()==2){
+                    resultData = ResultData.error(-1,"该学员的科目三正在考试中");
+                }else if(examResult.getErState3()==1){
+                    resultData = ResultData.error(-1,"该学员的科目三已通过");
                 }else{
                     if(examResult.getErState2()==1){
                         if(examResult.getErTime3()>280){
@@ -102,7 +113,7 @@ public class ExamResultServiceImpl implements ExamResultService {
                             if(count>=5){
                                 resultData = ResultData.error(-1,"该科目考试人数已满请重新选择考试科目");
                             }else{
-                                int num = examResultMapper.updateStudentExanState(examSujectId,erId);
+                                int num = examResultMapper.updateStudentExanState(examSujectId,erId,erState);
                                 if(num>0){
                                     resultData = ResultData.success(0,"您已成功为该学员安排科目三考试");
                                 }
@@ -116,8 +127,10 @@ public class ExamResultServiceImpl implements ExamResultService {
                 }
                 break;
             case 4:
-                if(examResult.getErState4()==2||examResult.getErState4()==1){
-                    resultData = ResultData.error(-1,"该学员的科目四已通过或正在考试中");
+                if(examResult.getErState4()==2){
+                    resultData = ResultData.error(-1,"该学员的科目四正在考试中");
+                }else if(examResult.getErState4()==1){
+                    resultData = ResultData.error(-1,"该学员的科目四已通过");
                 }else{
                     if(examResult.getErState3()==1){
                         if(examResult.getErTime4()>280){
@@ -125,7 +138,7 @@ public class ExamResultServiceImpl implements ExamResultService {
                             if(count>=5){
                                 resultData = ResultData.error(-1,"该科目考试人数已满请重新选择考试科目");
                             }else{
-                                int num = examResultMapper.updateStudentExanState(examSujectId,erId);
+                                int num = examResultMapper.updateStudentExanState(examSujectId,erId,erState);
                                 if(num>0){
                                     resultData = ResultData.success(0,"您已成功为该学员安排科目四考试");
                                 }
@@ -138,6 +151,96 @@ public class ExamResultServiceImpl implements ExamResultService {
                     }
                 }
                 break;
+        }
+        return resultData;
+    }
+
+    @Override
+    public ResultData enterResults(int erId, int studentId, int examSujectId, int erScore) {
+        ResultData resultData = null;
+        ExamResult examResult = examResultMapper.findSubjectExamState(erId,studentId);
+        int erState = 1;
+        switch (examSujectId){
+            case 0:
+                resultData = ResultData.error(-1,"请选择考试科目");
+                break;
+            case 1:
+                if(examResult.getErScore1()>=90&&examResult.getErState1()==1){
+                    resultData = ResultData.error(-1,"该学员的科目一已经考试通过，不能重复录入成绩");
+                }else{
+                        if (erScore >= 90) {
+                            int num = examResultMapper.updateStudentExanState(examSujectId,erId,erState);
+                            int num1 = examResultMapper.updateStudentScore(erId,erScore,examSujectId);
+                            if(num>0&&num1>0){
+                                resultData = ResultData.error(0,"您已成功录入该学员的科目一成绩,该学员已通过考试");
+                            }
+                        }else{
+                            int num1 = examResultMapper.updateStudentScore(erId,erScore,examSujectId);
+                            resultData = ResultData.error(0,"您已成功录入该学员的科目一成绩,该学员未通过考试");
+                        }
+                    }
+                    break;
+            case 2:
+                if(examResult.getErScore1()>90){
+                    if(examResult.getErScore2()>=80&&examResult.getErState2()==1){
+                        resultData = ResultData.error(-1,"该学员的科目二已经考试通过，不能重复录入成绩");
+                    }else{
+                        if (erScore >= 90) {
+                            int num = examResultMapper.updateStudentExanState(examSujectId,erId,erState);
+                            int num1 = examResultMapper.updateStudentScore(erId,erScore,examSujectId);
+                            if(num>0&&num1>0){
+                                resultData = ResultData.error(0,"您已成功录入该学员的科目二成绩,该学员已通过考试");
+                            }
+                        }else{
+                            int num1 = examResultMapper.updateStudentScore(erId,erScore,examSujectId);
+                            resultData = ResultData.error(0,"您已成功录入该学员的科目二成绩,该学员未通过考试");
+                        }
+                    }
+                }else{
+                    resultData = ResultData.error(-1,"该学员的科目一考试未通过，不能录入科目二成绩");
+                }
+                break;
+            case 3:
+                if(examResult.getErScore2()>80){
+                    if(examResult.getErScore3()>=90&&examResult.getErState3()==1){
+                        resultData = ResultData.error(-1,"该学员的科目三已经考试通过，不能重复录入成绩");
+                    }else{
+                        if (erScore >= 90) {
+                            int num = examResultMapper.updateStudentExanState(examSujectId,erId,erState);
+                            int num1 = examResultMapper.updateStudentScore(erId,erScore,examSujectId);
+                            if(num>0&&num1>0){
+                                resultData = ResultData.error(0,"您已成功录入该学员的科目三成绩,该学员已通过考试");
+                            }
+                        }else{
+                            int num1 = examResultMapper.updateStudentScore(erId,erScore,examSujectId);
+                            resultData = ResultData.error(0,"您已成功录入该学员的科目三成绩,该学员未通过考试");
+                        }
+                    }
+                }else{
+                    resultData = ResultData.error(-1,"该学员的科目二考试未通过，不能录入科目三成绩");
+                }
+                break;
+            case 4:
+            if(examResult.getErScore3()>90){
+                if(examResult.getErScore4()>=90&&examResult.getErState4()==1){
+                    resultData = ResultData.error(-1,"该学员的科目四已经考试通过，不能重复录入成绩");
+                }else{
+                    if (erScore >= 90) {
+                        int num = examResultMapper.updateStudentExanState(examSujectId,erId,erState);
+                        int num1 = examResultMapper.updateStudentScore(erId,erScore,examSujectId);
+                        if(num>0&&num1>0){
+                            resultData = ResultData.error(0,"您已成功录入该学员的科目四成绩,该学员已通过考试");
+                        }
+                    }else{
+                        int num1 = examResultMapper.updateStudentScore(erId,erScore,examSujectId);
+                        resultData = ResultData.error(0,"您已成功录入该学员的科目四成绩,该学员未通过考试");
+                    }
+                }
+            }else{
+                resultData = ResultData.error(-1,"该学员的科目三考试未通过，不能录入科目四成绩");
+            }
+            break;
+
         }
         return resultData;
     }

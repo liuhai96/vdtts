@@ -197,12 +197,10 @@
                     isPass = false;
                 } else sPhoneNotify.html("");
                 if (isPass){
-                    let pw = aPassword.val();
-                    // pw = pw & 'x';
                     AjaxTransfer($("#path").val()+"/SchoolControl/drivingIn","sName="+fName.val()+"&sBusinessPic="+
                         sBusinessPic+"&sRecruit="+sRecruit+"&sOwnerId="+sOwnerId.val()+"&sAddress="+sAddress.val()+
                         "&sPhone=" +sPhone.val()+"&sRegisteryFee="+$("input[name='sRegisteryFee']").val()+"&aPassword="
-                        +pw, function (mag) {
+                        +aPassword.val(), function (mag) {
                         alert(mag.data.result);
                     });
                 }

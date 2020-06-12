@@ -37,6 +37,12 @@
         </div>
     </div>
     <div class="layui-form-item">
+        <label class="layui-form-label">学员分数</label>
+        <div class="layui-input-inline" id="teacherAccount">
+            <input type="text"  name="erScore" required  lay-verify="required" placeholder="请输入学员分数" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
         <div class="layui-input-block">
             <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
             <button type="reset" class="layui-btn layui-btn-primary">重置</button>
@@ -53,8 +59,7 @@
 </script>
 
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-xs" lay-event="edit">考试安排</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit">学员分数录入</a>
 </script>
 <script>
     layui.use('table', function(){
@@ -76,28 +81,19 @@
                 ,{field:'sId',title:'学生Id',templet: '<div>{{d.student.sId}}</div>'}
                 ,{title:'学生姓名',templet: '<div>{{d.student.sName}}</div>'}
                 ,{title:'性别',templet: '<div>{{d.student.sSex}}</div>'}
-                ,{field:'erState1', title:'科目一考试状态',sort: true}
-                ,{field:'erState2', title:'科目二考试状态',sort: true}
-                ,{field:'erState3', title:'科目三考试状态',sort: true}
-                ,{field:'erState4', title:'科目四考试状态',sort: true}
+                ,{field:'erScore1', title:'科目一考试分数',sort: true}
+                ,{field:'erTime2', title:'科目二考试学时',sort: true}
+                ,{field:'erScore2', title:'科目二考试分数',sort: true}
+                ,{field:'erTime3', title:'科目三考试学时',sort: true}
+                ,{field:'erScore3', title:'科目三考试分数',sort: true}
+                ,{field:'erTime4', title:'科目四考试学时',sort: true}
+                ,{field:'erScore4', title:'科目四考试分数',sort: true}
                 ,{field:'tName', title:'所属教练',sort: true}
                 ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:150}
-                ,{title:'所属教练ID',templet: '<div>{{d.student.sTeacherId}}</div>',width:80,hide:true}
             ]]
             ,page: {limit: 5,//指定每页显示的条数
                 limits: [5, 10, 15, 20,
-                    25, 30, 35, 40, 45, 50],}//每页条数的选择项
-            ,done: function (res, curr, count) {
-            $("[data-field='erState1'],[data-field='erState2'],[data-field='erState3'],[data-field='erState4']").children().each(function () {
-                if ($(this).text() == '0') {
-                    $(this).text("未通过")
-                } else if ($(this).text() == '1') {
-                    $(this).text("已通过")
-                } else if ($(this).text() == '2'){
-                    $(this).text("正在考试中")
-                }
-            });
-        }
+                    25, 30, 35, 40, 45, 50],}//每页条数的选择
         });
 
         //头工具栏事件
@@ -125,6 +121,7 @@
 
         //监听行工具事件
         table.on('tool(test)', function(obj){
+            var erScore = "";
             var examSujectId ="";
             var data = obj.data;
             var sId = data.student.sId;
@@ -153,16 +150,17 @@
                     var form = layui.form;
                     form.on('submit(demo1)', function(data){
                         examSujectId = $("#examSelect").val();
+                        erScore = $("input[name='erScore']").val();
                         $.ajax({
                             type: 'POST',
-                            url: '/examResultController/arringeExam',
+                            url: '/examResultController/enterResults',
                             dataType: 'JSON',
                             data: {
                                 sId:sId,
                                 erId:erId,
                                 examSujectId:examSujectId,
-                                teacherId:teacherId
-                            },
+                                erScore:erScore
+                                },
                             success: function (remsg) {
                                 if (remsg.code==0){
                                     layer.msg(remsg.msg);
@@ -171,7 +169,6 @@
                                 }else{
                                     layer.msg(remsg.msg);
                                 }
-
                             }
                         });
 
