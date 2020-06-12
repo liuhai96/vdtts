@@ -1,0 +1,153 @@
+* {
+	margin: 0px; padding: 0px;
+}
+body {
+	color: rgb(51, 51, 51); font-family: "Î¢ÈíÑÅºÚ"; font-size: 12px;
+}
+.login-inf {
+	background: rgb(46, 57, 75); height: 40px;
+}
+.login-inf .inf-box {
+	margin: 0px auto; width: 1100px; color: rgb(255, 255, 255); overflow: hidden; padding-top: 10px;
+}
+.inf-time {
+	float: left;
+}
+.inf-time input {
+	background: rgb(46, 57, 75); width: 45px; color: rgb(255, 255, 255);
+}
+.inf-time button {
+	background: rgba(255, 255, 255, 0); padding: 2px 5px; border: 1px solid rgb(153, 153, 153); border-image: none; color: rgb(255, 255, 255); margin-left: 5px;
+}
+.inf-time button:active {
+	padding: 2px 4px;
+}
+.inf-login {
+	float: right;
+}
+.inf-login a {
+	color: rgb(255, 255, 255);
+}
+.top {
+	background: rgb(39, 68, 114); height: 140px;
+}
+.top-box {
+	margin: 0px auto; padding: 20px 5px; width: 1100px; overflow: hidden;
+}
+.top-logo {
+	float: left;
+}
+.top-title {
+	padding: 15px; color: rgb(255, 255, 255); float: left;
+}
+.top-title-p1 {
+	font-size: 34px;
+}
+.top-title-p2 {
+	font-size: 20px;
+}
+.top-search {
+	padding: 35px 0px; float: right;
+}
+.top-search select {
+	border-radius: 2px; border: 1px solid rgb(238, 238, 238); border-image: none; height: 24px;
+}
+.top-search input {
+	margin: 0px -6px; padding: 0px 10px; border-radius: 2px; border: 1px solid rgb(238, 238, 238); border-image: none; height: 22px;
+}
+.top-search label {
+	background: rgb(99, 178, 245); padding: 4px 15px; border-radius: 2px; color: rgb(255, 255, 255);
+}
+.top-search label:active {
+	border-width: 1px; border-style: solid none; border-color: rgb(99, 178, 245); border-image: none;
+}
+.top-search label img {
+	width: 12px; margin-right: 5px;
+}
+.menu {
+	background: rgb(242, 244, 249); height: 50px; border-top-color: rgb(228, 229, 230); border-bottom-color: rgb(228, 229, 230); border-top-width: 1px; border-bottom-width: 1px; border-top-style: solid; border-bottom-style: solid;
+}
+.menu-box {
+	margin: 0px auto; width: 1100px; overflow: hidden;
+}
+.menu-title {
+	font-size: 16px;
+}
+.menu-title li {
+	width: 155px; height: 48px; text-align: center; line-height: 48px; border-left-color: rgb(228, 229, 230); border-left-width: 1px; border-left-style: solid; float: left;
+}
+.menu-title-bg {
+	background: rgb(99, 178, 245);
+}
+.menu-title li:last-child {
+	border-right-color: rgb(228, 229, 230); border-right-width: 1px; border-right-style: solid;
+}
+.menu-title li img {
+	margin-top: -3px;
+}
+.footer {
+	background: rgb(39, 68, 114); height: 220px; color: rgb(255, 255, 255);
+}
+.footer-box {
+	margin: 0px auto; width: 1100px; overflow: hidden;
+}
+.footer-p {
+	line-height: 45px; font-size: 16px;
+}
+.footer-friend {
+	margin-bottom: 10px;
+}
+.footer-img {
+	width: 212px; margin-right: 80px;
+}
+.footer-imgs {
+	width: 212px;
+}
+.footer-orther {
+	overflow: hidden; font-size: 14px;
+}
+.footer-orther li {
+	width: 215px; margin-right: 40px; margin-bottom: 10px; float: left;
+}
+.footer-orther li a {
+	color: rgb(255, 255, 255);
+}
+.footer-orthers {
+	width: 215px; margin-right: 0px; margin-bottom: 10px; float: left;
+}
+.footer-inf {
+	background: rgb(39, 68, 114); margin: 0px auto; height: 80px; font-size: 14px; border-top-color: rgb(255, 255, 255); border-top-width: 1px; border-top-style: solid;
+}
+.footer-inf ul {
+	margin: 30px auto; overflow: hidden;
+}
+.footer-inf ul li {
+	float: left;
+}
+.footer-inf ul li a {
+	color: rgb(255, 255, 255);
+}
+#share {
+	left: 95%; width: 30px; bottom: 34px; position: fixed; -ms-zoom: 1; _position: absolute;
+}
+#share a {
+	transition:0.2s ease-in-out; width: 30px; height: 30px; text-indent: -999px; overflow: hidden; margin-bottom: 2px; display: block; background-image: url(".././img/share.png"); background-repeat: no-repeat; -webkit-transition: all 0.2s ease-in-out; -moz-transition: all 0.2s ease-in-out; -o-transition: all 0.2s ease-in-out;
+}
+#share .sina {
+	background-position: 0px 0px; bottom: 32px; position: absolute;
+}
+#share a.sina:hover {
+	background-position: -30px 0px;
+}
+#share .tencent {
+	background-position: 0px -30px; bottom: 0px; position: absolute;
+}
+#share a.tencent:hover {
+	background-position: -30px -30px;
+}
+#share a#totop {
+	background-position: 0px -120px; bottom: 64px; position: absolute; cursor: pointer;
+}
+#share a#totop:hover {
+	background-position: -30px -120px;
+}

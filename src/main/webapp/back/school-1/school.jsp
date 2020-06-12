@@ -88,6 +88,16 @@
 		<DIV class="del-schinf">
 			<P class="del-p"><SPAN id="shortname"></SPAN><IMG src="../school-1/school_files/tower.png"></P>
 			<DIV class="del-inf">
+				<c:forEach items="${noticeList}" var="nc">
+					<tr>
+						<td title="${nc.NName}"><a
+								onclick="publicNotice('notice',1,${nc.NId});"
+								style="cursor: pointer;color: #8ea8d8;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;width: 450px;display: block;text-align: left;">${nc.NName}</a>
+						</td>
+						<td>${nc.NTime}</td>
+						<td></td>
+					</tr>
+				</c:forEach>
 				<P><B>全国统一编号：</B><SPAN id="creditcode"></SPAN></P>
 				<P><B>经营许可日期：</B><SPAN id="licetime"></SPAN>         </P>
 				<P><SPAN><B>教练员：</B><SPAN id="coacount"></SPAN>人</SPAN>
