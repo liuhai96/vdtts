@@ -52,7 +52,7 @@ public class Notice
 	private Integer nId;
 
 	/**
-	 *法律法规内容
+	 *法律法规标题
 	 */
 	@Column(name = "`n_name`")
 	private String nName;

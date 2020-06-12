@@ -1,7 +1,6 @@
 package com.lsjbc.vdtts.dao.mapper;
 
 import com.lsjbc.vdtts.entity.School;
-import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -16,6 +15,6 @@ import java.util.List;
 public interface SchoolMapper {
 	public int schoolcount(@Param("e") School school);
 	public List<School> schoolList(@Param("e") School school, @Param("start") int start, @Param("pageSize") int pageSize);
-//	审核修改
-public LayuiTableData updateschoolInfo(School school);
+
+
 }

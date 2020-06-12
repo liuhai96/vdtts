@@ -82,4 +82,10 @@ public class  School
      *驾校报名费
      */
     private Integer sRegisteryFee;
+
+    //驾校账号
+    private String aAccount;
+
+    //驾校密码
+    private String aPassword;
 }

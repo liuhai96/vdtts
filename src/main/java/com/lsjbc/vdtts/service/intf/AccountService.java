@@ -7,4 +7,5 @@ public interface AccountService {
     public LayuiTableData findAccount(String account);
     public int addStudentAccount(Account account);
     public Account accountRepetition(String account);
+    public Account addAccountData(Account account);
 }

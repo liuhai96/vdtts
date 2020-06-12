@@ -3,6 +3,7 @@ package com.lsjbc.vdtts.controller;
 import com.lsjbc.vdtts.entity.Account;
 import com.lsjbc.vdtts.pojo.vo.ResultData;
 import com.lsjbc.vdtts.service.intf.UserLoginService;
+import com.lsjbc.vdtts.utils.Tool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -28,8 +29,10 @@ public class UserLoginController {
     public ResultData UserLogin(HttpServletRequest request, HttpServletResponse response, Account account){
         String nextJsp = null;//下一个界面的路径
         String notify = "";//弹窗通知信息
+        Tool tool = new Tool();
         response.setContentType("text/html;charset=utf-8");
         response.setContentType("text/html;charset=utf-8");
+        account.setAPassword(tool.createMd5(account.getAPassword()));
         account = userLoginService.UserLogin(account);//
         if(account != null){ //登录成功时
             switch (account.getAType()) {

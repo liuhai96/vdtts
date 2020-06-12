@@ -73,16 +73,16 @@
             ,cols: [[
                 {type: 'checkbox', fixed: 'left'}
                 ,{field:'erId', title:'ID', width:80, fixed: 'left', unresize: true, sort: true}
-                ,{field:'sId',title:'学生Id',templet: '<div>{{d.student.sId}}</div>',width:80}
-                ,{title:'学生姓名',templet: '<div>{{d.student.sName}}</div>',width:80}
-                ,{title:'性别',templet: '<div>{{d.student.sSex}}</div>',width:80}
-                ,{field:'erState1', title:'科目一考试状态',sort: true,width:80}
-                ,{field:'erState2', title:'科目二考试状态',sort: true,width:80}
-                ,{field:'erState3', title:'科目三考试状态',sort: true,width:80}
-                ,{field:'erState4', title:'科目四考试状态',sort: true,width:80}
-                ,{field:'tName', title:'所属教练',sort: true,width:80}
+                ,{field:'sId',title:'学生Id',templet: '<div>{{d.student.sId}}</div>'}
+                ,{title:'学生姓名',templet: '<div>{{d.student.sName}}</div>'}
+                ,{title:'性别',templet: '<div>{{d.student.sSex}}</div>'}
+                ,{field:'erState1', title:'科目一考试状态',sort: true}
+                ,{field:'erState2', title:'科目二考试状态',sort: true}
+                ,{field:'erState3', title:'科目三考试状态',sort: true}
+                ,{field:'erState4', title:'科目四考试状态',sort: true}
+                ,{field:'tName', title:'所属教练',sort: true}
                 ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:150}
-                ,{title:'性别',templet: '<div>{{d.student.sTeacherId}}</div>',width:80}
+                ,{title:'所属教练ID',templet: '<div>{{d.student.sTeacherId}}</div>',width:80,hide:true}
             ]]
             ,page: {limit: 5,//指定每页显示的条数
                 limits: [5, 10, 15, 20,
@@ -182,6 +182,5 @@
         });
     });
 </script>
-
 </body>
 </html>
