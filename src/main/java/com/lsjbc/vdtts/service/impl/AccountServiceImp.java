@@ -92,7 +92,8 @@ public class AccountServiceImp implements AccountService {
                     nextJsp = "pages/staff/schoolmenu.jsp";//前端jsp地址
                     request.getSession().setAttribute("school", schoolMapper.findAccount(account));
                     break;
-                case "student":nextJsp = "";
+                case "student":
+                    nextJsp = "";
                     request.getSession().setAttribute("student", studentMapper.findAccount(account));
                 break;//学员登录界面地址
                 case "teacher"://教练登录界面地址
