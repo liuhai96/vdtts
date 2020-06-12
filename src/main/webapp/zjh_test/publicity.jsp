@@ -73,7 +73,7 @@
                 </li>
                 <li id="menu-title-two" class="menu-title-bg">
                     <img src="<%=path+"/zjh_test/pic/menu_publicity1.png"%>">
-                    <a href="<%=path+"/zjh/publicity"%>">公开公示</a>
+                    <a href="<%=path+"/zjh/publicity/notice/1/-1"%>">公开公示</a>
                 </li>
                 <li id="menu-title-three">
                     <img src="<%=path+"/zjh_test/pic/menu_inquire1.png"%>">
