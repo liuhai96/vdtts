@@ -26,4 +26,9 @@
             <if test="e.sRecruit!=null and e.sRecruit!=''"> and s_recruit = #{e.sRecruit}</if>
         </where>
     </select>
+    <update id="updateschoolInfo" parameterType="com.lsjbc.vdtts.entity.School">
+        update tb_school set  s_verification= #{sVerification}
+--         where c_id = #{cId}
+    </update>
+
 </mapper>

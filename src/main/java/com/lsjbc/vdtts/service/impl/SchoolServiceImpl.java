@@ -45,6 +45,33 @@ public class SchoolServiceImpl implements SchoolService
 		}
 		return layuiData;
 	}
+	//修改驾校审核状态
+	@Override
+	public LayuiTableData updateschoolInfo(School school) {
+		LayuiTableData layuiTableData = new LayuiTableData();
+//		if(school.getSVerification()==""){
+//			layuiTableData.setCode(0);
+//		}else{
+//			 int num = schoolMapper.updateschoolInfo(school);
+//			if(num>0){
+//				layuiTableData.setCode(1);
+//			}else{
+//				layuiTableData.setCode(2);
+//			}
+//
+//		}
+		return layuiTableData;
+	}
+
+
+
+
+
+
+
+
+
+
 	@Override
     public int schoolcount(School school){
 	    return schoolMapper.schoolcount(school);

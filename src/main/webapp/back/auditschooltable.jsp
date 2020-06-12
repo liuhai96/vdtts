@@ -117,70 +117,54 @@
 			};
 		});
 		//监听行工具事件
-		// table.on('tool(test)', function(obj){
-		// 	if(obj.event === 'audit'){
-		// 		$("#sVerification").html(data.sVerification);
-		// 		$("#sRecruit").html(data.sRecruit);
-		// 		$("#sLock").html(data.sLock);
-		// 		$.ajax({
-		// 			type: 'POST',
-		// 			url: '/teacherController/findTeacher',
-		// 			dataType: 'JSON',
-		// 			success: function (msg) {
-		// 				$.each(msg.data,function (i,item) {
-		// 					$("#teacherSelect").append("<option value='" + item.tId + "'>" + item.tName + "</option>");
-		// 				});
-		// 				layui.use('form',function(){
-		// 					var form = layui.form;
-		// 					form.render();
-		// 				});
-		// 			}});
-		// 		var index1 = layer.open({
-		// 			type: 1,
-		// 			area:["500","400px"],
-		// 			skin: 'layui-layer-rim',
-		// 			shadeClose: true,//点击其他地方关闭
-		// 			content:$("#updateTeacher"),
-		// 			cancel:function (index) {
-		// 				layer.close(index);
-		// 			},
-		// 		});
-		// 		layui.use('form', function(){
-		// 			var form = layui.form
-		// 			var cId = data.cId;
-		// 			form.render();
-		// 			form.on('submit(demo2)', function(data){
-		// 				teacherId = $("#teacherSelect").val();
-		// 				$.ajax({
-		// 					type: 'POST',
-		// 					url: '/carControl/updateCarInfo',
-		// 					dataType:'JSON',
-		// 					data:{
-		// 						cTeacherId:teacherId,
-		// 						cId:cId
-		// 					},
-		// 					success: function (msg) {
-		// 						if (msg.code==0){
-		// 							layer.msg("请选择教练");
-		// 						}else if(msg.code==1){
-		// 							layer.msg("修改成功");
-		// 							layer.close(index1);
-		// 							$table.reload();
-		// 						}else{
-		// 							layer.msg("未找到该教练信息");
-		// 							layer.close(index1);
-		// 						}
-		// 						layui.use('form',function(){
-		// 							var form = layui.form;
-		// 							form.render();
-		// 						});
-		// 					}
-		// 				});
-		// 				return false;
-		// 			});
-		// 		});
-		// 	}
-		// 	});
+		table.on('tool(test)', function(obj){
+			if(obj.event === 'audit'){
+				var index1 = layer.open({
+					type: 1,
+					area:["500","400px"],
+					skin: 'layui-layer-rim',
+					shadeClose: true,//点击其他地方关闭
+					content:$("#updateschool"),
+					cancel:function (index) {
+						layer.close(index);
+					},
+				});
+				layui.use('form', function(){
+					var form = layui.form
+					var sId = data.sId;
+					form.render();
+					form.on('submit(demo2)', function(data){
+						schoolId = $("#schoolSelect").val();
+						$.ajax({
+							type: 'POST',
+							url: '/carControl/updateschoolInfo',
+							dataType:'JSON',
+							data:{
+								// cTeacherId:teacherId,
+								// cId:cId
+							},
+							success: function (msg) {
+								if (msg.code==0){
+									layer.msg("请选择审状态");
+								}else if(msg.code==1){
+									layer.msg("修改成功");
+									layer.close(index1);
+									$table.reload();
+								}else{
+									layer.msg("未找到该审核状态");
+									layer.close(index1);
+								}
+								layui.use('form',function(){
+									var form = layui.form;
+									form.render();
+								});
+							}
+						});
+						return false;
+					});
+				});
+			}
+			});
 		//表单查询
 		form.on('submit(search)',function (data) {
 
