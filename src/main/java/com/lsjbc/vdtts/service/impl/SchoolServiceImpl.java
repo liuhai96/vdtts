@@ -1,24 +1,49 @@
 package com.lsjbc.vdtts.service.impl;
 
-import com.lsjbc.vdtts.dao.mapper.AccountMapper;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.lsjbc.vdtts.constant.consist.EvaluateTypeConstant;
+import com.lsjbc.vdtts.dao.*;
 import com.lsjbc.vdtts.dao.mapper.SchoolMapper;
 import com.lsjbc.vdtts.entity.School;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.pojo.vo.ResultData;
+import com.lsjbc.vdtts.pojo.vo.SchoolDetail;
 import com.lsjbc.vdtts.service.intf.SchoolService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @SuppressWarnings("all")
-@Service("schoolService")
-public class SchoolServiceImpl implements SchoolService
-{
-	@Autowired
-    private SchoolMapper schoolMapper;
+@Service(SchoolServiceImpl.NAME)
+public class SchoolServiceImpl implements SchoolService {
+
+	/**
+	 * Bean名
+	 */
+	public static final String NAME = "SchoolService";
+
+	@Resource
+	private SchoolMapper schoolMapper;
+
+	@Resource(name = SchoolDao.NAME)
+	private SchoolDao schoolDao;
+
+	@Resource(name = CarDao.NAME)
+	private CarDao carDao;
+
+	@Resource(name = StudentDao.NAME)
+	private StudentDao studentDao;
+
+	@Resource(name = EvaluateDao.NAME)
+	private EvaluateDao evaluateDao;
+
+	@Resource(name = TeacherDao.NAME)
+	private TeacherDao teacherDao;
+
 	/*
 	 *@Description:
 	 *@Author:陈竑霖
@@ -76,11 +101,54 @@ public class SchoolServiceImpl implements SchoolService
 	public ResultData findSchoolInfo(HttpServletRequest request, HttpServletResponse response) {
 		School school = schoolMapper.findSchoolInfo(1);
 		ResultData resultData = null;
-		if(school!=null){
-			resultData = ResultData.success("school",school);
-		}else{
-			resultData = ResultData.error(-1,"系统出错请稍后尝试");
+		if (school != null) {
+			resultData = ResultData.success("school", school);
+		} else {
+			resultData = ResultData.error(-1, "系统出错请稍后尝试");
 		}
 		return resultData;
+	}
+
+	/**
+	 * 根据驾校的的名字，来分页查询数据
+	 *
+	 * @param name 驾校名称
+	 * @param page 页数
+	 * @return 分页对象
+	 */
+	@Override
+	public Page<School> getSchoolPageByName(String name, Integer page) {
+		Page<School> pageInfo = PageHelper.startPage(page, 6, true);
+		schoolDao.getByNameLike(name);
+		return pageInfo;
+	}
+
+	/**
+	 * 根据驾校的的名字，来分页查询数据
+	 *
+	 * @param name 驾校名称
+	 * @param page 页数
+	 * @return 分页对象
+	 */
+	@Override
+	public Page<SchoolDetail> getSchoolDetailPageByName(String name, Integer page) {
+
+		Page<School> schools = getSchoolPageByName(name, page);
+
+		Page<SchoolDetail> details = new Page<>();
+		details.setTotal(schools.getTotal());
+		details.setPages(schools.getPages());
+
+		schools.getResult().stream().forEach(item -> {
+			Integer schoolId = item.getSId();
+			SchoolDetail detail = SchoolDetail.generateDetail(item);
+			detail.setScore(evaluateDao.getAvgByTypeAndId(EvaluateTypeConstant.TYPE_SCHOOL, schoolId));
+			detail.setCarCount(carDao.getCountBySchoolId(schoolId));
+			detail.setTeacherCount(teacherDao.getCountBySchoolId(schoolId));
+			detail.setStudentCount(studentDao.getCountBySchoolId(schoolId));
+			details.getResult().add(detail);
+		});
+
+		return details;
 	}
 }
