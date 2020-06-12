@@ -62,7 +62,18 @@
                                 <label>驾校名称<i skip="true">*</i></label>
                                 <input class="" type="text" name="fName" placeholder="请输入驾校所在的城市">
                             </div>
-                            <label id="fNameNotify" style="color: crimson"></label>
+                            <div class="err-tip"></div>
+                            <div class="form-group">
+                                <label>登录密码<i skip="true">*</i></label>
+                                <input class="" type="password" name="aPassword" placeholder="请设置你的登录密码">
+                            </div>
+                            <label id="aPasswordNotify" style="color: crimson"></label>
+                            <div class="err-tip"></div>
+                            <div class="form-group">
+                                <label>确认密码<i skip="true">*</i></label>
+                                <input class="" type="password" name="aPassword2" placeholder="请设置你的登录密码">
+                            </div>
+                            <label id="aPassword2Notify" style="color: crimson"></label>
                             <div class="err-tip"></div>
                             <div class="form-group">
                                 <label skip="true">所在城市<i>*</i></label>
@@ -147,9 +158,22 @@
                 let sAddressNotify = $("#sAddressNotify");
                 let sPhone = $("input[name='sPhone']");
                 let sPhoneNotify = $("#sPhoneNotify");
+                let aPassword = $("input[name='aPassword']");
+                let aPasswordNotify = $("#aPasswordNotify");
+                let aPassword2 = $("input[name='aPassword2']");
+                let aPassword2Notify = $("#aPassword2Notify");
 
                 if ( fName.val() == "") {fNameNotify.html("*法人证件照为必要证件，证件照必须上传！");isPass = false;}
                 else fNameNotify.html("");
+
+                //校验密码格式
+                if (aPassword.val().length < 1){aPasswordNotify.html("*密码为必填项目！");isPass = false;}
+                else if (!done(aPassword.val(),0,aPassword.val().length)){aPasswordNotify.html("*密码中含有非法字符！");isPass = false;}
+                else {aPasswordNotify.html("");}
+                //校验密码真正准确性
+                if (aPassword2.val().length < 1){aPassword2Notify.html("");isPass = false;}
+                else if (aPassword2.val() != aPassword.val()){aPassword2Notify.html("*密码不一致");isPass = false;}
+                else {aPassword2Notify.html("");}
 
                 if (sRecruit == null || sRecruit == "") {$("#sRecruitNotify").html("*法人证件照为必要证件，证件照必须上传！");isPass = false;}
                 else $("#sRecruitNotify").html("");
@@ -173,10 +197,11 @@
                     isPass = false;
                 } else sPhoneNotify.html("");
                 if (isPass){
-                    AjaxTransfer($("#path").val()+"/SchoolControl/drivingIn","fName="+fName.val()+"&sBusinessPic="+
-                        sBusinessPic+"&sRecruit="+sRecruit+"&sOwnerId="+sOwnerId.val()+"&sAddress="+sAddress.val()+"&sPhone="
-                        +sPhone.val()+"&sRegisteryFee="+$("input[name='sRegisteryFee']").val(),function () {
-
+                    AjaxTransfer($("#path").val()+"/SchoolControl/drivingIn","sName="+fName.val()+"&sBusinessPic="+
+                        sBusinessPic+"&sRecruit="+sRecruit+"&sOwnerId="+sOwnerId.val()+"&sAddress="+sAddress.val()+
+                        "&sPhone=" +sPhone.val()+"&sRegisteryFee="+$("input[name='sRegisteryFee']").val()+"&aPassword="
+                        +aPassword.val(), function (mag) {
+                        alert(mag.data.result);
                     });
                 }
 

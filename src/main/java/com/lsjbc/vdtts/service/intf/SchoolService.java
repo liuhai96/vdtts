@@ -18,8 +18,9 @@ import java.util.List;
 public interface SchoolService
 {
     public LayuiTableData schoolList(School school, int page, int pageSize);
-    public int schoolcount(School school);//李浪写  查找数据条数
+    public int schoolCount(School school);//李浪写  查找数据条数
     public List<School> schoolMessageList(School school,int stripStart, int stripEnd);//李浪写
+    public ResultData schoolToProduct(School school,String id);//学校进驻平台 李浪写
     public ResultData findSchoolInfo(HttpServletRequest request, HttpServletResponse response);
 
 }

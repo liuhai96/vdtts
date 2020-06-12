@@ -29,6 +29,7 @@ public class Tool {
         //设置日期格式yyyy-MM-dd HH:mm:ss精确到秒
         return df.format(new Date());
     }
+
     public String createMd5(String str) {//字符转MD5码
         MessageDigest md = null;
         byte[] array = null;
@@ -44,6 +45,8 @@ public class Tool {
         }
         return sb.toString();
     }
+
+
     public String createMd5(File file) {//文件转ΪMD5码
         if(file == null)
             return null;

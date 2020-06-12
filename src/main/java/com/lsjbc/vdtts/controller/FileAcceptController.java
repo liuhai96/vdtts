@@ -40,7 +40,7 @@ public class FileAcceptController {
         fileAccept.setFName(filename);//返回对象的名称赋值
         // 存放上传图片的文件夹
         File fileDir = fileAccept.getImgDirFile(null);//为null默认存放image路径
-        fileAccept.setFPath("image/"+filename);//返回对象的路径赋值
+        fileAccept.setFPath("/image/"+filename);//返回对象的路径赋值
         try {// 构建真实的文件路径
             File newFile = new File(fileDir.getAbsolutePath() + File.separator + filename);
             fileAccept.setFSize( newFile.length());
