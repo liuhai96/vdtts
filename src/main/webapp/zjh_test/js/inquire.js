@@ -1,5 +1,60 @@
-var schurl=path+"/api/ggfwSchInfo/queryPageList";
-var schtotalurl=path+"/api/ggfwSchInfo/queryByCount";
+var path = window.document.location.href.substring(0, (window.document.location.href).indexOf(window.document.location.pathname));
+layui.use(['laytpl', 'laypage'], function () {
+    var layer = layui.layer
+        , laytpl = layui.laytpl
+        , $ = layui.jquery
+        , laypage = layui.laypage;
+
+    let name = $("#schoolName").val();
+
+    //通过分页和类型来获取数据
+    let searchList = function (type, curr) {
+        $.get(path + '/api/school/info', {
+            page: curr || 1
+            , name: name
+        }, function (res) {
+
+            let html = laytpl(LAY_tpl.value).render({
+                data: res.list
+            });
+
+            $('#schoolList').html(html);
+
+            let stars = $("p[class*='scoreStar']");
+
+            for (let i = 0; i < stars.length; i++) {
+                let score = $(stars[i]).attr("tip");
+                let starWidth = score / 5 * 150;
+                $(stars[i]).attr("style", "width:" + starWidth + "px;float:none;");
+            }
+
+            laypage.render({
+                elem: 'demo0'
+                , count: res.count
+                , limit: 5
+                , groups: 3
+                , curr: curr || 1
+                , layout: ['prev', 'page', 'next', 'skip']
+                , jump: function (e, first) {
+                    if (!first) { //一定要加此判断,否则初始时会无限刷新
+                        searchList(type, e.curr);
+                    }
+                }
+            });
+        });
+    };
+
+    searchList();
+
+    $("#selectSchoolByName").on('click', function (event) {
+        name = $("#schoolName").val();
+        searchList();
+    })
+});
+
+
+var schurl = path + "/api/ggfwSchInfo/queryPageList";
+var schtotalurl = path + "/api/ggfwSchInfo/queryByCount";
 var coaInfoDetail = path + "/coaInfoDetail";
 var schInfoDetail = path + "/schInfoDetail";
 var schcount = 0;
@@ -7,7 +62,7 @@ var schparamData = {};
 schparamData.rowsSize = 6;
 schparamData.pageIndex = 1;
 //初始化分页
-$(function(){
+$(function () {
     schcount = 0;
     schparamData = {};
     schparamData.rowsSize = 6;
@@ -15,7 +70,7 @@ $(function(){
     showBg();
 //    initSchDistrict("province","city");
     var selectType = $("#selectType").val();
-    if(selectType == 1){
+    if (selectType == 1) {
         schcount = 0;
         schparamData = {};
         schparamData.rowsSize = 6;
@@ -86,19 +141,19 @@ function initSchDistrict(province,city) {
                     var datas = json.data;
                     var d ='';
                     for (var i in datas) {
-                         d = datas[i];
+                        d = datas[i];
                         if(d.config == "1"){
                             cityhtml = "";
                             cityhtml += "<option value='"+d.id+"' selected >"+d.name+"</option>";
                             if(province == "province"){
-                        	selectSchCity(d.id);
+                                selectSchCity(d.id);
                             }else if(province == "coaProvince"){
-                        	selectCoaCity(d.id);                      	
+                                selectCoaCity(d.id);
                             }else if(province == "vehProvince"){
-                        	selectVehCity(d.id);
+                                selectVehCity(d.id);
 //                        	$("#vehSch").html("<option value='' selected>驾培机构</option>");
                             }
-                            
+
                         }else{
                             cityhtml += "<option value='"+d.id+"' >"+d.name+"</option>";
                         }
@@ -106,11 +161,11 @@ function initSchDistrict(province,city) {
                     $("#"+city).html(cityhtml);
                     if(d.config != "1"){
                         if(province == "province"){
-                    	selectSchInfo(schparamData,schcount);
+                            selectSchInfo(schparamData, schcount);
                         }else if(province == "coaProvince"){
-                    	selectCoaInfo(coaparamData,coacount);
+                            selectCoaInfo(coaparamData, coacount);
                         }else if(province == "vehProvince"){
-                    	selectVueInfo(vehparamData,vehcount);
+                            selectVueInfo(vehparamData, vehcount);
                         }
                     }
                 }
@@ -144,7 +199,7 @@ function selectSchCity(supId) {
 //选择区县
 function selectSchCounty(district) {
     if(district == ''){
-	return;
+        return;
     }
     schparamData.pageIndex = 1;
     schparamData.district = district;
@@ -554,7 +609,7 @@ function selectCoaCounty(district) {
     var sccparamData = {};
     $("#coaSch").html("<option value='' selected>驾培机构</option>");
     if(district == ""){
-	    return;
+        return;
     }
     sccparamData.district = district;
     $.post(schurl, sccparamData, function (json) {
@@ -573,12 +628,12 @@ function selectCoaCounty(district) {
     disparamData.rowsSize = 6;
     disparamData.childDistrict = district;
     selectCoaInfo(disparamData,coacount);
-    
+
 }
 //选择驾培机构
 function selectCoaSch(inscode) {
     if(inscode == ""){
-    	return;
+        return;
     }
     let schInscodeData = cloneObjectFn(coaparamData);
     schInscodeData.pageIndex = 1;
@@ -802,7 +857,7 @@ function selectVehCounty(district) {
     var sccparamData = {};
     $("#vehSch").html("<option value='' selected>驾培机构</option>");
     if(district == ""){
-	    return;
+        return;
     }
     sccparamData.district = district;
     $.post(schurl, sccparamData, function (json) {
@@ -825,7 +880,7 @@ function selectVehCounty(district) {
 //选择驾培机构
 function selectVehSch(inscode) {
     if(inscode == ""){
-	    return;
+        return;
     }
     var vehInscode = cloneObjectFn(vehparamData);
     vehInscode.pageIndex = 1;

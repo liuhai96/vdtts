@@ -50,7 +50,7 @@
 }
 
 .star_score {
-	background: url(../../img/stark2.png);
+	background: url(../../../../../../../zjh_test/pic/stark2.png);
 	width: 150px;
 	height: 21px;
 	position: relative;
@@ -65,12 +65,12 @@
 }
 
 .star_score a:hover {
-	background: url(../../img/stars2.png);
+	background: url(../../../../../../../../zjh_test/pic/stars2.png);
 	left: 0;
 }
 
 .star_score a.clibg {
-	background: url(../../img/stars2.png);
+	background: url(../../../../../../../../zjh_test/pic/stars2.png);
 	left: 0;
 }
 
@@ -89,7 +89,7 @@
 }
 
 .atar_Show {
-	background: url(../../img/stark2.png);
+	background: url(../../../../../../../zjh_test/pic/stark2.png);
 	width: 150px;
 	height: 21px;
 	position: relative;
@@ -97,7 +97,7 @@
 }
 
 .atar_Show p {
-	background: url(../../img/stars2.png);
+	background: url(../../../../../../../../zjh_test/pic/stars2.png);
 	left: 0;
 	height: 21px;
 	width: 134px;
