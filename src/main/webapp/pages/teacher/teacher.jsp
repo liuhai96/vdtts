@@ -23,7 +23,7 @@
     <link href="https://www.layuicdn.com/layui/css/layui.css" rel="stylesheet" type="text/css"/>
     <script src="<%=path+"/static/custom_tool.js"%>"></script>
 </head>
-<body>
+<body style="background-color: peachpuff">
 <div>
     <input hidden="hidden" value="<%=path%>" id="path">
     <input hidden="hidden" value="<%=aId%>" id="aId">
@@ -33,23 +33,22 @@
     <%--教练信息--%>
     <div style="background-color: cornflowerblue;width: 100%;height:auto ">
         &nbsp;&nbsp;&nbsp;&nbsp;
-        <label style="color: #51ffd5;font-size: 25px;text-align: start"> 欢迎 xx 教练</label>
+        <label style="color: #51ffd5;font-size: 25px;text-align: start"> 欢迎&nbsp;${teacher.TName}&nbsp;教练</label>
         <div style="text-align: right">
             <a style="color: coral;font-size: 20px;" href="<%=path+"/home"%>">首页</a>
             <i style="color: #cb53ff;font-size: 20px;">|</i>
-
             <a style="color: coral;font-size: 20px;" href="<%=path+"/pages/homepage/home-page.jsp?logout=cc632ef332fex2ee3010012e"%>">注销登录</a>
             &nbsp;&nbsp;&nbsp;&nbsp;
         </div>
     </div>
     <div class="layui-tab">
         <ul class="layui-tab-title">
-            <li class="layui-this">查看学员</li>
-            <li>我的信息</li>
+            <li class="layui-this" style="background-color: coral">查看学员</li>
+            <li style="background-color: coral">我的信息</li>
         </ul>
         <div class="layui-tab-content">
             <div class="layui-tab-item layui-show">
-                <div>
+                <div style="background-color: darkseagreen">
                     <div class="demoTable" style="text-align: center;">
                         搜索ID：
                         <div class="layui-inline">
@@ -62,8 +61,76 @@
                     </div>
                 </div>
             </div>
-            <div class="layui-tab-item">
-                我的信息界面
+            <div class="layui-tab-item" style="text-align: center;background-color: #45ffd1;">
+                <br><br><br>
+                <div>
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">姓名：</label>
+                            <div class="layui-input-inline">
+                                <input disabled="disabled" type="text" class="layui-input canVary" value="${teacher.TName}">
+                            </div>
+                            <label class="layui-form-label">性别：</label>
+                            <div class="layui-input-inline">
+                                <input disabled="disabled" type="text" class="layui-input" value="${teacher.TSex}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">本月毕业学员上限:</label>
+                            <div class="layui-input-inline">
+                                <input disabled="disabled" type="text" class="layui-input" value="${teacher.TLimit}">
+                            </div>
+                            <label class="layui-form-label">本月毕业学员人数:</label>
+                            <div class="layui-input-inline">
+                                <input disabled="disabled" type="text" class="layui-input" value="${teacher.TCount}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">身份证号:</label>
+                            <div class="layui-input-inline">
+                                <input disabled="disabled" type="text" class="layui-input" value="${teacher.TSfz}">
+                            </div>
+                            <label class="layui-form-label">联系方式:</label>
+                            <div class="layui-input-inline">
+                                <input disabled="disabled" type="text" class="layui-input canVary" value="${teacher.TPhone}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">教学状态:</label>
+                            <div class="layui-input-inline">
+                                <c:if test="${teacher.TTeach}">
+                                    <input disabled="disabled" type="text" class="layui-input" value="允许教学"></c:if>
+                                <c:if test="${!teacher.TTeach}">
+                                    <input disabled="disabled" type="text" class="layui-input" value="无教学资质"></c:if>
+                            </div>
+                            <label class="layui-form-label">出生日期:</label>
+                            <div class="layui-input-inline">
+                                <input disabled="disabled" type="text" class="layui-input" value="${teacher.TBirthday}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">任职驾校:</label>
+                            <div class="layui-input-inline">
+                                <input disabled="disabled" type="text" class="layui-input" value="${teacher.SName}">
+                            </div>
+                            <label class="layui-form-label">当前学员数量:</label>
+                            <div class="layui-input-inline">
+                                <input disabled="disabled" type="text" class="layui-input" value="${studentCount}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="layui-btn layui-btn-warm" onclick="canVary()" id="action">修改</button>
+                <button type="button" hidden class="<%--layui-btn layui-btn-warm--%>" id="callOff" onclick="keys()">取消</button>
+                <br><br><br>
             </div><%--界面2--%>
 
         </div>
@@ -72,6 +139,26 @@
     
 </div>
 <script>
+    let vary = false;
+    function keys() {
+        $(".canVary").each(function () {$(this).attr("disabled",vary);});
+        vary = !vary;
+        if (!vary){
+            $("#action").html("修改");
+            $("#callOff").attr("class","");
+        }
+        $("#callOff").attr("hidden",!vary);
+    }
+
+    function canVary(){//提交修改效应
+        if(!vary){
+            $("#action").html("提交");
+            $("#callOff").attr("class","layui-btn layui-btn-warm");
+        } else {
+            alert("提交了");
+        }
+        keys();
+    }
     layui.use('table', function(){
         $ = jQuery;
         var table = layui.table;

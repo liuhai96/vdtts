@@ -40,6 +40,7 @@
         <%
             try{request.getSession().setAttribute("aId", null);}catch (Exception e){}
             try{request.getSession().setAttribute("aType", null);}catch (Exception e){}
+            try{request.getSession().setAttribute("account", null);}catch (Exception e){}
             try{request.getSession().setAttribute("userHome", null);}catch (Exception e){}
             try{ request.getSession().setAttribute("school", null);}catch (Exception e){}
             try{request.getSession().setAttribute("student", null);}catch (Exception e){}
@@ -86,7 +87,8 @@
                         <img src="//t.cn/RCzsdCq" class="layui-nav-img">我</a>
                         <dl class="layui-nav-child">
                             <dd><a href="javascript:;">修改信息</a></dd>
-                            <dd><a href="javascript:;">安全退出</a></dd>
+                            <dd><a href="<%=path+"/pages/homepage/home-page.jsp?logout=cc632ef332fex2ee3010012e"%>">安全退出</a></dd>
+                            <%--javascript:;--%>
                         </dl>
                     </li>
                     <li class="layui-nav-item layui-bg-green" style="float: right;">
@@ -174,7 +176,7 @@
                     <a href="${link.lkUrl}" class="layui-btn layui-btn-warm" target="_blank">${link.lkName}</a>
                 </c:forEach><br><br><br>
                 <c:forEach items="${law}" begin="0" step="1" end="100" var="nc">
-                    <a href="${nc.NContent}" target="_blank">${nc.NName}</a><br><br>
+                    &nbsp;&nbsp;<a href="${nc.NContent}" target="_blank">${nc.NName}</a>&nbsp;
                 </c:forEach>
             </div>
 

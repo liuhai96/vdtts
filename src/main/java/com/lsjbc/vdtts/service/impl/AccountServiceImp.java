@@ -5,7 +5,6 @@ import com.lsjbc.vdtts.dao.mapper.SchoolMapper;
 import com.lsjbc.vdtts.dao.mapper.StudentMapper;
 import com.lsjbc.vdtts.dao.mapper.TeacherMapper;
 import com.lsjbc.vdtts.entity.Account;
-import com.lsjbc.vdtts.entity.Teacher;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.pojo.vo.ResultData;
 import com.lsjbc.vdtts.service.intf.AccountService;
@@ -98,9 +97,11 @@ public class AccountServiceImp implements AccountService {
                 break;//学员登录界面地址
                 case "teacher"://教练登录界面地址
                     nextJsp = "teacherController/teacherInit";//后端访问地址
+                    //教练的对象
                     request.getSession().setAttribute("teacher", teacherMapper.findAccount(account));
                     break;
             }
+            request.getSession().setAttribute("account", account);
             request.getSession().setAttribute("aId", account.getAId());
             request.getSession().setAttribute("aType", account.getAType());
             notify = "恭喜你，登录成功！";

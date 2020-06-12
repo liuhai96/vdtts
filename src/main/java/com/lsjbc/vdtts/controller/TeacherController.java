@@ -130,7 +130,10 @@ public class TeacherController {
         return modelAndView;
     }
     @RequestMapping(value = "/stuTableData")//教练查找学生信息
-    public String StuTabelData(int page,int limit,Student student){
-        return JSON.toJSONString(studentService.selectList(student,page,limit));
+    public String StuTabelData(int page,int limit,Student student,HttpServletRequest request){
+        LayuiTableData layuiTableData = studentService.selectList(student,page,limit);
+        if(student.getSName() == null ||student.getSName().equals(""))
+            request.getSession().setAttribute("studentCount", layuiTableData.getCount());
+        return JSON.toJSONString(layuiTableData);
     }
 }
