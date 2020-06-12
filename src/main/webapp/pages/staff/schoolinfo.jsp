@@ -62,7 +62,7 @@
             dataType:'JSON',
             url: '/SchoolControl/findSchoolInfo',
             success: function (remsg) {
-                alert(JSON.stringify(remsg.data.school.sname));
+                alert(JSON.stringify(remsg.data.school));
                 $("input[name='sName']").val(remsg.data['school'].sname);
             },
             error:function () {

@@ -122,7 +122,7 @@ public class SchoolControl {
 
     @RequestMapping(value = "/findSchoolInfo")
     public Object findSchoolInfo(HttpServletRequest request, HttpServletResponse response){
-        System.out.println(JSON.toJSONString(schoolService.findSchoolInfo(request,response)));
+        System.out.println("JSON.toJSONString(schoolService.findSchoolInfo(request,response):>>>>>>)"+JSON.toJSONString(schoolService.findSchoolInfo(request,response)));
 	    return schoolService.findSchoolInfo(request,response);
     }
 
