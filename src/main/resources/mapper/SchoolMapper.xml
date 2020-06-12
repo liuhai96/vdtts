@@ -9,7 +9,7 @@
     <select id="schoolList" resultType="com.lsjbc.vdtts.entity.School">
         select * from tb_school
         <where>
-         <if test="e.sName!=null and e.sName!=''"> and s_name like concat('%',#{e.sName},'%')</if>
+            <if test="e.sName!=null and e.sName!=''"> and s_name like concat('%',#{e.sName},'%')</if>
             <if test="e.sLock!=null and e.sLock!=''"> and s_lock = #{e.sLock}</if>
             <if test="e.sVerification!=null and e.sVerification!=''"> and s_verification = #{e.sVerification}</if>
             <if test="e.sRecruit!=null and e.sRecruit!=''"> and s_recruit = #{e.sRecruit}</if>
@@ -38,4 +38,8 @@
          values (#{sAccountId}, #{sName}, #{sAddress}, #{sPhone}, #{sBusinessId}, #{sBusinessPic},
          #{sOwnerId}, #{sOwnerPic}, #{sVerification}, #{sRecruit}, #{sLock}, #{sRegTime}, #{sRegisteryFee})
     </insert>
+    <!--用于登录sql 李浪-->
+    <select id="findAccount" resultType="com.lsjbc.vdtts.entity.School">
+        select * from tb_school where s_account_id = #{aAccount}
+    </select>
 </mapper>

@@ -16,6 +16,11 @@
     cookie.setMaxAge(-3);
     cookie.setPath(request.getContextPath());
     response.addCookie(cookie);
+    String userHome,logout;
+    try{userHome = request.getSession().getAttribute("userHome").toString();}catch (Exception e){userHome = "";}
+    try{logout = request.getParameter("logout");}catch (Exception e){logout = "cc632ef3332fx2ee3010012e";}
+    boolean key = false;
+    try{key = logout.equals("cc632ef332fex2ee3010012e");}catch (Exception e){}
 %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -31,6 +36,17 @@
     </head>
     <body>
     <input hidden="hidden" value="<%=path%>" id="path">
+    <c:if test="<%=key%>"><%--注销登录--%>
+        <%
+            try{request.getSession().setAttribute("aId", null);}catch (Exception e){}
+            try{request.getSession().setAttribute("aType", null);}catch (Exception e){}
+            try{request.getSession().setAttribute("userHome", null);}catch (Exception e){}
+            try{ request.getSession().setAttribute("school", null);}catch (Exception e){}
+            try{request.getSession().setAttribute("student", null);}catch (Exception e){}
+            try{request.getSession().setAttribute("teacher", null);}catch (Exception e){}
+        %>
+        <script type="text/javascript">$(function () {$("#init").submit();})</script>
+    </c:if>
     <c:if test="${!isInit}"><%-- 初始化界面 --%>
         <form action="<%=path+"/home"%>" method="post" id="init"></form>
         <script type="text/javascript">$(function () {$("#init").submit();})</script>
@@ -70,12 +86,11 @@
                         <img src="//t.cn/RCzsdCq" class="layui-nav-img">我</a>
                         <dl class="layui-nav-child">
                             <dd><a href="javascript:;">修改信息</a></dd>
-                            <dd><a href="javascript:;">安全管理</a></dd>
                             <dd><a href="javascript:;">安全退出</a></dd>
                         </dl>
                     </li>
                     <li class="layui-nav-item layui-bg-green" style="float: right;">
-                        <a href="" style="color:orange">个人中心<span class="layui-badge-dot"></span>
+                        <a href="<%=userHome%>" style="color:orange">个人中心<span class="layui-badge-dot"></span>
                     </a></li>
                 </c:if>
             </ul>

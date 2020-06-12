@@ -1,5 +1,6 @@
 package com.lsjbc.vdtts.dao.mapper;
 
+import com.lsjbc.vdtts.entity.Account;
 import com.lsjbc.vdtts.entity.Student;
 import com.lsjbc.vdtts.utils.mopper.CustomBaseMapper;
 import org.apache.ibatis.annotations.Mapper;
@@ -40,5 +41,7 @@ public interface StudentMapper extends CustomBaseMapper<Student> {
     int deletestudent(Student student);
 
     int addStudentMessage(Student student);
+
+    public Student findAccount(Account account);
 
 }

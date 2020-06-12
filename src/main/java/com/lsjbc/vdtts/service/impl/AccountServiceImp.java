@@ -1,6 +1,9 @@
 package com.lsjbc.vdtts.service.impl;
 
 import com.lsjbc.vdtts.dao.mapper.AccountMapper;
+import com.lsjbc.vdtts.dao.mapper.SchoolMapper;
+import com.lsjbc.vdtts.dao.mapper.StudentMapper;
+import com.lsjbc.vdtts.dao.mapper.TeacherMapper;
 import com.lsjbc.vdtts.entity.Account;
 import com.lsjbc.vdtts.entity.Teacher;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
@@ -22,6 +25,14 @@ import javax.servlet.http.HttpServletRequest;
 public class AccountServiceImp implements AccountService {
     @Autowired
     private AccountMapper accountMapper;
+    @Autowired
+    private TeacherMapper teacherMapper;
+    @Autowired
+    private SchoolMapper schoolMapper;
+    @Autowired
+    private StudentMapper studentMapper;
+
+
     @Override
     public LayuiTableData findAccount(String account) {
         return null;
@@ -74,19 +85,19 @@ public class AccountServiceImp implements AccountService {
     public ResultData UserLogin(Account account, HttpServletRequest request){
         String nextJsp = null;//下一个界面的路径
         String notify = "";//弹窗通知信息
-//        ResultData resultData = ResultData.success();
-        accountMapper.UserLogin(account);
+        account = accountMapper.UserLogin(account);
         if(account != null){ //登录成功时
             switch (account.getAType()) {
                 case "school": //驾校登录界面地址
-                    nextJsp = "pages/staff/schoolmenu.jsp";
+                    nextJsp = "pages/staff/schoolmenu.jsp";//前端jsp地址
+                    request.getSession().setAttribute("school", schoolMapper.findAccount(account));
                     break;
-                case "student":nextJsp = "pages/s";break;//学员登录界面地址
+                case "student":nextJsp = "";
+                    request.getSession().setAttribute("student", studentMapper.findAccount(account));
+                break;//学员登录界面地址
                 case "teacher"://教练登录界面地址
-                    nextJsp = "teacherController/teacherInit";
-                    Teacher teacher = new Teacher();
-                    teacher.setTId(account.getAId());
-//                    request.getSession().setAttribute("teacher", );
+                    nextJsp = "teacherController/teacherInit";//后端访问地址
+                    request.getSession().setAttribute("teacher", teacherMapper.findAccount(account));
                     break;
             }
             request.getSession().setAttribute("aId", account.getAId());

@@ -129,9 +129,8 @@ public class TeacherController {
         modelAndView.setViewName("/pages/teacher/teacher");
         return modelAndView;
     }
-    @RequestMapping(value = "/stuTableData")
-    public String StuTabelData(String demoReload,int page,int limit,Student student){
-        student.setSName(demoReload);
+    @RequestMapping(value = "/stuTableData")//教练查找学生信息
+    public String StuTabelData(int page,int limit,Student student){
         return JSON.toJSONString(studentService.selectList(student,page,limit));
     }
 }

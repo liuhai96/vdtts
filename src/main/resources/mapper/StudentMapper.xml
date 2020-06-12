@@ -86,4 +86,8 @@
         <result property="" column="t_school_id"></result>
         <association property="examResult" column="t_school_id" javaType="com.lsjbc.vdtts.entity.School" select="findSchool"></association>
     </resultMap>
+    <!--用于登录sql 李浪-->
+    <select id="findAccount" resultType="com.lsjbc.vdtts.entity.School">
+        select * from tb_student where s_account_id = #{aAccount}
+    </select>
 </mapper>

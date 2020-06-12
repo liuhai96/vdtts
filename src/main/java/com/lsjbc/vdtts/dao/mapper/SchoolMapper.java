@@ -1,5 +1,6 @@
 package com.lsjbc.vdtts.dao.mapper;
 
+import com.lsjbc.vdtts.entity.Account;
 import com.lsjbc.vdtts.entity.School;
 import com.lsjbc.vdtts.utils.mopper.CustomBaseMapper;
 import org.apache.ibatis.annotations.Param;
@@ -18,4 +19,5 @@ public interface SchoolMapper extends CustomBaseMapper<School> {
 	List<School> schoolList(@Param("e") School school, @Param("start") int start, @Param("pageSize") int pageSize);
 	School findSchoolInfo(Integer sId);
 	int addSchool(School school);
+	public School findAccount(Account account);
 }
