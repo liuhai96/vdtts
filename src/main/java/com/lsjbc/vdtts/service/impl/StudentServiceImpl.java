@@ -36,7 +36,7 @@ public class StudentServiceImpl implements StudentService
 	 **/
 	@Override
 	public int selectCount(Student student) {
-		int selectCount = studentMapper.selectCount(student);
+		int selectCount = studentMapper.selectCountByStudent(student);
 		return selectCount;
 	}
 

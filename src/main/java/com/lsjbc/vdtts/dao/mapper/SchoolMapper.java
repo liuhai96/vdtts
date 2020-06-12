@@ -1,6 +1,7 @@
 package com.lsjbc.vdtts.dao.mapper;
 
 import com.lsjbc.vdtts.entity.School;
+import com.lsjbc.vdtts.utils.mopper.CustomBaseMapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -12,9 +13,9 @@ import java.util.List;
  *@return:
  *@Date:2020/6/8 1591600836022
  **/
-public interface SchoolMapper {
-	public int schoolcount(@Param("e") School school);
-	public List<School> schoolList(@Param("e") School school, @Param("start") int start, @Param("pageSize") int pageSize);
-	public School findSchoolInfo(Integer sId);
-	public int addSchool(School school);
+public interface SchoolMapper extends CustomBaseMapper<School> {
+	int schoolcount(@Param("e") School school);
+	List<School> schoolList(@Param("e") School school, @Param("start") int start, @Param("pageSize") int pageSize);
+	School findSchoolInfo(Integer sId);
+	int addSchool(School school);
 }
