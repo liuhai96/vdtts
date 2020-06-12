@@ -16,5 +16,4 @@ public interface SchoolMapper {
 	public int schoolcount(@Param("e") School school);
 	public List<School> schoolList(@Param("e") School school, @Param("start") int start, @Param("pageSize") int pageSize);
 
-
 }

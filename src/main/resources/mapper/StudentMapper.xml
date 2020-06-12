@@ -24,7 +24,7 @@
     </select>
 
     <!--  周永哲，统计学员信息条数-->
-    <select id="selectCount" resultType="int"  parameterType="com.lsjbc.vdtts.entity.Student">
+    <select id="selectCountByStudent" resultType="int" parameterType="com.lsjbc.vdtts.entity.Student">
         select count(*) from tb_student
         <where>
             <if test="student.sName!=null and student.sName!=''">
