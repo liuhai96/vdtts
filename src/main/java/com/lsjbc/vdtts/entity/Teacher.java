@@ -2,6 +2,8 @@ package com.lsjbc.vdtts.entity;
 
 import lombok.*;
 
+import javax.persistence.*;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -18,87 +20,133 @@ import lombok.*;
 /**
  * 	教练表
  */
-public class Teacher
-{
+@Table(name = "`tb_teacher`")
+public class Teacher {
+
 	/**
-	 *主键
+	 * 所有非数据库的字段通通加上@Transient注解
+	 * 所有非数据库的字段通通加上@Transient注解
+	 * 所有非数据库的字段通通加上@Transient注解
+	 * 所有非数据库的字段通通加上@Transient注解
+	 * 所有非数据库的字段通通加上@Transient注解
+	 * 所有非数据库的字段通通加上@Transient注解
+	 * 所有非数据库的字段通通加上@Transient注解
+	 * 所有非数据库的字段通通加上@Transient注解
+	 * 所有非数据库的字段通通加上@Transient注解
+	 * 所有非数据库的字段通通加上@Transient注解
+	 * 所有非数据库的字段通通加上@Transient注解
+	 * 所有非数据库的字段通通加上@Transient注解
+	 * 所有非数据库的字段通通加上@Transient注解
+	 * 所有非数据库的字段通通加上@Transient注解
+	 * 所有非数据库的字段通通加上@Transient注解
+	 * 所有非数据库的字段通通加上@Transient注解
+	 * 所有非数据库的字段通通加上@Transient注解
+	 * 所有非数据库的字段通通加上@Transient注解
+	 * 所有非数据库的字段通通加上@Transient注解
+	 * 所有非数据库的字段通通加上@Transient注解
+	 * 所有非数据库的字段通通加上@Transient注解
+	 * 所有非数据库的字段通通加上@Transient注解
 	 */
+	/**
+	 * 主键
+	 */
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "`t_id`")
 	private Integer tId;
 
 	/**
-	 *账号ID
+	 * 账号ID
 	 */
+	@Column(name = "`t_account_id`")
 	private Integer tAccountId;
 
 	/**
-	 *驾校ID
+	 * 驾校ID
 	 */
+	@Column(name = "`t_school_id`")
 	private Integer tSchoolId;
 
 	/**
-	 *身份证号
+	 * 身份证号
 	 */
+	@Column(name = "`t_sfz`")
 	private String tSfz;
 
 	/**
-	 *姓名
+	 * 姓名
 	 */
+	@Column(name = "`t_name`")
 	private String tName;
 
 	/**
-	 *性别
+	 * 性别
 	 */
+	@Column(name = "`t_sex`")
 	private String tSex;
 
 	/**
-	 *出生日期
+	 * 出生日期
 	 */
+	@Column(name = "`t_birthday`")
 	private String tBirthday;
 
 	/**
-	 *电话号码
+	 * 电话号码
 	 */
+	@Column(name = "`t_phone`")
 	private String tPhone;
 
 	/**
-	 *是否允许教新学员
+	 * 是否允许教新学员
 	 */
+	@Column(name = "`t_teach`")
 	private String tTeach;
 
 	/**
-	 *是否允许登录
+	 * 是否允许登录
 	 */
+	@Column(name = "`t_lock`")
 	private String tLock;
 
 	/**
-	 *获取驾照时间
+	 * 获取驾照时间
 	 */
+	@Column(name = "`t_license_time`")
 	private String tLicenseTime;
 
 	/**
-	 *本月毕业学员数
+	 * 本月毕业学员数
 	 */
+	@Column(name = "`t_count`")
 	private String tCount;
 
 	/**
-	 *本月限制毕业学员数
+	 * 本月限制毕业学员数
 	 */
+	@Column(name = "`t_limit`")
 	private String tLimit;
+
 	/**
-	 *教练所属的驾校名
+	 * 教练所属的驾校名
 	 */
+	@Transient
 	private String schoolName;
 
 
 //	刘海
 	/**
-	 *教练对应的驾校
+	 * 教练对应的驾校
 	 */
+	@Transient
 	private School school;
 
+	@Transient
 	private Account account;
+
 	/**
-	 *教练所属的学校名
+	 * 教练所属的学校名
 	 */
+	@Transient
 	private String sName;
 }
