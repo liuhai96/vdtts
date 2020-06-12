@@ -39,10 +39,19 @@ public class ExamResultController {
      *@Date:2020/6/10 23:59
      **/
     public Object arringeExam(String erId,String sId,String examSujectId,String teacherId){
-        System.out.println("erId"+erId);
-        System.out.println("sId"+sId);
-        System.out.println("erId"+examSujectId);
-        System.out.println("erId"+teacherId);
+
         return JSON.toJSONString(examResultService.arringeExam(Integer.parseInt(erId),Integer.parseInt(sId),Integer.parseInt(examSujectId),Integer.parseInt(teacherId)));
+    }
+
+    @RequestMapping(value = "/enterResults")
+    /*
+     *@Description:录入学员成绩
+     *@Author:刘海
+     *@Param:[erId, sId, examSujectId, erScore]
+     *@return:java.lang.Object
+     *@Date:2020/6/11 11:12
+     **/
+    public Object enterResults(String erId,String sId,String examSujectId,String erScore){
+        return JSON.toJSONString(examResultService.enterResults(Integer.parseInt(erId),Integer.parseInt(sId),Integer.parseInt(examSujectId),Integer.parseInt(erScore)));
     }
 }
