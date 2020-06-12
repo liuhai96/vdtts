@@ -32,13 +32,18 @@ public class UserLoginController {
         Tool tool = new Tool();
         response.setContentType("text/html;charset=utf-8");
         response.setContentType("text/html;charset=utf-8");
-        account.setAPassword(tool.createMd5(account.getAPassword()));
+        account.setAPassword(tool.createMd5(account.getAPassword()));//转MD5码
         account = userLoginService.UserLogin(account);//
         if(account != null){ //登录成功时
             switch (account.getAType()) {
-                case "school": nextJsp = "pages/staff/schoolmenu.jsp";break;//驾校登录界面地址
+                case "school": //驾校登录界面地址
+                    nextJsp = "pages/staff/schoolmenu.jsp";
+                    break;
                 case "student":nextJsp = "pages/s";break;//学员登录界面地址
-                case "teacher":nextJsp = "pages/";break;//教练登录界面地址
+                case "teacher"://教练登录界面地址
+                    nextJsp = "teacherController/teacherInit";
+//                    request.getSession().setAttribute("", account.getAId());
+                break;
             }
             request.getSession().setAttribute("aId", account.getAId());
             request.getSession().setAttribute("aType", account.getAType());

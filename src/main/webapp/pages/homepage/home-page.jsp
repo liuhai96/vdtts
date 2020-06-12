@@ -49,7 +49,7 @@
                     22px; color: #FF5722;">&#xe663;</i>&nbsp;&nbsp;题库</a></li>
                 <li class="layui-nav-item"><a href=""><i class="layui-icon" style="font-size:
                     22px; color: #FF5722;">&#xe630;</i>&nbsp;&nbsp;车型</a></li>
-                <li class="layui-nav-item"><a href="<%=path+"/pages/homepage/driving-to-find/driving-to-find.jsp"%>"><i class="layui-icon" style="font-size:
+                <li class="layui-nav-item"><a href="<%=path+"/SchoolControl/drivingFindInit"%>"><i class="layui-icon" style="font-size:
                     22px; color: #FF5722;">&#xe66c;</i>&nbsp;&nbsp;驾校</a></li>
                 <li class="layui-nav-item"><a href=""><i class="layui-icon" style="font-size:
                     22px; color: #FF5722;">&#xe705;</i>&nbsp;&nbsp;资讯</a></li>

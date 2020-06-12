@@ -3,13 +3,17 @@ package com.lsjbc.vdtts.controller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.lsjbc.vdtts.entity.Account;
+import com.lsjbc.vdtts.entity.Student;
 import com.lsjbc.vdtts.entity.Teacher;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
+import com.lsjbc.vdtts.service.intf.StudentService;
 import com.lsjbc.vdtts.service.intf.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -27,6 +31,9 @@ public class TeacherController {
 
     @Autowired
     private TeacherService teacherService;
+    @Autowired
+    private StudentService studentService;
+
     @RequestMapping(value = "/findTeacherList")
     public String findTeacherList(HttpServletRequest request, HttpServletResponse response){
         String page = request.getParameter("page");//接收前端界面的分页在第几页
@@ -115,5 +122,16 @@ public class TeacherController {
     @RequestMapping(value = "/updateTeacherAccountLockState")
    public Object updateTeacherAccountLockState(String tId){
         return  JSON.toJSONString(teacherService.updateTeacherAccountLockState(Integer.parseInt(tId)));
+    }
+    @RequestMapping(value = "/teacherInit")
+    public ModelAndView TeacherInit(){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("/pages/teacher/teacher");
+        return modelAndView;
+    }
+    @RequestMapping(value = "/stuTableData")
+    public String StuTabelData(String demoReload,int page,int limit,Student student){
+        student.setSName(demoReload);
+        return JSON.toJSONString(studentService.selectList(student,page,limit));
     }
 }

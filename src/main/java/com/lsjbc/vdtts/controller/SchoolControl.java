@@ -67,7 +67,6 @@ public class SchoolControl {
      **/
 	public ModelAndView DrivingFindInit(){
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("isInit",true);
         ResultData resultData = new ResultData();
         Map map = new HashMap();
         Tool tool = new Tool();
@@ -137,12 +136,14 @@ public class SchoolControl {
     @ResponseBody
     private String DrivingIn(School school, Account account){
         Tool tool = new Tool();
-        account.setAPassword(tool.createMd5(account.getAPassword()));
+        account.setAType("school");
+        account.setAPassword(tool.createMd5(account.getAPassword()));//转MD5码
+
         if(school.getSRegisteryFee() < 10) school.setSRegisteryFee(4000);
         school.setSRegTime(tool.getDate("yyyy/MM/dd HH:mm:ss"));
-        account.setAType("school");
         accountService.addAccountData(account);//加入登录账号
         school.setSAccountId(account.getAId());
+        if(school.getSBusinessPic() == null) school.setSBusinessPic("/image/sch.jpg");
 	    return JSON.toJSONString(schoolService.schoolToProduct(school,account.getAAccount()));
     }
 }
