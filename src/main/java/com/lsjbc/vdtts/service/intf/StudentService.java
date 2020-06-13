@@ -9,8 +9,15 @@ import java.util.List;
 
 @Service
 public interface StudentService {
+    /*
+     *@Description:
+     *@Author:周永哲
+     *@Param:
+     *@return:
+     *@Date:2020/6/8
+     **/
     public List<Student> selectAllInfo(@Param("student") Student student, @Param("page") int page, @Param("limit") int limit);
-    public int selectCount(@Param("student") Student student);
+    public int selectStudentCount(@Param("student") Student student);
     public int resetPwd(String studentId);
     public int insertstudent(Student student);
     public int updatestudent(Student student);

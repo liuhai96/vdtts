@@ -7,12 +7,11 @@ import com.lsjbc.vdtts.entity.Teacher;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.pojo.vo.ResultData;
 import com.lsjbc.vdtts.service.intf.TeacherService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,7 +41,7 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
 
-    @Autowired
+    @Resource
     private AccountMapper accountMapper;
     @Override
     /*
@@ -99,6 +98,7 @@ public class TeacherServiceImpl implements TeacherService {
         }
         return layuiTableData;
     }
+
 
     /*
      *@Description:
@@ -196,6 +196,25 @@ public class TeacherServiceImpl implements TeacherService {
             layuiTableData.setCode(0);
         }
         return layuiTableData;
+    }
+
+    /*
+     *@Description:
+     *@Author:周永哲
+     *@Param:
+     *@return:
+     *@Date:2020/6/11
+     **/
+    @Override
+    public List<Teacher> selectAllInfo(Teacher teacher, int page, int limit) {
+        List<Teacher> selectAllInfo = teacherMapper.selectAllInfo(teacher,page,limit);
+        return selectAllInfo;
+    }
+
+    @Override
+    public int selectTeacherCount(Teacher teacher) {
+        int selectCount = teacherMapper.selectTeacherCount(teacher);
+        return selectCount;
     }
     @Override
     public ResultData UpdatePhone(Teacher teacher){

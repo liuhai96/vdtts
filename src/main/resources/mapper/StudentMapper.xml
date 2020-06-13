@@ -10,8 +10,6 @@
 <!--    </select>-->
     <!--  周永哲，学员信息初始化-->
     <select id="selectAllInfo" resultType="com.lsjbc.vdtts.entity.Student"  parameterType="com.lsjbc.vdtts.entity.Student">
---         select a.*,b.s_name 'schoolName',c.t_name 'teacherName'from tb_student a left join tb_school b on a.s_school_id = b.s_id left join tb_teacher c on a.s_teacher_id = c.t_idselect * from tb_student
---         select * from tb_student
         select a.*,b.s_name school_name,c.t_name teacher_name from tb_student a
         left join tb_school b on a.s_school_id = b.s_id
         left join tb_teacher c on a.s_teacher_id = c.t_id
@@ -24,7 +22,7 @@
     </select>
 
     <!--  周永哲，统计学员信息条数-->
-    <select id="selectCountByStudent" resultType="int" parameterType="com.lsjbc.vdtts.entity.Student">
+    <select id="selectStudentCount" resultType="int" parameterType="com.lsjbc.vdtts.entity.Student">
         select count(*) from tb_student
         <where>
             <if test="student.sName!=null and student.sName!=''">

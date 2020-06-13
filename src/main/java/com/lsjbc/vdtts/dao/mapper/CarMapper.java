@@ -26,4 +26,15 @@ public interface CarMapper extends CustomBaseMapper<Car> {
      **/
     public int carlistcount(@Param("e") Car car);
     public List<Car> finecarlist(@Param("e") Car car, @Param("start") int start, @Param("pageSize") int pageSize);
+
+    /*
+     *@Description:
+     *@Author:周永哲
+     *@Param:
+     *@return:
+     *@Date:2020/6/11
+     **/
+    public List<Car> selectAllInfo(@Param("car") Car car, @Param("page") int page, @Param("limit") int limit);
+
+    public int selectCarCount(@Param("car") Car car);
 }

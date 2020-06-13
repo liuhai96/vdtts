@@ -104,4 +104,24 @@ public class CarServiceImpl implements CarService {
         }
         return layuiTableData;
     }
+
+
+    /*
+     *@Description:
+     *@Author:周永哲
+     *@Param:
+     *@return:
+     *@Date:2020/6/11
+     **/
+    @Override
+    public List<Car> selectAllInfo(Car car, int page, int limit) {
+        List<Car> selectAllInfo = carMapper.selectAllInfo(car,page,limit);
+        return selectAllInfo;
+    }
+
+    @Override
+    public int selectCarCount(Car car) {
+        int selectCount = carMapper.selectCarCount(car);
+        return selectCount;
+    }
 }

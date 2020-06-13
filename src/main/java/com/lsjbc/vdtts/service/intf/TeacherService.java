@@ -3,6 +3,9 @@ package com.lsjbc.vdtts.service.intf;
 import com.lsjbc.vdtts.entity.Account;
 import com.lsjbc.vdtts.entity.Teacher;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 import com.lsjbc.vdtts.pojo.vo.ResultData;
 
 public interface TeacherService {
@@ -22,5 +25,15 @@ public interface TeacherService {
      *@Date:2020/6/8 1591607662706
      **/
     public LayuiTableData teacherList(Teacher teacher, int page, int pageSize);
+
+    /*
+     *@Description:
+     *@Author:周永哲
+     *@Param:
+     *@return:
+     *@Date:2020/6/11
+     **/
+    public List<Teacher> selectAllInfo(@Param("teacher") Teacher teacher, @Param("page") int page, @Param("limit") int limit);
+    public int selectTeacherCount(@Param("teacher") Teacher teacher);
     public ResultData UpdatePhone(Teacher teacher);//修改联系方式
 }

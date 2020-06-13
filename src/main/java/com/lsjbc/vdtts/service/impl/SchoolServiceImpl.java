@@ -5,6 +5,7 @@ import com.github.pagehelper.PageHelper;
 import com.lsjbc.vdtts.constant.consist.EvaluateTypeConstant;
 import com.lsjbc.vdtts.dao.*;
 import com.lsjbc.vdtts.dao.mapper.SchoolMapper;
+import com.lsjbc.vdtts.entity.Account;
 import com.lsjbc.vdtts.entity.School;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.pojo.vo.ResultData;
@@ -82,6 +83,29 @@ public class SchoolServiceImpl implements SchoolService {
     public List<School> schoolMessageList(School school,int stripStart, int stripEnd){
 	    return schoolMapper.schoolList(school,stripStart, stripEnd);
     }
+	/*
+	 *@Description:修改审核状态
+	 *@Author:陈竑霖
+	 *@Param:[teacher]
+	 *@return:com.lsjbc.vdtts.pojo.vo.LayuiTableData
+	 *@Date:2020/6/9 15:26
+	 **/
+	@Override
+	public LayuiTableData updateschoolInfo(School school) {
+		LayuiTableData layuiTableData = new LayuiTableData();
+		int num = schoolMapper.updateschoolInfo(school);
+		if(num>0){
+			layuiTableData.setCode(1);
+		}
+		return layuiTableData;
+	}
+	@Override
+	public LayuiTableData findschool(School school) {
+		LayuiTableData layuiTableData = new LayuiTableData();
+		List<School> schoolList = schoolMapper.findschool(school);
+		layuiTableData.setData(schoolList);
+		return layuiTableData;
+	}
     @Override
     public ResultData schoolToProduct(School school,String id){
         ResultData resultData = ResultData.success();
@@ -150,5 +174,43 @@ public class SchoolServiceImpl implements SchoolService {
 		});
 
 		return details;
+	}
+
+
+	/*
+	 *@Description:
+	 *@Author:周永哲
+	 *@Param:
+	 *@return:
+	 *@Date:2020/6/10
+	 **/
+	@Override
+	public List<School> selectAllInfo(School school, int page, int limit) {
+		List<School> selectAllInfo = schoolMapper.selectAllInfo(school,page,limit);
+		return selectAllInfo;
+	}
+
+	@Override
+	public int selectSchoolCount(School school) {
+		int selectCount = schoolMapper.selectSchoolCount(school);
+		return selectCount;
+	}
+
+	@Override
+	public int deleteSchool(String schoolId) {
+		int deleteSchool = schoolMapper.deleteSchool(schoolId);
+		return deleteSchool;
+	}
+
+	@Override
+	public int insertSchool(School school) {
+		int insertSchool = schoolMapper.insertSchool(school);
+		return insertSchool;
+	}
+
+	@Override
+	public int insertSchoolAccount(Account account) {
+		int insertSchoolAccount = schoolMapper.insertSchoolAccount(account);
+		return insertSchoolAccount;
 	}
 }
