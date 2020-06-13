@@ -83,4 +83,15 @@
             <if test="e.tTeach!=null and e.tTeach!=''"> and t_teach = #{e.tTeach}</if>
         </where>
     </select>
+
+    <!--李浪写 通用修改-->
+    <update id="teacherUpdate" parameterType="com.lsjbc.vdtts.entity.Teacher">
+        update tb_teacher set
+        <if test="e.tSchoolId != null and e.tSchoolId != ''"> t_school_id = #{e.tSchoolId}</if>
+        <if test="e.tSfz != null and e.tSfz != ''"> t_sfz = #{e.tSfz}</if>
+        <if test="e.tPhone != null and e.tPhone != ''"> t_phone = #{e.tPhone}</if>
+         where 1 = 1
+        <if test="e.tId != null and e.tId != ''"> and t_id = #{e.tId}</if>
+        <if test="e.tAccountId != null and e.tAccountId != ''"> and t_account_id = #{e.tAccountId}</if>
+    </update>
 </mapper>

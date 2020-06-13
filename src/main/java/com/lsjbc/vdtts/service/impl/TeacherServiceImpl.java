@@ -5,12 +5,14 @@ import com.lsjbc.vdtts.dao.mapper.TeacherMapper;
 import com.lsjbc.vdtts.entity.Account;
 import com.lsjbc.vdtts.entity.Teacher;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
+import com.lsjbc.vdtts.pojo.vo.ResultData;
 import com.lsjbc.vdtts.service.intf.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -194,5 +196,11 @@ public class TeacherServiceImpl implements TeacherService {
             layuiTableData.setCode(0);
         }
         return layuiTableData;
+    }
+    @Override
+    public ResultData UpdatePhone(Teacher teacher){
+        if(teacherMapper.teacherUpdate(teacher) > 0)
+            return ResultData.success("修改成功！");
+        else return ResultData.success("修改失败！");
     }
 }

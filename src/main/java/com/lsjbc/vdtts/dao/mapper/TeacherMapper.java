@@ -39,4 +39,5 @@ public interface TeacherMapper extends CustomBaseMapper<Teacher> {
     public int teacherlistcount(@Param("e") Teacher teacher);
     public List<Teacher> teacherlist(@Param("e") Teacher teacher, @Param("start") int start, @Param("pageSize") int pageSize);
     public Teacher findAccount(@Param("e")Account account);//李浪 登录用的查找
+    public int teacherUpdate(@Param("e") Teacher teacher);//李浪 通用修改
 }

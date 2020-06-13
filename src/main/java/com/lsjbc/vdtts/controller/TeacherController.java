@@ -107,8 +107,6 @@ public class TeacherController {
         return JSON.toJSONString(layuiTableData);
     }
 
-
-
    @RequestMapping(value = "/findTeacher")
     public String findTeacher(){
         return JSON.toJSONString(teacherService.findTeacher(1));
@@ -135,5 +133,18 @@ public class TeacherController {
         if(student.getSName() == null ||student.getSName().equals(""))
             request.getSession().setAttribute("studentCount", layuiTableData.getCount());
         return JSON.toJSONString(layuiTableData);
+    }
+
+    @RequestMapping(value = "updatePhone")
+    /*
+     *@Description:教练修改联系方式
+     *@Author:李浪_191019
+     *@Param:[teacher]
+     *@return:java.lang.String
+     *@Date:2020/6/13 16:28
+     **/
+    @ResponseBody
+    public String UpdatePhone(Teacher teacher){
+        return JSON.toJSONString(teacherService.UpdatePhone(teacher));
     }
 }

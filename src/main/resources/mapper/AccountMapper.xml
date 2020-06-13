@@ -16,4 +16,20 @@
     <delete id="deleteAccount" parameterType="int">
         delete from tb_account where a_id = #{aId}
     </delete>
+    <select id="selectAccount" resultType="com.lsjbc.vdtts.entity.Account">
+        select * from tb_account
+        <where> 1 = 1
+            <if test="e.aId != null and e.aId != ''"> and a_id = #{e.aId}</if>
+            <if test="e.aAccount != null and e.aAccount != ''"> a_account = #{e.aAccount} </if>
+            <if test="e.aPassword != null and e.aPassword != ''"> and a_password = #{e.aPassword}</if>
+            <if test="e.aType != null and e.aType != ''"> and a_type = #{e.aType}</if>
+        </where>
+    </select><!-- 通用查找——李浪写 -->
+    <update id="updateAccount" parameterType="com.lsjbc.vdtts.entity.Account">
+        update tb_account set
+        <if test="e.aPassword != null and e.aPassword != ''"> a_password = #{e.aPassword}</if>
+         <where> 1 = 1
+             <if test="e.aId != null and e.aId != ''"> and a_id = #{e.aId}</if>
+         </where>
+    </update>
 </mapper>

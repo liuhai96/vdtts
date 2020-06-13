@@ -113,4 +113,24 @@ public class AccountServiceImp implements AccountService {
         resultData.put("url",nextJsp);
         return resultData;
     }
+
+    @Override
+    /*
+     *@Description:
+     *@Author:李浪_191019
+     *@Param:[account] 密码验证
+     *@return:com.lsjbc.vdtts.pojo.vo.ResultData
+     *@Date:2020/6/13 14:34
+     **/
+    public ResultData verifyPass(Account account){
+        account = accountMapper.selectAccount(account);
+        if(account != null) return ResultData.success("true");
+        else return ResultData.success("false");
+    }
+    @Override
+    public ResultData updatePass(Account account){
+        if(accountMapper.updateAccount(account) > 0)
+            return ResultData.success("true");
+        else return ResultData.success("false");
+    }
 }
