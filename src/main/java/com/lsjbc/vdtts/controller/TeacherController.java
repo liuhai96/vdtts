@@ -37,13 +37,8 @@ public class TeacherController {
     private StudentService studentService;
 
     @RequestMapping(value = "/findTeacherList")
-    public String findTeacherList(HttpServletRequest request, HttpServletResponse response){
-        String page = request.getParameter("page");//接收前端界面的分页在第几页
-        String limit = request.getParameter("limit");//接收前端界面查询数量
-        String tSchoolId = request.getParameter("tShoolId");//接收前端保存的驾校id
-        int pageSize = Integer.parseInt(limit);
-        int start = (Integer.parseInt(page)-1)*pageSize;//计算从数据库第几条开始查
-       LayuiTableData layuiTableData = teacherService.findTeacherList(start,pageSize,1);
+    public String findTeacherList(String page,String limit,String tName){
+       LayuiTableData layuiTableData = teacherService.findTeacherList(page,limit,tName,1);
        return JSON.toJSONString(layuiTableData, SerializerFeature.DisableCircularReferenceDetect);
     }
 

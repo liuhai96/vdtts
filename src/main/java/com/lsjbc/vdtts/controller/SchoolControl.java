@@ -159,4 +159,11 @@ public class SchoolControl {
         if(school.getSBusinessPic() == null) school.setSBusinessPic("/image/sch.jpg");
 	    return JSON.toJSONString(schoolService.schoolToProduct(school,account.getAAccount()));
     }
+
+    @RequestMapping(value = "/updateSchoolBasicInfo")
+    private Object updateSchoolBasicInfo(School school){
+        System.out.println("school"+school);
+        return null;
+//        return JSON.toJSONString(schoolService.updateSchoolBasicInfo(school));
+    }
 }

@@ -5,12 +5,26 @@
 <mapper namespace="com.lsjbc.vdtts.dao.mapper.TeacherMapper">
 <!--    查询所属驾校中的教练总数-->
     <select id="findTeacherCount" parameterType="java.lang.Integer" resultType="int">
-        select count(*) from tb_teacher where t_school_id = #{tSchoolId}
+        select count(*) from tb_teacher
+        <where>
+            <if test="tName!=null and tName!=''">
+                and t_name like concat('%',#{tName},'%')
+            </if>
+            and t_school_id = #{tSchoolId}
+        </where>
+
     </select>
 
 <!--    连表查询所属驾校的信息-->
     <select id="findTeacherList" parameterType="java.lang.Integer" resultMap="findTeachList">
-        select * from tb_teacher where t_school_id = #{tSchoolId} order by t_id limit ${start},#{pageSize}
+        select * from tb_teacher
+        <where>
+            <if test="tName!=null and tName!=''">
+                and t_name like concat('%',#{tName},'%')
+            </if>
+            and t_school_id = #{tSchoolId} order by t_id limit ${start},#{pageSize}
+        </where>
+
     </select>
     <resultMap id="findTeachList" type="com.lsjbc.vdtts.entity.Teacher">
         <result property="tSchoolId" column="t_school_id"></result>

@@ -6,11 +6,24 @@
 
 <!--    刘海-->
     <select id="findCarCount" parameterType="int" resultType="int">
-        select count(*) from tb_car where c_school_id = #{cSchoolId}
+        select count(*) from tb_car
+        <where>
+            <if test="cNumber!=null and cNumber!=''">
+                and c_number like concat('%',#{cNumber},'%')
+            </if>
+            and c_school_id = #{cSchoolId}
+        </where>
+
     </select>
 
     <select id="findCarManageList" parameterType="int" resultType="com.lsjbc.vdtts.entity.Car">
-        select c.*,t.t_name from tb_car c left join  tb_teacher t on c.c_teacher_id = t.t_id where c.c_school_id = #{cSchoolId}
+        select c.*,t.t_name from tb_car c left join  tb_teacher t on c.c_teacher_id = t.t_id
+        <where>
+            <if test="cNumber!=null and cNumber!=''">
+                and c_number like concat('%',#{cNumber},'%')
+            </if>
+            and c_school_id = #{cSchoolId}  limit ${start},#{pageSize}
+        </where>
     </select>
 
     <update id="updateCarInfo" parameterType="com.lsjbc.vdtts.entity.Car">

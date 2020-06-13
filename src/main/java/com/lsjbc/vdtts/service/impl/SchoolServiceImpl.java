@@ -12,7 +12,6 @@ import com.lsjbc.vdtts.pojo.vo.ResultData;
 import com.lsjbc.vdtts.pojo.vo.SchoolDetail;
 import com.lsjbc.vdtts.service.intf.SchoolService;
 import org.springframework.stereotype.Service;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -212,5 +211,17 @@ public class SchoolServiceImpl implements SchoolService {
 	public int insertSchoolAccount(Account account) {
 		int insertSchoolAccount = schoolMapper.insertSchoolAccount(account);
 		return insertSchoolAccount;
+	}
+
+	@Override
+	public ResultData updateSchoolBasicInfo(School school) {
+		 ResultData resultData = null;
+		 int num = schoolMapper.updateSchoolBasicInfo(school);
+		 if(num>0){
+		 	resultData = ResultData.success(1,"修改驾校基本信息成功");
+		 }else {
+			 resultData = ResultData.error(-1,"未找到改驾校信息");
+		 }
+		 return resultData;
 	}
 }

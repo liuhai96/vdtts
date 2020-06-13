@@ -14,31 +14,26 @@ import java.util.ArrayList;
 public class ExamResultServiceImpl implements ExamResultService {
     @Autowired
     private ExamResultMapper examResultMapper;
-    @Override
-    public LayuiTableData selectStudentExamList(int start, int pageSize,Integer sSchoolId) {
-        /*
-         *@Description:查询学员考试情况
-         *@Author:刘海
-         *@Param:[start, pageSize, sSchoolId]
-         *@return:com.lsjbc.vdtts.pojo.vo.LayuiTableData
-         *@Date:2020/6/10 23:58
-         **/
 
+
+    @Override
+    public LayuiTableData selectStudentExamList(String page, String limit, String sName, Integer sSchoolId) {
+        int pageSize = Integer.parseInt(limit);
+        int start = (Integer.parseInt(page)-1)*pageSize;//计算从数据库第几条开始查
         LayuiTableData layuiTableData = new LayuiTableData();
         if(sSchoolId==null){
             layuiTableData.setCode(-1);
             layuiTableData.setMsg("未找到该驾校信息");
         }else{
-            ArrayList<ExamResult> examResultList = examResultMapper.selectStudentExamList(start,pageSize,sSchoolId);
+            ArrayList<ExamResult> examResultList = examResultMapper.selectStudentExamList(start,pageSize,sName,sSchoolId);
             System.out.println("examResultList>>>:"+examResultList);
-            int count = examResultMapper.selectStudentExamCount(sSchoolId);
+            int count = examResultMapper.selectStudentExamCount(sName,sSchoolId);
             layuiTableData.setCount(count);
             layuiTableData.setCode(0);
             layuiTableData.setData(examResultList);
         }
         return layuiTableData;
     }
-
 
     @Override
     /*

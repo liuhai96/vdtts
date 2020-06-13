@@ -45,10 +45,15 @@
 </form>
 
 <script type="text/html" id="toolbarDemo">
-    <div class="layui-btn-container">
-        <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
-        <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
-        <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
+    <div class="layui-form-item" style="display:inline-block">
+        <div class="layui-input-block">
+            <input type="text" name="inputname" placeholder="请输入学生姓名查询" autocomplete="off" class="layui-input" style="width:100%;">
+        </div>
+    </div>
+    <div class="layui-btn-container" style="display:inline-block">
+        <button class="layui-btn layui-btn-sm" lay-event="findStudent">查询
+            <i class="layui-icon">&#xe615;</i>
+        </button>
     </div>
 </script>
 
@@ -104,21 +109,21 @@
         table.on('toolbar(test)', function(obj){
             var checkStatus = table.checkStatus(obj.config.id);
             switch(obj.event){
-                case 'getCheckData':
+                case 'findStudent':
                     var data = checkStatus.data;
-                    layer.alert(JSON.stringify(data));
-                    break;
-                case 'getCheckLength':
-                    var data = checkStatus.data;
-                    layer.msg('选中了：'+ data.length + ' 个');
-                    break;
-                case 'isAll':
-                    layer.msg(checkStatus.isAll ? '全选': '未全选');
-                    break;
-
-                //自定义头工具栏右侧图标 - 提示
-                case 'LAYTABLE_TIPS':
-                    layer.alert('这是工具栏右侧自定义的一个图标按钮');
+                    var inputname = $("input[name='inputname']").val();
+                    alert(inputname);
+                    table.reload('test',{
+                        url:'<%=path%>/examResultController/selectStudentExamList',
+                        page:{
+                            curr:1//重第一页开始
+                        },
+                        where:{
+                            studentName:"qwe",
+                            sName:inputname
+                        }
+                    });
+                    $("input[name='inputname']").val(inputname);
                     break;
             };
         });
@@ -129,9 +134,7 @@
             var data = obj.data;
             var sId = data.student.sId;
             var erId = data.erId;
-            layer.alert(erId);
             var teacherId = data.student.sTeacherId;
-            //console.log(obj)
             if(obj.event === 'del'){
                 layer.confirm('真的删除行么', function(index){
                     obj.del();

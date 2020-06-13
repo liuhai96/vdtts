@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 @Service
 public interface CarService {
-    public LayuiTableData findCarManageList(int start,int pageSize,int cSchoolId);
+    public LayuiTableData findCarManageList(String page,String limit,String cNember,int cSchoolId);
     public LayuiTableData updateCarInfo(Car car);
     public LayuiTableData deleteCar(int cId);
     public LayuiTableData addCar(Car car);
