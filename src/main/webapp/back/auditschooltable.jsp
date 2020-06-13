@@ -193,7 +193,7 @@
 		});
 	});
 </script>
-<form action="" id="updateschool" style="display: none" class="layui-form">
+ <form action="" id="updateschool" style="display: none" class="layui-form">
 	<div class="layui-form-item">
 		<label class="layui-form-label">审核</label>
 		<div class="layui-input-block">
@@ -209,6 +209,6 @@
 			<button type="reset" class="layui-btn layui-btn-primary">重置</button>
 		</div>
 	</div>
-	<form>
+ </form>
 </body>
 </html>
