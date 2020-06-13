@@ -83,6 +83,29 @@ public class SchoolServiceImpl implements SchoolService {
     public List<School> schoolMessageList(School school,int stripStart, int stripEnd){
 	    return schoolMapper.schoolList(school,stripStart, stripEnd);
     }
+	/*
+	 *@Description:修改审核状态
+	 *@Author:陈竑霖
+	 *@Param:[teacher]
+	 *@return:com.lsjbc.vdtts.pojo.vo.LayuiTableData
+	 *@Date:2020/6/9 15:26
+	 **/
+	@Override
+	public LayuiTableData updateschoolInfo(School school) {
+		LayuiTableData layuiTableData = new LayuiTableData();
+		int num = schoolMapper.updateschoolInfo(school);
+		if(num>0){
+			layuiTableData.setCode(1);
+		}
+		return layuiTableData;
+	}
+	@Override
+	public LayuiTableData findschool(School school) {
+		LayuiTableData layuiTableData = new LayuiTableData();
+		List<School> schoolList = schoolMapper.findschool(school);
+		layuiTableData.setData(schoolList);
+		return layuiTableData;
+	}
     @Override
     public ResultData schoolToProduct(School school,String id){
         ResultData resultData = ResultData.success();

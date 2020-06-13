@@ -3,7 +3,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>驾校表</title>
+	<title>驾校违规处罚表</title>
 	<meta name="renderer" content="webkit">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -18,16 +18,6 @@
 			<label class="layui-form-label">驾校名：</label>
 			<div class="layui-input-block">
 				<input type="text" name="sName" id="sName" placeholder="请输入姓名" class="layui-input">
-			</div>
-		</div>
-		<div class="layui-inline">
-			<label class="layui-form-label">审核状态</label>
-			<div class="layui-input-inline">
-				<select name="sVerification" id="sVerification">
-					<option value="">选择审核状态查询</option>
-					<option value=" ">未审核</option>
-					<option value="true">已通过</option>
-				</select>
 			</div>
 		</div>
 		<div class="layui-inline">
@@ -64,6 +54,34 @@
 		<button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
 	</div>
 </script>
+<%--<script type="text/html" id="barDemo">--%>
+<%--	<a class="layui-btn layui-btn-xs" lay-event="audit">禁止</a>--%>
+<%--	table.render({--%>
+<%--	elem: '#fileTable'--%>
+<%--	, url: $("#path").val() + '/File/PageAll.action'--%>
+<%--	, toolbar: '#toolbar'--%>
+<%--	, cols: [[--%>
+<%--	{fixed: 'left',type:'checkbox'}--%>
+<%--	,{field:'tFileName', title: '文件名', fixed: 'left', width:300 }--%>
+<%--	,{field:'tRealPath', title: '文件保存路径', width:250 }--%>
+<%--	,{field:'tUser', title: '上传者',templet: '<div>{{d.tUser.tUsername}}</div>', width:250 }--%>
+<%--	,{field:'tTime', title: '上传时间', width:200 }--%>
+<%--	,{field:'tState', title: '文件状态', width:100 }--%>
+<%--	,{title: '文件操作',templet: function (d) {--%>
+<%--	var str="<a class=\"layui-btn layui-btn-xs\" lay-event=\"rename\">重命名</a>";--%>
+<%--	if(d.tState=='正常'){--%>
+<%--	str+="<a class=\"layui-btn layui-btn-danger layui-btn-xs\" lay-event=\"del\">下架</a>";--%>
+<%--	}else if(d.tState=='已下架'){--%>
+<%--	str+="<a class=\"layui-btn layui-btn-warm layui-btn-xs\" lay-event=\"update\">上架</a>";--%>
+<%--	}--%>
+<%--	str+="<a href='"+$("#path").val()+"/file/"+d.tRealPath+"' download='"+$("#path").val()+"/file/"+d.tRealPath+"' class=\"layui-btn layui-btn-normal layui-btn-xs\">下载</a>";--%>
+<%--	return str;--%>
+<%--	}, width:195 }--%>
+<%--	]]--%>
+<%--	, page: true--%>
+<%--	, id: "fileTable"--%>
+<%--	});--%>
+<%--</script>--%>
 <script src="../static/layui/layui.js" charset="utf-8"></script>
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 
@@ -81,7 +99,7 @@
 				,layEvent: 'LAYTABLE_TIPS'
 				,icon: 'layui-icon-tips'
 			}]
-			,title: '驾校数据表'
+			,title: '驾校处罚数据表'
 			,cols: [[
 				{type: 'checkbox', fixed: 'left'}
 				,{field:'sId', title:'驾校ID', width:100, fixed: 'left', unresize: true, sort: true}
@@ -96,18 +114,46 @@
 				,{field:'sLock', title:'是否允许登录', width:130}
 				,{field:'sRegTime', title:'注册时间', width:100}
 				,{field:'sOwnerPic', title:'法人代表证件', width:130}
+				,{title: '操作',templet: function (d) {
+						// var str="<a class=\"layui-btn layui-btn-xs\" lay-event=\"rename\"></a>";
+						var str="";
+						if(d.sRecruit=='true' && d.sLock=='true'){
+							str+="<a class=\"layui-btn layui-btn-danger layui-btn-xs\" lay-event=\"punish\">处罚</a>";
+							str+="<a class=\"layui-btn layui-btn-danger layui-btn-xs\" lay-event=\"punish\">处罚</a>";
+						}else if(d.sRecruit=='false' && d.sLock=='true'){
+							str+="<a class=\"layui-btn layui-btn-warm layui-btn-xs\" lay-event=\"unbind\">解禁</a>";
+							str+="<a class=\"layui-btn layui-btn-warm layui-btn-xs\" lay-event=\"punish\">处罚</a>";
+						}else if(d.sRecruit=='true' && d.sLock=='false'){
+							str+="<a class=\"layui-btn layui-btn-warm layui-btn-xs\" lay-event=\"punish\">处罚</a>";
+							str+="<a class=\"layui-btn layui-btn-warm layui-btn-xs\" lay-event=\"unbind\">解禁</a>";
+						}else if(d.sRecruit=='false' && d.sLock=='false'){
+							str+="<a class=\"layui-btn layui-btn-warm layui-btn-xs\" lay-event=\"unbind\">解禁</a>";
+							str+="<a class=\"layui-btn layui-btn-warm layui-btn-xs\" lay-event=\"unbind\">解禁</a>";
+						} else{
+							str+="<a>未审核</a>";
+						}
+						// str+="<a href='"+$("#path").val()+"/file/"+d.tRealPath+"' download='"+$("#path").val()+"/file/"+d.tRealPath+"' class=\"layui-btn layui-btn-normal layui-btn-xs\">下载</a>";
+						return str;
+					}, width:195 }
 			]]
-			,page: true
-			, done: function (res, curr, count) {
-				$("[data-field='sVerification']").children().each(function () {
-					if ($(this).text() == 'true') {
-						$(this).text("已通过")
-					} else if ($(this).text() == '') {
-						$(this).text("未审核")
-					}
-				});
-			}
+			, page: true
+			, id: "test"
 		});
+		// 		, {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 150}
+		// 	]]
+		// 	,page: true
+		// 	// , done: function (res, curr, count) {
+		// 	// 	$("[data-field='sVerification']").children().each(function () {
+		// 	// 		if ($(this).text() == 'false') {
+		// 	// 			$(this).text("未通过")
+		// 	// 		} else if ($(this).text() == 'true') {
+		// 	// 			$(this).text("已通过")
+		// 	// 		} else if ($(this).text() == '') {
+		// 	// 			$(this).text("未审核")
+		// 	// 		}
+		// 	// 	});
+		// 	// }
+		// });
 
 		//头工具栏事件
 		table.on('toolbar(test)', function(obj){
@@ -136,7 +182,7 @@
 
 			var sName = $("#sName").val();
 			var sLock=$("#sLock").val();
-            var sVerification=$("#sVerification").val();
+            // var sVerification=$("#sVerification").val();
 			var sRecruit=$("#sRecruit").val();
 			tableinf.reload({
 				url:'/SchoolControl/findSchoolList',
@@ -146,7 +192,7 @@
 				where:{
 					sName:sName
 					,sLock:sLock
-					,sVerification:sVerification
+					// ,sVerification:sVerification
 					,sRecruit:sRecruit
 
 				}

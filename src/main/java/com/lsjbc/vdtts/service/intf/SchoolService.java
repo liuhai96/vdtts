@@ -20,7 +20,18 @@ import java.util.List;
  *@Date:2020/6/8 1591601046266
  **/
 public interface SchoolService {
+    /*
+     *@Description:查表
+     *@Author:陈竑霖
+     *@Param:
+     *@return:
+     *@Date:2020/6/13 1592020689329
+     **/
     LayuiTableData schoolList(School school, int page, int pageSize);
+    //修改审核状态
+    public LayuiTableData findschool(School school);
+    public LayuiTableData updateschoolInfo(School school);
+
 
     int schoolCount(School school);//李浪写  查找数据条数
 

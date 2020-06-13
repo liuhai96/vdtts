@@ -1,0 +1,99 @@
+.layui-tab-title li {
+	display: block;
+}
+.main .layui-tab .layui-tab-title {
+	
+}
+.main .layui-tab .layui-tab-title li {
+	background: rgb(226, 234, 242); margin: 5px 0px; line-height: 45px;
+}
+.main {
+	margin: 10px auto; width: 1100px; overflow: hidden; position: relative;
+}
+.del-1 {
+	overflow: hidden;
+}
+.del-1 .del-lun {
+	float: left;
+}
+.del-lun .lun-img {
+	width: 700px; height: 460px;
+}
+.del-1 .del-schinf {
+	width: 390px; float: left;
+}
+.del-1 .del-inf {
+	background: rgb(255, 255, 255); padding: 10px;
+}
+.del-p {
+	background: rgb(39, 68, 114); padding: 5px 50px 5px 10px; color: rgb(255, 255, 255); font-size: 20px; vertical-align: middle; position: relative; min-height: 50px;
+}
+.del-p span {
+	
+}
+.del-p img {
+	top: 5px; right: 10px; position: absolute;
+}
+.del-inf p {
+	line-height: 20px;
+}
+.del-inf .inf-p1 {
+	margin-bottom: 10px;
+}
+.del-inf .inf-p-loc {
+	padding: 10px 5px; width: 12px;
+}
+.del-inf .del-inf-star {
+	margin: 10px 5px; width: 18px;
+}
+.del-inf .del-inf-num {
+	color: rgb(65, 116, 197); margin-left: 10px;
+}
+.del-span-color {
+	color: rgb(217, 114, 100);
+}
+.blsit-list1 li {
+	overflow: hidden; display: block;
+}
+.blsit-list1 li hr {
+	margin: 10px;
+}
+.blsit-list1 .del-lis6 {
+	background: rgb(248, 249, 250);
+}
+.del-inf-but b {
+	float: left;
+}
+.del-inf-but .inf-but-box {
+	display: inline-block;
+}
+.del-sch-view {
+	background: rgb(247, 250, 255); margin: 10px; display: inline-block;
+}
+.bat-but {
+	background: rgb(249, 249, 249); margin: 0px 5px 8px 0px; padding: 8px 10px; border-radius: 3px; border: 1px solid rgb(194, 194, 194); border-image: none; color: rgb(65, 116, 197);
+}
+.p-title {
+	color: rgb(90, 134, 205); padding-left: 10px; font-size: 18px; margin-top: 10px; margin-left: 10px; border-left-color: rgb(90, 134, 205); border-left-width: 5px; border-left-style: solid;
+}
+.p-cont {
+	padding: 10px; line-height: 25px; text-indent: 2em;
+}
+.img-title {
+	color: rgb(90, 134, 205); line-height: 40px; font-size: 15px; font-weight: bold; margin-left: 15px;
+}
+.coach-title-img img {
+	border-radius: 54px; width: 54px; height: 54px; overflow: hidden;
+}
+.map-table {
+	border: 1px solid rgb(255, 255, 255); border-image: none; font-size: 12px;
+}
+.map-table td {
+	background: rgb(255, 255, 255); padding: 10px; font-size: 12px;
+}
+.map-table th {
+	background: rgb(255, 255, 255); padding: 10px; font-size: 12px;
+}
+.map-table th {
+	padding: 10px; color: rgb(90, 134, 205); font-size: 15px; font-weight: bold;
+}
