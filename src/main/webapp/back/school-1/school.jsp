@@ -6,6 +6,9 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+	String path = request.getContextPath();
+%>
 <!doctype html>
 <HEAD><META content="IE=11.0000"
             http-equiv="X-UA-Compatible">
@@ -46,8 +49,8 @@
 	<DIV class="top-box"><IMG class="top-logo" src="school_files/psp-logo.png">
 
 		<DIV class="top-title">
-			<P class="top-title-p1">老司机驾驶培训公共服务平台</P>
-			<P class="top-title-p2">old hand training public service platform</P></DIV>
+			<P class="top-title-p1">机动车驾驶培训公共服务平台</P>
+			<P class="top-title-p2">Timing training system for motor vehicle drivers</P></DIV>
 		<DIV class="top-search">
 		</DIV></DIV></DIV>
 <DIV class="menu">
@@ -83,7 +86,7 @@
 			</DIV>
 		</DIV>
 		<DIV style="float: left">
-			<IMG src="../../static/layui/images/photo/06.png" style="height: 300px; width: 700px; ">
+			<IMG style="height: 300px; width: 700px;" src="../../static/layui/images/photo/06.png" >
 		</DIV>
 		<DIV class="del-schinf">
 			<P class="del-p"><SPAN id="shortname"></SPAN><IMG src="../school-1/school_files/tower.png"></P>

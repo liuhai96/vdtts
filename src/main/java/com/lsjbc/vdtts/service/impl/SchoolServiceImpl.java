@@ -1,6 +1,5 @@
 package com.lsjbc.vdtts.service.impl;
 
-import com.lsjbc.vdtts.dao.mapper.AccountMapper;
 import com.lsjbc.vdtts.dao.mapper.SchoolMapper;
 import com.lsjbc.vdtts.entity.School;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
@@ -49,10 +48,10 @@ public class SchoolServiceImpl implements SchoolService
 		}
 		return layuiData;
 	}
-	//修改驾校审核状态
-	@Override
+//	//修改驾校审核状态
+//	@Override
 	public LayuiTableData updateschoolInfo(School school) {
-		LayuiTableData layuiTableData = new LayuiTableData();
+//		LayuiTableData layuiTableData = new LayuiTableData();
 //		if(school.getSVerification()==""){
 //			layuiTableData.setCode(0);
 //		}else{
@@ -64,7 +63,7 @@ public class SchoolServiceImpl implements SchoolService
 //			}
 //
 //		}
-		return layuiTableData;
+		return null;
 	}
 
 
@@ -86,28 +85,30 @@ public class SchoolServiceImpl implements SchoolService
     }
     @Override
     public ResultData schoolToProduct(School school,String id){
-        ResultData resultData = ResultData.success();
-        if(schoolMapper.addSchool(school) > 0){
-            resultData.put("result","恭喜！"+school.getSName()+" 已经成入驻本平台\n\n" +
-                    "你的平台管理账号为："+id+
-                "\n\n在审核通过后，您就可以在本平台上管理您的驾校了");
-        } else {
-            resultData.put("result","很遗憾！未知原因导致"+school.getSName()+"未能成功入驻本平台\n\n" +
-                    "请重试或者联系我们的工作人员！给您带来的不便敬请谅解！");
-        }
-        return resultData;
-    }
+//        ResultData resultData = ResultData.success();
+//        if(schoolMapper.addSchool(school) > 0){
+//            resultData.put("result","恭喜！"+school.getSName()+" 已经成入驻本平台\n\n" +
+//                    "你的平台管理账号为："+id+
+//                "\n\n在审核通过后，您就可以在本平台上管理您的驾校了");
+//        } else {
+//            resultData.put("result","很遗憾！未知原因导致"+school.getSName()+"未能成功入驻本平台\n\n" +
+//                    "请重试或者联系我们的工作人员！给您带来的不便敬请谅解！");
+//        }
+//        return resultData;
+//    }
+	    return null;}
 
 
 	@Override
 	public ResultData findSchoolInfo(HttpServletRequest request, HttpServletResponse response) {
-		School school = schoolMapper.findSchoolInfo(1);
-		ResultData resultData = null;
-		if(school!=null){
-			resultData = ResultData.success("school",school);
-		}else{
-			resultData = ResultData.error(-1,"系统出错请稍后尝试");
-		}
-		return resultData;
-	}
+//		School school = schoolMapper.findSchoolInfo(1);
+//		ResultData resultData = null;
+//		if(school!=null){
+//			resultData = ResultData.success("school",school);
+//		}else{
+//			resultData = ResultData.error(-1,"系统出错请稍后尝试");
+//		}
+//		return resultData;
+//	}
+		return null;}
 }

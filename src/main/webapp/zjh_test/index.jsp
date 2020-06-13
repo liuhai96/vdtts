@@ -92,8 +92,7 @@
                 <div carousel-item="" id="homeTopFile">
                     <div class="layui-this">
                         <img src="<%=path+"/zjh_test/pic/{2}_46407.jpg"%>" onclick="publicNotice('1','976');"
-                             style="width: 380px;height: 280px;cursor:pointer"><a class="carousel-title"
-                                                                                  title="省运管局举办全省重点道路运输企业主要负责人安全管理培训">省运管局举办全省重点道路运输企业主要负责人安全管理...</a>
+                             style="width: 380px;height: 280px;cursor:pointer"><a class="carousel-title"  title="省运管局举办全省重点道路运输企业主要负责人安全管理培训">省运管局举办全省重点道路运输企业主要负责人安全管理...</a>
                     </div>
                 </div>
                 <div class="layui-carousel-ind">
