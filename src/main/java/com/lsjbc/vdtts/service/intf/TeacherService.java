@@ -33,5 +33,6 @@ public interface TeacherService {
      *@Date:2020/6/11
      **/
     public List<Teacher> selectAllInfo(@Param("teacher") Teacher teacher, @Param("page") int page, @Param("limit") int limit);
-    public int selectCount(@Param("teacher") Teacher teacher);
+    public int selectTeacherCount(@Param("teacher") Teacher teacher);
 }
+

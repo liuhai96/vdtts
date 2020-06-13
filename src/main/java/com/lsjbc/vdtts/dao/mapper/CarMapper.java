@@ -36,5 +36,5 @@ public interface CarMapper extends CustomBaseMapper<Car> {
      *@Date:2020/6/11
      **/
     public List<Car> selectAllInfo(@Param("car") Car car, @Param("page") int page, @Param("limit") int limit);
-    public int selectCount(@Param("car") Car car);
+    public int selectCarCount(@Param("car") Car car);
 }

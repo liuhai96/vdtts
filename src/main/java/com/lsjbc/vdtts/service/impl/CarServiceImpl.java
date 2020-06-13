@@ -121,8 +121,8 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public int selectCount(Car car) {
-        int selectCount = carMapper.selectCount(car);
+    public int selectCarCount(Car car) {
+        int selectCount = carMapper.selectCarCount(car);
         return selectCount;
     }
 }

@@ -56,7 +56,7 @@
     </select>
 
     <!--  周永哲，统计驾校信息条数-->
-    <select id="selectCount" resultType="int"  parameterType="com.lsjbc.vdtts.entity.School">
+    <select id="selectSchoolCount" resultType="int"  parameterType="com.lsjbc.vdtts.entity.School">
         select count(*) from tb_school
         <where>
             <if test="school.sName!=null and school.sName!=''">

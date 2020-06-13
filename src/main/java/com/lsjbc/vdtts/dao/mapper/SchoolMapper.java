@@ -37,7 +37,7 @@ public interface SchoolMapper extends CustomBaseMapper<School> {
 	 *@Date:2020/6/10
 	 **/
 	public List<School> selectAllInfo(@Param("school") School school, @Param("page") int page, @Param("limit") int limit);
-	public int selectCount(@Param("school") School school);
+	public int selectSchoolCount(@Param("school") School school);
 	public int deleteSchool(String schoolId);
 	public int insertSchool(School school);
 	public int insertSchoolAccount(Account account);

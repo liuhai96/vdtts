@@ -41,7 +41,7 @@ public class StudentController {
         int page2 = (Integer.valueOf(page)-1)*Integer.valueOf(limit);
         System.out.println(" ---page2="+page2);
         List<Student> list= studentService.selectAllInfo(student,page2,Integer.valueOf(limit));
-        int count =studentService.selectCount(student);
+        int count =studentService.selectStudentCount(student);
         System.out.println("学员信息初始化操作--- list="+list+" count ="+count);
         LayuiTableData layuiData = new LayuiTableData();
         layuiData.setCode(0);

@@ -212,8 +212,8 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public int selectCount(Teacher teacher) {
-        int selectCount = teacherMapper.selectCount(teacher);
+    public int selectTeacherCount(Teacher teacher) {
+        int selectCount = teacherMapper.selectTeacherCount(teacher);
         return selectCount;
     }
 }
