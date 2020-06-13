@@ -19,6 +19,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <script src="https://www.layuicdn.com/layui/layui.js"></script>
     <link href="https://www.layuicdn.com/layui/css/layui.css" rel="stylesheet" type="text/css"/>
+    <script src="<%=path+"/static/custom_tool.js"%>"></script>
 </head>
     <body>
     <div>
