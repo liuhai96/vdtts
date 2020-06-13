@@ -36,7 +36,7 @@ public class StudentServiceImpl implements StudentService
 	 **/
 	@Override
 	public int selectCount(Student student) {
-		int selectCount = studentMapper.selectCount(student);
+		int selectCount = studentMapper.selectCountByStudent(student);
 		return selectCount;
 	}
 
@@ -89,7 +89,6 @@ public class StudentServiceImpl implements StudentService
 		}
 		List<Student> list = studentMapper.selectList(student, start, pageSize);
 		int count = studentMapper.selectListCount(student);
-
         LayuiTableData layuiData = new LayuiTableData();
 		if (list.size() > 0) {
 			layuiData.setCode(0);
@@ -116,6 +115,4 @@ public class StudentServiceImpl implements StudentService
     public int registerStudent(Student student){
 	    return studentMapper.addStudentMessage(student);
     }
-
-
 }

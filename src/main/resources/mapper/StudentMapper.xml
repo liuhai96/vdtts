@@ -22,7 +22,7 @@
     </select>
 
     <!--  周永哲，统计学员信息条数-->
-    <select id="selectCount" resultType="int"  parameterType="com.lsjbc.vdtts.entity.Student">
+    <select id="selectCountByStudent" resultType="int" parameterType="com.lsjbc.vdtts.entity.Student">
         select count(*) from tb_student
         <where>
             <if test="student.sName!=null and student.sName!=''">
@@ -53,10 +53,10 @@
 <!--表单-->
     <select id="selectList" resultType="com.lsjbc.vdtts.entity.Student">
          select stu.s_id,sch.s_name schoolName,stu.s_sfz,stu.s_name,stu.s_sex,stu.s_birthday,stu.s_reg_time,stu.s_license_time,tea.t_name teacherName
-         from tb_student stu,tb_school sch,tb_teacher tea where stu.s_school_id=sch.s_id and stu.s_teacher_id=tea.t_id
-
+         from tb_student stu,tb_school sch,tb_teacher tea where stu.s_school_id=sch.s_id and stu.s_teacher_id =tea.t_id
             <if test="e.sName!=null and e.sName!=''"> and stu.s_name like concat('%',#{e.sName},'%')</if>
             <if test="e.sSex!=null and e.sSex!=''"> and stu.s_sex = #{e.sSex}</if>
+            <if test="e.sTeacherId!=null and e.sTeacherId!=''"> and stu.s_teacher_id = #{e.sTeacherId}</if>/*李浪新增，用于教练查找学生*/
             <if test="e.sLicenseTime!=null and e.sLicenseTime!=''"> and stu.s_license_time like concat('%',#{e.sLicenseTime},'%')</if>
         limit #{start},#{pageSize}
     </select>
@@ -64,9 +64,10 @@
     <select id="selectListCount" resultType="int" parameterType="com.lsjbc.vdtts.entity.Student">
         select count(s_id) from tb_student
         <!--where自动帮我们取消掉多余的and或or-->
-        <where>
+        <where> 1 = 1
             <if test="e.sName!=null and e.sName!=''"> and s_name like concat('%',#{e.sName},'%')</if>
             <if test="e.sSex!=null and e.sSex!=''"> and s_sex = #{e.sSex}</if>
+            <if test="e.sTeacherId!=null and e.sTeacherId!=''"> and s_teacher_id = #{e.sTeacherId}</if>/* 李浪新增，用于教练查找学生*/
             <if test="e.sLicenseTime!=null and e.sLicenseTime!=''"> and s_license_time like concat('%',#{e.sLicenseTime},'%')</if>
         </where>
     </select>
@@ -83,4 +84,8 @@
         <result property="" column="t_school_id"></result>
         <association property="examResult" column="t_school_id" javaType="com.lsjbc.vdtts.entity.School" select="findSchool"></association>
     </resultMap>
+    <!--用于登录sql 李浪-->
+    <select id="findAccount" resultType="com.lsjbc.vdtts.entity.School">
+        select * from tb_student where s_account_id = #{aAccount}
+    </select>
 </mapper>

@@ -1,6 +1,7 @@
 package com.lsjbc.vdtts.dao.mapper;
 
 import com.lsjbc.vdtts.entity.Car;
+import com.lsjbc.vdtts.utils.mopper.CustomBaseMapper;
 import com.lsjbc.vdtts.entity.School;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -8,7 +9,8 @@ import org.apache.ibatis.annotations.Param;
 import java.util.ArrayList;
 import java.util.List;
 
-public interface CarMapper {
+@Mapper
+public interface CarMapper extends CustomBaseMapper<Car> {
     public int findCarCount(@Param("cSchoolId") int cSchoolId);
     public ArrayList<Car> findCarManageList(@Param("start") int start,@Param("pageSize") int pageSize,@Param("cSchoolId") int cSchoolId);
     public int updateCarInfo(Car car);

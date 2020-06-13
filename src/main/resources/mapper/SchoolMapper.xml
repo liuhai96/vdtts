@@ -9,9 +9,9 @@
     <select id="schoolList" resultType="com.lsjbc.vdtts.entity.School">
         select * from tb_school
         <where>
-         <if test="e.sName!=null and e.sName!=''"> and s_name like concat('%',#{e.sName},'%')</if>
+            <if test="e.sName!=null and e.sName!=''"> and s_name like concat('%',#{e.sName},'%')</if>
             <if test="e.sLock!=null and e.sLock!=''"> and s_lock = #{e.sLock}</if>
-            <if test="e.sVerificattion!=null and e.sVerificattion!=''"> and s_verificattion = #{e.sVerificattion}</if>
+            <if test="e.sVerification!=null and e.sVerification!=''"> and s_verification = #{e.sVerification}</if>
             <if test="e.sRecruit!=null and e.sRecruit!=''"> and s_recruit = #{e.sRecruit}</if>
         </where>
          limit ${start},#{pageSize}
@@ -22,9 +22,25 @@
         <where>
             <if test="e.sName!=null and e.sName!=''"> and s_name like concat('%',#{e.sName},'%')</if>
             <if test="e.sLock!=null and e.sLock!=''"> and s_lock = #{e.sLock}</if>
-            <if test="e.sVerificattion!=null and e.sVerificattion!=''"> and s_verificattion = #{e.sVerificattion}</if>
+            <if test="e.sVerification!=null and e.sVerification!=''"> and s_verification = #{e.sVerification}</if>
             <if test="e.sRecruit!=null and e.sRecruit!=''"> and s_recruit = #{e.sRecruit}</if>
         </where>
+    </select>
+
+<!--    刘海-->
+    <select id="findSchoolInfo" resultType="com.lsjbc.vdtts.entity.School" parameterType="int">
+        select sh.*,ac.* from tb_school sh left join tb_account ac on sh.s_account_id = ac.a_id where sh.s_id = #{sId}
+    </select>
+    <!-- 驾校入驻 -->
+    <insert id="addSchool" keyProperty="sId" useGeneratedKeys="true">
+        insert into tb_school (s_account_id, s_name, s_address, s_phone, s_business_id, s_business_pic,
+         s_owner_id, s_owner_pic, s_verification, s_recruit, s_lock, s_reg_time, s_registery_fee)
+         values (#{sAccountId}, #{sName}, #{sAddress}, #{sPhone}, #{sBusinessId}, #{sBusinessPic},
+         #{sOwnerId}, #{sOwnerPic}, #{sVerification}, #{sRecruit}, #{sLock}, #{sRegTime}, #{sRegisteryFee})
+    </insert>
+    <!--用于登录sql 李浪-->
+    <select id="findAccount" resultType="com.lsjbc.vdtts.entity.School">
+        select * from tb_school where s_account_id = #{aAccount}
     </select>
 
 

@@ -17,6 +17,7 @@ public interface ExamResultMapper {
     public int selectStudentExamCount(Integer sSchoolId);
     public ExamResult findSubjectExamState(@Param("erId") Integer erId,@Param("erStudentId") Integer erStudentId);
     public int findSubjectExamCount (@Param("tId") Integer tId,@Param("examSujectId") Integer examSujectId);
-    public int updateStudentExanState(@Param("examSujectId") Integer examSujectId,@Param("erId") Integer erId);
+    public int updateStudentExanState(@Param("examSujectId") Integer examSujectId,@Param("erId") Integer erId,@Param("erState") Integer erState);
+    public int updateStudentScore(@Param("erId") Integer erId,@Param("erScore") Integer erScore,@Param("examSujectId") Integer examSujectId);
     //结束
 }

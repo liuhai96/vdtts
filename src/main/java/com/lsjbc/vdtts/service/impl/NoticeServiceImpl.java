@@ -2,6 +2,7 @@ package com.lsjbc.vdtts.service.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.lsjbc.vdtts.constant.consist.NoticeTypeConstant;
 import com.lsjbc.vdtts.dao.NoticeDao;
 import com.lsjbc.vdtts.dao.mapper.NoticeMapper;
 import com.lsjbc.vdtts.entity.Notice;
@@ -70,14 +71,7 @@ public class NoticeServiceImpl implements NoticeService {
      */
     @Override
     public List<Notice> getIndexPageNotice() {
-
-        Page<Notice> noticePage = PageHelper.startPage(1,4,true);
-
-        noticeDao.getNoticeByTypeOrderByIdDesc("notice");
-
-        List<Notice> notices = noticePage.getResult();
-
-        return notices;
+        return getByType(NoticeTypeConstant.TYPE_NOTICE, 1, 4);
     }
 
     /**
@@ -88,13 +82,61 @@ public class NoticeServiceImpl implements NoticeService {
      */
     @Override
     public List<Notice> getIndexPageLaw() {
+        return getByType(NoticeTypeConstant.TYPE_LAW, 1, 4);
+    }
 
-        Page<Notice> noticePage = PageHelper.startPage(1,4,true);
+    /**
+     * 分页获取特定类型的法律法规/通知公告
+     *
+     * @param type 类型
+     * @param page 页数
+     * @return 法律法规/通知公告集合
+     * @author JX181114 --- 郑建辉
+     */
+    @Override
+    public List<Notice> getByType(String type, Integer page) {
+        return getByType(type, page, 5);
+    }
 
-        noticeDao.getNoticeByTypeOrderByIdDesc("law");
+    /**
+     * 分页获取特定类型的法律法规/通知公告
+     *
+     * @param type 类型
+     * @param page 页数
+     * @return 法律法规/通知公告集合的分页对象
+     * @author JX181114 --- 郑建辉
+     */
+    @Override
+    public Page<Notice> getPageByType(String type, Integer page) {
+        Page<Notice> noticePage = PageHelper.startPage(page, 5, true);
+        noticeDao.getNoticeByTypeOrderByIdDesc(type);
+        return noticePage;
+    }
 
-        List<Notice> notices = noticePage.getResult();
+    /**
+     * 通过ID来获取通知公告/法律法规
+     *
+     * @param id 主键
+     * @return 通知公告/法律法规
+     * @author JX181114 --- 郑建辉
+     */
+    @Override
+    public Notice getById(Integer id) {
+        return noticeDao.getById(id);
+    }
 
-        return notices;
+    /**
+     * 分页获取特定类型的法律法规/通知公告
+     *
+     * @param type     类型
+     * @param page     页数
+     * @param pageSize 页面数据大小
+     * @return 法律法规/通知公告集合
+     * @author JX181114 --- 郑建辉
+     */
+    private List<Notice> getByType(String type, Integer page, Integer pageSize) {
+        Page<Notice> noticePage = PageHelper.startPage(page, pageSize, true);
+        noticeDao.getNoticeByTypeOrderByIdDesc(type);
+        return noticePage.getResult();
     }
 }

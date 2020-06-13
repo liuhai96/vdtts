@@ -169,6 +169,7 @@ public class StudentController {
         for(int i = 0;i < 3;i++){
             String aAccount = tool.getRandCode(tool.getRandom(6,11),null);
             if(accountService.accountRepetition(aAccount) == null){
+                account.setAPassword(tool.createMd5(account.getAPassword()));//转MD5码
                 account.setAAccount(aAccount);
                 account.setAType("student");
                 if(accountService.addStudentAccount(account) > 0){

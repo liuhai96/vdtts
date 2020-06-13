@@ -37,10 +37,6 @@
 </head>
 <body>
     <input hidden="hidden" value="<%=path%>" id="path">
-    <c:if test="${!isInit}"><%-- 初始化界面 --%>
-        <form action="<%=path+"/SchoolControl/drivingFindInit"%>" method="post" id="init"></form>
-        <script type="text/javascript">$(function () {$("#init").submit();})</script>
-    </c:if><%-- 初始化界面 --%>
     <div class="layui-col-md12">
         <ul class="layui-nav layui-bg-blue">
             <label class="layui-bg-blue" style="font-size: 40px; color: yellow;"><%=schoolName%></label>
@@ -89,46 +85,6 @@
     <div class="fcc"></div>
     <div class="MainBox fcc">
         <div class="MainL"><br>
-            <div class="BoxArea BoxP fcc"><p>省份</p>
-                <div>
-                    A<a target="_self" href="" title="安徽驾校">安徽</a><br>
-                    B<a target="_self" href="" title="北京驾校">北京</a><br>
-                    C<a target="_self" href="" title="重庆驾校">重庆</a><br>
-                    F<a target="_self" href="" title="福建驾校">福建</a>
-                </div>
-                <div class="BoxP2">
-                    G<a target="_self" href="" title="广东驾校">广东</a>
-                    <a target="_self" href="" title="广西驾校">广西</a>
-                    <a target="_self" href="" title="贵州驾校">贵州</a>
-                    <a target="_self" href="" title="甘肃驾校">甘肃</a><br>
-                    H<a target="_self" href="" title="河北驾校">河北</a>
-                    <a target="_self" href="" title="河南驾校">河南</a>
-                    <a target="_self" href="" title="湖北驾校">湖北</a>
-                    <a target="_self" href="" title="湖南驾校">湖南</a>
-                    <a target="_self" href="" title="海南驾校">海南</a>
-                    <a target="_self" href="" title="黑龙江驾校">黑龙江</a><br>
-                    J<a target="_self" href="" title="江苏驾校">江苏</a>
-                    <a target="_self" href="" title="江西驾校">江西</a>
-                    <a target="_self" href="" title="吉林驾校">吉林</a><br>
-                    L<a target="_self" href="" title="辽宁驾校">辽宁</a></div>
-                <div class="BoxP3">
-                    N<a target="_self" href="" title="内蒙古驾校">内蒙古</a>
-                    <a target="_self" href="" title="宁夏驾校">宁夏</a><br>
-                    Q<a target="_self" href="" title="青海驾校">青海</a><br>
-                    S<a target="_self" href="" title="上海驾校">上海</a>
-                    <a target="_self" href="" title="山东驾校">山东</a>
-                    <a target="_self" href="" title="山西驾校">山西</a>
-                    <a target="_self" href="" title="陕西驾校">陕西</a>
-                    <a target="_self" href="" title="四川驾校">四川</a><br>
-                    T<a target="_self" href="" title="天津驾校">天津</a>
-                </div>
-                <div>
-                    X<a target="_self" href="" title="西藏驾校">西藏</a>
-                    <a target="_self" href="" title="新疆驾校">新疆</a><br>
-                    Y<a target="_self" href="" title="云南驾校">云南</a><br>
-                    Z<a target="_self" href="" title="浙江驾校">浙江</a>
-                </div>
-            </div>
             <div class="listcnt">
                 <div class="listmain">
                     <ul class="fcc">
