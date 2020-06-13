@@ -52,18 +52,25 @@ public class ZjhTestController {
      * @return 页面
      */
     @GetMapping("zjh/publicity/{type}/{page}/{noticeId}")
-    public String publicity1(@PathVariable(value = "type") String type, @PathVariable(value = "page") Integer page
+    public String publicity(@PathVariable(value = "type") String type, @PathVariable(value = "page") Integer page
             , @PathVariable(value = "noticeId") Integer noticeId, Map<String, Object> map) {
 
         map.put("linkList", linkServive.getFooterFriendLink());
-        map.put("type",type);
-        map.put("page",page);
-        map.put("noticeId",noticeId);
+        map.put("type", type);
+        map.put("page", page);
+        map.put("noticeId", noticeId);
 
-        if(noticeId>0){
-            map.put("notice",noticeService.getById(noticeId));
+        if (noticeId > 0) {
+            map.put("notice", noticeService.getById(noticeId));
         }
 
         return "/zjh_test/publicity";
+    }
+
+    @GetMapping("zjh/inquire")
+    public String inquire(Map<String, Object> map) {
+
+        map.put("linkList", linkServive.getFooterFriendLink());
+        return "/zjh_test/inquire";
     }
 }

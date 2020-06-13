@@ -89,7 +89,6 @@ public class StudentServiceImpl implements StudentService
 		}
 		List<Student> list = studentMapper.selectList(student, start, pageSize);
 		int count = studentMapper.selectListCount(student);
-
         LayuiTableData layuiData = new LayuiTableData();
 		if (list.size() > 0) {
 			layuiData.setCode(0);
@@ -103,7 +102,6 @@ public class StudentServiceImpl implements StudentService
 		}
 		return layuiData;
 	}
-
 
     @Override
     /*

@@ -20,7 +20,6 @@
 				<select name="sVerification" id="sVerification" >
 					<option value="">选择审核状态查询</option>
 					<option value=" ">未审核</option>
-					<option value="false">未通过</option>
 					<option value="true">已通过</option>
 				</select>
 			</div>
@@ -83,9 +82,7 @@
 			, page: true
 			, done: function (res, curr, count) {
 				$("[data-field='sVerification']").children().each(function () {
-					if ($(this).text() == 'false') {
-						$(this).text("未通过")
-					} else if ($(this).text() == 'true') {
+					 if ($(this).text() == 'true') {
 						$(this).text("已通过")
 					} else if ($(this).text() == '') {
 						$(this).text("未审核")
@@ -118,10 +115,27 @@
 		});
 		//监听行工具事件
 		table.on('tool(test)', function(obj){
+			var data = obj.data;
+			$("#sId").html(data.sId);
+			$("#sName").html(data.sName);
+			$.ajax({
+				type: 'POST',
+				url: '/SchoolControl/findschool',
+				dataType: 'JSON',
+				success: function (msg) {
+					$.each(msg.data,function (i,item) {
+						$("#schoolSelect").append("<option value='" + item.sId + "'>" + item.sName + "</option>");
+					});
+					layui.use('form',function(){
+						var form = layui.form;
+						form.render();
+					});
+				}});
 			if(obj.event === 'audit'){
+				var sId = data.sId;
 				var index1 = layer.open({
 					type: 1,
-					area:["500","400px"],
+					area:["250","250px"],
 					skin: 'layui-layer-rim',
 					shadeClose: true,//点击其他地方关闭
 					content:$("#updateschool"),
@@ -131,17 +145,15 @@
 				});
 				layui.use('form', function(){
 					var form = layui.form
-					var sId = data.sId;
 					form.render();
 					form.on('submit(demo2)', function(data){
 						schoolId = $("#schoolSelect").val();
 						$.ajax({
 							type: 'POST',
-							url: '/carControl/updateschoolInfo',
+							url: '/SchoolControl/updateschoolInfo',
 							dataType:'JSON',
 							data:{
-								// cTeacherId:teacherId,
-								// cId:cId
+								sId:sId
 							},
 							success: function (msg) {
 								if (msg.code==0){
@@ -149,7 +161,7 @@
 								}else if(msg.code==1){
 									layer.msg("修改成功");
 									layer.close(index1);
-									$table.reload();
+									tableinf.reload();
 								}else{
 									layer.msg("未找到该审核状态");
 									layer.close(index1);
@@ -169,7 +181,6 @@
 		form.on('submit(search)',function (data) {
 
 			var sVerification = $("#sVerification").val();
-
 			tableinf.reload({
 				url: '/SchoolControl/findSchoolList',
 				page: {
@@ -182,6 +193,22 @@
 		});
 	});
 </script>
-
+<form action="" id="updateschool" style="display: none" class="layui-form">
+	<div class="layui-form-item">
+		<label class="layui-form-label">审核</label>
+		<div class="layui-input-block">
+			<select name="sVerification" lay-filter="aihao"  id="schoolSelect">
+				<option value="">请选择审批状态</option>
+				<option value="true">已通过</option>
+			</select>
+		</div>
+	</div>
+	<div class="layui-form-item">
+		<div class="layui-input-block">
+			<button type="submit" class="layui-btn" lay-submit="" lay-filter="demo2">审核提交</button>
+			<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+		</div>
+	</div>
+	<form>
 </body>
 </html>

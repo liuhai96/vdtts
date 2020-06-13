@@ -99,7 +99,7 @@
 				,layEvent: 'LAYTABLE_TIPS'
 				,icon: 'layui-icon-tips'
 			}]
-			,title: '驾校数据表'
+			,title: '驾校处罚数据表'
 			,cols: [[
 				{type: 'checkbox', fixed: 'left'}
 				,{field:'sId', title:'驾校ID', width:100, fixed: 'left', unresize: true, sort: true}
@@ -115,19 +115,22 @@
 				,{field:'sRegTime', title:'注册时间', width:100}
 				,{field:'sOwnerPic', title:'法人代表证件', width:130}
 				,{title: '操作',templet: function (d) {
-						var str="<a class=\"layui-btn layui-btn-xs\" lay-event=\"rename\">重命名</a>";
-						if(d.sVerification=='true' && d.sLock=='true'){
-							str+="<a class=\"layui-btn layui-btn-danger layui-btn-xs\" lay-event=\"del\">处罚</a>";
-							str+="<a class=\"layui-btn layui-btn-danger layui-btn-xs\" lay-event=\"dd\">处罚</a>";
-						}else if(d.sVerification=='false' && d.sLock=='true'){
-							str+="<a class=\"layui-btn layui-btn-warm layui-btn-xs\" lay-event=\"update\">解禁</a>";
-							str+="<a class=\"layui-btn layui-btn-warm layui-btn-xs\" lay-event=\"update\">处罚</a>";
-						}else if(d.sVerification=='true' && d.sLock=='false'){
-							str+="<a class=\"layui-btn layui-btn-warm layui-btn-xs\" lay-event=\"update\">处罚</a>";
-							str+="<a class=\"layui-btn layui-btn-warm layui-btn-xs\" lay-event=\"update\">解禁</a>";
-						}else if(d.sVerification=='false' && d.sLock=='false'){
-							str+="<a class=\"layui-btn layui-btn-warm layui-btn-xs\" lay-event=\"update\">解禁</a>";
-							str+="<a class=\"layui-btn layui-btn-warm layui-btn-xs\" lay-event=\"update\">解禁</a>";
+						// var str="<a class=\"layui-btn layui-btn-xs\" lay-event=\"rename\"></a>";
+						var str="";
+						if(d.sRecruit=='true' && d.sLock=='true'){
+							str+="<a class=\"layui-btn layui-btn-danger layui-btn-xs\" lay-event=\"punish\">处罚</a>";
+							str+="<a class=\"layui-btn layui-btn-danger layui-btn-xs\" lay-event=\"punish\">处罚</a>";
+						}else if(d.sRecruit=='false' && d.sLock=='true'){
+							str+="<a class=\"layui-btn layui-btn-warm layui-btn-xs\" lay-event=\"unbind\">解禁</a>";
+							str+="<a class=\"layui-btn layui-btn-warm layui-btn-xs\" lay-event=\"punish\">处罚</a>";
+						}else if(d.sRecruit=='true' && d.sLock=='false'){
+							str+="<a class=\"layui-btn layui-btn-warm layui-btn-xs\" lay-event=\"punish\">处罚</a>";
+							str+="<a class=\"layui-btn layui-btn-warm layui-btn-xs\" lay-event=\"unbind\">解禁</a>";
+						}else if(d.sRecruit=='false' && d.sLock=='false'){
+							str+="<a class=\"layui-btn layui-btn-warm layui-btn-xs\" lay-event=\"unbind\">解禁</a>";
+							str+="<a class=\"layui-btn layui-btn-warm layui-btn-xs\" lay-event=\"unbind\">解禁</a>";
+						} else{
+							str+="<a>未审核</a>";
 						}
 						// str+="<a href='"+$("#path").val()+"/file/"+d.tRealPath+"' download='"+$("#path").val()+"/file/"+d.tRealPath+"' class=\"layui-btn layui-btn-normal layui-btn-xs\">下载</a>";
 						return str;

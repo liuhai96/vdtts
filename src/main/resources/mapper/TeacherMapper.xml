@@ -21,9 +21,11 @@
     <select id="findSchool" parameterType="com.lsjbc.vdtts.entity.School" resultType="com.lsjbc.vdtts.entity.School">
         select * from tb_school where s_id = #{tSchoolId}
     </select>
-    <select id="findAccount" parameterType="com.lsjbc.vdtts.entity.Account" resultType="com.lsjbc.vdtts.entity.Account">
-        select * from tb_account where a_id = #{tAccountId}
-    </select>
+    <select id="findAccount" parameterType="com.lsjbc.vdtts.entity.Account" resultType="com.lsjbc.vdtts.entity.Teacher">
+        select a.*,b.s_name from tb_school b,(select * from tb_teacher where t_account_id =
+        #{e.aId}) a where b.s_id = a.t_school_id
+    </select><!--   李浪换 select * from tb_teacher where t_account_id = #{e.aId}-->
+
 <!--    连表查询结束-->
 
     <select id="findTeacherList2" parameterType="java.lang.Integer" resultType="com.lsjbc.vdtts.entity.Teacher">

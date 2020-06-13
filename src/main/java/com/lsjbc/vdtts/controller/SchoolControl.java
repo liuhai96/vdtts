@@ -1,7 +1,6 @@
 package com.lsjbc.vdtts.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.lsjbc.vdtts.dao.mapper.AccountMapper;
 import com.lsjbc.vdtts.entity.Account;
 import com.lsjbc.vdtts.entity.Link;
 import com.lsjbc.vdtts.entity.School;
@@ -15,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -53,6 +51,25 @@ public class SchoolControl {
 		return JSON.toJSONString(layuiTableData);
 	}
 
+	/*
+	 *@Description:修改审核状态
+	 *@Author:陈竑霖
+	 *@Param:[teacher]
+	 *@return:java.lang.String
+	 *@Date:2020/6/8 21:49
+	 **/
+	@RequestMapping(value = "/findschool")
+	public String findschool(School school){
+		return JSON.toJSONString(schoolService.findschool(school));
+	}
+
+	@RequestMapping(value = "/updateschoolInfo")
+	@ResponseBody
+	public LayuiTableData updateschoolInfo(School school){
+		LayuiTableData layuiTableData = schoolService.updateschoolInfo(school);
+		return layuiTableData;
+	}
+
 	@RequestMapping(value = "/drivingFindInit")
     /*
      *@Description:
@@ -63,7 +80,6 @@ public class SchoolControl {
      **/
 	public ModelAndView DrivingFindInit(){
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("isInit",true);
         ResultData resultData = new ResultData();
         Map map = new HashMap();
         Tool tool = new Tool();
@@ -133,12 +149,14 @@ public class SchoolControl {
     @ResponseBody
     private String DrivingIn(School school, Account account){
         Tool tool = new Tool();
-        account.setAPassword(tool.createMd5(account.getAPassword()));
+        account.setAType("school");
+        account.setAPassword(tool.createMd5(account.getAPassword()));//转MD5码
+
         if(school.getSRegisteryFee() < 10) school.setSRegisteryFee(4000);
         school.setSRegTime(tool.getDate("yyyy/MM/dd HH:mm:ss"));
-        account.setAType("school");
         accountService.addAccountData(account);//加入登录账号
         school.setSAccountId(account.getAId());
+        if(school.getSBusinessPic() == null) school.setSBusinessPic("/image/sch.jpg");
 	    return JSON.toJSONString(schoolService.schoolToProduct(school,account.getAAccount()));
     }
 }

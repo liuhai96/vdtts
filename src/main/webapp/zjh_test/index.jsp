@@ -71,7 +71,7 @@
                 </li>
                 <li id="menu-title-three">
                     <img src="<%=path+"/zjh_test/pic/menu_inquire1.png"%>">
-                    <a href="http://47.96.140.98:20034/inquire">信息查询</a></li>
+                    <a href="<%=path+"/zjh/inquire"%>">信息查询</a></li>
                 </li>
                 <li id="menu-title-six">
                     <img src="<%=path+"/zjh_test/pic/menu_student1.png"%>">
