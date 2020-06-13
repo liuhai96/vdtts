@@ -2,9 +2,7 @@ package com.lsjbc.vdtts.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
-import com.lsjbc.vdtts.entity.Account;
 import com.lsjbc.vdtts.entity.Car;
-import com.lsjbc.vdtts.entity.School;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.service.intf.CarService;
 import com.lsjbc.vdtts.service.intf.SchoolService;
@@ -104,8 +102,8 @@ public class CarControl {
                                    Car car) {
         int page2 = (Integer.valueOf(page)-1)*Integer.valueOf(limit);
         System.out.println(" ---carpage="+page2);
-        List<Car> list= carService.selectAllInfo(car,page2,Integer.valueOf(limit));
-        int count =carService.selectCount(car);
+        List<Car> list = carService.selectAllInfo(car, page2, Integer.valueOf(limit));
+        int count = carService.selectCarCount(car);
         System.out.println("教练车信息初始化操作--- list="+list+" count ="+count);
         LayuiTableData layuiData = new LayuiTableData();
         layuiData.setCode(0);

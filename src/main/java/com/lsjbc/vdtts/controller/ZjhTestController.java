@@ -67,10 +67,30 @@ public class ZjhTestController {
         return "/zjh_test/publicity";
     }
 
+    /**
+     * 访问信息中心
+     *
+     * @param map ModelAndView中的属性键值对
+     * @return 页面
+     */
     @GetMapping("zjh/inquire")
     public String inquire(Map<String, Object> map) {
 
         map.put("linkList", linkServive.getFooterFriendLink());
         return "/zjh_test/inquire";
+    }
+
+    /**
+     * 跳转至模拟考试页面
+     *
+     * @param level 模拟考试等级
+     * @param map   ModelAndView中的属性键值对
+     * @return 页面
+     */
+    @GetMapping("zjh/test/{level}")
+    public String test(@PathVariable("level") Integer level, Map<String, Object> map) {
+        map.put("level", level);
+        map.put("levelName", level == 1 ? "科目一" : "科目四");
+        return "/zjh_test/test";
     }
 }

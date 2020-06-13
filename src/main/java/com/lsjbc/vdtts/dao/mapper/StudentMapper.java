@@ -30,7 +30,7 @@ public interface StudentMapper extends CustomBaseMapper<Student> {
      **/
     List<Student> selectAllInfo(@Param("student") Student student, @Param("page") int page, @Param("limit") int limit);
 
-    int selectCountByStudent(@Param("student") Student student);
+    int selectStudentCount(@Param("student") Student student);
 
     int resetPwd(String studentId);
 

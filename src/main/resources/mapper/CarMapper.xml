@@ -56,7 +56,7 @@
     </select>
 
     <!--  周永哲，统计教练车信息条数-->
-    <select id="selectCount" resultType="int"  parameterType="com.lsjbc.vdtts.entity.Car">
+    <select id="selectCarCount" resultType="int" parameterType="com.lsjbc.vdtts.entity.Car">
         select count(*) from tb_car
         <where>
             <if test="car.cLogo!=null and car.cLogo!=''">

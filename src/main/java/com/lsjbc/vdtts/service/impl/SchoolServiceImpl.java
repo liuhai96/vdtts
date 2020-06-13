@@ -7,7 +7,6 @@ import com.lsjbc.vdtts.dao.*;
 import com.lsjbc.vdtts.dao.mapper.SchoolMapper;
 import com.lsjbc.vdtts.entity.Account;
 import com.lsjbc.vdtts.entity.School;
-import com.lsjbc.vdtts.entity.Student;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.pojo.vo.ResultData;
 import com.lsjbc.vdtts.pojo.vo.SchoolDetail;
@@ -169,8 +168,8 @@ public class SchoolServiceImpl implements SchoolService {
 	}
 
 	@Override
-	public int selectCount(School school) {
-		int selectCount = schoolMapper.selectCount(school);
+	public int selectSchoolCount(School school) {
+		int selectCount = schoolMapper.selectSchoolCount(school);
 		return selectCount;
 	}
 
