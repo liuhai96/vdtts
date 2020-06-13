@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -103,5 +104,25 @@ public class CarServiceImpl implements CarService {
             layuiTableData.setMsg("查询失败");
         }
         return layuiTableData;
+    }
+
+
+    /*
+     *@Description:
+     *@Author:周永哲
+     *@Param:
+     *@return:
+     *@Date:2020/6/11
+     **/
+    @Override
+    public List<Car> selectAllInfo(Car car, int page, int limit) {
+        List<Car> selectAllInfo = carMapper.selectAllInfo(car,page,limit);
+        return selectAllInfo;
+    }
+
+    @Override
+    public int selectCount(Car car) {
+        int selectCount = carMapper.selectCount(car);
+        return selectCount;
     }
 }

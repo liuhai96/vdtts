@@ -41,4 +41,27 @@
       <if test="e.cNumber!=null and e.cNumber!=''"> and c_number like concat('%',#{e.cNumber},'%')</if>
     </where>
     </select>
+
+    <!--  周永哲，教练车信息初始化-->
+    <select id="selectAllInfo" resultType="com.lsjbc.vdtts.entity.Car"  parameterType="com.lsjbc.vdtts.entity.Car">
+        select c.*,s.s_name school_name,t.t_name t_name from tb_car c
+        left join tb_school s on c.c_school_id = s.s_id
+        left join tb_teacher t on c.c_teacher_id = t.t_id
+        <where>
+            <if test="car.cLogo!=null and car.cLogo!=''">
+                and c.c_logo like CONCAT('%', #{car.cLogo} ,'%')
+            </if>
+        </where>
+        limit #{page},#{limit}
+    </select>
+
+    <!--  周永哲，统计教练车信息条数-->
+    <select id="selectCount" resultType="int"  parameterType="com.lsjbc.vdtts.entity.Car">
+        select count(*) from tb_car
+        <where>
+            <if test="car.cLogo!=null and car.cLogo!=''">
+                and c_logo like CONCAT('%', #{car.cLogo} ,'%')
+            </if>
+        </where>
+    </select>
 </mapper>

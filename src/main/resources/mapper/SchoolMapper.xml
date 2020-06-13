@@ -50,4 +50,41 @@
     <select id="findAccount" resultType="com.lsjbc.vdtts.entity.School">
         select * from tb_school where s_account_id = #{aAccount}
     </select>
+
+
+    <!--  周永哲，驾校信息初始化-->
+    <select id="selectAllInfo" resultType="com.lsjbc.vdtts.entity.School"  parameterType="com.lsjbc.vdtts.entity.School">
+        select s.*, a.a_account s_account_ip from tb_school s left join tb_account a on s.s_account_id = a.a_id
+        <where>
+            <if test="school.sName!=null and school.sName!=''">
+                and s.s_name like CONCAT('%', #{school.sName} ,'%')
+            </if>
+        </where>
+        limit #{page},#{limit}
+    </select>
+
+    <!--  周永哲，统计驾校信息条数-->
+    <select id="selectCount" resultType="int"  parameterType="com.lsjbc.vdtts.entity.School">
+        select count(*) from tb_school
+        <where>
+            <if test="school.sName!=null and school.sName!=''">
+                and s_name like CONCAT('%', #{school.sName} ,'%')
+            </if>
+        </where>
+    </select>
+
+    <!--  周永哲，删除驾校/锁定登录-->
+    <update id="deleteSchool"  parameterType="com.lsjbc.vdtts.entity.School">
+        update tb_school set s_lock ='true' where s_id = #{schoolId}
+    </update>
+
+    <!--  周永哲，添加驾校账号-->
+    <insert id="insertSchoolAccount" parameterType="com.lsjbc.vdtts.entity.Account" useGeneratedKeys="true" keyProperty="aId">
+        insert into tb_account(a_account, a_password, a_type) values (#{account.aAccount},#{account.aPassword},'school')
+    </insert>
+    <!--  周永哲，添加驾校信息-->
+    <insert id="insertSchool" parameterType="com.lsjbc.vdtts.entity.School">
+        insert into tb_school(s_account_id, s_name, s_address, s_phone, s_business_id, s_business_pic, s_owner_id, s_owner_pic, s_verification, s_recruit, s_reg_time)
+        values (#{sAccountId},#{sName},#{sAddress},#{sPhone},#{sBusinessId},#{sBusinessId},#{sBusinessPic},#{sOwnerId},#{sOwnerPic},#{sVerificattion},#{sRecruit},#{sRegTime})
+    </insert>
 </mapper>

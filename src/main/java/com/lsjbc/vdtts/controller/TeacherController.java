@@ -4,18 +4,21 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.lsjbc.vdtts.entity.Account;
 import com.lsjbc.vdtts.entity.Student;
+import com.lsjbc.vdtts.entity.Car;
 import com.lsjbc.vdtts.entity.Teacher;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.service.intf.StudentService;
 import com.lsjbc.vdtts.service.intf.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 @RestController
 @RequestMapping("/teacherController")
@@ -136,4 +139,31 @@ public class TeacherController {
             request.getSession().setAttribute("studentCount", layuiTableData.getCount());
         return JSON.toJSONString(layuiTableData);
     }
+
+
+
+    /*
+     *@Description:
+     *@Author:周永哲
+     *@Param:
+     *@return:
+     *@Date:2020/6/10 15860799877
+     **/
+    @RequestMapping(value = "/selectTeacherInfo")//初始化教练信息表
+    public String selectTeacherInfo(HttpServletRequest request, HttpServletResponse response,
+                                @RequestParam(value = "page") String page , @RequestParam(value = "limit") String limit,
+                                Teacher teacher) {
+        int page2 = (Integer.valueOf(page)-1)*Integer.valueOf(limit);
+        System.out.println(" ---carpage="+page2);
+        List<Teacher> list= teacherService.selectAllInfo(teacher,page2,Integer.valueOf(limit));
+        int count =teacherService.selectCount(teacher);
+        System.out.println("教练信息初始化操作--- list="+list+" count ="+count);
+        LayuiTableData layuiData = new LayuiTableData();
+        layuiData.setCode(0);
+        layuiData.setData(list);
+        layuiData.setCount(count);
+        return JSON.toJSONString(layuiData);
+    }
+
+
 }

@@ -1,10 +1,16 @@
 package com.lsjbc.vdtts.service.intf;
 
 import com.github.pagehelper.Page;
+import com.lsjbc.vdtts.entity.Account;
 import com.lsjbc.vdtts.entity.School;
+import com.lsjbc.vdtts.entity.Student;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.pojo.vo.ResultData;
 import com.lsjbc.vdtts.pojo.vo.SchoolDetail;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -57,4 +63,16 @@ public interface SchoolService {
      */
     Page<SchoolDetail> getSchoolDetailPageByName(String name, Integer page);
 
+    /*
+     *@Description:
+     *@Author:周永哲
+     *@Param:
+     *@return:
+     *@Date:2020/6/10
+     **/
+    public List<School> selectAllInfo(@Param("school") School school, @Param("page") int page, @Param("limit") int limit);
+    public int selectCount(@Param("school") School school);
+    public int deleteSchool(String schoolId);
+    public int insertSchool(School school);
+    public int insertSchoolAccount(Account account);
 }

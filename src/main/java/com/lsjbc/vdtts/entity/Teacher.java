@@ -133,6 +133,11 @@ public class Teacher {
 	@Transient
 	private String schoolName;
 
+// 周永哲
+	/**
+	 *教练对应的驾校
+	 */
+	private String aAccount;
 
 //	刘海
 	/**

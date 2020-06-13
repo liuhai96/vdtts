@@ -113,4 +113,9 @@ public class Car {
 	 */
 	@Transient
 	private String tName;
+
+	/**
+	 * 车辆禁用
+	 */
+	private String cLock;
 }

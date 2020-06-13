@@ -2,6 +2,7 @@ package com.lsjbc.vdtts.dao.mapper;
 
 import com.lsjbc.vdtts.entity.Car;
 import com.lsjbc.vdtts.utils.mopper.CustomBaseMapper;
+import com.lsjbc.vdtts.entity.School;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -26,4 +27,14 @@ public interface CarMapper extends CustomBaseMapper<Car> {
      **/
     public int carlistcount(@Param("e") Car car);
     public List<Car> finecarlist(@Param("e") Car car, @Param("start") int start, @Param("pageSize") int pageSize);
+
+    /*
+     *@Description:
+     *@Author:周永哲
+     *@Param:
+     *@return:
+     *@Date:2020/6/11
+     **/
+    public List<Car> selectAllInfo(@Param("car") Car car, @Param("page") int page, @Param("limit") int limit);
+    public int selectCount(@Param("car") Car car);
 }

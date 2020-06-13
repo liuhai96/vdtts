@@ -1,6 +1,7 @@
 package com.lsjbc.vdtts.dao.mapper;
 
 import com.lsjbc.vdtts.entity.Account;
+import com.lsjbc.vdtts.entity.Car;
 import com.lsjbc.vdtts.entity.Teacher;
 import com.lsjbc.vdtts.utils.mopper.CustomBaseMapper;
 import org.apache.ibatis.annotations.Mapper;
@@ -39,4 +40,14 @@ public interface TeacherMapper extends CustomBaseMapper<Teacher> {
     public int teacherlistcount(@Param("e") Teacher teacher);
     public List<Teacher> teacherlist(@Param("e") Teacher teacher, @Param("start") int start, @Param("pageSize") int pageSize);
     public Teacher findAccount(@Param("e")Account account);//李浪 登录用的查找
+
+    /*
+     *@Description:
+     *@Author:周永哲
+     *@Param:
+     *@return:
+     *@Date:2020/6/11
+     **/
+    public List<Teacher> selectAllInfo(@Param("teacher") Teacher teacher, @Param("page") int page, @Param("limit") int limit);
+    public int selectCount(@Param("teacher") Teacher teacher);
 }
