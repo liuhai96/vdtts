@@ -190,4 +190,10 @@ public class SchoolServiceImpl implements SchoolService {
 		int insertSchoolAccount = schoolMapper.insertSchoolAccount(account);
 		return insertSchoolAccount;
 	}
+
+	@Override
+	public int updateSchool(School school) {
+		int updateSchool = schoolMapper.updateSchool(school);
+		return updateSchool;
+	}
 }

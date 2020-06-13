@@ -79,4 +79,8 @@
         insert into tb_school(s_account_id, s_name, s_address, s_phone, s_business_id, s_business_pic, s_owner_id, s_owner_pic, s_verification, s_recruit, s_reg_time)
         values (#{sAccountId},#{sName},#{sAddress},#{sPhone},#{sBusinessId},#{sBusinessId},#{sBusinessPic},#{sOwnerId},#{sOwnerPic},#{sVerificattion},#{sRecruit},#{sRegTime})
     </insert>
+    <!--  周永哲，驾校信息修改-->
+    <insert id="updateSchool" parameterType="com.lsjbc.vdtts.entity.School">
+        update tb_school set s_name =#{sName}, s_address=#{sAddress}, s_phone=#{sPhone}, s_recruit=#{sRecruit}, s_lock=#{sLock} where s_id =#{sId}
+    </insert>
 </mapper>

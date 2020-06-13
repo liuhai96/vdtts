@@ -10,4 +10,6 @@ public interface AccountMapper {
     public Account UserLogin(Account account);
     public int deleteAccount(@Param("aId") int aId);
 
+    public int updateaccount(Account account);
+
 }

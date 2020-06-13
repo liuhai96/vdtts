@@ -56,19 +56,18 @@ public class SchoolController {
 	 *@return:
 	 *@Date:2020/6/10 15860799877
 	 **/
-	@RequestMapping(value = "/deleteSchool")//重置密码
-	public String deleteSchool(HttpServletRequest request, HttpServletResponse response,
-						   @RequestParam(value = "schoolId") String schoolId ) {
-		System.out.println(" schoolId:"+schoolId);
-		int i=schoolService.deleteSchool(schoolId);
+	@RequestMapping(value = "/updateSchool")//驾校信息修改
+	public String updateSchool(HttpServletRequest request, HttpServletResponse response, School school ) {
+		System.out.println(" School:"+school.toString());
+		int i=schoolService.updateSchool(school);
 		String res = "";
 		if(i>0){
 			res="success";
-			System.out.println("删除驾校成功");
+			System.out.println("修改驾校信息成功");
 			return res;
 		}else {
 			res="failed";
-			System.out.println("删除驾校失败");
+			System.out.println("修改驾校信息失败");
 			return res;
 		}
 	}

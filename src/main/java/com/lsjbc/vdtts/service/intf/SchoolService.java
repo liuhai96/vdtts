@@ -64,4 +64,5 @@ public interface SchoolService {
     public int deleteSchool(String schoolId);
     public int insertSchool(School school);
     public int insertSchoolAccount(Account account);
+    public int updateSchool(School school);
 }

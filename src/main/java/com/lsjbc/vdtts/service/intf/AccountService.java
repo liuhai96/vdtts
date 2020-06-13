@@ -12,4 +12,6 @@ public interface AccountService {
     public Account accountRepetition(String account);
     public Account addAccountData(Account account);
     public ResultData UserLogin(Account account, HttpServletRequest request);
+
+    public int updateaccount(Account account);
 }

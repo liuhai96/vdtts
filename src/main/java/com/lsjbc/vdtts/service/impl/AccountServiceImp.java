@@ -113,4 +113,10 @@ public class AccountServiceImp implements AccountService {
         resultData.put("url",nextJsp);
         return resultData;
     }
+
+    @Override
+    public int updateaccount(Account account) {
+        int updateaccount = accountMapper.updateaccount(account);
+        return updateaccount;
+    }
 }

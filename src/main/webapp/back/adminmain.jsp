@@ -42,7 +42,16 @@
                     <dd><a href="">安全设置</a></dd>
                 </dl>
             </li>
-            <li class="layui-nav-item"><a href="">退出</a></li>
+            <li class="layui-nav-item">
+                <div class="site-demo-button" id="layerDemo2" style="margin-bottom: 0;">
+                    <button data-method="offset2" data-type="rt" class="layui-btn "style="background:transparent;">修改密码</button>
+                </div>
+            </li>
+            <li class="layui-nav-item">
+                <div class="site-demo-button" id="layerDemo" style="margin-bottom: 0;">
+                    <button data-method="offset" data-type="rt" id="logout" class="layui-btn "style="background:transparent;">退出</button>
+                </div>
+            </li>
         </ul>
     </div>
 
@@ -107,16 +116,93 @@
 <%--<script src="../src/layui.js"></script>--%>
 
 <script>
-    //JavaScript代码区域
-    layui.use('element', function(){
-        var element = layui.element;
+    layui.use(['layer','element'], function(){ //独立版的layer无需执行这一句
+        var $ = layui.jquery, layer = layui.layer, element = layui.element; //独立版的layer无需执行这一句
+
+        //触发事件
+        var active = {
+            offset: function (othis) {
+                var type = othis.data('type')
+                    , text = othis.text();
+                layer.open({
+                    type: 1
+                    , title: '退出提示'
+                    , offset: 'rt' //具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
+                    , id: 'layerDemo' + 'type' //防止重复弹出
+                    , content: '<div style="padding: 20px 100px;">' + '确认退出当前账号?' + '</div>'
+                    , btn: ['确认', '取消']
+                    , btnAlign: 'c' //按钮居中
+                    , shade: 0 //不显示遮罩
+                    , yes: function () {
+                        // layer.msg('账号退出成功，即将跳转到登录界面');
+                        location.href = 'login.jsp'
+                    }
+                    , cancel: function () {
+                        layer.closeAll();
+                    }
+                });
+            },
+
+            offset2: function (othis) {
+                var type = othis.data('type')
+                    , text = othis.text();
+            layer.open({
+                type: 1
+                ,title:'修改密码'
+                ,offset: 'auto' //具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
+                ,id: 'layerDemo'+'type' //防止重复弹出
+                ,content: $('#updatepwd')
+                ,area:['350px','320px']
+                ,btn: '取消'
+                ,btnAlign: 'c' //按钮居中
+                ,shade: 0 //不显示遮罩
+                ,yes: function(){
+                    layer.closeAll();
+                }
+            });
+        }
+        };
+
+        $('#layerDemo .layui-btn').on('click', function(){
+            var othis = $(this), method = othis.data('method');
+            active[method] ? active[method].call(this, othis) : '';
+        });
+
+        $('#layerDemo2 .layui-btn').on('click', function(){
+            var othis = $(this), method = othis.data('method');
+            active[method] ? active[method].call(this, othis) : '';
+        });
 
     });
 </script>
-<%--<!-- 让IE8/9支持媒体查询，从而兼容栅格 -->--%>
-<%--<!--[if lt IE 9]>--%>
-<%--<script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>--%>
-<%--<script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>--%>
-<%--<![endif]-->--%>
+<div id="updatepwd" style="display: none;margin-top: 20px">
+    <form class="layui-form" >
+        <div class="layui-form-item">
+            <label class="layui-form-label">原始密码：</label>
+            <div class="layui-input-inline">
+                <input type="password" name="aPassword" placeholder="" autocomplete="off" class="layui-input" lay-verify="required">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">新密码：</label>
+            <div class="layui-input-inline">
+                <input type="password" name="newpwd" autocomplete="off" class="layui-input" lay-verify="required">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">再次输入：</label>
+            <div class="layui-input-inline">
+                <input type="password" name="newpwd2"  autocomplete="off" class="layui-input" lay-verify="required">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <input type="hidden" name="aId" value=${adiminId}  class="layui-input">
+                <button class="layui-btn layui-btn-primary" lay-submit lay-filter="formDemo"
+                        style="margin-left:20px ">确认修改</button>
+            </div>
+        </div>
+    </form>
+</div>
 </body>
 </html>
