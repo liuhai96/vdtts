@@ -7,7 +7,6 @@ import com.lsjbc.vdtts.dao.*;
 import com.lsjbc.vdtts.dao.mapper.SchoolMapper;
 import com.lsjbc.vdtts.entity.Account;
 import com.lsjbc.vdtts.entity.School;
-import com.lsjbc.vdtts.entity.Student;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.pojo.vo.ResultData;
 import com.lsjbc.vdtts.pojo.vo.SchoolDetail;
@@ -107,6 +106,35 @@ public class SchoolServiceImpl implements SchoolService {
 		layuiTableData.setData(schoolList);
 		return layuiTableData;
 	}
+//	//修改处罚招生
+//	@Override
+//	public LayuiTableData punishrcall(int sId){
+//
+//		LayuiTableData layuiTableData = new LayuiTableData();
+//		int num = schoolMapper.punishrcall(sId);
+//		if(num>0){
+//			layuiTableData.setCode(1);
+//		}else{
+//			layuiTableData.setCode(0);
+//		}
+//		return layuiTableData;
+//	}
+//	//修改解禁招生
+//	@Override
+//	public LayuiTableData unbindcall(int sId){
+//		LayuiTableData layuiTableData = new LayuiTableData();
+//		int num = schoolMapper.unbindcall(sId);
+//		if(num>0){
+//			layuiTableData.setCode(1);
+//		}else{
+//			layuiTableData.setCode(0);
+//		}
+//		return layuiTableData;
+//	}
+
+
+
+
     @Override
     public ResultData schoolToProduct(School school,String id){
         ResultData resultData = ResultData.success();

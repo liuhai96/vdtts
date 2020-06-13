@@ -69,6 +69,27 @@ public class SchoolControl {
 		LayuiTableData layuiTableData = schoolService.updateschoolInfo(school);
 		return layuiTableData;
 	}
+	/*
+	 *@Description:修改处罚状态
+	 *@Author:陈竑霖
+	 *@Param:[cId]
+	 *@return:java.lang.String
+	 *@Date:2020/6/9 20:48
+	 **/
+////	处罚
+//	@RequestMapping(value = "/punishrcall")
+//	@ResponseBody
+//	public  LayuiTableData punishrcall(int sId){
+//		LayuiTableData layuiTableData =schoolService.punishrcall(sId);
+//		return layuiTableData;
+//	}
+////	解禁
+//	@RequestMapping(value = "/unbindcall")
+//	@ResponseBody
+//	public  LayuiTableData unbindcall(int sId){
+//		LayuiTableData layuiTableData =schoolService.unbindcall(sId);
+//		return layuiTableData;
+//	}
 
 	@RequestMapping(value = "/drivingFindInit")
     /*

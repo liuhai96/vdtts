@@ -21,6 +21,10 @@ public interface SchoolMapper extends CustomBaseMapper<School> {
 	//修改审核状态
 	public int updateschoolInfo(School school);
 	public List<School> findschool(@Param("e") School school);
+//	//修改处罚招生
+//	public int punishrcall(@Param("sId") int sId);
+//	//修改解禁招生
+//	public int unbindcall(@Param("sId") int sId);
 
 	School findSchoolInfo(Integer sId);
 

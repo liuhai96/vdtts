@@ -34,6 +34,27 @@
     <select id="findschool" parameterType="int" resultType="com.lsjbc.vdtts.entity.School">
         select * from tb_school;
     </select>
+<!--    &lt;!&ndash;    修改处罚招生状态&ndash;&gt;-->
+<!--    <update id="punishrcall" parameterType="com.lsjbc.vdtts.entity.School">-->
+<!--        update tb_school set  s_recruit='false' where s_id = #{sId}-->
+<!--&lt;!&ndash;        <if test="e.sLock == true ">set s_lock='false' </if>&ndash;&gt;-->
+<!--&lt;!&ndash;        <if test="e.sLock == false ">set s_lock='true' </if>&ndash;&gt;-->
+<!--    </update>-->
+<!--    &lt;!&ndash;    修改解禁招生状态&ndash;&gt;-->
+<!--    <update id="unbindcall" parameterType="com.lsjbc.vdtts.entity.School">-->
+<!--        update tb_school set  s_recruit='true' where s_id = #{sId}-->
+<!--    </update>-->
+
+
+
+
+
+
+
+
+
+
+
 
 <!--    刘海-->
     <select id="findSchoolInfo" resultType="com.lsjbc.vdtts.entity.School" parameterType="int">
