@@ -1,3 +1,10 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: Admin
+  Date: 2020/6/15
+  Time: 1:08
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
@@ -19,27 +26,23 @@
         <div class="left fl">
             <div class="kt pos">
                 <div class="tit">培训平台</div>
-                第01考台
+                错题复习室
             </div>
             <div class="user-info pos">
                 <div class="tit" style="left: 38px;">考生信息</div>
                 <img src="<%=path+"/zjh_test/pic/face_nomal.png"%>">
-                <p><label class="mr">姓</label> <label>名：</label> <span>${studentName}</span></p>
+                <p><label class="mr">姓</label> <label>名：</label> <span>学员</span></p>
                 <!--<p><label for="" class="mr">性</label> <label for="">别：</label> <span>男</span></p>-->
                 <p><label>考试类型：</label> <span>小车类</span></p>
-                <p><label>考试科目：</label> <span>${levelName}</span></p>
+                <p><label>考试科目：</label> <span>错题重做</span></p>
 
-            </div>
-            <div class="waste-time pos">
-                <div class="tit" style="left: 38px;">剩余时间</div>
-                <span class="countdown" id="time">45:00</span>
             </div>
         </div>
         <div class="center fl">
             <div class="kstm pos">
                 <div class="tit">考试题目</div>
                 <p class="name">
-                    <strong class="zjh_exam_question_index" id="questionIndex"></strong>、
+                    <strong class="zjh_exam_question_index" id="questionIndex"></strong><span id="questionCount"></span>
                     <span id="questionTitle"></span>
                 </p>
                 <div class="option">
@@ -111,34 +114,11 @@
         let $ = layui.$;
         let layer = layui.layer;
 
-        $(function () {
-            var m = 40;
-            var s = 59;
-            let countDown = setInterval(function () {
-                if (s < 10) {
-                    //如果秒数少于10在前面加上0
-                    $('#time').html(m + ':0' + s);
-                } else {
-                    $('#time').html(m + ':' + s);
-                }
-                s--;
-                if (s < 0) {
-                    //如果秒数少于0就变成59秒
-                    s = 59;
-                    m--;
-                    if (m < 0) {
-                        clearInterval(countDown);
-                        submitTest();
-                    }
-                }
-            }, 1000)
-        });
-
         let questionList = null;
 
         $.ajax({
             type: "get",
-            url: "http://localhost:8080/api/exam/text?level=" + $("#level").val(),
+            url: "http://localhost:8080/api/exam/error/236",
             contentType: "application/json;charset=utf-8",
             async: true,
             statusCode: {
@@ -151,7 +131,7 @@
             },
             success: function (res) {
                 //获取题库对象
-                questionList = res.data.question;
+                questionList = res.data.questions;
 
                 //获取
                 let table = $("#qunestionIndex");
@@ -172,6 +152,8 @@
                 }
 
                 $(table).html(str);
+
+                $("#questionCount").html("/" + questionList.length + "、 ");
 
                 //显示第一题
                 showQuestion(0);
@@ -236,60 +218,30 @@
 
         //点击交卷按钮时，提交的此操作
         $(document).on("click", "#submitBtn", function (event) {
+            let rightQuestion = [];
 
-            let submit = true;
-
-            let index = 0
-
-            //遍历题目，如果还有题目没有选择答案，就不让提交
-            for (; index < questionList.length; index++) {
-                if (questionList[index].userChoise.length == 0) {
-                    submit = false;
-                    break;
-                }
-            }
-
-            //如果做题完成，就提交答案
-            if (submit) {
-                submitTest();
-            } else {
-                //如果没做完，不然提交，并跳转到未完成的第一道题目
-                alert("还有没做完的题目!");
-                showQuestion(index);
-            }
-
-        });
-
-        //交卷流程
-        function submitTest() {
-            let sum = 0;
-            let errorQuestions = [];
-
-            //遍历题库，如果未选择或者出现错题，直接跳过，如果正确，分数+1
+            //遍历题库，如果正确，记录ID，并提交删除错题
             for (let index = 0; index < questionList.length; index++) {
 
                 let result = checkResult(questionList[index]);
 
                 if (result == 1) {
-                    sum++;
+                    rightQuestion.push(questionList[index].eeId);
                 }
+            }
 
-                if (result == 0 || result == -1) {
-                    errorQuestions.push(questionList[index].eqId);
-                }
+            if (rightQuestion.length == 0) {
+                return;
             }
 
 
             $.ajax({
                 type: 'post',
                 dataType: 'json',
-                url: "http://127.0.0.1:8080/api/exam/record",
+                url: "http://127.0.0.1:8080/api/exam/error",
                 data: {
-                    studentId: $("#userToken").val()
-                    , score: sum
-                    , level: $("#level").val()
-                    , errorQuestions: errorQuestions
-                    , _method: 'put'
+                    ids: rightQuestion
+                    , _method: 'delete'
                 },
                 traditional: true,
                 success: function (result) {
@@ -299,7 +251,7 @@
                     alert("操作异常");
                 }
             });
-        };
+        });
 
 
         //检测答案是否正确

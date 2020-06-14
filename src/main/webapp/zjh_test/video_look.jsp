@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Admin
-  Date: 2020/6/14
-  Time: 11:25
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
@@ -23,6 +16,8 @@
 </head>
 
 <body>
+
+<input type="hidden" id="userToken" value="${studentId}">
 
 <div class="commonhead_line" style="border-top: 1px solid #00C356;"></div>
 
@@ -105,6 +100,9 @@
             video.load();
             video.play();
         });
+
+
+        let userId = $("#userToken").val();
 
         function submitTime() {
             clearInterval(countDown);

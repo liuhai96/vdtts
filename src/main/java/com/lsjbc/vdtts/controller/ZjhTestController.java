@@ -1,5 +1,7 @@
 package com.lsjbc.vdtts.controller;
 
+import com.lsjbc.vdtts.dao.ExamResultDao;
+import com.lsjbc.vdtts.entity.Student;
 import com.lsjbc.vdtts.entity.Video;
 import com.lsjbc.vdtts.service.impl.LinkServiceImpl;
 import com.lsjbc.vdtts.service.impl.NoticeServiceImpl;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
@@ -32,6 +35,9 @@ public class ZjhTestController {
 
     @Resource(name = VideoServiceImpl.NAME)
     private VideoService videoService;
+
+    @Resource(name = ExamResultDao.NAME)
+    private ExamResultDao examResultDao;
 
     /**
      * 访问主页
@@ -95,7 +101,24 @@ public class ZjhTestController {
      * @return 页面
      */
     @GetMapping("zjh/test/{level}")
-    public String test(@PathVariable("level") Integer level, Map<String, Object> map) {
+    public String test(@PathVariable("level") Integer level, HttpServletRequest request, Map<String, Object> map) {
+
+        Student student = (Student) request.getSession().getAttribute("student");
+
+        if (student == null) {
+            //如果获取不到，就返回到登录页面，提示登录
+            map.put("zjh_msg", "请先登录");
+//            return "";
+        }
+
+        if (!examResultDao.allowLearn(student.getSId(), level)) {
+            //判断当前用户科目一/科目四的考试是否通过，如果通过了，就返回到主页，提示已通过不需要进行模拟考试
+            map.put("zjh_msg", "你已经通过考试，不可以进入模拟考试");
+//            return "";
+        }
+
+        map.put("studentId", student.getSId());
+        map.put("studentName", student.getSName());
         map.put("level", level);
         map.put("levelName", level == 1 ? "科目一" : "科目四");
         return "/zjh_test/test";
@@ -109,7 +132,21 @@ public class ZjhTestController {
      * @return 页面
      */
     @GetMapping("zjh/video/{level}")
-    public String video(@PathVariable("level") Integer level, Map<String, Object> map) {
+    public String video(@PathVariable("level") Integer level, HttpServletRequest request, Map<String, Object> map) {
+
+        Student student = (Student) request.getSession().getAttribute("student");
+
+        if (student == null) {
+            //如果获取不到，就返回到登录页面，提示登录
+            map.put("zjh_msg", "请先登录");
+//            return "";
+        }
+
+        if (!examResultDao.allowLearn(student.getSId(), level)) {
+            //判断当前用户科目二/科目三的考试是否通过，如果通过了，就提示不会获得学时
+            map.put("zjh_msg", "您已通过考试，观看视频将不会获得学时");
+        }
+
         map.put("level", level);
         return "/zjh_test/video";
     }
@@ -124,13 +161,28 @@ public class ZjhTestController {
      * @return 页面
      */
     @GetMapping("zjh/video/{level}/{videoId}")
-    public String video(@PathVariable("level") Integer level, @PathVariable("videoId") Integer videoId, Map<String, Object> map) {
-        map.put("level", level);
-        map.put("levelName", level == 2 ? "科目二" : "科目三");
+    public String video(@PathVariable("level") Integer level, @PathVariable("videoId") Integer videoId, HttpServletRequest request, Map<String, Object> map) {
+
+        Student student = (Student) request.getSession().getAttribute("student");
+
+        if (student == null) {
+            //如果获取不到，就返回到登录页面，提示登录
+            map.put("zjh_msg", "请先登录");
+//            return "";
+        }
+
+        if (!examResultDao.allowLearn(student.getSId(), level)) {
+            //判断当前用户科目二/科目三的考试是否通过，如果通过了，就提示不会获得学时
+            map.put("zjh_msg", "您已通过考试，观看视频将不会获得学时");
+        }
+
 
         Video video = videoService.getVideoById(videoId);
         List<Video> videoList = videoService.getVideoByLevel(level);
 
+        map.put("studentId", student.getSId());
+        map.put("level", level);
+        map.put("levelName", level == 2 ? "科目二" : "科目三");
         map.put("video", video);
         map.put("videoList", videoList);
 

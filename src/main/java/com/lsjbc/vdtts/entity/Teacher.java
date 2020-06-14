@@ -137,6 +137,7 @@ public class Teacher {
 	/**
 	 *教练对应的驾校
 	 */
+	@Transient
 	private String aAccount;
 
 //	刘海

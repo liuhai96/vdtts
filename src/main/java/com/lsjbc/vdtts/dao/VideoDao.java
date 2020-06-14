@@ -1,5 +1,6 @@
 package com.lsjbc.vdtts.dao;
 
+import com.lsjbc.vdtts.dao.mapper.BaseDao;
 import com.lsjbc.vdtts.dao.mapper.VideoMapper;
 import com.lsjbc.vdtts.entity.Video;
 import org.springframework.stereotype.Repository;
@@ -15,7 +16,7 @@ import java.util.List;
  * @Author: JX181114 - 郑建辉
  */
 @Repository(VideoDao.NAME)
-public class VideoDao {
+public class VideoDao implements BaseDao<Video> {
 
     /**
      * Bean名
@@ -30,6 +31,7 @@ public class VideoDao {
      *
      * @param level 科目等级
      * @return 教学视频集合
+     * @authoe JX181114 --- 郑建辉
      */
     public List<Video> getVideoByLevel(Integer level) {
         Example example = new Example(Video.class);
@@ -40,14 +42,53 @@ public class VideoDao {
     }
 
     /**
-     * 根据ID来查询数据
+     * 通过主键来获取一个对象
      *
      * @param id 主键
-     * @return 符合条件的记录
+     * @return 对象
+     * @authoe JX181114 --- 郑建辉
      */
-    public Video getVideoById(Integer id) {
+    @Override
+    public Video getById(Integer id) {
         return (Video) mapper.selectByPrimaryKey(id);
     }
 
+    /**
+     * 新增对象
+     * 注意
+     * 调用这个方法，会自动的向对象中注入主键
+     * 所以返回的不是主键，而是受影响条数
+     *
+     * @param object 对象
+     * @return 受影响条数
+     */
+    @Override
+    public Integer add(Video object) {
+        return null;
+    }
 
+    /**
+     * 根据ID来更新对象
+     * 注意
+     * 传入的obj对象中主键不得为空
+     * 否则会抛出异常
+     *
+     * @param object 对象
+     * @return 受影响条数
+     */
+    @Override
+    public Video updateById(Video object) {
+        return null;
+    }
+
+    /**
+     * 根据主键来删除记录
+     *
+     * @param id 主键
+     * @return 受影响条数
+     */
+    @Override
+    public Integer deleteById(Integer id) {
+        return null;
+    }
 }

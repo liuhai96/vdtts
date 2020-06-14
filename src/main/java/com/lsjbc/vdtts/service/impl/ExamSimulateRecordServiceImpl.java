@@ -46,7 +46,7 @@ public class ExamSimulateRecordServiceImpl implements ExamSimulateRecordService 
         ExamSimulateRecord record = object.createRecord();
 
         //将当前时间填入到记录中
-        record.setEsrTime(CustomTimeUtils.getTime1());
+        record.setEsrTime(CustomTimeUtils.getNowTimeString1());
 
         Integer row = examSimulateRecordDao.add(record);
 

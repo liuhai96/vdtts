@@ -4,17 +4,23 @@ import com.lsjbc.vdtts.dao.mapper.CarMapper;
 import com.lsjbc.vdtts.entity.Car;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.service.intf.CarService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service
+@Service(CarServiceImpl.NAME)
 @Transactional
 public class CarServiceImpl implements CarService {
-    @Autowired
+
+    /**
+     * Bean名
+     */
+    public static final String NAME = "CarService";
+
+    @Resource
     private CarMapper carMapper;
 
     @Override
@@ -25,15 +31,15 @@ public class CarServiceImpl implements CarService {
      *@return:com.lsjbc.vdtts.pojo.vo.LayuiTableData
      *@Date:2020/6/9 14:35
      **/
-    public LayuiTableData findCarManageList(String page, String limit,String cNumber, int cSchoolId) {
+    public LayuiTableData findCarManageList(String page, String limit, String cNumber, int cSchoolId) {
         LayuiTableData layuiTableData = new LayuiTableData();
-        System.out.println("page"+page);
-        System.out.println("page"+limit);
+        System.out.println("page" + page);
+        System.out.println("page" + limit);
         int pageSize = Integer.parseInt(limit);
-        int start = (Integer.parseInt(page)-1)*pageSize;//计算从数据库第几条开始查
-        int carCount = carMapper.findCarCount(cNumber,cSchoolId);
-        ArrayList<Car> carList = carMapper.findCarManageList(start,pageSize,cNumber,cSchoolId);
-        System.out.println("carList"+carList);
+        int start = (Integer.parseInt(page) - 1) * pageSize;//计算从数据库第几条开始查
+        int carCount = carMapper.findCarCount(cNumber, cSchoolId);
+        ArrayList<Car> carList = carMapper.findCarManageList(start, pageSize, cNumber, cSchoolId);
+        System.out.println("carList" + carList);
         layuiTableData.setCount(carCount);
         layuiTableData.setCode(0);
         layuiTableData.setData(carList);
@@ -119,7 +125,7 @@ public class CarServiceImpl implements CarService {
      **/
     @Override
     public List<Car> selectAllInfo(Car car, int page, int limit) {
-        List<Car> selectAllInfo = carMapper.selectAllInfo(car,page,limit);
+        List<Car> selectAllInfo = carMapper.selectAllInfo(car, page, limit);
         return selectAllInfo;
     }
 
