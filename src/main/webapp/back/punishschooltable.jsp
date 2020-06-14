@@ -148,7 +148,7 @@
 				layer.confirm('处罚该驾校么',{
 					btn:["确定","取消"],
 					btn2:function (index) {
-						alert(data.sId);
+						// alert(data.sId);
 						layer.close(index);
 					},
 					btn1:function () {
@@ -178,7 +178,7 @@
 				layer.confirm('解禁该驾校么',{
 					btn:["确定","取消"],
 					btn2:function (index) {
-						alert(data.sId);
+						// alert(data.sId);
 						layer.close(index);
 					},
 					btn1:function () {
@@ -207,7 +207,7 @@
 				layer.confirm('处罚该驾校么',{
 					btn:["确定","取消"],
 					btn2:function (index) {
-						alert(data.sId);
+						// alert(data.sId);
 						layer.close(index);
 					},
 					btn1:function () {
@@ -237,7 +237,6 @@
 				layer.confirm('解禁该驾校么',{
 					btn:["确定","取消"],
 					btn2:function (index) {
-						alert(data.sId);
 						layer.close(index);
 					},
 					btn1:function () {
