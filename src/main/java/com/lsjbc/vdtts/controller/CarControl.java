@@ -32,13 +32,11 @@ public class CarControl {
      *@Date:2020/6/8 23:22
      **/
     @RequestMapping(value = "/findCarList")
-    public String findCarList(HttpServletRequest request, HttpServletResponse response){
-        String page = request.getParameter("page");//接收前端界面的分页在第几页
-        String limit = request.getParameter("limit");//接收前端界面查询数量
+    public String findCarList(String page,String limit,String cNumber){
+
 //        String tSchoolId = request.getParameter("tShoolId");//接收前端保存的驾校id
-        int pageSize = Integer.parseInt(limit);
-        int start = (Integer.parseInt(page)-1)*pageSize;//计算从数据库第几条开始查
-        return JSON.toJSONString(carService.findCarManageList(start,pageSize,1),SerializerFeature.DisableCircularReferenceDetect);
+
+        return JSON.toJSONString(carService.findCarManageList(page,limit,cNumber,1),SerializerFeature.DisableCircularReferenceDetect);
     }
 
 

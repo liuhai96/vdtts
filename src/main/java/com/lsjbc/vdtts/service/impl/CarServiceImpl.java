@@ -25,10 +25,14 @@ public class CarServiceImpl implements CarService {
      *@return:com.lsjbc.vdtts.pojo.vo.LayuiTableData
      *@Date:2020/6/9 14:35
      **/
-    public LayuiTableData findCarManageList(int start, int pageSize, int cSchoolId) {
+    public LayuiTableData findCarManageList(String page, String limit,String cNumber, int cSchoolId) {
         LayuiTableData layuiTableData = new LayuiTableData();
-        int carCount = carMapper.findCarCount(cSchoolId);
-        ArrayList<Car> carList = carMapper.findCarManageList(start,pageSize,cSchoolId);
+        System.out.println("page"+page);
+        System.out.println("page"+limit);
+        int pageSize = Integer.parseInt(limit);
+        int start = (Integer.parseInt(page)-1)*pageSize;//计算从数据库第几条开始查
+        int carCount = carMapper.findCarCount(cNumber,cSchoolId);
+        ArrayList<Car> carList = carMapper.findCarManageList(start,pageSize,cNumber,cSchoolId);
         System.out.println("carList"+carList);
         layuiTableData.setCount(carCount);
         layuiTableData.setCode(0);

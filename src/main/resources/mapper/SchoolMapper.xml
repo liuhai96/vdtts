@@ -34,11 +34,44 @@
     <select id="findschool" parameterType="int" resultType="com.lsjbc.vdtts.entity.School">
         select * from tb_school;
     </select>
+    <!--    修改处罚招生状态-->
+    <update id="punishcall" parameterType="com.lsjbc.vdtts.entity.School">
+        update tb_school set  s_recruit='false' where s_id = #{sId}
+    </update>
+    <!--    修改解禁招生状态-->
+    <update id="unbindcall" parameterType="com.lsjbc.vdtts.entity.School">
+        update tb_school set  s_recruit='true' where s_id = #{sId}
+    </update>
+    <!--    修改处罚登录状态-->
+    <update id="punishlogon" parameterType="com.lsjbc.vdtts.entity.School">
+        update tb_school set  s_lock='false' where s_id = #{sId}
+    </update>
+    <!--    修改解禁登录状态-->
+    <update id="unbindlogon" parameterType="com.lsjbc.vdtts.entity.School">
+        update tb_school set  s_lock='true' where s_id = #{sId}
+    </update>
+
+
+
+
+
+
+
+
+
+
+
 
 <!--    刘海-->
     <select id="findSchoolInfo" resultType="com.lsjbc.vdtts.entity.School" parameterType="int">
         select sh.*,ac.* from tb_school sh left join tb_account ac on sh.s_account_id = ac.a_id where sh.s_id = #{sId}
     </select>
+    <update id="updateSchoolBasicInfo" parameterType="com.lsjbc.vdtts.entity.School">
+        update tb_school set s_address = #{sAddress},s_phone = #{sPhone} where s_id = #{sId};
+    </update>
+
+
+
     <!-- 驾校入驻 -->
     <insert id="addSchool" keyProperty="sId" useGeneratedKeys="true">
         insert into tb_school (s_account_id, s_name, s_address, s_phone, s_business_id, s_business_pic,

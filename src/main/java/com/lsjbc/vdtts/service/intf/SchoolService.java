@@ -1,7 +1,5 @@
 package com.lsjbc.vdtts.service.intf;
 
-import com.github.pagehelper.Page;
-import com.lsjbc.vdtts.entity.Account;
 import com.lsjbc.vdtts.entity.School;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.pojo.vo.ResultData;
@@ -31,6 +29,18 @@ public interface SchoolService {
     //修改审核状态
     public LayuiTableData findschool(School school);
     public LayuiTableData updateschoolInfo(School school);
+    //修改处罚招生
+    public LayuiTableData punishcall(int sId);
+    //修改解禁招生
+    public LayuiTableData unbindcall(int sId);
+	//修改处罚登录
+	public LayuiTableData punishlogon(int sId);
+	//修改解禁登录
+	public LayuiTableData unbindlogon(int sId);
+
+
+
+
 
 
     int schoolCount(School school);//李浪写  查找数据条数

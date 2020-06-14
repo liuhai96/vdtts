@@ -28,10 +28,13 @@ public class TeacherServiceImpl implements TeacherService {
      *@return:com.lsjbc.vdtts.pojo.vo.LayuiTableData
      *@Date:2020/6/8 19:02
      **/
-    public LayuiTableData findTeacherList(int start, int pageSize, Integer tSchoolId) {
-        ArrayList<Teacher> teacherList = teacherMapper.findTeacherList(start,pageSize,tSchoolId);
-        System.out.println("teacherList>>>>>>"+teacherList);
-        int teachCount = teacherMapper.findTeacherCount(tSchoolId);
+    public LayuiTableData findTeacherList(String page, String limit,String tName, Integer tSchoolId) {
+
+
+        int pageSize = Integer.parseInt(limit);
+        int start = (Integer.parseInt(page)-1)*pageSize;//计算从数据库第几条开始查
+        ArrayList<Teacher> teacherList = teacherMapper.findTeacherList(start,pageSize,tName,tSchoolId);
+        int teachCount = teacherMapper.findTeacherCount(tName,tSchoolId);
         LayuiTableData LayuiTableData = new LayuiTableData();
         LayuiTableData.setCode(0);
         LayuiTableData.setMsg("查询成功");

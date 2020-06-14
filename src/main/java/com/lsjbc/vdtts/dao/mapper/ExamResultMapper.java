@@ -13,8 +13,8 @@ public interface ExamResultMapper {
      *@return:
      *@Date:2020/6/10 23:59
      **/
-    public ArrayList<ExamResult> selectStudentExamList( @Param("start") int start, @Param("pageSize") int pageSize,@Param("sSchoolId") Integer sSchoolId);
-    public int selectStudentExamCount(Integer sSchoolId);
+    public ArrayList<ExamResult> selectStudentExamList( @Param("start") int start, @Param("pageSize") int pageSize,@Param("sName") String sName,@Param("sSchoolId") Integer sSchoolId);
+    public int selectStudentExamCount(String sName,Integer sSchoolId);
     public ExamResult findSubjectExamState(@Param("erId") Integer erId,@Param("erStudentId") Integer erStudentId);
     public int findSubjectExamCount (@Param("tId") Integer tId,@Param("examSujectId") Integer examSujectId);
     public int updateStudentExanState(@Param("examSujectId") Integer examSujectId,@Param("erId") Integer erId,@Param("erState") Integer erState);

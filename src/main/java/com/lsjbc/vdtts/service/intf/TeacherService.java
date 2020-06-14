@@ -9,7 +9,7 @@ import java.util.List;
 import com.lsjbc.vdtts.pojo.vo.ResultData;
 
 public interface TeacherService {
-    public LayuiTableData findTeacherList(int start,int pageSize,Integer tSchoolId);
+    public LayuiTableData findTeacherList(String page,String limit,String tName,Integer tSchoolId);
     public LayuiTableData addTeacher(Teacher teacher, Account teacherAccount);
     public LayuiTableData deleteTeacher(int tId);
     public LayuiTableData updateTeacherInfo(Teacher teacher);
