@@ -47,12 +47,10 @@
                 <div class="tm-answer">
                     <div class="fl sec-aswer">您的选项是：<span id="userChoice"></span></div>
                     <div class="fr aswer">
-                                <span class="fl">
-                                    <span id="userResult"></span>
-                                    <div id="answerBtn"></div>
-                                </span>
-
-                        <div id="answers" class="zjh_exam_question_answers"></div>
+                        <span class="fl">
+                            <span id="userResult"></span>
+                            <div id="answerBtn"></div>
+                        </span>
                     </div>
                 </div>
             </div>

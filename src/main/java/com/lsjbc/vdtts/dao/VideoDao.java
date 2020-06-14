@@ -34,7 +34,7 @@ public class VideoDao {
     public List<Video> getVideoByLevel(Integer level) {
         Example example = new Example(Video.class);
         Example.Criteria criteria = example.createCriteria();
-        criteria.andEqualTo("tLevel", level);
+        criteria.andEqualTo("vLevel", level);
 
         return mapper.selectByExample(example);
     }

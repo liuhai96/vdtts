@@ -93,4 +93,10 @@ public class ZjhTestController {
         map.put("levelName", level == 1 ? "科目一" : "科目四");
         return "/zjh_test/test";
     }
+
+    @GetMapping("zjh/video/{level}")
+    public String video(@PathVariable("level") Integer level, Map<String, Object> map) {
+        map.put("level", level);
+        return "/zjh_test/video";
+    }
 }

@@ -1,5 +1,7 @@
 package com.lsjbc.vdtts.service.intf;
 
+import com.github.pagehelper.Page;
+import com.lsjbc.vdtts.entity.Account;
 import com.lsjbc.vdtts.entity.School;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.pojo.vo.ResultData;
@@ -77,8 +79,14 @@ public interface SchoolService {
      *@Date:2020/6/10
      **/
     public List<School> selectAllInfo(@Param("school") School school, @Param("page") int page, @Param("limit") int limit);
+
     public int selectSchoolCount(@Param("school") School school);
+
     public int deleteSchool(String schoolId);
+
     public int insertSchool(School school);
+
     public int insertSchoolAccount(Account account);
+
+    ResultData updateSchoolBasicInfo(School school);
 }
