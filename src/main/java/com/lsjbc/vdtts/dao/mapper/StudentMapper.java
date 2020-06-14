@@ -11,7 +11,7 @@ import java.util.List;
 @Mapper
 public interface StudentMapper extends CustomBaseMapper<Student> {
     /*
-     *@Description:
+     *@Description:学生表查询
      *@Author:陈竑霖
      *@Param:
      *@return:

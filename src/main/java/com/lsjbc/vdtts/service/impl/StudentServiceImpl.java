@@ -76,7 +76,7 @@ public class StudentServiceImpl implements StudentService
 
 
 	/*
-	 *@Description:
+	 *@Description:学生表查询
 	 *@Author:陈竑霖
 	 *@Param:
 	 *@return:
@@ -90,6 +90,7 @@ public class StudentServiceImpl implements StudentService
 		}
 		List<Student> list = studentMapper.selectList(student, start, pageSize);
 		int count = studentMapper.selectListCount(student);
+
         LayuiTableData layuiData = new LayuiTableData();
 		if (list.size() > 0) {
 			layuiData.setCode(0);

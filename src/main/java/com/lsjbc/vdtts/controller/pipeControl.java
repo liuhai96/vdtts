@@ -2,10 +2,11 @@ package com.lsjbc.vdtts.controller;
 
 
 import com.alibaba.fastjson.JSON;
+import com.lsjbc.vdtts.entity.Notice;
 import com.lsjbc.vdtts.entity.Student;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
+import com.lsjbc.vdtts.service.intf.NoticeService;
 import com.lsjbc.vdtts.service.intf.StudentService;
-import com.lsjbc.vdtts.service.intf.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,9 +29,8 @@ public class pipeControl
 {
 		@Autowired
 		private StudentService studentService;
-
-	    @Autowired
-	    private TeacherService teacherService;
+		@Autowired
+	    private NoticeService noticeService;
 //学员表查看
 		@RequestMapping(value = "/studentList",produces = {"application/json;charset=UTF-8"})
 		@ResponseBody
@@ -42,6 +42,32 @@ public class pipeControl
 			LayuiTableData layuiTableData = studentService.selectList(student, Integer.parseInt(pageStr), Integer.parseInt(pageSizeStr));
 			return JSON.toJSONString(layuiTableData);
 		}
-//	//教练表查看
+
+    //	公告表查看
+    @RequestMapping(value = "/noticeList",produces = {"application/json;charset=UTF-8"})
+    @ResponseBody
+    public String noticeList(HttpServletRequest request, HttpServletResponse response, Notice notice) {
+	    String pageStr = request.getParameter("page");//页码
+	    String pageSizeStr = request.getParameter("limit");//每页记录数
+	    String draw = request.getParameter("draw");//重绘次数 和前台对应
+
+	    LayuiTableData layuiTableData = noticeService.noticeList(notice, Integer.parseInt(pageStr), Integer.parseInt(pageSizeStr));
+	    return JSON.toJSONString(layuiTableData);
+    }
+
+	@RequestMapping(value = "/deletenotice",produces = {"application/json;charset=UTF-8"})
+	@ResponseBody
+	public  LayuiTableData deletenotice(int nId){
+		LayuiTableData layuiTableData =noticeService.deletenotice(nId);
+		return layuiTableData;
+	}
+
+	@RequestMapping(value = "/addnotice")
+	@ResponseBody
+	public LayuiTableData addnotice(Notice notice){
+		System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+		LayuiTableData layuiTableData =noticeService.addnotice(notice);
+		return layuiTableData;
+	}
 }
 
