@@ -9,6 +9,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
     String path = request.getContextPath();
+    int i = 0;
 %>
 <html>
 <head>
@@ -23,32 +24,43 @@
     <body>
         <div>
             <input hidden="hidden" value="<%=path%>" id="path">
-            <div class="comment_list">
+            <div style="padding-top:40px;width:700px;margin:0 auto;">
                 <h2 >全部评论</h2>
-                <hr>
-                <div class="comment">
-                    <div class="imgdiv"><img class="imgcss"  src="./images/user.jpg"/></div>
-                    <div class="conmment_details">
-                        <span class="comment_name">大白 </span>     <span>22分钟前</span>
-                        <div class="comment_content" >  感觉林丹越来越帅了，好棒</div>
-                        <div class="del"> <i class="icon layui-icon"  >赞(164)</i>
-                            <a class="del_comment" data-id="1"> <i class="icon layui-icon" >删除</i></a>
+                <hr><br>
+                <c:forEach items="${evaluate}" step="1" begin="0" end="1000" var="teacher_eva">
+                    <input hidden class="ss">
+                    <div class="comment">
+                        <div style="float:left;"><img style="width:50px;height:50px;border-radius: 50%;"  src="<%=path+"/image/sch.jpg"%>"/></div>
+                        <div style="float:left;">
+                        <span style="margin-left:10px;color:#3D9EEA;font-size:15px;font-weight:
+                         bolder;">匿名评论 </span>     <span>${teacher_eva.ETime}</span>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<div id="test<%=i%>">
                         </div>
-                    </div>
-                    <hr>
-                </div>
-                <div class="comment">
-                    <div class="imgdiv"><img class="imgcss"  src="./images/user.jpg"/></div>
-                    <div class="conmment_details">
-                        <span class="comment_name">大白 </span>     <span>22分钟前</span>
-                        <div class="comment_content" >  感觉林丹越来越帅了，好棒</div>
-                        <div class="del"> <i class="icon layui-icon"  >赞(164)</i>
-                            <a class="del_comment" data-id="1"> <i class="icon layui-icon" >删除</i></a>
+                            <div style="margin-top:10px;font-size:16px;" >
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${teacher_eva.EContent}</div>
+                            <br><br>
                         </div>
+                        <hr>
                     </div>
-                    <hr>
-                </div>
+                    <input hidden id="test-xl-<%=i%>" value="${teacher_eva.EScore}">
+                    <%i++;%>
+                </c:forEach>
+            </div>
+            <div style="margin:0 auto;clear: both;width:600px;height:40px;background: #F0F0F0;text-align: center;line-height: 40px;">
+                没有更多评论了
             </div>
         </div>
+        <script>
+            layui.use(['rate'], function() {
+                let x = 0
+                $(".ss").each(function () {
+                    var rate = layui.rate;//基础效果
+                    rate.render({elem: '#test'+x
+                        ,value: $("#test-xl-"+x).val(),readonly: true})
+                    x++;
+                });
+            })
+
+        </script>
     </body>
 </html>

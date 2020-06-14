@@ -1,10 +1,10 @@
 package com.lsjbc.vdtts.service.impl;
 
-import com.lsjbc.vdtts.dao.mapper.AccountMapper;
-import com.lsjbc.vdtts.dao.mapper.SchoolMapper;
-import com.lsjbc.vdtts.dao.mapper.StudentMapper;
-import com.lsjbc.vdtts.dao.mapper.TeacherMapper;
+import com.lsjbc.vdtts.dao.mapper.*;
 import com.lsjbc.vdtts.entity.Account;
+import com.lsjbc.vdtts.entity.Evaluate;
+import com.lsjbc.vdtts.entity.Student;
+import com.lsjbc.vdtts.entity.Teacher;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.pojo.vo.ResultData;
 import com.lsjbc.vdtts.service.intf.AccountService;
@@ -30,6 +30,8 @@ public class AccountServiceImp implements AccountService {
     private SchoolMapper schoolMapper;
     @Autowired
     private StudentMapper studentMapper;
+    @Autowired
+    private EvaluateMapper evaluateMapper;
 
 
     @Override
@@ -98,7 +100,13 @@ public class AccountServiceImp implements AccountService {
                 case "teacher"://教练登录界面地址
                     nextJsp = "teacherController/teacherInit";//后端访问地址
                     //教练的对象
-                    request.getSession().setAttribute("teacher", teacherMapper.findAccount(account));
+                    Teacher teacher = teacherMapper.findAccount(account);
+                    request.getSession().setAttribute("teacher", teacher);
+                    //教练评价
+                    Evaluate evaluate = new Evaluate();
+                    evaluate.setEToId(teacher.getTId());
+                    evaluate.setEType("teacher");
+                    request.getSession().setAttribute("evaluate", evaluateMapper.selectEvaluate(evaluate));
                     break;
             }
             request.getSession().setAttribute("account", account);

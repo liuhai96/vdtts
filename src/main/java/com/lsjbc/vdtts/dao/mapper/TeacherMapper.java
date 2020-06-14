@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Mapper
-public interface TeacherMapper {
+public interface TeacherMapper extends CustomBaseMapper<Teacher> {
     public int findTeacherCount(@Param("tName") String tName,@Param("tSchoolId") Integer tSchoolId);
     public ArrayList<Teacher> findTeacherList(@Param("start") int start, @Param("pageSize") int pageSize, @Param("tName") String tName ,@Param("tSchoolId") Integer tSchoolId);
     public int addTeacher(Teacher teacher);

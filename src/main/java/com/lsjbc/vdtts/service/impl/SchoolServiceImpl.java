@@ -12,6 +12,7 @@ import com.lsjbc.vdtts.pojo.vo.ResultData;
 import com.lsjbc.vdtts.pojo.vo.SchoolDetail;
 import com.lsjbc.vdtts.service.intf.SchoolService;
 import org.springframework.stereotype.Service;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -160,7 +161,7 @@ public class SchoolServiceImpl implements SchoolService {
 
 
     @Override
-    public ResultData schoolToProduct(School school,String id){
+    public ResultData schoolToProduct(School school, String id){
         ResultData resultData = ResultData.success();
         if(schoolMapper.addSchool(school) > 0){
             resultData.put("result","恭喜！"+school.getSName()+" 已经成入驻本平台\n\n" +
