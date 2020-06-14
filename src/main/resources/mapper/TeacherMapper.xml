@@ -5,12 +5,26 @@
 <mapper namespace="com.lsjbc.vdtts.dao.mapper.TeacherMapper">
 <!--    查询所属驾校中的教练总数-->
     <select id="findTeacherCount" parameterType="java.lang.Integer" resultType="int">
-        select count(*) from tb_teacher where t_school_id = #{tSchoolId}
+        select count(*) from tb_teacher
+        <where>
+            <if test="tName!=null and tName!=''">
+                and t_name like concat('%',#{tName},'%')
+            </if>
+            and t_school_id = #{tSchoolId}
+        </where>
+
     </select>
 
 <!--    连表查询所属驾校的信息-->
     <select id="findTeacherList" parameterType="java.lang.Integer" resultMap="findTeachList">
-        select * from tb_teacher where t_school_id = #{tSchoolId} order by t_id limit ${start},#{pageSize}
+        select * from tb_teacher
+        <where>
+            <if test="tName!=null and tName!=''">
+                and t_name like concat('%',#{tName},'%')
+            </if>
+            and t_school_id = #{tSchoolId} order by t_id limit ${start},#{pageSize}
+        </where>
+
     </select>
     <resultMap id="findTeachList" type="com.lsjbc.vdtts.entity.Teacher">
         <result property="tSchoolId" column="t_school_id"></result>
@@ -83,6 +97,17 @@
             <if test="e.tTeach!=null and e.tTeach!=''"> and t_teach = #{e.tTeach}</if>
         </where>
     </select>
+
+    <!--李浪写 通用修改-->
+    <update id="teacherUpdate" parameterType="com.lsjbc.vdtts.entity.Teacher">
+        update tb_teacher set
+        <if test="e.tSchoolId != null and e.tSchoolId != ''"> t_school_id = #{e.tSchoolId}</if>
+        <if test="e.tSfz != null and e.tSfz != ''"> t_sfz = #{e.tSfz}</if>
+        <if test="e.tPhone != null and e.tPhone != ''"> t_phone = #{e.tPhone}</if>
+         where 1 = 1
+        <if test="e.tId != null and e.tId != ''"> and t_id = #{e.tId}</if>
+        <if test="e.tAccountId != null and e.tAccountId != ''"> and t_account_id = #{e.tAccountId}</if>
+    </update>
 
     <!--  周永哲，教练信息初始化-->
     <select id="selectAllInfo" resultType="com.lsjbc.vdtts.entity.Teacher"  parameterType="com.lsjbc.vdtts.entity.Teacher">

@@ -14,6 +14,20 @@ import java.util.List;
  *@return:
  *@Date:2020/6/8 1591600836022
  **/
+public interface SchoolMapper {
+	public int schoolcount(@Param("e") School school);
+	public List<School> schoolList(@Param("e") School school, @Param("start") int start, @Param("pageSize") int pageSize);
+	public School findSchoolInfo(Integer sId);
+	public int addSchool(School school);
+
+	/*
+	 *@Description:
+	 *@Author:刘海
+	 *@Param:
+	 *@return:
+	 *@Date:2020/6/13 15:54
+	 **/
+	public int updateSchoolBasicInfo(School school);
 public interface SchoolMapper extends CustomBaseMapper<School> {
 	//查表
 	int schoolcount(@Param("e") School school);

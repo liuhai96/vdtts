@@ -83,9 +83,17 @@
 </form>
 
 <script type="text/html" id="toolbarDemo">
-    <div class="layui-btn-container">
         <button class="layui-btn layui-btn-sm" lay-event="addCar">添加教练车</button>
-    </div>
+        <div class="layui-form-item" style="display:inline-block">
+            <div class="layui-input-block">
+                <input type="text" name="inputname" placeholder="请输入车牌号查询" autocomplete="off" class="layui-input" style="width:100%;">
+            </div>
+        </div>
+        <div class="layui-btn-container" style="display:inline-block">
+            <button class="layui-btn layui-btn-sm" lay-event="findCar">查询
+                <i class="layui-icon">&#xe615;</i>
+            </button>
+        </div>
 </script>
 
 <script type="text/html" id="barDemo">
@@ -112,7 +120,7 @@
                 ,layEvent: 'LAYTABLE_TIPS'
                 ,icon: 'layui-icon-tips'
             }]
-            ,title: '用户数据表'
+            ,title: '车辆管理表'
             ,cols: [[
                 {type: 'checkbox', fixed: 'left'}
                 ,{field:'cId', title:'ID', width:80, fixed: 'left', unresize: true, sort: true}
@@ -166,10 +174,24 @@
                             return false;
                         });
                     });
+                    break;
 
                 //自定义头工具栏右侧图标 - 提示
-                case 'LAYTABLE_TIPS':
-                    layer.alert('这是工具栏右侧自定义的一个图标按钮');
+                case 'findCar':
+                    var data = checkStatus.data;
+                    var inputname = $("input[name='inputname']").val();
+                    alert(inputname);
+                    table.reload('test',{
+                        url:'<%=path%>/carControl/findCarList',
+                        page:{
+                            curr:1//重第一页开始
+                        },
+                        where:{
+                            studentName:"qwe",
+                            cNumber:inputname
+                        }
+                    });
+                    $("input[name='inputname']").val(inputname);
                     break;
             };
         });

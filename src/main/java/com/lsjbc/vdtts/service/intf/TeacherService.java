@@ -6,9 +6,10 @@ import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import com.lsjbc.vdtts.pojo.vo.ResultData;
 
 public interface TeacherService {
-    public LayuiTableData findTeacherList(int start,int pageSize,Integer tSchoolId);
+    public LayuiTableData findTeacherList(String page,String limit,String tName,Integer tSchoolId);
     public LayuiTableData addTeacher(Teacher teacher, Account teacherAccount);
     public LayuiTableData deleteTeacher(int tId);
     public LayuiTableData updateTeacherInfo(Teacher teacher);
@@ -34,4 +35,5 @@ public interface TeacherService {
      **/
     public List<Teacher> selectAllInfo(@Param("teacher") Teacher teacher, @Param("page") int page, @Param("limit") int limit);
     public int selectTeacherCount(@Param("teacher") Teacher teacher);
+    public ResultData UpdatePhone(Teacher teacher);//修改联系方式
 }

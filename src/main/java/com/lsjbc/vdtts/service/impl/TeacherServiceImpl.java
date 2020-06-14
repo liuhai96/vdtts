@@ -5,11 +5,13 @@ import com.lsjbc.vdtts.dao.mapper.TeacherMapper;
 import com.lsjbc.vdtts.entity.Account;
 import com.lsjbc.vdtts.entity.Teacher;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
+import com.lsjbc.vdtts.pojo.vo.ResultData;
 import com.lsjbc.vdtts.service.intf.TeacherService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,10 +28,13 @@ public class TeacherServiceImpl implements TeacherService {
      *@return:com.lsjbc.vdtts.pojo.vo.LayuiTableData
      *@Date:2020/6/8 19:02
      **/
-    public LayuiTableData findTeacherList(int start, int pageSize, Integer tSchoolId) {
-        ArrayList<Teacher> teacherList = teacherMapper.findTeacherList(start,pageSize,tSchoolId);
-        System.out.println("teacherList>>>>>>"+teacherList);
-        int teachCount = teacherMapper.findTeacherCount(tSchoolId);
+    public LayuiTableData findTeacherList(String page, String limit,String tName, Integer tSchoolId) {
+
+
+        int pageSize = Integer.parseInt(limit);
+        int start = (Integer.parseInt(page)-1)*pageSize;//计算从数据库第几条开始查
+        ArrayList<Teacher> teacherList = teacherMapper.findTeacherList(start,pageSize,tName,tSchoolId);
+        int teachCount = teacherMapper.findTeacherCount(tName,tSchoolId);
         LayuiTableData LayuiTableData = new LayuiTableData();
         LayuiTableData.setCode(0);
         LayuiTableData.setMsg("查询成功");
@@ -213,5 +218,11 @@ public class TeacherServiceImpl implements TeacherService {
     public int selectTeacherCount(Teacher teacher) {
         int selectCount = teacherMapper.selectTeacherCount(teacher);
         return selectCount;
+    }
+    @Override
+    public ResultData UpdatePhone(Teacher teacher){
+        if(teacherMapper.teacherUpdate(teacher) > 0)
+            return ResultData.success("修改成功！");
+        else return ResultData.success("修改失败！");
     }
 }
