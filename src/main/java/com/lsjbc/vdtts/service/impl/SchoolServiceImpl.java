@@ -106,31 +106,56 @@ public class SchoolServiceImpl implements SchoolService {
 		layuiTableData.setData(schoolList);
 		return layuiTableData;
 	}
-//	//修改处罚招生
-//	@Override
-//	public LayuiTableData punishrcall(int sId){
-//
-//		LayuiTableData layuiTableData = new LayuiTableData();
-//		int num = schoolMapper.punishrcall(sId);
-//		if(num>0){
-//			layuiTableData.setCode(1);
-//		}else{
-//			layuiTableData.setCode(0);
-//		}
-//		return layuiTableData;
-//	}
-//	//修改解禁招生
-//	@Override
-//	public LayuiTableData unbindcall(int sId){
-//		LayuiTableData layuiTableData = new LayuiTableData();
-//		int num = schoolMapper.unbindcall(sId);
-//		if(num>0){
-//			layuiTableData.setCode(1);
-//		}else{
-//			layuiTableData.setCode(0);
-//		}
-//		return layuiTableData;
-//	}
+	//修改处罚招生
+	@Override
+	public LayuiTableData punishcall(int sId){
+
+		LayuiTableData layuiTableData = new LayuiTableData();
+		int num = schoolMapper.punishcall(sId);
+		if(num>0){
+			layuiTableData.setCode(1);
+		}else{
+			layuiTableData.setCode(0);
+		}
+		return layuiTableData;
+	}
+	//修改解禁招生
+	@Override
+	public LayuiTableData unbindcall(int sId){
+		LayuiTableData layuiTableData = new LayuiTableData();
+		int num = schoolMapper.unbindcall(sId);
+		if(num>0){
+			layuiTableData.setCode(1);
+		}else{
+			layuiTableData.setCode(0);
+		}
+		return layuiTableData;
+	}
+	//修改处罚登录
+	@Override
+	public LayuiTableData punishlogon(int sId){
+
+		LayuiTableData layuiTableData = new LayuiTableData();
+		int num = schoolMapper.punishlogon(sId);
+		if(num>0){
+			layuiTableData.setCode(1);
+		}else{
+			layuiTableData.setCode(0);
+		}
+		return layuiTableData;
+	}
+	//修改解禁登录
+	@Override
+	public LayuiTableData unbindlogon(int sId){
+		LayuiTableData layuiTableData = new LayuiTableData();
+		int num = schoolMapper.unbindlogon(sId);
+		if(num>0){
+			layuiTableData.setCode(1);
+		}else{
+			layuiTableData.setCode(0);
+		}
+		return layuiTableData;
+	}
 
 
 
@@ -220,8 +245,8 @@ public class SchoolServiceImpl implements SchoolService {
 	}
 
 	@Override
-	public int selectCount(School school) {
-		int selectCount = schoolMapper.selectCount(school);
+	public int selectSchoolCount(School school) {
+		int selectCount = schoolMapper.selectSchoolCount(school);
 		return selectCount;
 	}
 

@@ -3,7 +3,6 @@ package com.lsjbc.vdtts.controller;
 import com.alibaba.fastjson.JSON;
 import com.lsjbc.vdtts.entity.Account;
 import com.lsjbc.vdtts.entity.Student;
-import com.lsjbc.vdtts.service.intf.StudentService;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.service.intf.AccountService;
 import com.lsjbc.vdtts.service.intf.StudentService;
@@ -41,7 +40,7 @@ public class StudentController {
         int page2 = (Integer.valueOf(page)-1)*Integer.valueOf(limit);
         System.out.println(" ---page2="+page2);
         List<Student> list= studentService.selectAllInfo(student,page2,Integer.valueOf(limit));
-        int count =studentService.selectCount(student);
+        int count =studentService.selectStudentCount(student);
         System.out.println("学员信息初始化操作--- list="+list+" count ="+count);
         LayuiTableData layuiData = new LayuiTableData();
         layuiData.setCode(0);

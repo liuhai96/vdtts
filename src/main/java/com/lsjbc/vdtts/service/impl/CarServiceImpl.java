@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -121,8 +120,8 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public int selectCount(Car car) {
-        int selectCount = carMapper.selectCount(car);
+    public int selectCarCount(Car car) {
+        int selectCount = carMapper.selectCarCount(car);
         return selectCount;
     }
 }

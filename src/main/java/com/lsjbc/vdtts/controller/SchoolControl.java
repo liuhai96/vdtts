@@ -76,22 +76,36 @@ public class SchoolControl {
 	 *@return:java.lang.String
 	 *@Date:2020/6/9 20:48
 	 **/
-////	处罚
-//	@RequestMapping(value = "/punishrcall")
-//	@ResponseBody
-//	public  LayuiTableData punishrcall(int sId){
-//		LayuiTableData layuiTableData =schoolService.punishrcall(sId);
-//		return layuiTableData;
-//	}
-////	解禁
-//	@RequestMapping(value = "/unbindcall")
-//	@ResponseBody
-//	public  LayuiTableData unbindcall(int sId){
-//		LayuiTableData layuiTableData =schoolService.unbindcall(sId);
-//		return layuiTableData;
-//	}
-
+//	处罚招生
+	@RequestMapping(value = "/punishcall")
+	@ResponseBody
+	public  LayuiTableData punishrcall(int sId){
+		LayuiTableData layuiTableData =schoolService.punishcall(sId);
+		return layuiTableData;
+	}
+//	解禁招生
+	@RequestMapping(value = "/unbindcall")
+	@ResponseBody
+	public  LayuiTableData unbindcall(int sId){
+		LayuiTableData layuiTableData =schoolService.unbindcall(sId);
+		return layuiTableData;
+	}
+//	处罚登录
+	@RequestMapping(value = "/punishlogon")
+	@ResponseBody
+	public  LayuiTableData punishlogon(int sId){
+		LayuiTableData layuiTableData =schoolService.punishlogon(sId);
+		return layuiTableData;
+	}
+	//	解禁登录
+	@RequestMapping(value = "/unbindlogon")
+	@ResponseBody
+	public  LayuiTableData unbindlogon(int sId){
+		LayuiTableData layuiTableData =schoolService.unbindlogon(sId);
+		return layuiTableData;
+	}
 	@RequestMapping(value = "/drivingFindInit")
+
     /*
      *@Description:
      *@Author:李浪_191019

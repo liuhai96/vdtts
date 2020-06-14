@@ -6,8 +6,6 @@ import com.lsjbc.vdtts.entity.Account;
 import com.lsjbc.vdtts.entity.Teacher;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.service.intf.TeacherService;
-import org.apache.ibatis.annotations.Param;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -212,8 +210,8 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public int selectCount(Teacher teacher) {
-        int selectCount = teacherMapper.selectCount(teacher);
+    public int selectTeacherCount(Teacher teacher) {
+        int selectCount = teacherMapper.selectTeacherCount(teacher);
         return selectCount;
     }
 }

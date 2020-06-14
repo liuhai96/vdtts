@@ -98,7 +98,7 @@
     </select>
 
     <!--  周永哲，统计教练信息条数-->
-    <select id="selectCount" resultType="int"  parameterType="com.lsjbc.vdtts.entity.Teacher">
+    <select id="selectTeacherCount" resultType="int" parameterType="com.lsjbc.vdtts.entity.Teacher">
         select count(*) from tb_teacher
         <where>
             <if test="teacher.tName!=null and teacher.tName!=''">

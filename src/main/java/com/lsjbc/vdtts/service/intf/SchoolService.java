@@ -31,11 +31,14 @@ public interface SchoolService {
     //修改审核状态
     public LayuiTableData findschool(School school);
     public LayuiTableData updateschoolInfo(School school);
-//    //修改处罚招生
-//    public LayuiTableData punishrcall(int sId);
-//    //修改解禁招生
-//    public LayuiTableData unbindcall(int sId);
-
+    //修改处罚招生
+    public LayuiTableData punishcall(int sId);
+    //修改解禁招生
+    public LayuiTableData unbindcall(int sId);
+	//修改处罚登录
+	public LayuiTableData punishlogon(int sId);
+	//修改解禁登录
+	public LayuiTableData unbindlogon(int sId);
 
 
 
@@ -76,7 +79,7 @@ public interface SchoolService {
      *@Date:2020/6/10
      **/
     public List<School> selectAllInfo(@Param("school") School school, @Param("page") int page, @Param("limit") int limit);
-    public int selectCount(@Param("school") School school);
+    public int selectSchoolCount(@Param("school") School school);
     public int deleteSchool(String schoolId);
     public int insertSchool(School school);
     public int insertSchoolAccount(Account account);

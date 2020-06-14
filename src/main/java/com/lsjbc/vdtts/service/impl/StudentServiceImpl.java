@@ -27,6 +27,7 @@ public class StudentServiceImpl implements StudentService
 		List<Student> selectAllInfo =studentMapper.selectAllInfo(student,page,limit);
 		return selectAllInfo;
 	}
+
 	/*
 	 *@Description:
 	 *@Author:周永哲
@@ -35,8 +36,8 @@ public class StudentServiceImpl implements StudentService
 	 *@Date:2020/6/8 15860799877
 	 **/
 	@Override
-	public int selectCount(Student student) {
-		int selectCount = studentMapper.selectCountByStudent(student);
+	public int selectStudentCount(Student student) {
+		int selectCount = studentMapper.selectStudentCount(student);
 		return selectCount;
 	}
 

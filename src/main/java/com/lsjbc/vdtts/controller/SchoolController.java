@@ -36,7 +36,7 @@ public class SchoolController {
 		int page2 = (Integer.valueOf(page)-1)*Integer.valueOf(limit);
 		System.out.println(" ---carpage="+page2);
 		List<School> list= schoolService.selectAllInfo(school,page2,Integer.valueOf(limit));
-		int count =schoolService.selectCount(school);
+		int count =schoolService.selectSchoolCount(school);
 		System.out.println("驾校信息初始化操作--- list="+list+" count ="+count);
 		LayuiTableData layuiData = new LayuiTableData();
 		layuiData.setCode(0);
