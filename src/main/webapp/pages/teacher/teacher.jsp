@@ -69,6 +69,7 @@
                         <a class="" href="javascript:;">学生管理</a>
                         <dl class="layui-nav-child">
                             <dd><a href="<%=path+"/pages/teacher/look_tudents.jsp"%>" target="iframe_div_iframe">查看学生</a></dd>
+                            <dd><a href="<%=path+"/pages/teacher/review-comments.jsp"%>" target="iframe_div_iframe">学生评价</a></dd>
                         </dl>
                     </li>
                     <li class="layui-nav-item">
