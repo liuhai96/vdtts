@@ -33,8 +33,16 @@ public interface SchoolMapper extends CustomBaseMapper<School> {
 	int schoolcount(@Param("e") School school);
 	List<School> schoolList(@Param("e") School school, @Param("start") int start, @Param("pageSize") int pageSize);
 	//修改审核状态
-	int updateschoolInfo(School school);
-	List<School> findschool(@Param("e") School school);
+	public int updateschoolInfo(School school);
+	public List<School> findschool(@Param("e") School school);
+	//修改禁止招生
+	public int punishcall(@Param("sId") int sId);
+	//修改解禁招生
+	public int unbindcall(@Param("sId") int sId);
+	//修改禁止登录
+	public int punishlogon(@Param("sId") int sId);
+	//修改解禁登录
+	public int unbindlogon(@Param("sId") int sId);
 
 	School findSchoolInfo(Integer sId);
 
@@ -49,6 +57,7 @@ public interface SchoolMapper extends CustomBaseMapper<School> {
 	int addSchool(School school);
 	School findAccount(Account account);
 
+
 	/*
 	 *@Description:
 	 *@Author:周永哲
@@ -61,8 +70,6 @@ public interface SchoolMapper extends CustomBaseMapper<School> {
 	public int selectSchoolCount(@Param("school") School school);
 
 	public int deleteSchool(String schoolId);
-
 	public int insertSchool(School school);
-
 	public int insertSchoolAccount(Account account);
 }

@@ -115,46 +115,153 @@
 				,{field:'sRegTime', title:'注册时间', width:100}
 				,{field:'sOwnerPic', title:'法人代表证件', width:130}
 				,{title: '操作',templet: function (d) {
-						// var str="<a class=\"layui-btn layui-btn-xs\" lay-event=\"rename\"></a>";
+						<%--	var str="<a class=\"layui-btn layui-btn-xs\" lay-event=\"rename\">重命名</a>";--%>
 						var str="";
 						if(d.sRecruit=='true' && d.sLock=='true'){
-							str+="<a class=\"layui-btn layui-btn-danger layui-btn-xs\" lay-event=\"punish\">处罚</a>";
-							str+="<a class=\"layui-btn layui-btn-danger layui-btn-xs\" lay-event=\"punish\">处罚</a>";
+							str+="<a class=\"layui-btn layui-btn-danger layui-btn-xs\" lay-event=\"punishcall\">禁止招生</a>";
+							str+="<a class=\"layui-btn layui-btn-danger layui-btn-xs\" lay-event=\"punishlogon\">禁止登陆</a>";
 						}else if(d.sRecruit=='false' && d.sLock=='true'){
-							str+="<a class=\"layui-btn layui-btn-warm layui-btn-xs\" lay-event=\"unbind\">解禁</a>";
-							str+="<a class=\"layui-btn layui-btn-warm layui-btn-xs\" lay-event=\"punish\">处罚</a>";
+							str+="<a class=\"layui-btn  layui-btn-xs\" lay-event=\"unbindcall\">解禁招生</a>";
+							str+="<a class=\"layui-btn layui-btn-danger layui-btn-xs\" lay-event=\"punishlogon\">禁止登陆</a>";
 						}else if(d.sRecruit=='true' && d.sLock=='false'){
-							str+="<a class=\"layui-btn layui-btn-warm layui-btn-xs\" lay-event=\"punish\">处罚</a>";
-							str+="<a class=\"layui-btn layui-btn-warm layui-btn-xs\" lay-event=\"unbind\">解禁</a>";
+							str+="<a class=\"layui-btn layui-btn-danger layui-btn-xs\" lay-event=\"punishcall\">禁止招生</a>";
+							str+="<a class=\"layui-btn  layui-btn-xs\" lay-event=\"unbindlogon\">解禁登录</a>";
 						}else if(d.sRecruit=='false' && d.sLock=='false'){
-							str+="<a class=\"layui-btn layui-btn-warm layui-btn-xs\" lay-event=\"unbind\">解禁</a>";
-							str+="<a class=\"layui-btn layui-btn-warm layui-btn-xs\" lay-event=\"unbind\">解禁</a>";
+							str+="<a class=\"layui-btn  layui-btn-xs\" lay-event=\"unbindcall\">解禁招生</a>";
+							str+="<a class=\"layui-btn  layui-btn-xs\" lay-event=\"unbindlogon\">解禁登录</a>";
 						} else{
-							str+="<a>未审核</a>";
+							str += "<a>未审核</a>";
 						}
-						// str+="<a href='"+$("#path").val()+"/file/"+d.tRealPath+"' download='"+$("#path").val()+"/file/"+d.tRealPath+"' class=\"layui-btn layui-btn-normal layui-btn-xs\">下载</a>";
-						return str;
-					}, width:195 }
-			]]
-			, page: true
-			, id: "test"
-		});
-		// 		, {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 150}
-		// 	]]
-		// 	,page: true
-		// 	// , done: function (res, curr, count) {
-		// 	// 	$("[data-field='sVerification']").children().each(function () {
-		// 	// 		if ($(this).text() == 'false') {
-		// 	// 			$(this).text("未通过")
-		// 	// 		} else if ($(this).text() == 'true') {
-		// 	// 			$(this).text("已通过")
-		// 	// 		} else if ($(this).text() == '') {
-		// 	// 			$(this).text("未审核")
-		// 	// 		}
-		// 	// 	});
-		// 	// }
-		// });
+							return str;
+						}, width:195 }
+	              ]]
+	             , page: true
+		         , id: "test"
+	        });
+//监听行工具事件
+		table.on('tool(test)', function(obj){
+			var data = obj.data;
+			var $ = layui.jquery;
+			var schoolId="";
+			if(obj.event === 'punishcall'){
+				var sId = data.sId;
+				layer.confirm('处罚该驾校么',{
+					btn:["确定","取消"],
+					btn2:function (index) {
+						// alert(data.sId);
+						layer.close(index);
+					},
+					btn1:function () {
+						$.ajax({
+							type: 'POST',
+							url: '/SchoolControl/punishcall',
+							dataType: 'JSON',
+							data:{
+								sId:sId
+							},
+							success: function (msg) {
+								if(msg.code==1){
+									layer.msg("您已成功处罚该驾校禁止招生");
+								}else if(msg.code==0 ){
+									layer.msg("处罚失败");
+								}else{
+									layer.msg("该状态不存在");
+								}
+							}
+						});
+						tableinf.reload();
+					}
 
+				});
+			}else if(obj.event === 'unbindcall'){
+				var sId = data.sId;
+				layer.confirm('解禁该驾校么',{
+					btn:["确定","取消"],
+					btn2:function (index) {
+						// alert(data.sId);
+						layer.close(index);
+					},
+					btn1:function () {
+						$.ajax({
+							type: 'POST',
+							url: '/SchoolControl/unbindcall',
+							dataType: 'JSON',
+							data:{
+								sId:sId
+							},
+							success: function (msg) {
+								if(msg.code==1){
+									layer.msg("您已成功解禁该驾校可以招生");
+								}else if(msg.code==0 ){
+									layer.msg("解禁失败");
+								}else{
+									layer.msg("该状态不存在");
+								}
+							}
+						});
+						tableinf.reload();
+					}
+			});
+			} else if(obj.event === 'punishlogon'){
+				var sId = data.sId;
+				layer.confirm('处罚该驾校么',{
+					btn:["确定","取消"],
+					btn2:function (index) {
+						// alert(data.sId);
+						layer.close(index);
+					},
+					btn1:function () {
+						$.ajax({
+							type: 'POST',
+							url: '/SchoolControl/punishlogon',
+							dataType: 'JSON',
+							data:{
+								sId:sId
+							},
+							success: function (msg) {
+								if(msg.code==1){
+									layer.msg("您已成功处罚该驾校禁止登录");
+								}else if(msg.code==0 ){
+									layer.msg("处罚失败");
+								}else{
+									layer.msg("该状态不存在");
+								}
+							}
+						});
+						tableinf.reload();
+					}
+
+				});
+			}else if(obj.event === 'unbindlogon'){
+				var sId = data.sId;
+				layer.confirm('解禁该驾校么',{
+					btn:["确定","取消"],
+					btn2:function (index) {
+						layer.close(index);
+					},
+					btn1:function () {
+						$.ajax({
+							type: 'POST',
+							url: '/SchoolControl/unbindlogon',
+							dataType: 'JSON',
+							data:{
+								sId:sId
+							},
+							success: function (msg) {
+								if(msg.code==1){
+									layer.msg("您已成功解禁该驾校可以登录");
+								}else if(msg.code==0 ){
+									layer.msg("解禁失败");
+								}else{
+									layer.msg("该状态不存在");
+								}
+							}
+						});
+						tableinf.reload();
+					}
+				});
+			}
+		});
 		//头工具栏事件
 		table.on('toolbar(test)', function(obj){
 			var checkStatus = table.checkStatus(obj.config.id);
@@ -179,10 +286,8 @@
 		});
 		//表单查询
 		form.on('submit(search)',function (data) {
-
 			var sName = $("#sName").val();
 			var sLock=$("#sLock").val();
-            // var sVerification=$("#sVerification").val();
 			var sRecruit=$("#sRecruit").val();
 			tableinf.reload({
 				url:'/SchoolControl/findSchoolList',
@@ -192,7 +297,6 @@
 				where:{
 					sName:sName
 					,sLock:sLock
-					// ,sVerification:sVerification
 					,sRecruit:sRecruit
 
 				}
