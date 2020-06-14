@@ -36,4 +36,15 @@ public class VideoServiceImpl implements VideoService {
     public List<Video> getVideoByLevel(Integer level) {
         return videoDao.getVideoByLevel(level);
     }
+
+    /**
+     * 通过主键来获取一条记录
+     *
+     * @param id 主键
+     * @return 记录
+     */
+    @Override
+    public Video getVideoById(Integer id) {
+        return videoDao.getVideoById(id);
+    }
 }

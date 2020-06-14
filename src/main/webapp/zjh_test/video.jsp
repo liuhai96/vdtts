@@ -88,7 +88,7 @@
                     for (let index = 0; index < res.length; index++) {
                         str +=
                             "<div class='car-video-list-detail'>" +
-                            "<a target='_blank' href='http://tv.jxedt.com/info/938029173019325656.htm'>" +
+                            "<a href='" + path + "/zjh/video/" + level + "/" + res[index].vid + "'>" +
                             "<div class='video-img'>" +
                             "<div class='video-play'></div>" +
                             "<img src='" + path + res[index].vpic + "' alt=''>" +

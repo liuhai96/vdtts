@@ -20,5 +20,13 @@ public interface VideoService {
      */
     List<Video> getVideoByLevel(Integer level);
 
+    /**
+     * 通过主键来获取一条记录
+     *
+     * @param id 主键
+     * @return 记录
+     */
+    Video getVideoById(Integer id);
+
 
 }

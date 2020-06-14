@@ -39,5 +39,15 @@ public class VideoDao {
         return mapper.selectByExample(example);
     }
 
+    /**
+     * 根据ID来查询数据
+     *
+     * @param id 主键
+     * @return 符合条件的记录
+     */
+    public Video getVideoById(Integer id) {
+        return (Video) mapper.selectByPrimaryKey(id);
+    }
+
 
 }

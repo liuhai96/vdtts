@@ -1,14 +1,18 @@
 package com.lsjbc.vdtts.controller;
 
+import com.lsjbc.vdtts.entity.Video;
 import com.lsjbc.vdtts.service.impl.LinkServiceImpl;
 import com.lsjbc.vdtts.service.impl.NoticeServiceImpl;
+import com.lsjbc.vdtts.service.impl.VideoServiceImpl;
 import com.lsjbc.vdtts.service.intf.LinkServive;
 import com.lsjbc.vdtts.service.intf.NoticeService;
+import com.lsjbc.vdtts.service.intf.VideoService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.annotation.Resource;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -25,6 +29,9 @@ public class ZjhTestController {
 
     @Resource(name = LinkServiceImpl.NAME)
     private LinkServive linkServive;
+
+    @Resource(name = VideoServiceImpl.NAME)
+    private VideoService videoService;
 
     /**
      * 访问主页
@@ -94,9 +101,39 @@ public class ZjhTestController {
         return "/zjh_test/test";
     }
 
+    /**
+     * 跳转到指定科目的视频首页
+     *
+     * @param level 指定科目
+     * @param map   ModelAndView中的属性键值对
+     * @return 页面
+     */
     @GetMapping("zjh/video/{level}")
     public String video(@PathVariable("level") Integer level, Map<String, Object> map) {
         map.put("level", level);
         return "/zjh_test/video";
+    }
+
+
+    /**
+     * 跳转到指定视频的播放页
+     *
+     * @param level   指定科目
+     * @param videoId 指定时评ID
+     * @param map     ModelAndView中的属性键值对
+     * @return 页面
+     */
+    @GetMapping("zjh/video/{level}/{videoId}")
+    public String video(@PathVariable("level") Integer level, @PathVariable("videoId") Integer videoId, Map<String, Object> map) {
+        map.put("level", level);
+        map.put("levelName", level == 2 ? "科目二" : "科目三");
+
+        Video video = videoService.getVideoById(videoId);
+        List<Video> videoList = videoService.getVideoByLevel(level);
+
+        map.put("video", video);
+        map.put("videoList", videoList);
+
+        return "/zjh_test/video_look";
     }
 }
