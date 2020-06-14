@@ -41,7 +41,7 @@ public interface SchoolService {
 	public LayuiTableData unbindlogon(int sId);
 
 
-
+    ResultData updateSchoolBasicInfo(School school);
 
 
 

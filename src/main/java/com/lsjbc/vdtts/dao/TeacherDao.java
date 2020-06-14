@@ -39,5 +39,6 @@ public class TeacherDao {
         criteria.andEqualTo("tSchoolId", schoolId);
 
         return mapper.selectCountByExample(example);
+//        return null;
     }
 }

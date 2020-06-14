@@ -38,24 +38,24 @@
             <!-- 头部区域（可配合layui已有的水平导航） -->
             <ul class="layui-nav layui-layout-left">
                 <li class="layui-nav-item"><a href="<%=path+"/pages/homepage/home-page.jsp"%>">首页</a></li>
-                <li class="layui-nav-item">
-                    <a href="javascript:;">教练信息</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="">驾校基础信息</a></dd>
-                        <dd><a href="">学员评价</a></dd>
-                    </dl>
-                </li>
+<%--                <li class="layui-nav-item">--%>
+<%--                    <a href="javascript:;">教练信息</a>--%>
+<%--                    <dl class="layui-nav-child">--%>
+<%--                        <dd><a href="">驾校基础信息</a></dd>--%>
+<%--                        <dd><a href="">学员评价</a></dd>--%>
+<%--                    </dl>--%>
+<%--                </li>--%>
             </ul>
             <ul class="layui-nav layui-layout-right">
                 <li class="layui-nav-item">
                     <a href="javascript:;">
                         <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
-                        贤心
+                        ${teacher.TName}
                     </a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="">基本资料</a></dd>
-                        <dd><a href="">安全设置</a></dd>
-                    </dl>
+<%--                    <dl class="layui-nav-child">--%>
+<%--                        <dd><a href="">基本资料</a></dd>--%>
+<%--                        <dd><a href="">安全设置</a></dd>--%>
+<%--                    </dl>--%>
                 </li>
                 <li class="layui-nav-item"><a href="<%=path+"/pages/homepage/home-page.jsp?logout=cc632ef332fex2ee3010012e"%>">退出账号</a></li>
             </ul>
@@ -69,13 +69,14 @@
                         <a class="" href="javascript:;">学生管理</a>
                         <dl class="layui-nav-child">
                             <dd><a href="<%=path+"/pages/teacher/look_tudents.jsp"%>" target="iframe_div_iframe">查看学生</a></dd>
+                            <dd><a href="<%=path+"/pages/teacher/review-comments.jsp"%>" target="iframe_div_iframe">学生评价</a></dd>
                         </dl>
                     </li>
                     <li class="layui-nav-item">
                         <a href="javascript:;">修改信息</a>
                         <dl class="layui-nav-child">
                             <dd><a href="<%=path+"/pages/teacher/teacher_message.jsp"%>" target="iframe_div_iframe">修改联系方式</a></dd>
-                            <dd><a href="<%=path+"/pages/teacher/teacher_password.jsp"%>" target="iframe_div_iframe">学员考试结果录入</a></dd>
+                            <dd><a href="<%=path+"/pages/teacher/teacher_password.jsp"%>" target="iframe_div_iframe">修改密码</a></dd>
                         </dl>
                     </li>
                 </ul>

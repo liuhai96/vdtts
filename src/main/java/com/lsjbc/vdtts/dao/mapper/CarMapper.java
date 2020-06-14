@@ -10,17 +10,16 @@ import java.util.List;
 
 @Mapper
 public interface CarMapper extends CustomBaseMapper<Car> {
-    public int findCarCount(@Param("cNumber") String cNumber, @Param("cSchoolId") int cSchoolId);
+    public int findCarCount(@Param("cNumber")String cNumber,@Param("cSchoolId") int cSchoolId);
+    public ArrayList<Car> findCarManageList(@Param("start") int start,@Param("pageSize") int pageSize,@Param("cNumber") String cNumber,@Param("cSchoolId") int cSchoolId);
 
-    public ArrayList<Car> findCarManageList(@Param("start") int start, @Param("pageSize") int pageSize, @Param("cNumber") String cNumber, @Param("cSchoolId") int cSchoolId);
 
     public int updateCarInfo(Car car);
 
     public int deleteCar(@Param("cId") int cId);
 
     public int addCar(Car car);
-
-    public ArrayList<Car> findCarList(@Param("start") int start, @Param("pageSize") int pageSize, @Param("cSchoolId") int cSchoolId);
+//    public ArrayList<Car> findCarList(@Param("start") int start,@Param("pageSize") int pageSize,@Param("cSchoolId") int cSchoolId);
 
     /*
      *@Description:
