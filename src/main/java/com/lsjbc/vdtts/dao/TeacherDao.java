@@ -1,9 +1,7 @@
 package com.lsjbc.vdtts.dao;
 
 import com.lsjbc.vdtts.dao.mapper.TeacherMapper;
-import com.lsjbc.vdtts.entity.Teacher;
 import org.springframework.stereotype.Repository;
-import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
 
@@ -32,12 +30,13 @@ public class TeacherDao {
      * @author JX181114 --- 郑建辉
      */
     public Integer getCountBySchoolId(Integer schoolId) {
-        Example example = new Example(Teacher.class);
-
-        Example.Criteria criteria = example.createCriteria();
-
-        criteria.andEqualTo("tSchoolId", schoolId);
-
-        return mapper.selectCountByExample(example);
+//        Example example = new Example(Teacher.class);
+//
+//        Example.Criteria criteria = example.createCriteria();
+//
+//        criteria.andEqualTo("tSchoolId", schoolId);
+//
+//        return mapper.selectCountByExample(example);
+        return null;
     }
 }

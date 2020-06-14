@@ -1,5 +1,7 @@
 package com.lsjbc.vdtts.service.intf;
 
+import com.github.pagehelper.Page;
+import com.lsjbc.vdtts.entity.Account;
 import com.lsjbc.vdtts.entity.School;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.pojo.vo.ResultData;
@@ -39,7 +41,7 @@ public interface SchoolService {
 	public LayuiTableData unbindlogon(int sId);
 
 
-
+    ResultData updateSchoolBasicInfo(School school);
 
 
 

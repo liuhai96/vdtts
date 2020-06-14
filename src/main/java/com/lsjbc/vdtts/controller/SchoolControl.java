@@ -58,7 +58,7 @@ public class SchoolControl {
 	 *@return:java.lang.String
 	 *@Date:2020/6/8 21:49
 	 **/
-	@RequestMapping(value = "/findschool")
+	@RequestMapping(value = "/findschool",produces = {"application/json;charset=UTF-8"})
 	public String findschool(School school){
 		return JSON.toJSONString(schoolService.findschool(school));
 	}
@@ -77,28 +77,28 @@ public class SchoolControl {
 	 *@Date:2020/6/9 20:48
 	 **/
 //	处罚招生
-	@RequestMapping(value = "/punishcall")
+	@RequestMapping(value = "/punishcall",produces = {"application/json;charset=UTF-8"})
 	@ResponseBody
 	public  LayuiTableData punishrcall(int sId){
 		LayuiTableData layuiTableData =schoolService.punishcall(sId);
 		return layuiTableData;
 	}
 //	解禁招生
-	@RequestMapping(value = "/unbindcall")
+	@RequestMapping(value = "/unbindcall",produces = {"application/json;charset=UTF-8"})
 	@ResponseBody
 	public  LayuiTableData unbindcall(int sId){
 		LayuiTableData layuiTableData =schoolService.unbindcall(sId);
 		return layuiTableData;
 	}
 //	处罚登录
-	@RequestMapping(value = "/punishlogon")
+	@RequestMapping(value = "/punishlogon",produces = {"application/json;charset=UTF-8"})
 	@ResponseBody
 	public  LayuiTableData punishlogon(int sId){
 		LayuiTableData layuiTableData =schoolService.punishlogon(sId);
 		return layuiTableData;
 	}
 	//	解禁登录
-	@RequestMapping(value = "/unbindlogon")
+	@RequestMapping(value = "/unbindlogon",produces = {"application/json;charset=UTF-8"})
 	@ResponseBody
 	public  LayuiTableData unbindlogon(int sId){
 		LayuiTableData layuiTableData =schoolService.unbindlogon(sId);
