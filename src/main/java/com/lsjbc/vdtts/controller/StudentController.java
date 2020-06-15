@@ -198,11 +198,25 @@ public class StudentController {
         return JSON.toJSONString(studentService.findStudenList(request,page,limit,sName));
     }
 
+    /*
+     *@Description:修改学员的报名状态
+     *@Author:刘海
+     *@Param:
+     *@return:
+     *@Date:2020/6/16 1:31
+     **/
     @RequestMapping(value = "/updateStudentApplyState")
     public ResultData updateStudentApplyState(String sId){
         return studentService.updateStudentApplyState(Integer.parseInt(sId));
     }
 
+    /*
+     *@Description:修改教练Id
+     *@Author:刘海
+     *@Param:
+     *@return:
+     *@Date:2020/6/16 1:31
+     **/
     @RequestMapping(value = "/updateStudentTeacherId")
     public ResultData updateStudentTeacherId(String sTeacherId,String sId){
         return studentService.updateStudentTeacherId(Integer.parseInt(sTeacherId),Integer.parseInt(sId));
