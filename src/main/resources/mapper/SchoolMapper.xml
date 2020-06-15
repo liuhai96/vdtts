@@ -50,6 +50,7 @@
     <update id="unbindlogon" parameterType="com.lsjbc.vdtts.entity.School">
         update tb_school set  s_lock='true' where s_id = #{sId}
     </update>
+
     <!--    sfz-->
     <update id="apply" parameterType="com.lsjbc.vdtts.entity.School">
         select s_sfz from tb_student
