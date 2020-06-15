@@ -33,6 +33,10 @@ public class ExamTimeApi {
      */
     @PutMapping("time")
     public ResultData addTimeRecord(ExamTimeNew info) {
-        return examTimeService.updateLearnTime(info);
+        try {
+            return examTimeService.updateLearnTime(info);
+        } catch (Exception e) {
+            return ResultData.error(e.getMessage());
+        }
     }
 }

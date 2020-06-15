@@ -81,8 +81,8 @@ public class ExamTimeServiceImpl implements ExamTimeService {
 
         if (effective) {
             //如果是有效学时
-            //写入ExamResult表
-            //出现异常，先不写
+            //就更新学时总时长
+            examResultDao.updateTimeByStudentId(info);
         } else {
             //如果是无效学时，不操作，返回信息给前端
             rd.appendMessage("未满足学习资格，或已通过考试，此时视为无效学时", "-");

@@ -40,22 +40,26 @@ public class ExamResultDao implements BaseDao<ExamResult> {
 
         switch (level) {
             case 1:
+                //当科目一的考试还没有通过时，允许学习
                 if (result.getErState1() != 1) {
                     return true;
                 }
                 return false;
             case 2:
-                if (result.getErState2() != 1) {
+                //当科目一的考试通过，并且科目二的考试还没有结束时，允许学习
+                if (result.getErState1() == 1 && result.getErState2() != 1) {
                     return true;
                 }
                 return false;
             case 3:
-                if (result.getErState3() != 1) {
+                //当科目二的考试通过，并且科目三的考试还没有结束时，允许学习
+                if (result.getErState2() == 1 && result.getErState3() != 1) {
                     return true;
                 }
                 return false;
             case 4:
-                if (result.getErState4() != 1) {
+                //当科目三的考试通过，并且科目四的考试还没有结束时，允许学习
+                if (result.getErState3() == 1 && result.getErState4() != 1) {
                     return true;
                 }
                 return false;
