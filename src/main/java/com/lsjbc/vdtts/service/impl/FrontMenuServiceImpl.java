@@ -24,7 +24,7 @@ public class FrontMenuServiceImpl implements FrontMenuService {
         Integer identityId = null;
         School school = (School) request.getSession().getAttribute("school");
         Teacher teacher = (Teacher) request.getSession().getAttribute("teacher");
-        TransManage transManage  = (TransManage) request.getSession().getAttribute("transManage");
+        TransManage transManage  = (TransManage) request.getSession().getAttribute("manage");
         if(school!=null){
             identityId = school.getSIdentityId();
         }else if(teacher!=null){

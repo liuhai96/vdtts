@@ -119,7 +119,7 @@ public class AccountServiceImp implements AccountService {
                     request.getSession().setAttribute("evaluate", evaluateMapper.selectEvaluate(evaluate));
                     break;
                 case "manage":
-                    TransManage transManage = transManageDao.findTransManage(account.getAId());
+                    TransManage transManage = transManageDao.findTransManage(account);
                     if(transManage!=null){
                         request.getSession().setAttribute("manage",transManage);
                         resultData = ResultData.success(1,"登录成功");

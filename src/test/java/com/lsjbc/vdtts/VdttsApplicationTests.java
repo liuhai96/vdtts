@@ -1,8 +1,9 @@
 package com.lsjbc.vdtts;
 
-import com.lsjbc.vdtts.dao.ExamAnswerDao;
-import com.lsjbc.vdtts.dao.ExamQuestionDao;
-import com.lsjbc.vdtts.dao.ExamSimulateRecordDao;
+import com.lsjbc.vdtts.dao.*;
+import com.lsjbc.vdtts.dao.mapper.CarMapper;
+import com.lsjbc.vdtts.dao.mapper.EvaluateMapper;
+import com.lsjbc.vdtts.dao.mapper.NoticeMapper;
 import com.lsjbc.vdtts.entity.ExamAnswer;
 import com.lsjbc.vdtts.entity.ExamQuestion;
 import com.lsjbc.vdtts.entity.ExamSimulateRecord;
