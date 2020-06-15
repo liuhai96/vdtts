@@ -49,4 +49,6 @@ public interface TeacherMapper extends CustomBaseMapper<Teacher> {
 
     public int selectTeacherCount(@Param("teacher") Teacher teacher);
     public int teacherUpdate(@Param("e")Teacher teacher);//教练修改统一方法
+
+    List<Teacher> homePageShow(@Param("e")Teacher teacher,Integer page,Integer  pageSize);
 }

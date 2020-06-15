@@ -26,7 +26,7 @@ public class ExamResultServiceImpl implements ExamResultService {
 
 
     @Override
-    public LayuiTableData selectStudentExamList(String page, String limit, String sName, Integer sSchoolId) {
+    public LayuiTableData selectStudentExamList(String page, String limit, String sName, HttpServletRequest request) {
         int pageSize = Integer.parseInt(limit);
         int start = (Integer.parseInt(page)-1)*pageSize;//计算从数据库第几条开始查
         LayuiTableData layuiTableData = new LayuiTableData();
