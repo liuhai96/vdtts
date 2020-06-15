@@ -7,11 +7,12 @@
 <head>
     <title>模拟考试</title>
     <link rel="stylesheet" type="text/css" href="https://www.layuicdn.com/layui-v2.5.6/css/layui.css"/>
-    <link rel="stylesheet" href="<%=path+"/zjh_test/css/m-index.css"%>">
-    <link rel="stylesheet" href="<%=path+"/zjh_test/css/mnks.css"%>">
+    <link rel="stylesheet" href="<%=path+"/css/pages/index/m-index.css"%>">
+    <link rel="stylesheet" href="<%=path+"/css/pages/index/mnks.css"%>">
 </head>
 <body>
 <input type="hidden" id="level" value="${level}">
+<input type="hidden" id="userToken" value="${studentId}">
 <div class="clear"></div>
 <div id="mnks">
     <div class="content-body">
@@ -22,8 +23,8 @@
             </div>
             <div class="user-info pos">
                 <div class="tit" style="left: 38px;">考生信息</div>
-                <img src="<%=path+"/zjh_test/pic/face_nomal.png"%>">
-                <p><label class="mr">姓</label> <label>名：</label> <span>学员</span></p>
+                <img src="<%=path+"/image/pages/index/face_nomal.png"%>">
+                <p><label class="mr">姓</label> <label>名：</label> <span>${studentName}</span></p>
                 <!--<p><label for="" class="mr">性</label> <label for="">别：</label> <span>男</span></p>-->
                 <p><label>考试类型：</label> <span>小车类</span></p>
                 <p><label>考试科目：</label> <span>${levelName}</span></p>
@@ -284,9 +285,9 @@
                 dataType: 'json',
                 url: "http://127.0.0.1:8080/api/exam/record",
                 data: {
-                    studentId: 1
+                    studentId: $("#userToken").val()
                     , score: sum
-                    , level: 1
+                    , level: $("#level").val()
                     , errorQuestions: errorQuestions
                     , _method: 'put'
                 },

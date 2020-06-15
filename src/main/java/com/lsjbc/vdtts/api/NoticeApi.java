@@ -31,12 +31,13 @@ public class NoticeApi {
      *
      * @param type 通知公告/法律法规
      * @param page 页数
+     * @param name 模糊搜索
      * @return 分页对象
      */
     @GetMapping("getList")
-    public LayuiPageData<Notice> publicity1(String type, Integer page) {
+    public LayuiPageData<Notice> publicity1(String type, Integer page, String name) {
 
-        Page<Notice> pageInfo = noticeService.getPageByType(type, page);
+        Page<Notice> pageInfo = noticeService.getPageByType(type, page, name);
 
         LayuiPageData<Notice> pageData = new LayuiPageData<>();
 

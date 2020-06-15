@@ -21,7 +21,7 @@ public interface CarService {
      *@return:
      *@Date:2020/6/8 1591607662706
      **/
-    public LayuiTableData carList(Car car, int page, int pageSize);
+    LayuiTableData carList(Car car, int page, int pageSize);
 
 
     /*
@@ -31,6 +31,7 @@ public interface CarService {
      *@return:
      *@Date:2020/6/11
      **/
-    public List<Car> selectAllInfo(@Param("car") Car car, @Param("page") int page, @Param("limit") int limit);
-    public int selectCarCount(@Param("car") Car car);
+    List<Car> selectAllInfo(@Param("car") Car car, @Param("page") int page, @Param("limit") int limit);
+
+    int selectCarCount(@Param("car") Car car);
 }

@@ -1,46 +1,28 @@
 package com.lsjbc.vdtts.dao;
 
 import com.lsjbc.vdtts.dao.mapper.BaseDao;
-import com.lsjbc.vdtts.dao.mapper.TeacherMapper;
-import com.lsjbc.vdtts.entity.Teacher;
+import com.lsjbc.vdtts.dao.mapper.ExamTimeMapper;
+import com.lsjbc.vdtts.entity.ExamTime;
 import org.springframework.stereotype.Repository;
-import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
 
 /**
- * @ClassName: TeacherDao
+ * @ClassName: ExamTimeDao
  * @Description:
- * @Datetime: 2020/6/12   14:15
+ * @Datetime: 2020/6/14   22:57
  * @Author: JX181114 - 郑建辉
  */
-@Repository(TeacherDao.NAME)
-public class TeacherDao implements BaseDao<Teacher> {
+@Repository(ExamTimeDao.NAME)
+public class ExamTimeDao implements BaseDao<ExamTime> {
 
     /**
      * Bean名
      */
-    public static final String NAME = "TeacherDao";
+    public static final String NAME = "ExamTimeDao";
 
     @Resource
-    private TeacherMapper mapper;
-
-    /**
-     * 查询出该驾校下所拥有的教练数字
-     *
-     * @param schoolId 驾校ID
-     * @return 教练数量
-     * @author JX181114 --- 郑建辉
-     */
-    public Integer getCountBySchoolId(Integer schoolId) {
-        Example example = new Example(Teacher.class);
-
-        Example.Criteria criteria = example.createCriteria();
-
-        criteria.andEqualTo("tSchoolId", schoolId);
-
-        return mapper.selectCountByExample(example);
-    }
+    private ExamTimeMapper mapper;
 
     /**
      * 通过主键来获取一个对象
@@ -49,7 +31,7 @@ public class TeacherDao implements BaseDao<Teacher> {
      * @return 对象
      */
     @Override
-    public Teacher getById(Integer id) {
+    public ExamTime getById(Integer id) {
         return null;
     }
 
@@ -61,10 +43,11 @@ public class TeacherDao implements BaseDao<Teacher> {
      *
      * @param object 对象
      * @return 受影响条数
+     * @author JX181114 --- 郑建辉
      */
     @Override
-    public Integer add(Teacher object) {
-        return null;
+    public Integer add(ExamTime object) {
+        return mapper.insert(object);
     }
 
     /**
@@ -77,7 +60,7 @@ public class TeacherDao implements BaseDao<Teacher> {
      * @return 受影响条数
      */
     @Override
-    public Teacher updateById(Teacher object) {
+    public ExamTime updateById(ExamTime object) {
         return null;
     }
 

@@ -11,12 +11,14 @@ layui.use(['laytpl','laypage'], function() {
     customType = $("#customType").val();
     customPage = $("#customPage").val();
     customNoticeId = $("#customNoticeId").val();
+    let name = $("#selectTitle").val();
 
     //通过分页和类型来获取数据
-    let searchList = function (type,curr) {
-        $.get(path+'/api/notice/getList', {
+    let searchList = function (type, curr, name) {
+        $.get(path + '/api/notice/getList', {
             page: curr || 1
             , type: type
+            , name: name
         }, function (res) {
 
             let html = laytpl(LAY_tpl.value).render({
@@ -34,7 +36,7 @@ layui.use(['laytpl','laypage'], function() {
                 , layout: ['prev', 'page', 'next', 'skip']
                 , jump: function (e, first) {
                     if (!first) { //一定要加此判断,否则初始时会无限刷新
-                        searchList(type,e.curr);
+                        searchList(type, e.curr, name);
                     }
                     customType = type;
                     customPage = e.curr;
@@ -43,23 +45,28 @@ layui.use(['laytpl','laypage'], function() {
         });
     }
 
-    if(customNoticeId==-1){
-        searchList(customType,customPage);
+    if (customNoticeId == -1) {
+        searchList(customType, customPage, "");
     }
 
     //点击返回上一级时，跳转界面
-    $("button[class*='returnPrevHtml']").on("click",function(event){
-        window.location.href=path + "/zjh/publicity/"+customType+"/"+customPage+"/-1";
+    $("button[class*='returnPrevHtml']").on("click", function (event) {
+        window.location.href = path + "/publicity/" + customType + "/" + customPage + "/-1";
     });
 
     //点击通知公告时，通过分页插件获取数据
-    $("#selectOne").on("click",function (event) {
-        searchList("notice",1);
+    $("#selectOne").on("click", function (event) {
+        searchList("notice", 1, "");
     });
 
     //点击法律法规时，通过分页插件获取数据
-    $("#selectThree").on("click",function (event) {
-        searchList("law",1);
+    $("#selectThree").on("click", function (event) {
+        searchList("law", 1, "");
+    });
+
+    $("#selectNameBtn").on("click", function (event) {
+        name = $("#selectTitle").val();
+        searchList(customType, 1, name);
     });
 });
 
@@ -299,7 +306,7 @@ function exposureSelectClick() {
 }
 //显示文章详情
 function publicNotice(id) {
-    window.location.href=path + "/zjh/publicity/"+customType+"/"+customPage+"/"+id;
+    window.location.href = path + "/publicity/" + customType + "/" + customPage + "/" + id;
 }
 
 function showBg() {

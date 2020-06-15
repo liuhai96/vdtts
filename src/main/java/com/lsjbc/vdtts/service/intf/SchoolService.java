@@ -41,9 +41,6 @@ public interface SchoolService {
 	public LayuiTableData unbindlogon(int sId);
 
 
-    ResultData updateSchoolBasicInfo(School school);
-
-
 
     int schoolCount(School school);//李浪写  查找数据条数
 

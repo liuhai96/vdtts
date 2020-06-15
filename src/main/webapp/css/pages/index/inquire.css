@@ -3,7 +3,7 @@
 	border-style: none;
 }
 .main .layui-tab .layui-tab-title .layui-this{
-	background: url(../../../../../../zjh_test/pic/list_bg.png) no-repeat;
+	background: url(../../../../../../image/pages/index/list_bg.png) no-repeat;
 	background-size: cover;
 	color: #fff;
 }

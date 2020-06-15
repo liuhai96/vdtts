@@ -9,7 +9,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>学车视频</title>
 
-    <link rel="stylesheet" href="<%=path + "/zjh_test/css/jx_video.css"%>">
+    <link rel="stylesheet" href="<%=path + "/css/pages/index/jx_video.css"%>">
     <link rel="stylesheet" href="https://www.layuicdn.com/layui-v2.5.6/css/layui.css" media="all">
 </head>
 

@@ -7,7 +7,7 @@
 }
 
 .main .layui-tab .layui-tab-title .layui-this {
-	background: url(../../../../zjh_test/pic/list_bg.png) no-repeat;
+	background: url(../../../../image/pages/index/list_bg.png) no-repeat;
 	background-size: cover;
 	color: #fff;
 }
@@ -103,6 +103,6 @@
 }
 
 .table-style-order {
-	background: url(../../../../../../../../../zjh_test/pic/circle.png) no-repeat;
+	background: url(../../../../../../../../../image/pages/index/circle.png) no-repeat;
 	padding: 0px 15px 1px 6px;
 }
