@@ -45,16 +45,18 @@
             <p class="top-title-p1">机动车驾驶员计时培训系统</p>
             <p class="top-title-p2">Timing training system for motor vehicle drivers</p>
         </div>
-        <div class="top-search">
-            <select id="selectType" name="selectType">
-                <option value="1">驾培机构</option>
-                <option value="2">教练员</option>
-                <option value="3">教练车</option>
+        <form id="searchSchoolOrTeacher" action="<%=path+"inquire"%>" class="top-search">
+            <select name="type">
+                <option value="school">驾培机构</option>
+                <option value="teacher">教练员</option>
             </select>
-            <input type="text" name="" id="selectName" value="">
-            <label><a style="cursor: pointer;" onclick="topSelect();"><img
-                    src="<%=path+"/image/pages/index/search.png"%>">搜索</a></label>
-        </div>
+            <input type="text" name="name">
+            <label>
+                <a style="cursor: pointer;" onclick="document:searchSchoolOrTeacher.submit()">
+                    <img src="<%=path + "/image/pages/index/search.png"%>">搜索
+                </a>
+            </label>
+        </form>
     </div>
 </div>
 <div class="menu">
