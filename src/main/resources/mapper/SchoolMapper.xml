@@ -92,7 +92,6 @@
         select * from tb_school where s_account_id = #{aAccount}
     </select>
 
-
     <!--  周永哲，驾校信息初始化-->
     <select id="selectAllInfo" resultType="com.lsjbc.vdtts.entity.School"  parameterType="com.lsjbc.vdtts.entity.School">
         select s.*, a.a_account s_account_ip from tb_school s left join tb_account a on s.s_account_id = a.a_id
