@@ -1,12 +1,16 @@
 package com.lsjbc.vdtts.service.impl;
 
+import com.lsjbc.vdtts.dao.mapper.ExamResultMapper;
 import com.lsjbc.vdtts.dao.mapper.StudentMapper;
+import com.lsjbc.vdtts.entity.School;
 import com.lsjbc.vdtts.entity.Student;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
+import com.lsjbc.vdtts.pojo.vo.ResultData;
 import com.lsjbc.vdtts.service.intf.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 @SuppressWarnings("all")
 @Service("studentService")
@@ -14,6 +18,8 @@ public class StudentServiceImpl implements StudentService
 {
 	@Autowired
     public StudentMapper studentMapper;
+	@Autowired
+	private ExamResultMapper examResultMapper;
 	/**
 	 * student 里面所有的属性将会作为查询条件
 	 * page 要查询的特定页数
@@ -116,4 +122,59 @@ public class StudentServiceImpl implements StudentService
     public int registerStudent(Student student){
 	    return studentMapper.addStudentMessage(student);
     }
+
+    /*
+     *@Description:查询驾校内学员的
+     *@Author:刘海
+     *@Param:
+     *@return:
+     *@Date:2020/6/15 22:58
+     **/
+	@Override
+	public LayuiTableData findStudenList(HttpServletRequest request, String page, String limit, String sName) {
+		int pageSize = Integer.parseInt(limit);
+		int start = (Integer.parseInt(page)-1)*pageSize;//计算从数据库第几条开始查
+		School school = (School) request.getSession().getAttribute("school");
+		LayuiTableData layuiTableData = new LayuiTableData();
+		List<Student> studentList = studentMapper.findStudenList(1,start,pageSize,sName);
+		System.out.println("studentList"+studentList);
+		int count = studentMapper.findStudentCount(1,sName);
+		layuiTableData.setData(studentList);
+		layuiTableData.setCount(count);
+		return layuiTableData;
+	}
+
+	@Override
+	public ResultData updateStudentApplyState(Integer sId) {
+		ResultData resultData = null;
+		int num = studentMapper.updateApplyState(sId);
+		int num1 = examResultMapper.insertStudent(sId);
+		if(num>0&&num1>0){
+			resultData = ResultData.success(1,"已成功审核学员的报名信息");
+		}else{
+			resultData = ResultData.success(-1,"未找到该学员信息");
+		}
+		return resultData;
+	}
+
+	@Override
+	public ResultData updateStudentTeacherId(Integer sTeacherId, Integer sId) {
+		Student student = studentMapper.findTeacher(sId);
+		ResultData resultData = null;
+		if(sTeacherId!=0) {
+			if (student.getSTeacherId() != null) {
+				resultData = ResultData.error(-2, "该学员已分配教练，不能重新分配");
+			} else {
+				int num = studentMapper.updateStudentTeacherId(sTeacherId, sId);
+				if (num > 0) {
+					resultData = ResultData.success(1, "您已成功为该学员分配教练");
+				} else {
+					resultData = ResultData.error(-1, "未找到该教练信息");
+				}
+			}
+		}else{
+			resultData = ResultData.error(-1, "请选择教练");
+		}
+		return resultData;
+	}
 }

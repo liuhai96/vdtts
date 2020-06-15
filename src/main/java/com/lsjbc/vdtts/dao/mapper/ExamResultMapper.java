@@ -22,5 +22,6 @@ public interface ExamResultMapper extends CustomBaseMapper<ExamResult> {
     public int findSubjectExamCount (@Param("tId") Integer tId,@Param("examSujectId") Integer examSujectId);
     public int updateStudentExanState(@Param("examSujectId") Integer examSujectId,@Param("erId") Integer erId,@Param("erState") Integer erState);
     public int updateStudentScore(@Param("erId") Integer erId,@Param("erScore") Integer erScore,@Param("examSujectId") Integer examSujectId);
+    int insertStudent(Integer erStudentId);
     //结束
 }
