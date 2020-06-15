@@ -261,13 +261,13 @@
 }
 
 .main-data-chart .table-data tbody tr td:first-child span {
-    background: url(../../../../../../../../../image/pages/index/circle.png) no-repeat;
-    padding: 0px 15px 1px 6px;
+	background: url(../../../../../../../../../image/pages/index/circle.png) no-repeat;
+	padding: 0px 15px 1px 6px;
 }
 
 .main-data-chart .table-data tbody tr:nth-child(10) td:first-child span {
-    background: url(../../../../../../../../../image/pages/index/circle.png) no-repeat;
-    padding: 0px 15px 1px 2px;
+	background: url(../../../../../../../../../image/pages/index/circle.png) no-repeat;
+	padding: 0px 15px 1px 2px;
 }
 
 .main-data-chart .table-data tbody tr:first-child,
@@ -339,15 +339,15 @@
 }
 
 .table-inf-list .inf-list .bg-red-img {
-    background: url(../../../../../../../../image/pages/index/title_bg1.jpg) no-repeat 70% 0%;
+	background: url(../../../../../../../../image/pages/index/title_bg1.jpg) no-repeat 70% 0%;
 }
 
 .table-inf-list .inf-list .bg-dark-blue-img {
-    background: url(../../../../../../../../image/pages/index/title_bg2.jpg) no-repeat 70% 0%;
+	background: url(../../../../../../../../image/pages/index/title_bg2.jpg) no-repeat 70% 0%;
 }
 
 .table-inf-list .inf-list .bg-blue-img {
-    background: url(../../../../../../../../image/pages/index/title_bg3.jpg) no-repeat 70% 0%;
+	background: url(../../../../../../../../image/pages/index/title_bg3.jpg) no-repeat 70% 0%;
 }
 
 .table-inf-list .inf-list .bg-red-img span{
@@ -388,8 +388,8 @@
 }
 
 .table-inf-list .inf-list .layui-table tbody tr td span {
-    background: url(../../../../../../../../../image/pages/index/circle.png) no-repeat;
-    padding: 1px 10px 5px 6px;
+	background: url(../../../../../../../../../image/pages/index/circle.png) no-repeat;
+	padding: 1px 10px 5px 6px;
 }
 
 .table-inf-list .inf-list .layui-table tbody tr:first-child,
@@ -399,8 +399,8 @@
 }
 
 .table-inf-list .inf-list .layui-table tbody tr:nth-child(10) td span {
-    background: url(../../../../../../../../../image/pages/index/circle.png) no-repeat;
-    padding: 1px 5px 5px 3px;
+	background: url(../../../../../../../../../image/pages/index/circle.png) no-repeat;
+	padding: 1px 5px 5px 3px;
 }
 
 .table-inf-list .inf-list .layui-table tbody tr:last-child td a {
@@ -425,8 +425,8 @@
 }
 
 .layui-tab-brief>.layui-tab-title .layui-this {
-    background: url(../../../../../../image/pages/index/show_bg.jpg) no-repeat;
-    background-size: 100% 100%;
+	background: url(../../../../../../image/pages/index/show_bg.jpg) no-repeat;
+	background-size: 100% 100%;
 }
 
 .layui-laypage {

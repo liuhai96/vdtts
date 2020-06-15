@@ -3,9 +3,9 @@
 	border-style: none;
 }
 .main .layui-tab .layui-tab-title .layui-this{
-    background: url(../../../../../../image/pages/index/list_bg.png) no-repeat;
-    background-size: cover;
-    color: #fff;
+	background: url(../../../../../../image/pages/index/list_bg.png) no-repeat;
+	background-size: cover;
+	color: #fff;
 }
 .main .layui-tab .layui-tab-title li{
 	border-style: none;

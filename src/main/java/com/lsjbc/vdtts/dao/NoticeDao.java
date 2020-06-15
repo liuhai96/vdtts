@@ -30,14 +30,16 @@ public class NoticeDao implements BaseDao<Notice> {
      * 根据类型和时ID倒序获取不同的通知公告/法律法规
      *
      * @param type 通知类型
+     * @param name 模糊搜索
      * @return 法律法规/通知公告集合
      * @author JX181114 --- 郑建辉
      */
-    public List<Notice> getNoticeByTypeOrderByIdDesc(String type) {
+    public List<Notice> getNoticeByTypeOrderByIdDesc(String type, String name) {
         Example example = new Example(Notice.class);
         example.orderBy("nId").desc();
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("nType", type);
+        criteria.andLike("nName", "%" + name + "%");
         return mapper.selectByExample(example);
     }
 

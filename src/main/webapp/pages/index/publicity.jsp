@@ -89,21 +89,21 @@
     <a href="javascript:viod(0)" title="返回上一页" class="sina" onclick="history.go(-1);"></a>
     <a href="javascript:viod(0)" title="刷新" class="tencent" onclick="history.go(0);"></a>
 </div>
-    <div class="main">
-        <div class="layui-tab" lay-filter="tz">
-            <ul class="layui-tab-title" id="selectParent">
-                <c:if test="${type == 'notice'}">
-                    <li id="selectOne" class="layui-this" lay-id="1" onclick="noticeInfoJump();">通知公告</li>
-                    <li id="selectThree" lay-id="3" onclick="policyInfoJump();">政策法规</li>
-                </c:if>
-                <c:if test="${type == 'law'}">
-                    <li id="selectOne" lay-id="1" onclick="noticeInfoJump();">通知公告</li>
-                    <li id="selectThree" class="layui-this" lay-id="3" onclick="policyInfoJump();">政策法规</li>
-                </c:if>
-            </ul>
+<div class="main">
+    <div class="layui-tab" lay-filter="tz">
+        <ul class="layui-tab-title" id="selectParent">
+            <c:if test="${type == 'notice'}">
+                <li id="selectOne" class="layui-this" lay-id="1" onclick="noticeInfoJump();">通知公告</li>
+                <li id="selectThree" lay-id="3" onclick="policyInfoJump();">政策法规</li>
+            </c:if>
+            <c:if test="${type == 'law'}">
+                <li id="selectOne" lay-id="1" onclick="noticeInfoJump();">通知公告</li>
+                <li id="selectThree" class="layui-this" lay-id="3" onclick="policyInfoJump();">政策法规</li>
+            </c:if>
+        </ul>
 
 
-            <textarea title="消息模版" id="LAY_tpl" style="display:none;">
+        <textarea title="消息模版" id="LAY_tpl" style="display:none;">
                 {{# layui.each(d.data, function(index, item){ }}
                     <tr>
                         <td><span class="table-style-order">{{ index+1 }}</span></td>
@@ -117,33 +117,33 @@
             </textarea>
 
 
-            <span class="pub-title"><img src="<%=path+"/image/pages/index/publicity.png"%>">公开公示</span>
-            <c:if test="${noticeId <= 0}">
-            <div class="layui-tab-content pub-content" id="publicSelct" style="display: block;">
+        <span class="pub-title"><img src="<%=path+"/image/pages/index/publicity.png"%>">公开公示</span>
+        <c:if test="${noticeId <= 0}">
+        <div class="layui-tab-content pub-content" id="publicSelct" style="display: block;">
+            </c:if>
+            <c:if test="${noticeId > 0}">
+            <div class="layui-tab-content pub-content" id="publicSelct" style="display: none;">
                 </c:if>
-                <c:if test="${noticeId > 0}">
-                <div class="layui-tab-content pub-content" id="publicSelct" style="display: none;">
-                    </c:if>
-                    <div id="publicSelctOne" class="layui-tab-item layui-show">
-                        <blockquote class="layui-elem-quote">
-                            <div class="layui-inline">
-                                <label class="layui-form-label">标题：</label>
-                                <div class="layui-input-inline pub-inp-box">
-                                    <input id="noticeTitle" type="text" class="layui-input pub-inp" placeholder="请输入标题">
-                                </div>
+                <div id="publicSelctOne" class="layui-tab-item layui-show">
+                    <blockquote class="layui-elem-quote">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">标题：</label>
+                            <div class="layui-input-inline pub-inp-box">
+                                <input id="selectTitle" type="text" class="layui-input pub-inp" placeholder="请输入标题">
                             </div>
-                            <button class="layui-btn pub-but" onclick="noticeSelectClick();"><img
-                                    src="<%=path+"/image/pages/index/menu_inquire.png"%>">查询
-                            </button>
-                        </blockquote>
-                        <div class="table-list">
-                            <table class="layui-table" lay-skin="line" style="border-style: none;">
-                                <colgroup>
-                                    <col width="50">
-                                    <col width="400">
-                                    <col width="150">
-                                    <col width="100">
-                                </colgroup>
+                        </div>
+                        <button class="layui-btn pub-but" id="selectNameBtn"><img
+                                src="<%=path+"/image/pages/index/menu_inquire.png"%>">查询
+                        </button>
+                    </blockquote>
+                    <div class="table-list">
+                        <table class="layui-table" lay-skin="line" style="border-style: none;">
+                            <colgroup>
+                                <col width="50">
+                                <col width="400">
+                                <col width="150">
+                                <col width="100">
+                            </colgroup>
                             <thead>
                             <tr style="background: #e2eaf2;">
                                 <th>序号</th>
@@ -159,72 +159,71 @@
                 </div>
             </div>
 
-                <c:if test="${noticeId <= 0}">
-                <div class="layui-tab-content pub-content" id="detail" style="display: none;">
+            <c:if test="${noticeId <= 0}">
+            <div class="layui-tab-content pub-content" id="detail" style="display: none;">
+                </c:if>
+                <c:if test="${noticeId > 0}">
+                <div class="layui-tab-content pub-content" id="detail" style="display: block;">
                     </c:if>
-                    <c:if test="${noticeId > 0}">
-                    <div class="layui-tab-content pub-content" id="detail" style="display: block;">
-                        </c:if>
-                        <blockquote class="layui-elem-quote" style="background: #fff;">
-                            <span id="publicTitle"
-                                  style="font-size: 25px;line-height: 50px;">${notice.getNName()}</span>
-                            <button class="layui-btn returnPrevHtml"
-                                    style="background: #fff;color: #333;float: right;height: 30px;line-height: 30px;">
-                                <img src="<%=path+"/image/pages/index/arrows.png"%>" style="margin-right: 10px;">返回前一级
-                            </button>
-                        </blockquote>
-                        <p>
+                    <blockquote class="layui-elem-quote" style="background: #fff;">
+                        <span id="publicTitle" style="font-size: 25px;line-height: 50px;">${notice.getNName()}</span>
+                        <button class="layui-btn returnPrevHtml"
+                                style="background: #fff;color: #333;float: right;height: 30px;line-height: 30px;">
+                            <img src="<%=path+"/image/pages/index/arrows.png"%>" style="margin-right: 10px;">返回前一级
+                        </button>
+                    </blockquote>
+                    <p>
                     <span id="b"><img src="<%=path+"/image/pages/index/date.png"%>"
                                       style="margin: 0 10px;padding-bottom: 4px;">
                         ${notice.getNTime()}
                     </span>
-                        </p>
-                        <hr style="clear:none ">
-                        <div style="margin-top: 10px;text-indent: 2em;line-height: 25px;" id="context">
-                            ${notice.getNContent()}
-                        </div>
+                    </p>
+                    <hr style="clear:none ">
+                    <div style="margin-top: 10px;text-indent: 2em;line-height: 25px;" id="context">
+                        ${notice.getNContent()}
                     </div>
                 </div>
             </div>
-
-    <div class="footer">
-        <div class="footer-box">
-            <p class="footer-p" style="text-align: center;">友情链接</p>
-            <div class="footer-friend">
-
-                <c:forEach items="${linkList}" varStatus="item" var="link">
-                    <c:if test="${item.index % 5 == 0}">
-                        <br><br>
-                    </c:if>
-                    <a target="_blank" href="${link.lkUrl}">
-                        <img class="footer-img" src='<%=path%>${link.lkPic}'>
-                    </a>
-                </c:forEach>
-
-            </div>
         </div>
 
-    </div>
-    <div class="footer-inf">
-        <ul style="text-align: center;display: table;">
-            <li style="margin: 0 60px 0 0px;">
-                <a href="javascript:void(0);">版权所有：传一科技</a>
-            </li>
-            <li style="margin: 0 60px 0 0px;">
-                <a href="javascript:void(0);">技术支持：传一科技</a>
-            </li>
-        </ul>
-    </div>
+        <div class="footer">
+            <div class="footer-box">
+                <p class="footer-p" style="text-align: center;">友情链接</p>
+                <div class="footer-friend">
 
-            <script src="<%=path+"/js/pages/index/jquery.min.js"%>"></script>
-            <script src="<%=path+"/js/pages/index/City_data.js"%>"></script>
-            <script src="<%=path+"/js/pages/index/areadata.js"%>"></script>
-            <script src="<%=path+"/js/pages/index/auto_area.js"%>"></script>
-            <script src="https://www.layuicdn.com/layui/layui.js"></script>
-            <script src="<%=path+"/js/pages/index/common.js"%>"></script>
-            <script src="<%=path+"/js/pages/index/commonpage.js"%>"></script>
+                    <c:forEach items="${linkList}" varStatus="item" var="link">
+                        <c:if test="${item.index % 5 == 0}">
+                            <br><br>
+                        </c:if>
+                        <a target="_blank" href="${link.lkUrl}">
+                            <img class="footer-img" src='<%=path%>${link.lkPic}'>
+                        </a>
+                    </c:forEach>
 
-            <script src="<%=path+"/js/pages/index/publicity.js"%>"></script>
+                </div>
+            </div>
+
+        </div>
+        <div class="footer-inf">
+            <ul style="text-align: center;display: table;">
+                <li style="margin: 0 60px 0 0px;">
+                    <a href="javascript:void(0);">版权所有：传一科技</a>
+                </li>
+                <li style="margin: 0 60px 0 0px;">
+                    <a href="javascript:void(0);">技术支持：传一科技</a>
+                </li>
+            </ul>
+        </div>
+
+        <script src="<%=path+"/js/pages/index/jquery.min.js"%>"></script>
+        <script src="<%=path+"/js/pages/index/City_data.js"%>"></script>
+        <script src="<%=path+"/js/pages/index/areadata.js"%>"></script>
+        <script src="<%=path+"/js/pages/index/auto_area.js"%>"></script>
+        <script src="https://www.layuicdn.com/layui/layui.js"></script>
+        <script src="<%=path+"/js/pages/index/common.js"%>"></script>
+        <script src="<%=path+"/js/pages/index/commonpage.js"%>"></script>
+
+        <script src="<%=path+"/js/pages/index/publicity.js"%>"></script>
 
 
 </body>

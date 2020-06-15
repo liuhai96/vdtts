@@ -112,16 +112,16 @@
                         <colgroup>
                             <col width="200">
                             <col width="100">
-                                <col width="100">
-                                <col>
-                            </colgroup>
-                            <thead>
-                            <tr>
-                                <th>标题</th>
-                                <th>发布日期</th>
-                                <th></th>
-                            </tr>
-                            </thead>
+                            <col width="100">
+                            <col>
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th>标题</th>
+                            <th>发布日期</th>
+                            <th></th>
+                        </tr>
+                        </thead>
                             <tbody class="title-png" id="noticeList">
                                 <c:forEach items="${noticeList}" var="nc">
                                     <tr>
@@ -236,26 +236,26 @@
                     <td>6</td>
                     <td title="白云总校">白云总校</td>
                     <td title="东湖区">东湖区</td>
-                        <td>153</td>
-                    </tr>
-                    <tr>
-                        <td>7</td>
-                        <td title="亿安达驾校">亿安达驾校...</td>
-                        <td title="青山湖区">青山湖区</td>
-                        <td>142</td>
-                    </tr>
-                    <tr>
-                        <td>8</td>
-                        <td title="昌南驾校">昌南驾校</td>
-                        <td title="昌江区">昌江区</td>
-                        <td>140</td>
-                    </tr>
-                    <tr>
-                        <td>9</td>
-                        <td title="宜春泰极驾校">宜春泰极驾...</td>
-                        <td title="袁州区">袁州区</td>
-                        <td>139</td>
-                    </tr>
+                    <td>153</td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td title="亿安达驾校">亿安达驾校...</td>
+                    <td title="青山湖区">青山湖区</td>
+                    <td>142</td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td title="昌南驾校">昌南驾校</td>
+                    <td title="昌江区">昌江区</td>
+                    <td>140</td>
+                </tr>
+                <tr>
+                    <td>9</td>
+                    <td title="宜春泰极驾校">宜春泰极驾...</td>
+                    <td title="袁州区">袁州区</td>
+                    <td>139</td>
+                </tr>
                 <tr>
                     <td>10</td>
                     <td title="南昌金盾驾校">南昌金盾驾...</td>
@@ -319,26 +319,26 @@
                     <td>6</td>
                     <td title="赣洪驾校">赣洪驾校</td>
                     <td title="进贤县">进贤县</td>
-                        <td>2551</td>
-                    </tr>
-                    <tr>
-                        <td>7</td>
-                        <td title="国力驾校">国力驾校</td>
-                        <td title="南昌县">南昌县</td>
-                        <td>2523</td>
-                    </tr>
-                    <tr>
-                        <td>8</td>
-                        <td title="现代驾校">现代驾校</td>
-                        <td title="安远县">安远县</td>
-                        <td>2477</td>
-                    </tr>
-                    <tr>
-                        <td>9</td>
-                        <td title="蓝盾驾校">蓝盾驾校</td>
-                        <td title="安源区">安源区</td>
-                        <td>2469</td>
-                    </tr>
+                    <td>2551</td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td title="国力驾校">国力驾校</td>
+                    <td title="南昌县">南昌县</td>
+                    <td>2523</td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td title="现代驾校">现代驾校</td>
+                    <td title="安远县">安远县</td>
+                    <td>2477</td>
+                </tr>
+                <tr>
+                    <td>9</td>
+                    <td title="蓝盾驾校">蓝盾驾校</td>
+                    <td title="安源区">安源区</td>
+                    <td>2469</td>
+                </tr>
                 <tr>
                     <td>10</td>
                     <td title="众安驾校">众安驾校</td>
@@ -402,16 +402,16 @@
                     <td>6</td>
                     <td title="江西江科驾校">江西江科驾...</td>
                     <td title="进贤县">进贤县</td>
-                        <td>6</td>
-                    </tr>
-                    <tr>
-                        <td>7</td>
-                        <td title="国力驾校">国力驾校</td>
-                        <td title="南昌县">南昌县</td>
-                        <td>6</td>
-                    </tr>
-                    <tr>
-                        <td>8</td>
+                    <td>6</td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td title="国力驾校">国力驾校</td>
+                    <td title="南昌县">南昌县</td>
+                    <td>6</td>
+                </tr>
+                <tr>
+                    <td>8</td>
                         <td title="亿安达驾校">亿安达驾校...</td>
                         <td title="青山湖区">青山湖区</td>
                         <td>6</td>
