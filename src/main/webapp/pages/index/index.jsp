@@ -59,18 +59,18 @@
 </div>
 <div class="menu">
     <div class="menu-box">
-        <ul id="menu-title" class="menu-title">
+        <ul id="menu-title" class="menu-title menu-title-bg">
             <li id="menu-title-one" class="layui-this menu-title-bg">
                 <img src="<%=path+"/image/pages/index/menu_home1.png"%>">
-                <a href="<%=path+"/zjh/index"%>">首页</a>
+                <a href="<%=path+"/index"%>">首页</a>
             </li>
             <li id="menu-title-two">
                 <img src="<%=path+"/image/pages/index/menu_publicity1.png"%>">
-                <a href="<%=path+"/zjh/publicity/notice/1/-1"%>">公开公示</a>
+                <a href="<%=path+"/publicity/notice/1/-1"%>">公开公示</a>
             </li>
             <li id="menu-title-three">
                 <img src="<%=path+"/image/pages/index/menu_inquire1.png"%>">
-                <a href="<%=path+"/zjh/inquire"%>">信息查询</a></li>
+                <a href="<%=path+"/inquire"%>">信息查询</a></li>
             </li>
             <li id="menu-title-six">
                 <img src="<%=path+"/image/pages/index/menu_student1.png"%>">

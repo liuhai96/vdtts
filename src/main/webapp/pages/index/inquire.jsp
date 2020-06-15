@@ -61,17 +61,17 @@
 <div class="menu">
     <div class="menu-box">
         <ul id="menu-title" class="menu-title">
-            <li id="menu-title-one" class="layui-this menu-title-bg">
+            <li id="menu-title-one">
                 <img src="<%=path+"/image/pages/index/menu_home1.png"%>">
-                <a href="<%=path+"/zjh/index"%>">首页</a>
+                <a href="<%=path+"/index"%>">首页</a>
             </li>
             <li id="menu-title-two">
                 <img src="<%=path+"/image/pages/index/menu_publicity1.png"%>">
-                <a href="<%=path+"/zjh/publicity/notice/1/-1"%>">公开公示</a>
+                <a href="<%=path+"/publicity/notice/1/-1"%>">公开公示</a>
             </li>
-            <li id="menu-title-three">
+            <li id="menu-title-three" class="layui-this menu-title-bg">
                 <img src="<%=path+"/image/pages/index/menu_inquire1.png"%>">
-                <a href="<%=path+"/zjh/inquire"%>">信息查询</a></li>
+                <a href="<%=path+"/inquire"%>">信息查询</a></li>
             </li>
             <li id="menu-title-six">
                 <img src="<%=path+"/image/pages/index/menu_student1.png"%>">
@@ -88,7 +88,7 @@
 <div class="main">
     <div class="layui-tab">
         <ul id="selectParent" class="layui-tab-title" style="float: left;width: 150px;height: 200px;top: 45px;">
-            <li onclick="selectSchInfoJump();" class="layui-this">查驾培机构</li>
+            <li class="layui-this">查驾培机构</li>
             <li id="selectTwo" onclick="selectCoaInfoJump();" class="">查教练员</li>
             <li id="selectThree" onclick="selectVueInfoJump();" class="">查教练车</li>
         </ul>
@@ -97,8 +97,15 @@
             <div class="layui-tab-item layui-show">
 
                 <div class="inq-rank">
-                    <input type="text" id="schoolName">
-                    <input type="button" value="提交" id="selectSchoolByName">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">驾校：</label>
+                        <div class="layui-input-inline pub-inp-box">
+                            <input id="schoolName" type="text" class="layui-input pub-inp" placeholder="请输入驾校名">
+                        </div>
+                    </div>
+                    <button class="layui-btn pub-but" id="selectSchoolByName"><img
+                            src="<%=path+"/image/pages/index/menu_inquire.png"%>">查询
+                    </button>
                 </div>
                 <div class="inq-school">
                         <textarea title="消息模版" id="LAY_tpl" style="display:none;">

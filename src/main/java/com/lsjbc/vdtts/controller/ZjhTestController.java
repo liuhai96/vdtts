@@ -40,60 +40,6 @@ public class ZjhTestController {
     private ExamResultDao examResultDao;
 
     /**
-     * 访问主页
-     *
-     * @param map ModelAndView中的属性键值对
-     * @return 页面
-     */
-    @GetMapping("zjh/index")
-    public String index(Map<String, Object> map) {
-
-        map.put("noticeList", noticeService.getIndexPageNotice());
-        map.put("lawList", noticeService.getIndexPageLaw());
-        map.put("linkList", linkServive.getFooterFriendLink());
-
-        return "/pages/index/index";
-    }
-
-    /**
-     * 访问公开公示
-     *
-     * @param type     通知公告:notice   法律法规：law
-     * @param page     要获取的特定页的数据
-     * @param noticeId 要访问的通知ID
-     * @param map      ModelAndView中的属性键值对
-     * @return 页面
-     */
-    @GetMapping("zjh/publicity/{type}/{page}/{noticeId}")
-    public String publicity(@PathVariable(value = "type") String type, @PathVariable(value = "page") Integer page
-            , @PathVariable(value = "noticeId") Integer noticeId, Map<String, Object> map) {
-
-        map.put("linkList", linkServive.getFooterFriendLink());
-        map.put("type", type);
-        map.put("page", page);
-        map.put("noticeId", noticeId);
-
-        if (noticeId > 0) {
-            map.put("notice", noticeService.getById(noticeId));
-        }
-
-        return "/pages/index/publicity";
-    }
-
-    /**
-     * 访问信息中心
-     *
-     * @param map ModelAndView中的属性键值对
-     * @return 页面
-     */
-    @GetMapping("zjh/inquire")
-    public String inquire(Map<String, Object> map) {
-
-        map.put("linkList", linkServive.getFooterFriendLink());
-        return "/pages/index/inquire";
-    }
-
-    /**
      * 跳转至模拟考试页面
      *
      * @param level 模拟考试等级

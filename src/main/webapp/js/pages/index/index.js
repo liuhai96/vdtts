@@ -118,7 +118,7 @@ function initNoticeList(noticetype,listId) {
 }
 //显示文章详情
 function publicNotice(type,page,id) {
-	window.location.href=path + "/zjh/publicity/"+type+"/"+page+"/"+id;
+	window.location.href = path + "/publicity/" + type + "/" + page + "/" + id;
 }
 //查询查询页面跳转
 function inquireJump(selectType) {

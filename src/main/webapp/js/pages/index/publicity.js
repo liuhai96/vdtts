@@ -51,7 +51,7 @@ layui.use(['laytpl','laypage'], function() {
 
     //点击返回上一级时，跳转界面
     $("button[class*='returnPrevHtml']").on("click", function (event) {
-        window.location.href = path + "/zjh/publicity/" + customType + "/" + customPage + "/-1";
+        window.location.href = path + "/publicity/" + customType + "/" + customPage + "/-1";
     });
 
     //点击通知公告时，通过分页插件获取数据
@@ -306,7 +306,7 @@ function exposureSelectClick() {
 }
 //显示文章详情
 function publicNotice(id) {
-    window.location.href=path + "/zjh/publicity/"+customType+"/"+customPage+"/"+id;
+    window.location.href = path + "/publicity/" + customType + "/" + customPage + "/" + id;
 }
 
 function showBg() {
