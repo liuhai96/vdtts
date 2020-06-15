@@ -32,7 +32,7 @@
             <br><label class="layui-col-md-offset3" style="font-size: 25px;color: crimson">学员注册</label><br>
             <div class="layui-col-md-offset9" style="font-size: 18px;">
                 <a href="<%=path+"/pages/homepage/home-page.jsp"%>" style="color: #2aa8ff">首页</a>&nbsp;|
-                <a href="<%=path+"/pages/homepage/login.jsp"%>" style="color: #2aa8ff">登录</a>&nbsp;|
+                <a href="<%=path+"/pages/homepage/login-struct.jsp"%>" style="color: #2aa8ff">登录</a>&nbsp;|
                 <a href="<%=path%>" style="color: #ffb840;background-color: #528bff">注册</a>
             </div>
         </div>
@@ -72,7 +72,7 @@
             <input hidden name="sSex" vocab="男">
             <label style="font-size: 20px"><input type="checkbox" id="deal" checked="checked">我已经同意<a>xxx协调</a></label>
             <br><br><button class="btn layui-btn layui-btn-normal layui-btn-radius" style="width: 150px;font-size: 25px;">&nbsp;&nbsp;提&nbsp;交&nbsp;&nbsp;</button><br><br>
-            <br><label style="font-size: 18px;">我已经有账号，<a href="<%=path+"/pages/homepage/login.jsp"%>" style="color: crimson">去登录</a></label>
+            <br><label style="font-size: 18px;">我已经有账号，<a href="<%=path+"/pages/homepage/login-struct.jsp"%>" style="color: crimson">去登录</a></label>
         </div>
     </body>
     <script>

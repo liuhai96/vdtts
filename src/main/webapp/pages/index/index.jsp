@@ -1,4 +1,4 @@
-<%--
+<%@ page import="com.lsjbc.vdtts.utils.Tool" %><%--
   Created by IntelliJ IDEA.
   User: Admin
   Date: 2020/6/11
@@ -9,6 +9,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
     String path = request.getContextPath();
+    String today = new Tool().getDate("yyyy年MM月dd日");
 %>
 <html>
 <head>
@@ -28,13 +29,13 @@
 <div class="login-inf">
     <div class="inf-box">
         <div class="inf-time">
-            今天是2020年6月11日,欢迎您！
+            今天是<%=today%>,欢迎您！
         </div>
         <div class="inf-login">
             <a target="_blank" href="http://118.178.227.161/web/">管理部门登录</a> |
             <a target="_blank" href="http://47.98.242.153:8666/">驾培机构登录</a> |
             <a href="http://47.96.140.98:20034/coaLogin">教练员登录</a> |
-            <a href="http://47.96.140.98:20034/stuLogin">学员登录</a>
+            <a href="<%=path+"/pages/login-page/login-page.jsp"%>">学员登录</a>
         </div>
     </div>
 </div>
