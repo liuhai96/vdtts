@@ -154,4 +154,18 @@ public class Teacher {
 	 */
 	@Transient
 	private String sName;
+
+	//李浪
+    /**
+     * 评分
+     */
+    @Transient
+    private Integer evaluate;
+
+    //李浪
+    /**
+     * 总培训人数
+     */
+    @Transient
+    private Integer count;
 }

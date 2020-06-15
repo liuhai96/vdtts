@@ -60,7 +60,6 @@
                     x++;
                 });
             })
-
         </script>
     </body>
 </html>

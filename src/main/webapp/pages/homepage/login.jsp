@@ -71,19 +71,23 @@
                 let aPassword = $("input[name = 'aPassword']").val();
                 let passNotify = $("#passNotify");
                 let isStop = false;
-                if (aAccount.length < 1) {idNotify.html("*请输入账号！");isStop = true;} else
-                if (aAccount.length < 6) {idNotify.html("*账号长度应大于5位！");isStop = true;}
+
+                //账号验证
+                if (aAccount.length < 1) {idNotify.html("*请输入账号！");isStop = true;}
+                else if (aAccount.length < 6) {idNotify.html("*账号长度应大于5位！");isStop = true;}
                 else if (!done(aAccount,0,aAccount.length)){idNotify.html("*账号中含有法字符！");isStop = true;}
                 else idNotify.html("");
-
-                if (aPassword.length < 1) {passNotify.html("*请输入密码！");isStop = true;}else
-                if (aPassword.length < 6) {passNotify.html("*密码长度不得少于6位！");isStop = true;}
+                //密码验证
+                if (aPassword.length < 1) {passNotify.html("*请输入密码！");isStop = true;}
+                else if (aPassword.length < 6) {passNotify.html("*密码长度不得少于6位！");isStop = true;}
                 else if (!done(aPassword,0,aPassword.length)){passNotify.html("*密码中含有法字符！");isStop = true;}
                 else passNotify.html("");
-                AjaxTransfer($("#path").val()+"/userLogin","aAccount="+aAccount+"&aPassword="+aPassword,function (mag) {
-                    alert(mag.msg);
-                    skipPage($("#path").val()+"/"+mag.data.url);
-                });
+                if (!isStop){
+                    AjaxTransfer($("#path").val()+"/userLogin","aAccount="+aAccount+"&aPassword="+aPassword,function (mag) {
+                        alert(mag.msg);//提示信息
+                        skipPage($("#path").val()+"/"+mag.data.url);//路径跳转路径
+                    });
+                }
             }
         </script>
     </body>

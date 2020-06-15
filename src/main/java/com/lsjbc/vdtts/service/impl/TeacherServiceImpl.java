@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import javax.xml.crypto.Data;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -224,5 +225,13 @@ public class TeacherServiceImpl implements TeacherService {
         if(teacherMapper.teacherUpdate(teacher) > 0)
             return ResultData.success("修改成功！");
         else return ResultData.success("修改失败！");
+    }
+    @Override
+    public ResultData HomePageShow(Teacher teacher, int page, int pageSize){
+        ResultData resultData = ResultData.success();
+
+
+        resultData.put("teachers", teacherMapper.homePageShow(teacher,page,pageSize));
+        return resultData;
     }
 }

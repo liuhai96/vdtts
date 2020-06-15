@@ -157,8 +157,6 @@ public class TeacherController {
         return JSON.toJSONString(layuiData);
     }
 
-
-
     @RequestMapping(value = "updatePhone")
     /*
      *@Description:教练修改联系方式
@@ -170,5 +168,18 @@ public class TeacherController {
     @ResponseBody
     public String UpdatePhone(Teacher teacher){
         return JSON.toJSONString(teacherService.UpdatePhone(teacher));
+    }
+
+    @RequestMapping(value = "showTeacher")
+    /*
+     *@Description:首页教练展示
+     *@Author:李浪_191019
+     *@Param:[teacher, page, limit]
+     *@return:java.lang.String
+     *@Date:2020/6/15 1:48
+     **/
+    @ResponseBody
+    public String ShowTeacher(Teacher teacher,@RequestParam(value = "page") int page , @RequestParam(value = "limit") int limit){
+        return JSON.toJSONString(teacherService.HomePageShow(teacher,page,limit));
     }
 }

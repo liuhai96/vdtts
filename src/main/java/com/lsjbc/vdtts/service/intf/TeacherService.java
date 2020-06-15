@@ -36,4 +36,6 @@ public interface TeacherService {
     public List<Teacher> selectAllInfo(@Param("teacher") Teacher teacher, @Param("page") int page, @Param("limit") int limit);
     public int selectTeacherCount(@Param("teacher") Teacher teacher);
     public ResultData UpdatePhone(Teacher teacher);//修改联系方式
+    //首页展示教练 --李浪
+    public ResultData HomePageShow(@Param("e")Teacher teacher, int page, int pageSize);
 }

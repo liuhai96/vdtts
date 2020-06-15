@@ -131,4 +131,19 @@
             </if>
         </where>
     </select>
+    <select id="homePageShow"  resultType="com.lsjbc.vdtts.entity.Teacher">
+        select t.*,IFNULL(avg_score,0) as score,IFNULL(count,0) as count from (
+        (select * from tb_teacher
+        <where> 1=1
+            <if test="e.tSex != null and e.tSex != null"> and t_sex = {e.tSex} </if>
+            <if test="teacher.tName!=null and teacher.tName!=''">
+             and t_name like CONCAT('%', #{e.tName} ,'%')</if>
+        </where>
+        ) t left join
+        (select e_to_id,AVG(e_score) as avg_score from tb_evaluate group by e_to_id) e
+        on t.t_id=e.e_to_id left join
+        (select COUNT(s_teacher_id) as count,s_teacher_id from tb_student group by s_teacher_id) s
+        on t.t_id=s.s_teacher_id)
+        limit ${start},#{limit}
+    </select><!--李浪写，用于首页教练查看-->
 </mapper>
