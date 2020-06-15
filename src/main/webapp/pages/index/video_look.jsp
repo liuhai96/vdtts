@@ -11,8 +11,8 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="<%=path + "/zjh_test/css/reset.css"%>">
-    <link rel="stylesheet" href="<%=path + "/zjh_test/css/jx_video_detail.css"%>">
+    <link rel="stylesheet" href="<%=path + "/css/pages/index/reset.css"%>">
+    <link rel="stylesheet" href="<%=path + "/css/pages/index/jx_video_detail.css"%>">
 </head>
 
 <body>

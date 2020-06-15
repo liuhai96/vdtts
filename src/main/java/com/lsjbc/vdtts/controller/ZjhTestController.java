@@ -52,7 +52,7 @@ public class ZjhTestController {
         map.put("lawList", noticeService.getIndexPageLaw());
         map.put("linkList", linkServive.getFooterFriendLink());
 
-        return "/zjh_test/index";
+        return "/pages/index/index";
     }
 
     /**
@@ -77,7 +77,7 @@ public class ZjhTestController {
             map.put("notice", noticeService.getById(noticeId));
         }
 
-        return "/zjh_test/publicity";
+        return "/pages/index/publicity";
     }
 
     /**
@@ -90,7 +90,7 @@ public class ZjhTestController {
     public String inquire(Map<String, Object> map) {
 
         map.put("linkList", linkServive.getFooterFriendLink());
-        return "/zjh_test/inquire";
+        return "/pages/index/inquire";
     }
 
     /**
@@ -121,7 +121,7 @@ public class ZjhTestController {
         map.put("studentName", student.getSName());
         map.put("level", level);
         map.put("levelName", level == 1 ? "科目一" : "科目四");
-        return "/zjh_test/test";
+        return "/pages/index/test";
     }
 
     /**
@@ -148,7 +148,7 @@ public class ZjhTestController {
         }
 
         map.put("level", level);
-        return "/zjh_test/video";
+        return "/pages/index/video";
     }
 
 
@@ -186,6 +186,6 @@ public class ZjhTestController {
         map.put("video", video);
         map.put("videoList", videoList);
 
-        return "/zjh_test/video_look";
+        return "/pages/index/video_look";
     }
 }

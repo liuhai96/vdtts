@@ -58,6 +58,7 @@ public class  School {
 	/**
 	 * 	账号表中账号
 	 */
+	@Transient
 	private Integer sAccount;
 
 	/**
