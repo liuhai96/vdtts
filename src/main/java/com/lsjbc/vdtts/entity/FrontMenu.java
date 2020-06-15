@@ -3,6 +3,7 @@ package com.lsjbc.vdtts.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 
 /*
 前端菜单表
@@ -19,7 +20,7 @@ public class FrontMenu {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "`fr_menu_id`")
-  private long frMenuId;
+  private Integer frMenuId;
     /**
      * 菜单名
      */
@@ -38,7 +39,17 @@ public class FrontMenu {
     /**
      * 备注
      */
-    @Column(name = "`notes`")
-  private String notes;
+    @Column(name = "`fr_icon`")
+  private String frIcon;
+
+    private ArrayList<FrontMenu> children;
+
+    private String title;
+    private int id;
+    private String type;
+    private String icon;
+    private String href;
+    private String openType;
+    private String checked;
 
 }

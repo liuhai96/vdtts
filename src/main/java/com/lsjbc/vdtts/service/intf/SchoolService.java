@@ -88,5 +88,5 @@ public interface SchoolService {
 
     public int insertSchoolAccount(Account account);
 
-    ResultData updateSchoolBasicInfo(School school);
+
 }

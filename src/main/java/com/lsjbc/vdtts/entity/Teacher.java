@@ -121,6 +121,9 @@ public class Teacher {
 	@Column(name = "`t_count`")
 	private String tCount;
 
+	@Column(name = "`t_idetity_id`")
+	private Integer tIdentityId;
+
 	/**
 	 * 本月限制毕业学员数
 	 */

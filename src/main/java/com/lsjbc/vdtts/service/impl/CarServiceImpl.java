@@ -2,12 +2,14 @@ package com.lsjbc.vdtts.service.impl;
 
 import com.lsjbc.vdtts.dao.mapper.CarMapper;
 import com.lsjbc.vdtts.entity.Car;
+import com.lsjbc.vdtts.entity.School;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.service.intf.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,14 +27,15 @@ public class CarServiceImpl implements CarService {
      *@return:com.lsjbc.vdtts.pojo.vo.LayuiTableData
      *@Date:2020/6/9 14:35
      **/
-    public LayuiTableData findCarManageList(String page, String limit,String cNumber, int cSchoolId) {
+    public LayuiTableData findCarManageList(String page, String limit,String cNumber, HttpServletRequest request) {
         LayuiTableData layuiTableData = new LayuiTableData();
         System.out.println("page"+page);
         System.out.println("page"+limit);
+        School school = (School) request.getSession().getAttribute("school");
         int pageSize = Integer.parseInt(limit);
         int start = (Integer.parseInt(page)-1)*pageSize;//计算从数据库第几条开始查
-        int carCount = carMapper.findCarCount(cNumber,cSchoolId);
-        ArrayList<Car> carList = carMapper.findCarManageList(start,pageSize,cNumber,cSchoolId);
+        int carCount = carMapper.findCarCount(cNumber,school.getSId());
+        ArrayList<Car> carList = carMapper.findCarManageList(start,pageSize,cNumber,school.getSId());
         System.out.println("carList"+carList);
         layuiTableData.setCount(carCount);
         layuiTableData.setCode(0);
@@ -58,9 +61,11 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public LayuiTableData deleteCar(int cId) {
+    public LayuiTableData deleteCar(int cId, HttpServletRequest request) {
+        School school = (School) request.getSession().getAttribute("school");
         LayuiTableData layuiTableData = new LayuiTableData();
         int num = carMapper.deleteCar(cId);
+        int num1 = carMapper.updateCarInfomatian(school.getSId());
         if(num>0){
             layuiTableData.setCode(1);
         }else{

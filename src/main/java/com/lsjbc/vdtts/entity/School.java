@@ -132,6 +132,10 @@ public class  School {
 	@Column(name = "`s_registery_fee`")
     private Integer sRegisteryFee;
 
+	@Column(name = "`s_identity_id`")
+	private Integer sIdentityId;
+
+
 	/**
 	 * 驾校账号
 	 */

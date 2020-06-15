@@ -30,6 +30,10 @@
         update tb_car set c_teacher_id = #{cTeacherId} where c_id = #{cId}
     </update>
 
+    <update id="updateCarInfomatian">
+        update tb_car set c_teacher_id = null where c_school_id = #{cSchoolId};
+    </update>
+
     <delete id="deleteCar" parameterType="int">
         delete from tb_car where c_id = #{cId}
     </delete>
@@ -77,4 +81,6 @@
             </if>
         </where>
     </select>
+
+
 </mapper>

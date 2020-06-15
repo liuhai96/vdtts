@@ -35,6 +35,8 @@
     <select id="findSchool" parameterType="com.lsjbc.vdtts.entity.School" resultType="com.lsjbc.vdtts.entity.School">
         select * from tb_school where s_id = #{tSchoolId}
     </select>
+
+
     <select id="findAccount" parameterType="com.lsjbc.vdtts.entity.Account" resultType="com.lsjbc.vdtts.entity.Teacher">
         select a.*,b.s_name from tb_school b,(select * from tb_teacher where t_account_id =
         #{e.aId}) a where b.s_id = a.t_school_id
@@ -78,6 +80,7 @@
     <update id="updateTeacherAccountLockState" parameterType="int">
         update tb_teacher set t_lock = 'false' where t_id = #{tId}
     </update>
+
 
     <!--    陈竑霖-->
     <!--    教练表-->
@@ -131,4 +134,6 @@
             </if>
         </where>
     </select>
+
+
 </mapper>

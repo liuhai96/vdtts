@@ -2,12 +2,14 @@ package com.lsjbc.vdtts.service.impl;
 
 import com.lsjbc.vdtts.dao.mapper.ExamResultMapper;
 import com.lsjbc.vdtts.entity.ExamResult;
+import com.lsjbc.vdtts.entity.School;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.pojo.vo.ResultData;
 import com.lsjbc.vdtts.service.intf.ExamResultService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 
 @Service
@@ -17,17 +19,18 @@ public class ExamResultServiceImpl implements ExamResultService {
 
 
     @Override
-    public LayuiTableData selectStudentExamList(String page, String limit, String sName, Integer sSchoolId) {
+    public LayuiTableData selectStudentExamList(String page, String limit, String sName, HttpServletRequest request) {
         int pageSize = Integer.parseInt(limit);
         int start = (Integer.parseInt(page)-1)*pageSize;//计算从数据库第几条开始查
         LayuiTableData layuiTableData = new LayuiTableData();
-        if(sSchoolId==null){
+        School school = (School) request.getSession().getAttribute("school");
+        if(school==null){
             layuiTableData.setCode(-1);
             layuiTableData.setMsg("未找到该驾校信息");
         }else{
-            ArrayList<ExamResult> examResultList = examResultMapper.selectStudentExamList(start,pageSize,sName,sSchoolId);
+            ArrayList<ExamResult> examResultList = examResultMapper.selectStudentExamList(start,pageSize,sName,school.getSId());
             System.out.println("examResultList>>>:"+examResultList);
-            int count = examResultMapper.selectStudentExamCount(sName,sSchoolId);
+            int count = examResultMapper.selectStudentExamCount(sName,school.getSId());
             layuiTableData.setCount(count);
             layuiTableData.setCode(0);
             layuiTableData.setData(examResultList);
@@ -128,7 +131,6 @@ public class ExamResultServiceImpl implements ExamResultService {
                     resultData = ResultData.error(-1,"该学员的科目四已通过");
                 }else{
                     if(examResult.getErState3()==1){
-                        if(examResult.getErTime4()>280){
                             count = examResultMapper.findSubjectExamCount(teacherId,examSujectId);
                             if(count>=5){
                                 resultData = ResultData.error(-1,"该科目考试人数已满请重新选择考试科目");
@@ -138,9 +140,6 @@ public class ExamResultServiceImpl implements ExamResultService {
                                     resultData = ResultData.success(0,"您已成功为该学员安排科目四考试");
                                 }
                             }
-                        }else{
-                            resultData = ResultData.error(-1,"该学生的学时还不够哦");
-                        }
                     }else{
                         resultData = ResultData.error(-1,"该学生的科目三考试未通过，请通过后再安排考试");
                     }

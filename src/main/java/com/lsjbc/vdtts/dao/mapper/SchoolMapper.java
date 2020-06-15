@@ -20,20 +20,15 @@ public interface SchoolMapper extends CustomBaseMapper<School> {
 	//查表
 	int schoolcount(@Param("e") School school);
 	List<School> schoolList(@Param("e") School school, @Param("start") int start, @Param("pageSize") int pageSize);
-
 	//修改审核状态
 	public int updateschoolInfo(School school);
 	public List<School> findschool(@Param("e") School school);
-
 	//修改禁止招生
 	public int punishcall(@Param("sId") int sId);
-
 	//修改解禁招生
-	 int unbindcall(@Param("sId") int sId);
-
+	public int unbindcall(@Param("sId") int sId);
 	//修改禁止登录
-    int punishlogon(@Param("sId") int sId);
-
+	public int punishlogon(@Param("sId") int sId);
 	//修改解禁登录
     int unbindlogon(@Param("sId") int sId);
 
@@ -67,11 +62,11 @@ public interface SchoolMapper extends CustomBaseMapper<School> {
 	 *@return:
 	 *@Date:2020/6/10
 	 **/
-	List<School> selectAllInfo(@Param("school") School school, @Param("page") int page, @Param("limit") int limit);
+	public List<School> selectAllInfo(@Param("school") School school, @Param("page") int page, @Param("limit") int limit);
 
-	int selectSchoolCount(@Param("school") School school);
+	public int selectSchoolCount(@Param("school") School school);
 
-	int deleteSchool(String schoolId);
-	int insertSchool(School school);
-	int insertSchoolAccount(Account account);
+	public int deleteSchool(String schoolId);
+	public int insertSchool(School school);
+	public int insertSchoolAccount(Account account);
 }

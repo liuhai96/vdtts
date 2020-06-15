@@ -32,11 +32,11 @@ public class CarControl {
      *@Date:2020/6/8 23:22
      **/
     @RequestMapping(value = "/findCarList")
-    public String findCarList(String page,String limit,String cNumber){
+    public String findCarList(String page,String limit,String cNumber,HttpServletRequest request){
 
 //        String tSchoolId = request.getParameter("tShoolId");//接收前端保存的驾校id
 
-        return JSON.toJSONString(carService.findCarManageList(page,limit,cNumber,1),SerializerFeature.DisableCircularReferenceDetect);
+        return JSON.toJSONString(carService.findCarManageList(page,limit,cNumber,request),SerializerFeature.DisableCircularReferenceDetect);
     }
 
 
@@ -60,8 +60,8 @@ public class CarControl {
      *@Date:2020/6/9 20:48
      **/
     @RequestMapping(value = "/deleteCar")
-    public  String deleteCar(int cId){
-        return JSON.toJSONString(carService.deleteCar(cId));
+    public  String deleteCar(int cId,HttpServletRequest request){
+        return JSON.toJSONString(carService.deleteCar(cId,request));
     }
 
     @RequestMapping(value = "/addCar")
