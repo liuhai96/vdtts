@@ -14,11 +14,17 @@ public interface TeacherMapper extends CustomBaseMapper<Teacher> {
     public int findTeacherCount(@Param("tName") String tName,@Param("tSchoolId") Integer tSchoolId);
     public ArrayList<Teacher> findTeacherList(@Param("start") int start, @Param("pageSize") int pageSize, @Param("tName") String tName ,@Param("tSchoolId") Integer tSchoolId);
     public int addTeacher(Teacher teacher);
+
     public Teacher findAccountId(@Param("tId") int tId);
+
     public int deleteTeacher(@Param("tId") int tId);
+
     public int updateTeacherInfo(Teacher teacher);
+
     public ArrayList<Teacher> findTeacher(@Param("tSchoolId") int tSchoolId);
+
     public int updateTeacherApplyState(int tId);
+
     public int updateTeacherAccountLockState(int tId);
 
     /*
@@ -43,5 +49,4 @@ public interface TeacherMapper extends CustomBaseMapper<Teacher> {
 
     public int selectTeacherCount(@Param("teacher") Teacher teacher);
     public int teacherUpdate(@Param("e")Teacher teacher);//教练修改统一方法
-    List<Teacher> homePageShow(@Param("e")Teacher teacher,int page,int limit);//首页教练信息查看专用  李浪
 }

@@ -3,15 +3,16 @@ package com.lsjbc.vdtts.service.intf;
 import com.lsjbc.vdtts.entity.Account;
 import com.lsjbc.vdtts.entity.Teacher;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
+import com.lsjbc.vdtts.pojo.vo.ResultData;
 import org.apache.ibatis.annotations.Param;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-import com.lsjbc.vdtts.pojo.vo.ResultData;
 
 public interface TeacherService {
-    public LayuiTableData findTeacherList(String page,String limit,String tName,Integer tSchoolId);
+    public LayuiTableData findTeacherList(String page, String limit, String tName, HttpServletRequest request);
     public LayuiTableData addTeacher(Teacher teacher, Account teacherAccount);
-    public LayuiTableData deleteTeacher(int tId);
+    public LayuiTableData deleteTeacher(int tId, HttpServletRequest request);
     public LayuiTableData updateTeacherInfo(Teacher teacher);
     public LayuiTableData findTeacher( int tSchoolId);
     public LayuiTableData updateTeacherApplyState(int tId);

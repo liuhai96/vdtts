@@ -145,4 +145,22 @@ public class ResultData {
     public static ResultData error() {
         return ResultData.builder().code(-1).msg("出现未知错误").build();
     }
+
+    /**
+     * 追加消息
+     *
+     * @param msg   追加的消息
+     * @param split 与之前的消息分隔符
+     * @author JX181114 --- 郑建辉
+     */
+    public void appendMessage(String msg, String split) {
+        StringBuilder sb = new StringBuilder(this.msg);
+
+        if (sb.length() > 0) {
+            sb.append(split);
+        }
+
+        sb.append(msg);
+        this.msg = sb.toString();
+    }
 }

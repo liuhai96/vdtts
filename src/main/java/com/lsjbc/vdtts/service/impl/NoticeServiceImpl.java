@@ -72,7 +72,7 @@ public class NoticeServiceImpl implements NoticeService {
      */
     @Override
     public List<Notice> getIndexPageNotice() {
-        return getByType(NoticeTypeConstant.TYPE_NOTICE, 1, 4);
+        return getByType(NoticeTypeConstant.TYPE_NOTICE, 1, 4, "");
     }
 
     /**
@@ -83,7 +83,7 @@ public class NoticeServiceImpl implements NoticeService {
      */
     @Override
     public List<Notice> getIndexPageLaw() {
-        return getByType(NoticeTypeConstant.TYPE_LAW, 1, 4);
+        return getByType(NoticeTypeConstant.TYPE_LAW, 1, 4, "");
     }
 
     /**
@@ -96,7 +96,7 @@ public class NoticeServiceImpl implements NoticeService {
      */
     @Override
     public List<Notice> getByType(String type, Integer page) {
-        return getByType(type, page, 5);
+        return getByType(type, page, 5, "");
     }
 
     /**
@@ -104,13 +104,14 @@ public class NoticeServiceImpl implements NoticeService {
      *
      * @param type 类型
      * @param page 页数
+     * @param name 模糊搜索
      * @return 法律法规/通知公告集合的分页对象
      * @author JX181114 --- 郑建辉
      */
     @Override
-    public Page<Notice> getPageByType(String type, Integer page) {
+    public Page<Notice> getPageByType(String type, Integer page, String name) {
         Page<Notice> noticePage = PageHelper.startPage(page, 5, true);
-        noticeDao.getNoticeByTypeOrderByIdDesc(type);
+        noticeDao.getNoticeByTypeOrderByIdDesc(type, name);
         return noticePage;
     }
 
@@ -132,12 +133,13 @@ public class NoticeServiceImpl implements NoticeService {
      * @param type     类型
      * @param page     页数
      * @param pageSize 页面数据大小
+     * @param name     模糊搜索
      * @return 法律法规/通知公告集合
      * @author JX181114 --- 郑建辉
      */
-    private List<Notice> getByType(String type, Integer page, Integer pageSize) {
+    private List<Notice> getByType(String type, Integer page, Integer pageSize, String name) {
         Page<Notice> noticePage = PageHelper.startPage(page, pageSize, true);
-        noticeDao.getNoticeByTypeOrderByIdDesc(type);
+        noticeDao.getNoticeByTypeOrderByIdDesc(type, name);
         return noticePage.getResult();
     }
 

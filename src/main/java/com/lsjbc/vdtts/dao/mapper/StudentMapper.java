@@ -44,4 +44,6 @@ public interface StudentMapper extends CustomBaseMapper<Student> {
 
     public Student findAccount(Account account);
 
+    public int updateTeacherId(@Param("sSchoolId") Integer sSchoolId);
+
 }

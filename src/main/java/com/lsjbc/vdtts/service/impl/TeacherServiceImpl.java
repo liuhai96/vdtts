@@ -1,8 +1,10 @@
 package com.lsjbc.vdtts.service.impl;
 
 import com.lsjbc.vdtts.dao.mapper.AccountMapper;
+import com.lsjbc.vdtts.dao.mapper.StudentMapper;
 import com.lsjbc.vdtts.dao.mapper.TeacherMapper;
 import com.lsjbc.vdtts.entity.Account;
+import com.lsjbc.vdtts.entity.School;
 import com.lsjbc.vdtts.entity.Teacher;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.pojo.vo.ResultData;
@@ -11,8 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import javax.xml.crypto.Data;
-
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +22,8 @@ import java.util.List;
 public class TeacherServiceImpl implements TeacherService {
     @Resource
     private TeacherMapper teacherMapper;
+    @Resource
+    private StudentMapper studentMapper;
     @Override
     /*
      *@Description:查询各个驾校的教练基本信息
@@ -29,13 +32,14 @@ public class TeacherServiceImpl implements TeacherService {
      *@return:com.lsjbc.vdtts.pojo.vo.LayuiTableData
      *@Date:2020/6/8 19:02
      **/
-    public LayuiTableData findTeacherList(String page, String limit,String tName, Integer tSchoolId) {
+    public LayuiTableData findTeacherList(String page, String limit,String tName, HttpServletRequest request) {
 
 
         int pageSize = Integer.parseInt(limit);
         int start = (Integer.parseInt(page)-1)*pageSize;//计算从数据库第几条开始查
-        ArrayList<Teacher> teacherList = teacherMapper.findTeacherList(start,pageSize,tName,tSchoolId);
-        int teachCount = teacherMapper.findTeacherCount(tName,tSchoolId);
+        School school = (School) request .getSession().getAttribute("school");
+        ArrayList<Teacher> teacherList = teacherMapper.findTeacherList(start,pageSize,tName,school.getSId());
+        int teachCount = teacherMapper.findTeacherCount(tName,school.getSId());
         LayuiTableData LayuiTableData = new LayuiTableData();
         LayuiTableData.setCode(0);
         LayuiTableData.setMsg("查询成功");
@@ -113,12 +117,14 @@ public class TeacherServiceImpl implements TeacherService {
      **/
 
     @Override
-    public LayuiTableData deleteTeacher(int tId) {
+    public LayuiTableData deleteTeacher(int tId, HttpServletRequest request) {
         LayuiTableData layuiTableData = new LayuiTableData();
+        School school = (School) request .getSession().getAttribute("school");
         Teacher teacher = teacherMapper.findAccountId(tId);
         if(null!=teacher.getTAccountId()){
             int num = teacherMapper.deleteTeacher(tId);
             int num1 = accountMapper.deleteAccount(teacher.getTAccountId());
+            int num2 = studentMapper.updateTeacherId(school.getSId());
             if(num>0&&num1>0){
                 layuiTableData.setCode(1);
             }else{

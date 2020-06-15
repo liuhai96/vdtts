@@ -45,10 +45,11 @@ public interface NoticeService {
      *
      * @param type 类型
      * @param page 页数
+     * @param name 模糊搜索
      * @return 法律法规/通知公告集合的分页对象
      * @author JX181114 --- 郑建辉
      */
-    Page<Notice> getPageByType(String type, Integer page);
+    Page<Notice> getPageByType(String type, Integer page, String name);
 
     /**
      * 通过ID来获取通知公告/法律法规

@@ -37,8 +37,8 @@ public class TeacherController {
     private StudentService studentService;
 
     @RequestMapping(value = "/findTeacherList")
-    public String findTeacherList(String page,String limit,String tName){
-       LayuiTableData layuiTableData = teacherService.findTeacherList(page,limit,tName,1);
+    public String findTeacherList(String page,String limit,String tName,HttpServletRequest request){
+       LayuiTableData layuiTableData = teacherService.findTeacherList(page,limit,tName,request);
        return JSON.toJSONString(layuiTableData, SerializerFeature.DisableCircularReferenceDetect);
     }
 
@@ -65,9 +65,9 @@ public class TeacherController {
      *@Date:2020/6/8 16:21
      **/
     @RequestMapping(value = "/deleteTeacher")
-    public String deleteTeacher(String tId){
+    public String deleteTeacher(String tId,HttpServletRequest request){
         System.out.println("tId"+tId);
-        LayuiTableData layuiTableData = teacherService.deleteTeacher(Integer.parseInt(tId));
+        LayuiTableData layuiTableData = teacherService.deleteTeacher(Integer.parseInt(tId),request);
        return JSON.toJSONString(layuiTableData);
     }
 

@@ -5,12 +5,13 @@ import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 @Service
 public interface CarService {
-    public LayuiTableData findCarManageList(String page,String limit,String cNember,int cSchoolId);
+    public LayuiTableData findCarManageList(String page, String limit, String cNember, HttpServletRequest request);
     public LayuiTableData updateCarInfo(Car car);
-    public LayuiTableData deleteCar(int cId);
+    public LayuiTableData deleteCar(int cId, HttpServletRequest request);
     public LayuiTableData addCar(Car car);
 
     /*
@@ -20,7 +21,7 @@ public interface CarService {
      *@return:
      *@Date:2020/6/8 1591607662706
      **/
-    public LayuiTableData carList(Car car, int page, int pageSize);
+    LayuiTableData carList(Car car, int page, int pageSize);
 
 
     /*
@@ -30,6 +31,7 @@ public interface CarService {
      *@return:
      *@Date:2020/6/11
      **/
-    public List<Car> selectAllInfo(@Param("car") Car car, @Param("page") int page, @Param("limit") int limit);
-    public int selectCarCount(@Param("car") Car car);
+    List<Car> selectAllInfo(@Param("car") Car car, @Param("page") int page, @Param("limit") int limit);
+
+    int selectCarCount(@Param("car") Car car);
 }
