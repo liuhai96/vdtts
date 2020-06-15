@@ -155,8 +155,19 @@ public class SchoolServiceImpl implements SchoolService {
 		}
 		return layuiTableData;
 	}
+//查询身份证
+	@Override
+	public LayuiTableData apply(int sSfz){
 
-
+		LayuiTableData layuiTableData = new LayuiTableData();
+		int num = schoolMapper.apply(sSfz);
+		if(num>0){
+			layuiTableData.setCode(1);
+		}else{
+			layuiTableData.setCode(0);
+		}
+		return layuiTableData;
+	}
 
 
     @Override

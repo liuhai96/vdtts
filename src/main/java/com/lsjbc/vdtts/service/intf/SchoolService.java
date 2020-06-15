@@ -39,7 +39,8 @@ public interface SchoolService {
 	public LayuiTableData punishlogon(int sId);
 	//修改解禁登录
 	public LayuiTableData unbindlogon(int sId);
-
+    //查询身份证
+    public LayuiTableData apply(int sSfz);
 
     ResultData updateSchoolBasicInfo(School school);
 
