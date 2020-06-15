@@ -76,9 +76,9 @@
                     <li class="layui-nav-item" style="float: right"><a href="<%=path+"/pages/homepage/register.jsp"%>">注册</a></li>|
                     <li class="layui-nav-item layui-bg-blue" style="float: right" lay-unselect=""><a href="javascript:;">登录</a>
                         <dl class="layui-nav-child">
-                            <dd><a href="<%=path+"/pages/homepage/login.jsp?type=1011010"%>">学员登录</a></dd>
-                            <dd><a href="<%=path+"/pages/homepage/login.jsp?type=1101010"%>">驾校登录</a></dd>
-                            <dd><a href="<%=path+"/pages/homepage/login.jsp?type=1010110"%>">教练登录</a></dd>
+                            <dd><a href="<%=path+"/pages/homepage/login-struct.jsp?type=1011010"%>">学员登录</a></dd>
+                            <dd><a href="<%=path+"/pages/homepage/login-struct.jsp?type=1101010"%>">驾校登录</a></dd>
+                            <dd><a href="<%=path+"/pages/homepage/login-struct.jsp?type=1010110"%>">教练登录</a></dd>
                         </dl>
                     </li>
                 </c:if>

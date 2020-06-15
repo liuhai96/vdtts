@@ -42,7 +42,6 @@ public interface SchoolService {
 
 
 
-    ResultData updateSchoolBasicInfo(School school);
 
     int schoolCount(School school);//李浪写  查找数据条数
 
@@ -86,4 +85,9 @@ public interface SchoolService {
     public int insertSchool(School school);
 
     public int insertSchoolAccount(Account account);
+
+
+    ResultData updateSchoolBasicInfo(School school);
+
+
 }

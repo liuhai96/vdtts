@@ -3,8 +3,8 @@ $(function () {
 });
 
 function openLogin(a) {//转登录方法
-    skipPage("/pages/homepage/login.jsp");
-    // yxl_mask("\u767b\u5f55", "url="+$("#path").val()+"/pages/homepage/login.jsp", "400", "500")
+    skipPage("/pages/homepage/login-struct.jsp");
+    // yxl_mask("\u767b\u5f55", "url="+$("#path").val()+"/pages/homepage/login-struct.jsp", "400", "500")
 }
 
 function openReg(a) {//注册方法

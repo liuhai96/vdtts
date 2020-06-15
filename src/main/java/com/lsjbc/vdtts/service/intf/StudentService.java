@@ -2,9 +2,11 @@ package com.lsjbc.vdtts.service.intf;
 
 import com.lsjbc.vdtts.entity.Student;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
+import com.lsjbc.vdtts.pojo.vo.ResultData;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Service
@@ -39,5 +41,15 @@ public interface StudentService {
     public int registerStudent(Student student);
 
 
+    /*
+     *@Description:
+     *@Author:刘海
+     *@Param:
+     *@return:
+     *@Date:2020/6/15 22:56
+     **/
+    LayuiTableData findStudenList(HttpServletRequest request,String page,String limit,String sName);
+    ResultData updateStudentApplyState(Integer sId);
+    ResultData updateStudentTeacherId(Integer sTeacherId,Integer sId);
 
 }

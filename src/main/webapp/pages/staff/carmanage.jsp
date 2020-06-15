@@ -240,6 +240,7 @@
                     url: '/teacherController/findTeacher',
                     dataType: 'JSON',
                     success: function (msg) {
+                        $("#teacherSelect").html();
                        $.each(msg.data,function (i,item) {
                            $("#teacherSelect").append("<option value='" + item.tId + "'>" + item.tName + "</option>");
                        });
@@ -278,6 +279,7 @@
                                 }else if(msg.code==1){
                                     layer.msg("修改成功");
                                     layer.close(index1);
+
                                     $table.reload();
                                 }else{
                                     layer.msg("未找到该教练信息");

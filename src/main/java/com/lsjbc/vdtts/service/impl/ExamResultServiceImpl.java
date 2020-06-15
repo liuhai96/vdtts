@@ -6,11 +6,10 @@ import com.lsjbc.vdtts.entity.School;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.pojo.vo.ResultData;
 import com.lsjbc.vdtts.service.intf.ExamResultService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 
 @Service(ExamResultServiceImpl.NAME)
@@ -23,7 +22,6 @@ public class ExamResultServiceImpl implements ExamResultService {
 
     @Resource
     private ExamResultMapper examResultMapper;
-
 
     @Override
     public LayuiTableData selectStudentExamList(String page, String limit, String sName, HttpServletRequest request) {
