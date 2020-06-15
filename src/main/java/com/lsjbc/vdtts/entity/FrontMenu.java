@@ -20,36 +20,50 @@ public class FrontMenu {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "`fr_menu_id`")
-  private Integer frMenuId;
-    /**
-     * 菜单名
-     */
-    @Column(name = "`fr_menu_name`")
+    private Integer frMenuId;
+  /**
+   * 菜单名
+   */
+  @Column(name = "`fr_menu_name`")
   private String frMenuName;
-    /**
-     * 菜单路径
-     */
-    @Column(name = "`fr_url`")
+  /**
+   * 菜单路径
+   */
+  @Column(name = "`fr_url`")
   private String frUrl;
-    /**
-     * 父菜单ID
-     */
-    @Column(name = "`fr_parent_id`")
+  /**
+   * 父菜单ID
+   */
+  @Column(name = "`fr_parent_id`")
   private long frParentId;
-    /**
-     * 备注
-     */
-    @Column(name = "`fr_icon`")
+  /**
+   * 备注
+   */
+  @Column(name = "`fr_icon`")
   private String frIcon;
 
-    private ArrayList<FrontMenu> children;
+  @Transient
+  private ArrayList<FrontMenu> children;
 
-    private String title;
-    private int id;
-    private String type;
-    private String icon;
-    private String href;
-    private String openType;
-    private String checked;
+  @Transient
+  private String title;
+
+  @Transient
+  private int id;
+
+  @Transient
+  private String type;
+
+  @Transient
+  private String icon;
+
+  @Transient
+  private String href;
+
+  @Transient
+  private String openType;
+
+  @Transient
+  private String checked;
 
 }

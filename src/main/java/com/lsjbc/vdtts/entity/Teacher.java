@@ -121,7 +121,7 @@ public class Teacher {
 	@Column(name = "`t_count`")
 	private String tCount;
 
-	@Column(name = "`t_idetity_id`")
+	@Column(name = "`t_identity_id`")
 	private Integer tIdentityId;
 
 	/**

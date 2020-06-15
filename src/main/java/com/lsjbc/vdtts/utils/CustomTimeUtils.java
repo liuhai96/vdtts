@@ -14,6 +14,29 @@ import java.util.Date;
 public class CustomTimeUtils {
 
     /**
+     * 计算两个年份之间的差值
+     * 传入格式：年-......
+     *
+     * @param time 年份字符串   格式：年-......
+     * @return 相差年
+     * @author JX181114 --- 郑建辉
+     */
+    public static Integer getTimeSubTime(String time) {
+        try {
+            time = time.substring(0, time.indexOf('-'));
+            String newTime = getNowTimeString1();
+            newTime = newTime.substring(0, newTime.indexOf('/'));
+
+            Integer oldYear = Integer.parseInt(time);
+            Integer newYear = Integer.parseInt(newTime);
+
+            return newYear - oldYear;
+        } catch (Exception e) {
+            return 0;
+        }
+    }
+
+    /**
      * 获取特定格式的时间  年/月/日 时：分：秒
      *
      * @return 年/月/日 时：分：秒格式的时间

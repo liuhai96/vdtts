@@ -32,13 +32,30 @@ public class StudentDao implements BaseDao<Student> {
      * @return 学员数量
      * @author JX181114 --- 郑建辉
      */
-    public Integer getCountBySchoolId(Integer schoolId) {
+    public Integer getStudentCountBySchoolId(Integer schoolId) {
 
         Example example = new Example(Student.class);
 
         Example.Criteria criteria = example.createCriteria();
 
         criteria.andEqualTo("sSchoolId", schoolId);
+
+        return mapper.selectCountByExample(example);
+    }
+
+    /**
+     * 根据教练ID来拉取学员数量
+     *
+     * @param teacherId 教练ID
+     * @return 学员数量
+     * @author JX181114 --- 郑建辉
+     */
+    public Integer getStudentCountByTeacherId(Integer teacherId) {
+        Example example = new Example(Student.class);
+
+        Example.Criteria criteria = example.createCriteria();
+
+        criteria.andEqualTo("sTeacherId", teacherId);
 
         return mapper.selectCountByExample(example);
     }
