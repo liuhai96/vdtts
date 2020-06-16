@@ -28,11 +28,6 @@
                 <p><label class="mr">性</label> <label>别：</label> <span>${sex}</span></p>
                 <p><label>考试类型：</label> <span>小车类</span></p>
                 <p><label>考试科目：</label> <span>${levelName}</span></p>
-
-            </div>
-            <div class="waste-time pos">
-                <div class="tit" style="left: 38px;">剩余时间</div>
-                <span class="countdown" id="time">45:00</span>
             </div>
         </div>
         <div class="center fl">
@@ -63,7 +58,6 @@
             <div class="btn-wrap fl">
                 <a href="javascript:;" class="btn pre" id="preBtn">上一题</a>
                 <a href="javascript:;" class="btn next" id="postBtn">下一题</a>
-                <a href="javascript:;" class="btn jj" id="submitBtn">交卷</a>
             </div>
         </div>
         <div class="right fl">
@@ -113,34 +107,11 @@
 
         let path = window.document.location.href.substring(0, (window.document.location.href).indexOf(window.document.location.pathname));
 
-        $(function () {
-            var m = 44;
-            var s = 59;
-            let countDown = setInterval(function () {
-                if (s < 10) {
-                    //如果秒数少于10在前面加上0
-                    $('#time').html(m + ':0' + s);
-                } else {
-                    $('#time').html(m + ':' + s);
-                }
-                s--;
-                if (s < 0) {
-                    //如果秒数少于0就变成59秒
-                    s = 59;
-                    m--;
-                    if (m < 0) {
-                        clearInterval(countDown);
-                        submitTest();
-                    }
-                }
-            }, 1000)
-        });
-
         let questionList = null;
 
         $.ajax({
             type: "get",
-            url: path + "/api/exam/text?level=" + $("#level").val(),
+            url: path + "/api/exam/error/" + $("#level").val()+"/"+$("#userToken").val(),
             contentType: "application/json;charset=utf-8",
             async: true,
             statusCode: {
@@ -153,7 +124,7 @@
             },
             success: function (res) {
                 //获取题库对象
-                questionList = res.data.question;
+                questionList = res.data.questions;
 
                 //获取
                 let table = $("#qunestionIndex");
@@ -168,6 +139,7 @@
                         questionList[index].rightChoice = new Array();
                         questionList[index].userChoise = new Array();
                         questionList[index].userChoiseId = new Array();
+                        questionList[index].unSubmit = true;
 
                         str += "<li class='qn noSel questionIndex" + (index + 1) + "e'><p>" + (index + 1) + "</p></li>";
                     }
@@ -236,90 +208,13 @@
             $("#userChoice").html(question.userChoise);
         });
 
-        //点击交卷按钮时，提交的此操作
-        $(document).on("click", "#submitBtn", function (event) {
-
-            let submit = true;
-
-            let index = 0
-
-            //遍历题目，如果还有题目没有选择答案，就不让提交
-            for (; index < questionList.length; index++) {
-                if (questionList[index].userChoise.length == 0) {
-                    submit = false;
-                    break;
-                }
-            }
-
-            //如果做题完成，就提交答案
-            if (submit) {
-                submitTest();
-            } else {
-                //如果没做完，不然提交，并跳转到未完成的第一道题目
-                alert("还有没做完的题目!");
-                showQuestion(index);
-            }
-
-        });
-
-        //交卷流程
-        function submitTest() {
-            let sum = 0;
-            let errorQuestions = [];
-
-            //遍历题库，如果未选择或者出现错题，直接跳过，如果正确，分数+1
-            for (let index = 0; index < questionList.length; index++) {
-
-                let result = checkResult(questionList[index]);
-
-                if (result == 1) {
-                    sum++;
-                }
-
-                if (result == 0 || result == -1) {
-                    errorQuestions.push(questionList[index].eqId);
-                }
-            }
-
-            if (sum > 90) {
-                layer.msg("恭喜你，通过了考试，得分：" + sum, {icon: 1});
-            } else {
-                layer.msg("还差一点点就通过了考试，得分：" + sum, {icon: 0});
-            }
-
-            for (var t = Date.now(); Date.now() - t <= 5000;) ;
-
-
-            $.ajax({
-                type: 'post',
-                dataType: 'json',
-                url: path + "/api/exam/record",
-                data: {
-                    studentId: $("#userToken").val()
-                    , score: sum
-                    , level: $("#level").val()
-                    , errorQuestions: errorQuestions
-                    , _method: 'put'
-                },
-                traditional: true,
-                success: function (result) {
-                    if (result.code != 0) {
-                        layer.msg(result.msg, {icon: 2})
-                    }
-                    window.location.href = path + "/student"
-                },
-                error: function (data) {
-                    alert("操作异常");
-                }
-            });
-        };
-
-
         //检测答案是否正确
         //正确：1
         //错误：0
         //未做：-1
         function checkResult(question) {
+
+            console.log(question);
 
             //未作
             if (question.userChoise.length == 0) {
@@ -328,6 +223,27 @@
 
             //正确
             if (checkSameItem(question.userChoiseId, question.rightId)) {
+                if(question.unSubmit){
+                    $.ajax({
+                        type: 'post',
+                        dataType: 'json',
+                        url: path + "/api/exam/error",
+                        data: {
+                            id: question.eeId
+                            , _method: 'delete'
+                        },
+                        traditional: true,
+                        success: function (result) {
+                            console.log(result);
+                            if(result.code==0){
+                                question.unSubmit=false;
+                            }
+                        },
+                        error: function (data) {
+                            alert("操作异常");
+                        }
+                    });
+                }
                 return 1;
             }
 
@@ -346,7 +262,7 @@
             }
 
             for (let i = 0; i < array1.length; i++) {
-                if (array2.indexOf(array1[i])) {
+                if (-1==array2.indexOf(array1[i])) {
                     return false;
                 }
             }

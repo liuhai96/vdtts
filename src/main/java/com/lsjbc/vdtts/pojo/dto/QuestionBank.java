@@ -67,6 +67,18 @@ public class QuestionBank {
     }
 
     /**
+     * 判断是否拥有线程试卷
+     *
+     * @param level 科目等级
+     * @return 有;true  没有:false
+     */
+    public boolean hasQuestion(Integer level) {
+        List<ExamQuestion> questionList = getRandomQuestion(level);
+
+        return questionList.size() > 0;
+    }
+
+    /**
      * 获取一张特定科目的考卷
      *
      * @param level 科目等级，如果时科一：1，如果时科四：4

@@ -32,13 +32,4 @@ public interface ExamSimulateRecordService {
      * @author JX181114 --- 郑建辉
      */
     Page<ExamSimulateRecord> getRecord(Integer studentId, Integer level, Integer page, Integer limit);
-
-    /**
-     * 根据模拟考试ID来删除记录
-     *
-     * @param id 主键
-     * @return 受影响条数
-     * @author JX181114 --- 郑建辉
-     */
-    Integer deleteByRecordId(Integer id);
 }

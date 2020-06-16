@@ -53,37 +53,6 @@ public class ExamSimulateRecordApi {
     }
 
     /**
-     * 用户删除模拟考试成绩
-     *
-     * @param recordId 模拟考试记录ID
-     * @return 删除结果
-     * @author JX181114 --- 郑建辉
-     */
-    @DeleteMapping("record")
-    public ResultData delRecord(Integer recordId){
-
-        ResultData result = null;
-
-        try {
-            //根据返回的受影响条数来生成不同的返回值
-            Integer row = examSimulateRecordService.deleteByRecordId(recordId);
-
-            //返回1：正常
-            if (row == 1) {
-                result = ResultData.success();
-
-                //返回0：数据没有插入成功
-            } else if (row == 0) {
-                result = ResultData.error("删除失败，请重试");
-            }
-        } catch (Exception e) {
-            result = ResultData.error(e.getMessage());
-        }
-
-        return result;
-    }
-
-    /**
      * 用户新增模拟考试记录
      *
      * @param object 数据传输类

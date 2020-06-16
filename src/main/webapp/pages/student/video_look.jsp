@@ -18,6 +18,9 @@
 <body>
 
 <input type="hidden" id="userToken" value="${studentId}">
+<input type="hidden" id="level" value="${level}">
+<input type="hidden" id="zjh_msg" value="${zjh_msg}">
+<input type="hidden" id="record" value="${record}">
 
 <div class="commonhead_line" style="border-top: 1px solid #00C356;"></div>
 
@@ -55,11 +58,22 @@
 
 
 <script>
-    layui.use(['element'], function () {
+    layui.use(['element', 'layer'], function () {
+
+
+        let path = window.document.location.href.substring(0, (window.document.location.href).indexOf(window.document.location.pathname));
+
 
         let $ = layui.$;
+        let layer = layui.layer;
 
         let video = document.getElementById("videoDiv");
+
+        let msg = $("#zjh_msg").val();
+
+        if (msg.length > 0) {
+            layer.msg(msg, {icon: 0});
+        }
 
         video.play();
 
@@ -72,10 +86,12 @@
         video.addEventListener('play', function () {  //开始播放
             console.log("视频开始播放");
 
-            countDown = setInterval(function () {
-                playTime++;
-                console.log("记录学时中");
-            }, 1000);
+            if ($("#record").val()) {
+                countDown = setInterval(function () {
+                    playTime++;
+                    console.log("记录学时中");
+                }, 1000);
+            }
         });
 
         video.addEventListener('pause', function () { //暂停开始执行的函数
@@ -105,9 +121,36 @@
         let userId = $("#userToken").val();
 
         function submitTime() {
-            clearInterval(countDown);
-            console.log("本次学习共获得学时：" + playTime);
-            playTime = 0;
+
+            if ($("#record").val()) {
+                clearInterval(countDown);
+                console.log("本次学习共获得学时：" + playTime);
+
+                $.ajax({
+                    type: 'post',
+                    dataType: 'json',
+                    url: path + "/api/exam/time",
+                    data: {
+                        studentId: $("#userToken").val()
+                        , level: $("#level").val()
+                        , time: playTime
+                        , _method: 'put'
+                    },
+                    traditional: true,
+                    success: function (result) {
+                        console.log(result);
+                        if (result.msg.length > 0) {
+                            layer.msg(result.msg);
+                        }
+                    },
+                    error: function (data) {
+                        alert("操作异常");
+                    }
+                });
+
+
+                playTime = 0;
+            }
         }
     });
 </script>

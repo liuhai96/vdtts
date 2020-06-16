@@ -26,17 +26,17 @@ public class ExamErrorApi {
     /**
      * 根据模拟考试ID，来获取错题集合
      *
-     * @param recordId 模拟考试Id
+     * @param studentId 模拟考试Id
      * @return 错题集合
      * @author JX181114 --- 郑建辉
      */
-    @GetMapping("error/{recordId}")
-    public ResultData getErrorQuestion(@PathVariable("recordId") Integer recordId) {
+    @GetMapping("error/{level}/{studentId}")
+    public ResultData getErrorQuestion(@PathVariable("level") Integer level, @PathVariable("studentId") Integer studentId) {
 
         ResultData resultData = null;
 
         try {
-            List<ExamQuestionWithEeId> questionList = examErrorService.getErrorQuestionByRecordId(recordId);
+            List<ExamQuestionWithEeId> questionList = examErrorService.getErrorQuestionByStudentId(level, studentId);
 
             resultData = ResultData.success("questions", questionList);
 
@@ -52,18 +52,18 @@ public class ExamErrorApi {
     /**
      * 重新做错题，并正确之后，向数据库发起删除指定错题的申请
      *
-     * @param ids 错题记录ID集合
+     * @param id 错题记录ID
      * @return 删除结果
      * @author JX181114 --- 郑建辉
      */
     @DeleteMapping("error")
-    public ResultData deleteErrorQuestion(Integer[] ids) {
+    public ResultData deleteErrorQuestion(Integer id) {
         ResultData resultData = null;
-        
-        try {
-            Integer row = examErrorService.deleteErrorQuestionByRecordId(ids);
 
-            if(ids.length==row){
+        try {
+            Integer row = examErrorService.deleteErrorQuestionByRecordId(id);
+
+            if (1 == row) {
                 resultData = ResultData.success();
             } else {
                 resultData = ResultData.warning("传入参数数量和删除数量不一致");
