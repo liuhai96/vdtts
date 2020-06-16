@@ -2,14 +2,10 @@ package com.lsjbc.vdtts.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.lsjbc.vdtts.entity.Account;
-import com.lsjbc.vdtts.entity.Car;
 import com.lsjbc.vdtts.entity.School;
-import com.lsjbc.vdtts.entity.Student;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
-import com.lsjbc.vdtts.service.intf.AccountService;
 import com.lsjbc.vdtts.service.intf.SchoolService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;

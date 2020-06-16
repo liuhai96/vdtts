@@ -117,5 +117,6 @@ public class Car {
 	/**
 	 * 车辆禁用
 	 */
+	@Transient
 	private String cLock;
 }

@@ -77,15 +77,49 @@
         values (#{sAccountId},#{sSchoolId},#{sSfz},#{sName},#{sPhone},#{sSex},#{sBirthday},#{sPic},#{sRegTime},#{sLicenseTime},#{sTeacherId})
     </insert><!--  李浪  -->
 
-    <select id="selectStudentExamList" parameterType="int" resultMap="selctExamResult">
-      select * from tb_student stu where stu.s_school_id = #{sSchoolId} limit ${start},#{pageSize}
-    </select>
-    <resultMap id="selctExamResult" type="com.lsjbc.vdtts.entity.Student">
-        <result property="" column="t_school_id"></result>
-        <association property="examResult" column="t_school_id" javaType="com.lsjbc.vdtts.entity.School" select="findSchool"></association>
-    </resultMap>
     <!--用于登录sql 李浪-->
     <select id="findAccount" resultType="com.lsjbc.vdtts.entity.School">
         select * from tb_student where s_account_id = #{aAccount}
     </select>
+
+
+
+<!--    刘海  修改教练Id-->
+    <update id="updateTeacherId" parameterType="int">
+        update tb_student set s_teacher_id = null where s_school_id = #{sSchoolId}
+    </update>
+
+    <select id="findStudenList" parameterType="int" resultType="com.lsjbc.vdtts.entity.Student">
+      select stu.*,ter.t_name teacherName from tb_student stu left join tb_teacher ter on stu.s_teacher_id = ter.t_id
+     <where>
+         <if test="sName!=null and sName!=''">
+             and stu.s_name like CONCAT('%', #{sName} ,'%')
+         </if>
+            and  stu.s_school_id = #{sSchoolId} limit ${start},#{pageSize}
+    </where>
+    </select>
+
+    <select id="findStudentCount" resultType="int" parameterType="com.lsjbc.vdtts.entity.Student">
+        select count(*) from tb_student
+        <where>
+            <if test="sName!=null and sName!=''">
+                and s_name like CONCAT('%', #{sName} ,'%')
+            </if>
+            and  s_school_id = #{sSchoolId}
+        </where>
+    </select>
+
+
+    <update id="updateApplyState" parameterType="int">
+        update tb_student set s_apply_state = 1 where s_id = #{sId}
+    </update>
+
+    <update id="updateStudentTeacherId" parameterType="int">
+        update tb_student set s_teacher_id = #{sTeacherId} where s_id = #{sId}
+    </update>
+
+    <select id="findTeacher" parameterType="int" resultType="com.lsjbc.vdtts.entity.Student">
+        select * from tb_student where s_id = #{sId}
+    </select>
+
 </mapper>

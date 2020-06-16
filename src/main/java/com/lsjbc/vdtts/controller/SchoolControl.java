@@ -1,7 +1,6 @@
 package com.lsjbc.vdtts.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.lsjbc.vdtts.dao.mapper.AccountMapper;
 import com.lsjbc.vdtts.entity.Account;
 import com.lsjbc.vdtts.entity.Link;
 import com.lsjbc.vdtts.entity.School;
@@ -12,9 +11,9 @@ import com.lsjbc.vdtts.service.intf.LinkServive;
 import com.lsjbc.vdtts.service.intf.SchoolService;
 import com.lsjbc.vdtts.utils.Tool;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,7 +24,7 @@ import java.util.List;
 import java.util.Map;
 
 @SuppressWarnings("all")
-@RestController
+@Controller
 @RequestMapping("/SchoolControl")
 public class SchoolControl {
 	@Autowired
@@ -43,21 +42,70 @@ public class SchoolControl {
  **/
 	@RequestMapping(value = "/findSchoolList",produces = {"application/json;charset=UTF-8"})//驾校查询
 	@ResponseBody
-	public Object findSchoolList(HttpServletRequest request, HttpServletResponse response){
+	public Object findSchoolList(HttpServletRequest request, HttpServletResponse response ,School school){
 		String pageStr = request.getParameter("page");//页码
 		String pageSizeStr = request.getParameter("limit");//每页记录数
-		//查名字
-		String sName = request.getParameter("sName");
-
 		String draw = request.getParameter("draw");//重绘次数 和前台对应
 
-		School school = new School();
-		school.setSName(sName);
 		LayuiTableData layuiTableData = schoolService.schoolList(school, Integer.parseInt(pageStr), Integer.parseInt(pageSizeStr));
 		return JSON.toJSONString(layuiTableData);
 	}
 
+	/*
+	 *@Description:修改审核状态
+	 *@Author:陈竑霖
+	 *@Param:[teacher]
+	 *@return:java.lang.String
+	 *@Date:2020/6/8 21:49
+	 **/
+	@RequestMapping(value = "/findschool",produces = {"application/json;charset=UTF-8"})
+	public String findschool(School school){
+		return JSON.toJSONString(schoolService.findschool(school));
+	}
+
+	@RequestMapping(value = "/updateschoolInfo")
+	@ResponseBody
+	public LayuiTableData updateschoolInfo(School school){
+		LayuiTableData layuiTableData = schoolService.updateschoolInfo(school);
+		return layuiTableData;
+	}
+	/*
+	 *@Description:修改处罚状态
+	 *@Author:陈竑霖
+	 *@Param:[cId]
+	 *@return:java.lang.String
+	 *@Date:2020/6/9 20:48
+	 **/
+//	处罚招生
+	@RequestMapping(value = "/punishcall",produces = {"application/json;charset=UTF-8"})
+	@ResponseBody
+	public  LayuiTableData punishrcall(int sId){
+		LayuiTableData layuiTableData =schoolService.punishcall(sId);
+		return layuiTableData;
+	}
+//	解禁招生
+	@RequestMapping(value = "/unbindcall",produces = {"application/json;charset=UTF-8"})
+	@ResponseBody
+	public  LayuiTableData unbindcall(int sId){
+		LayuiTableData layuiTableData =schoolService.unbindcall(sId);
+		return layuiTableData;
+	}
+//	处罚登录
+	@RequestMapping(value = "/punishlogon",produces = {"application/json;charset=UTF-8"})
+	@ResponseBody
+	public  LayuiTableData punishlogon(int sId){
+		LayuiTableData layuiTableData =schoolService.punishlogon(sId);
+		return layuiTableData;
+	}
+	//	解禁登录
+	@RequestMapping(value = "/unbindlogon",produces = {"application/json;charset=UTF-8"})
+	@ResponseBody
+	public  LayuiTableData unbindlogon(int sId){
+		LayuiTableData layuiTableData =schoolService.unbindlogon(sId);
+		return layuiTableData;
+	}
 	@RequestMapping(value = "/drivingFindInit")
+
     /*
      *@Description:
      *@Author:李浪_191019
@@ -145,5 +193,11 @@ public class SchoolControl {
         school.setSAccountId(account.getAId());
         if(school.getSBusinessPic() == null) school.setSBusinessPic("/image/sch.jpg");
 	    return JSON.toJSONString(schoolService.schoolToProduct(school,account.getAAccount()));
+    }
+
+    @RequestMapping(value = "/updateSchoolBasicInfo")
+    private Object updateSchoolBasicInfo(School school){
+        System.out.println("school"+school);
+        return JSON.toJSONString(schoolService.updateSchoolBasicInfo(school));
     }
 }

@@ -2,6 +2,9 @@ package com.lsjbc.vdtts.dao.mapper;
 
 import com.lsjbc.vdtts.entity.Evaluate;
 import com.lsjbc.vdtts.utils.mopper.CustomBaseMapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * @ClassName: EvaluateMapper
@@ -10,4 +13,5 @@ import com.lsjbc.vdtts.utils.mopper.CustomBaseMapper;
  * @Author: JX181114 - 郑建辉
  */
 public interface EvaluateMapper extends CustomBaseMapper<Evaluate> {
+    public List<Evaluate> selectEvaluate(@Param("e")Evaluate evaluate);//查看评价 李浪
 }

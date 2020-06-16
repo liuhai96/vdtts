@@ -52,6 +52,11 @@ public class SchoolDetail {
      */
     private Integer studentCount;
 
+    /**
+     * 把平均分转换为小数点后保留一位的分数
+     *
+     * @param score 分数
+     */
     public void setScore(Double score) {
         Double d = score * 10;
         Integer i = d.intValue();

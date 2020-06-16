@@ -51,6 +51,12 @@
             <input type="text" name="tPhone" required  lay-verify="required" placeholder="请输入电话" autocomplete="off" class="layui-input">
         </div>
     </div>
+    <div class="layui-inline">
+        <label class="layui-form-label">获取驾照日期</label>
+        <div class="layui-input-inline">
+            <input type="text" name="tLicenseTime" id="date" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input">
+        </div>
+    </div>
     <div class="layui-form-item">
         <label class="layui-form-label">性别</label>
         <div class="layui-input-block">
@@ -101,12 +107,21 @@
 </form>
 
 <script type="text/html" id="toolbarDemo">
-    <div class="layui-btn-container">
         <button class="layui-btn layui-btn-sm" lay-event="addTeacher">添加教练</button>
         <button class="layui-btn layui-btn-sm" lay-event="findTeacher">查询</button>
         <button class="layui-btn layui-btn-sm" lay-event="noRegistration">禁止学员报名</button>
         <button class="layui-btn layui-btn-sm" lay-event="findTeacher">账号锁定</button>
-    </div>
+        <div class="layui-form-item" style="display:inline-block">
+            <div class="layui-input-block">
+                <input type="text" name="inputname" placeholder="请输入教练姓名查询" autocomplete="off" class="layui-input" style="width:100%;">
+            </div>
+        </div>
+        <div class="layui-btn-container" style="display:inline-block">
+            <button class="layui-btn layui-btn-sm" lay-event="findTeacher">查询
+                <i class="layui-icon">&#xe615;</i>
+            </button>
+        </div>
+
 </script>
 
 <script type="text/html" id="barDemo">
@@ -190,6 +205,22 @@
                      });
                  });
                  break;
+                 case 'findTeacher':
+                     var data = checkStatus.data;
+                     var inputname = $("input[name='inputname']").val();
+                     alert(inputname);
+                     table.reload('test',{
+                         url:'<%=path%>/teacherController/findTeacherList',
+                         page:{
+                             curr:1//重第一页开始
+                         },
+                         where:{
+                             studentName:"qwe",
+                             tName:inputname
+                         }
+                     });
+                     $("input[name='inputname']").val(inputname);
+                     break;
 
             };
 
@@ -314,6 +345,10 @@
             }
 
         });
+    });
+
+    laydate.render({
+        elem: '#date'
     });
     //
     // laydate.render({

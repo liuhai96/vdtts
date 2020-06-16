@@ -5,10 +5,12 @@ import com.lsjbc.vdtts.entity.Notice;
 import com.lsjbc.vdtts.pojo.vo.LayuiPageData;
 import com.lsjbc.vdtts.service.impl.NoticeServiceImpl;
 import com.lsjbc.vdtts.service.intf.NoticeService;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.util.Map;
 
 /**
  * @ClassName: NoticeApi
@@ -29,12 +31,13 @@ public class NoticeApi {
      *
      * @param type 通知公告/法律法规
      * @param page 页数
+     * @param name 模糊搜索
      * @return 分页对象
      */
     @GetMapping("getList")
-    public LayuiPageData<Notice> publicity1(String type, Integer page) {
+    public LayuiPageData<Notice> publicity1(String type, Integer page, String name) {
 
-        Page<Notice> pageInfo = noticeService.getPageByType(type, page);
+        Page<Notice> pageInfo = noticeService.getPageByType(type, page, name);
 
         LayuiPageData<Notice> pageData = new LayuiPageData<>();
 

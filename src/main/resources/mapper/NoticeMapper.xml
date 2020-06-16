@@ -13,4 +13,31 @@
         </where>
     </select>
 
+<!--    陈竑霖-->
+    <!--表单-->
+    <select id="noticeList" resultType="com.lsjbc.vdtts.entity.Notice">
+        select n_id,n_name,n_time,n_content from tb_notice  where n_type = 'notice'
+        <if test="e.nTime!=null and e.nTime!=''"> and n_time like concat('%',#{e.nTime},'%')</if>
+        <if test="e.nName!=null and e.nName!=''"> and n_name like concat('%',#{e.nName},'%')</if>
+        limit #{start},#{pageSize}
+    </select>
+    <!--分页-->
+    <select id="noticeListCount" resultType="int" parameterType="com.lsjbc.vdtts.entity.Notice">
+        select count(n_id) from tb_notice
+        <!--where自动帮我们取消掉多余的and或or-->
+        <where>
+            <if test="e.nTime!=null and e.nTime!=''"> and n_time like concat('%',#{e.nTime},'%')</if>
+            <if test="e.nName!=null and e.nName!=''"> and n_name like concat('%',#{e.nName},'%')</if>
+             n_type = 'notice'
+        </where>
+    </select>
+<!--    删除公告-->
+    <delete id="deletenotice" parameterType="int" >
+        delete from tb_notice where n_id = #{nId}
+    </delete>
+<!--新增公告-->
+    <insert id="addnotice" parameterType="com.lsjbc.vdtts.entity.Notice">
+        insert into tb_notice(n_name, n_time,n_type,n_content) values (#{nName},#{nTime},'notice',#{nContent})
+    </insert>
+
 </mapper>

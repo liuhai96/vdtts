@@ -11,7 +11,7 @@ import java.util.List;
 @Mapper
 public interface StudentMapper extends CustomBaseMapper<Student> {
     /*
-     *@Description:
+     *@Description:学生表查询
      *@Author:陈竑霖
      *@Param:
      *@return:
@@ -42,6 +42,22 @@ public interface StudentMapper extends CustomBaseMapper<Student> {
 
     int addStudentMessage(Student student);
 
+
     public Student findAccount(Account account);
+
+    /*
+     *@Description:
+     *@Author:刘海
+     *@Param:
+     *@return:
+     *@Date:2020/6/15 22:55
+     **/
+    public int updateTeacherId(@Param("sSchoolId") Integer sSchoolId);
+    List<Student> findStudenList(@Param("sSchoolId") Integer sSchoolId, @Param("start") int start, @Param("pageSize") int pageSize,@Param("sName") String sName);
+    int findStudentCount(@Param("sSchoolId") Integer sSchoolId,@Param("sName") String sName);
+    int updateApplyState(Integer sId);
+    int updateStudentTeacherId(@Param("sTeacherId") Integer sTeacherId,@Param("sId") Integer sId);
+    Student findTeacher(Integer sId);
+
 
 }

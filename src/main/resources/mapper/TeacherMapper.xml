@@ -5,12 +5,26 @@
 <mapper namespace="com.lsjbc.vdtts.dao.mapper.TeacherMapper">
 <!--    查询所属驾校中的教练总数-->
     <select id="findTeacherCount" parameterType="java.lang.Integer" resultType="int">
-        select count(*) from tb_teacher where t_school_id = #{tSchoolId}
+        select count(*) from tb_teacher
+        <where>
+            <if test="tName!=null and tName!=''">
+                and t_name like concat('%',#{tName},'%')
+            </if>
+            and t_school_id = #{tSchoolId}
+        </where>
+
     </select>
 
 <!--    连表查询所属驾校的信息-->
     <select id="findTeacherList" parameterType="java.lang.Integer" resultMap="findTeachList">
-        select * from tb_teacher where t_school_id = #{tSchoolId} order by t_id limit ${start},#{pageSize}
+        select * from tb_teacher
+        <where>
+            <if test="tName!=null and tName!=''">
+                and t_name like concat('%',#{tName},'%')
+            </if>
+            and t_school_id = #{tSchoolId} order by t_id limit ${start},#{pageSize}
+        </where>
+
     </select>
     <resultMap id="findTeachList" type="com.lsjbc.vdtts.entity.Teacher">
         <result property="tSchoolId" column="t_school_id"></result>
@@ -21,6 +35,8 @@
     <select id="findSchool" parameterType="com.lsjbc.vdtts.entity.School" resultType="com.lsjbc.vdtts.entity.School">
         select * from tb_school where s_id = #{tSchoolId}
     </select>
+
+
     <select id="findAccount" parameterType="com.lsjbc.vdtts.entity.Account" resultType="com.lsjbc.vdtts.entity.Teacher">
         select a.*,b.s_name from tb_school b,(select * from tb_teacher where t_account_id =
         #{e.aId}) a where b.s_id = a.t_school_id
@@ -65,6 +81,7 @@
         update tb_teacher set t_lock = 'false' where t_id = #{tId}
     </update>
 
+
     <!--    陈竑霖-->
     <!--    教练表-->
     <select id="teacherlist" resultType="com.lsjbc.vdtts.entity.Teacher">
@@ -84,6 +101,17 @@
         </where>
     </select>
 
+    <!--李浪写 通用修改-->
+    <update id="teacherUpdate" parameterType="com.lsjbc.vdtts.entity.Teacher">
+        update tb_teacher set
+        <if test="e.tSchoolId != null and e.tSchoolId != ''"> t_school_id = #{e.tSchoolId}</if>
+        <if test="e.tSfz != null and e.tSfz != ''"> t_sfz = #{e.tSfz}</if>
+        <if test="e.tPhone != null and e.tPhone != ''"> t_phone = #{e.tPhone}</if>
+         where 1 = 1
+        <if test="e.tId != null and e.tId != ''"> and t_id = #{e.tId}</if>
+        <if test="e.tAccountId != null and e.tAccountId != ''"> and t_account_id = #{e.tAccountId}</if>
+    </update>
+
     <!--  周永哲，教练信息初始化-->
     <select id="selectAllInfo" resultType="com.lsjbc.vdtts.entity.Teacher"  parameterType="com.lsjbc.vdtts.entity.Teacher">
         select t.*,s.s_name school_name, a.a_account a_account from tb_teacher t
@@ -98,7 +126,7 @@
     </select>
 
     <!--  周永哲，统计教练信息条数-->
-    <select id="selectTeacherCount" resultType="int"  parameterType="com.lsjbc.vdtts.entity.Teacher">
+    <select id="selectTeacherCount" resultType="int" parameterType="com.lsjbc.vdtts.entity.Teacher">
         select count(*) from tb_teacher
         <where>
             <if test="teacher.tName!=null and teacher.tName!=''">

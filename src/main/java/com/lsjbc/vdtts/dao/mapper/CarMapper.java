@@ -11,13 +11,13 @@ import java.util.List;
 
 @Mapper
 public interface CarMapper extends CustomBaseMapper<Car> {
-    public int findCarCount(@Param("cSchoolId") int cSchoolId);
-    public ArrayList<Car> findCarManageList(@Param("start") int start,@Param("pageSize") int pageSize,@Param("cSchoolId") int cSchoolId);
+    public int findCarCount(@Param("cNumber")String cNumber,@Param("cSchoolId") int cSchoolId);
+    public ArrayList<Car> findCarManageList(@Param("start") int start,@Param("pageSize") int pageSize,@Param("cNumber") String cNumber,@Param("cSchoolId") int cSchoolId);
     public int updateCarInfo(Car car);
     public int deleteCar(@Param("cId") int cId);
     public int addCar(Car car);
     public ArrayList<Car> findCarList(@Param("start") int start,@Param("pageSize") int pageSize,@Param("cSchoolId") int cSchoolId);
-
+    public int updateCarInfomatian(@Param("cSchoolId") int cSchoolId);
     /*
      *@Description:
      *@Author:陈竑霖
@@ -36,5 +36,6 @@ public interface CarMapper extends CustomBaseMapper<Car> {
      *@Date:2020/6/11
      **/
     public List<Car> selectAllInfo(@Param("car") Car car, @Param("page") int page, @Param("limit") int limit);
+
     public int selectCarCount(@Param("car") Car car);
 }

@@ -5,10 +5,24 @@
 <mapper namespace="com.lsjbc.vdtts.dao.mapper.ExamResultMapper">
 <!--    刘海-->
     <select id="selectStudentExamCount" parameterType="int" resultType="int">
-        select count(*) from tb_student stu INNER JOIN tb_exam_result er on stu.s_id = er.er_student_id inner join tb_teacher ter on stu.s_teacher_id = ter.t_id where stu.s_school_id = #{sSchoolId}
+        select count(*) from tb_student stu INNER JOIN tb_exam_result er on stu.s_id = er.er_student_id inner join tb_teacher ter on stu.s_teacher_id = ter.t_id
+        <where>
+            <if test="sName!=null and sName!=''">
+                and stu.s_name like concat('%',#{sName},'%')
+            </if>
+            and stu.s_school_id = #{sSchoolId}
+        </where>
+
     </select>
     <select id="selectStudentExamList" parameterType="int" resultMap="studentMap">
-        select stu.s_id,stu.s_name,stu.s_sex,stu.s_phone,stu.s_teacher_id,er.*,ter.t_name from tb_student stu INNER JOIN tb_exam_result er on stu.s_id = er.er_student_id inner join tb_teacher ter on stu.s_teacher_id = ter.t_id where stu.s_school_id = #{sSchoolId} limit ${start},#{pageSize}
+        select stu.s_id,stu.s_name,stu.s_sex,stu.s_phone,stu.s_teacher_id,er.*,ter.t_name from tb_student stu INNER JOIN tb_exam_result er on stu.s_id = er.er_student_id inner join tb_teacher ter on stu.s_teacher_id = ter.t_id
+        <where>
+            <if test="sName!=null and sName!=''">
+                and stu.s_name like concat('%',#{sName},'%')
+            </if>
+            and stu.s_school_id = #{sSchoolId} limit ${start},#{pageSize}
+        </where>
+
     </select>
     <resultMap id="studentMap" type="com.lsjbc.vdtts.entity.ExamResult">
         <result property="erStudentId" column="er_student_id"></result>
@@ -80,5 +94,8 @@
         where er_id = #{erId}
     </update>
 
+    <insert id="insertStudent" parameterType="int">
+        insert into tb_exam_result(er_student_id) values (#{erStudentId})
+    </insert>
 
 </mapper>

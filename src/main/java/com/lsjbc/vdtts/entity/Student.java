@@ -116,6 +116,12 @@ public class Student {
 	private Integer sTeacherId;
 
 	/**
+	 * 报名状态
+	 */
+	@Column(name = "`s_apply_state`")
+	private Integer sApplyState;
+
+	/**
 	 * 驾校姓名
 	 */
 	@Transient

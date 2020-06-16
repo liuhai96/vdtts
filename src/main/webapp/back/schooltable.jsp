@@ -27,7 +27,6 @@
 					<option value="">选择审核状态查询</option>
 					<option value=" ">未审核</option>
 					<option value="true">已通过</option>
-					<option value="false">未通过</option>
 				</select>
 			</div>
 		</div>
@@ -101,9 +100,7 @@
 			,page: true
 			, done: function (res, curr, count) {
 				$("[data-field='sVerification']").children().each(function () {
-					if ($(this).text() == 'false') {
-						$(this).text("未通过")
-					} else if ($(this).text() == 'true') {
+					if ($(this).text() == 'true') {
 						$(this).text("已通过")
 					} else if ($(this).text() == '') {
 						$(this).text("未审核")

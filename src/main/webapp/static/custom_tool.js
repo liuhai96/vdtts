@@ -24,7 +24,7 @@ function Skip(c) {//表单换页
     $("#skip").submit();
 }
 function skipPage(box) {
-    location.href = $("#path").val()+box;
+    window.location.href = $("#path").val()+box;
 }
 function isContain(beingMeasured,con) {
     if (con == undefined)con = "~`!@#$%^&*()_+-=/\\?><., :;\"'~！@#￥%……&*（）——+·-=：“；”？》《。，、";

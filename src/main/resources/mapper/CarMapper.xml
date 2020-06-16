@@ -6,15 +6,32 @@
 
 <!--    刘海-->
     <select id="findCarCount" parameterType="int" resultType="int">
-        select count(*) from tb_car where c_school_id = #{cSchoolId}
+        select count(*) from tb_car
+        <where>
+            <if test="cNumber!=null and cNumber!=''">
+                and c_number like concat('%',#{cNumber},'%')
+            </if>
+            and c_school_id = #{cSchoolId}
+        </where>
+
     </select>
 
     <select id="findCarManageList" parameterType="int" resultType="com.lsjbc.vdtts.entity.Car">
-        select c.*,t.t_name from tb_car c left join  tb_teacher t on c.c_teacher_id = t.t_id where c.c_school_id = #{cSchoolId}
+        select c.*,t.t_name from tb_car c left join  tb_teacher t on c.c_teacher_id = t.t_id
+        <where>
+            <if test="cNumber!=null and cNumber!=''">
+                and c_number like concat('%',#{cNumber},'%')
+            </if>
+            and c_school_id = #{cSchoolId}  limit ${start},#{pageSize}
+        </where>
     </select>
 
     <update id="updateCarInfo" parameterType="com.lsjbc.vdtts.entity.Car">
         update tb_car set c_teacher_id = #{cTeacherId} where c_id = #{cId}
+    </update>
+
+    <update id="updateCarInfomatian">
+        update tb_car set c_teacher_id = null where c_school_id = #{cSchoolId};
     </update>
 
     <delete id="deleteCar" parameterType="int">
@@ -56,7 +73,7 @@
     </select>
 
     <!--  周永哲，统计教练车信息条数-->
-    <select id="selectCarCount" resultType="int"  parameterType="com.lsjbc.vdtts.entity.Car">
+    <select id="selectCarCount" resultType="int" parameterType="com.lsjbc.vdtts.entity.Car">
         select count(*) from tb_car
         <where>
             <if test="car.cLogo!=null and car.cLogo!=''">
@@ -64,4 +81,6 @@
             </if>
         </where>
     </select>
+
+
 </mapper>

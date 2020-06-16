@@ -83,8 +83,85 @@ public class SchoolServiceImpl implements SchoolService {
     public List<School> schoolMessageList(School school,int stripStart, int stripEnd){
 	    return schoolMapper.schoolList(school,stripStart, stripEnd);
     }
+	/*
+	 *@Description:修改审核状态
+	 *@Author:陈竑霖
+	 *@Param:[teacher]
+	 *@return:com.lsjbc.vdtts.pojo.vo.LayuiTableData
+	 *@Date:2020/6/9 15:26
+	 **/
+	@Override
+	public LayuiTableData updateschoolInfo(School school) {
+		LayuiTableData layuiTableData = new LayuiTableData();
+		int num = schoolMapper.updateschoolInfo(school);
+		if(num>0){
+			layuiTableData.setCode(1);
+		}
+		return layuiTableData;
+	}
+	@Override
+	public LayuiTableData findschool(School school) {
+		LayuiTableData layuiTableData = new LayuiTableData();
+		List<School> schoolList = schoolMapper.findschool(school);
+		layuiTableData.setData(schoolList);
+		return layuiTableData;
+	}
+	//修改处罚招生
+	@Override
+	public LayuiTableData punishcall(int sId){
+
+		LayuiTableData layuiTableData = new LayuiTableData();
+		int num = schoolMapper.punishcall(sId);
+		if(num>0){
+			layuiTableData.setCode(1);
+		}else{
+			layuiTableData.setCode(0);
+		}
+		return layuiTableData;
+	}
+	//修改解禁招生
+	@Override
+	public LayuiTableData unbindcall(int sId){
+		LayuiTableData layuiTableData = new LayuiTableData();
+		int num = schoolMapper.unbindcall(sId);
+		if(num>0){
+			layuiTableData.setCode(1);
+		}else{
+			layuiTableData.setCode(0);
+		}
+		return layuiTableData;
+	}
+	//修改处罚登录
+	@Override
+	public LayuiTableData punishlogon(int sId){
+
+		LayuiTableData layuiTableData = new LayuiTableData();
+		int num = schoolMapper.punishlogon(sId);
+		if(num>0){
+			layuiTableData.setCode(1);
+		}else{
+			layuiTableData.setCode(0);
+		}
+		return layuiTableData;
+	}
+	//修改解禁登录
+	@Override
+	public LayuiTableData unbindlogon(int sId){
+		LayuiTableData layuiTableData = new LayuiTableData();
+		int num = schoolMapper.unbindlogon(sId);
+		if(num>0){
+			layuiTableData.setCode(1);
+		}else{
+			layuiTableData.setCode(0);
+		}
+		return layuiTableData;
+	}
+
+
+
+
     @Override
-    public ResultData schoolToProduct(School school,String id){
+    public ResultData schoolToProduct(School school, String id){
         ResultData resultData = ResultData.success();
         if(schoolMapper.addSchool(school) > 0){
             resultData.put("result","恭喜！"+school.getSName()+" 已经成入驻本平台\n\n" +
@@ -146,7 +223,7 @@ public class SchoolServiceImpl implements SchoolService {
 			detail.setScore(evaluateDao.getAvgByTypeAndId(EvaluateTypeConstant.TYPE_SCHOOL, schoolId));
 			detail.setCarCount(carDao.getCountBySchoolId(schoolId));
 			detail.setTeacherCount(teacherDao.getCountBySchoolId(schoolId));
-			detail.setStudentCount(studentDao.getCountBySchoolId(schoolId));
+			detail.setStudentCount(studentDao.getStudentCountBySchoolId(schoolId));
 			details.getResult().add(detail);
 		});
 
@@ -195,5 +272,17 @@ public class SchoolServiceImpl implements SchoolService {
 	public int updateSchool(School school) {
 		int updateSchool = schoolMapper.updateSchool(school);
 		return updateSchool;
+	}
+
+	@Override
+	public ResultData updateSchoolBasicInfo(School school) {
+		 ResultData resultData = null;
+		 int num = schoolMapper.updateSchoolBasicInfo(school);
+		 if(num>0){
+		 	resultData = ResultData.success(1,"修改驾校基本信息成功");
+		 }else {
+			 resultData = ResultData.error(-1,"未找到改驾校信息");
+		 }
+		 return resultData;
 	}
 }

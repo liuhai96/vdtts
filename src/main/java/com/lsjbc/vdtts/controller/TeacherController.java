@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.lsjbc.vdtts.entity.Account;
 import com.lsjbc.vdtts.entity.Student;
-import com.lsjbc.vdtts.entity.Car;
 import com.lsjbc.vdtts.entity.Teacher;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.service.intf.StudentService;
@@ -12,8 +11,8 @@ import com.lsjbc.vdtts.service.intf.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -38,13 +37,8 @@ public class TeacherController {
     private StudentService studentService;
 
     @RequestMapping(value = "/findTeacherList")
-    public String findTeacherList(HttpServletRequest request, HttpServletResponse response){
-        String page = request.getParameter("page");//接收前端界面的分页在第几页
-        String limit = request.getParameter("limit");//接收前端界面查询数量
-        String tSchoolId = request.getParameter("tShoolId");//接收前端保存的驾校id
-        int pageSize = Integer.parseInt(limit);
-        int start = (Integer.parseInt(page)-1)*pageSize;//计算从数据库第几条开始查
-       LayuiTableData layuiTableData = teacherService.findTeacherList(start,pageSize,1);
+    public String findTeacherList(String page,String limit,String tName,HttpServletRequest request){
+       LayuiTableData layuiTableData = teacherService.findTeacherList(page,limit,tName,request);
        return JSON.toJSONString(layuiTableData, SerializerFeature.DisableCircularReferenceDetect);
     }
 
@@ -71,9 +65,9 @@ public class TeacherController {
      *@Date:2020/6/8 16:21
      **/
     @RequestMapping(value = "/deleteTeacher")
-    public String deleteTeacher(String tId){
+    public String deleteTeacher(String tId,HttpServletRequest request){
         System.out.println("tId"+tId);
-        LayuiTableData layuiTableData = teacherService.deleteTeacher(Integer.parseInt(tId));
+        LayuiTableData layuiTableData = teacherService.deleteTeacher(Integer.parseInt(tId),request);
        return JSON.toJSONString(layuiTableData);
     }
 
@@ -109,8 +103,6 @@ public class TeacherController {
         LayuiTableData layuiTableData = teacherService.teacherList(teacher, Integer.parseInt(pageStr), Integer.parseInt(pageSizeStr));
         return JSON.toJSONString(layuiTableData);
     }
-
-
 
    @RequestMapping(value = "/findTeacher")
     public String findTeacher(){
@@ -165,5 +157,29 @@ public class TeacherController {
         return JSON.toJSONString(layuiData);
     }
 
+    @RequestMapping(value = "updatePhone")
+    /*
+     *@Description:教练修改联系方式
+     *@Author:李浪_191019
+     *@Param:[teacher]
+     *@return:java.lang.String
+     *@Date:2020/6/13 16:28
+     **/
+    @ResponseBody
+    public String UpdatePhone(Teacher teacher){
+        return JSON.toJSONString(teacherService.UpdatePhone(teacher));
+    }
 
+    @RequestMapping(value = "showTeacher")
+    /*
+     *@Description:首页教练展示
+     *@Author:李浪_191019
+     *@Param:[teacher, page, limit]
+     *@return:java.lang.String
+     *@Date:2020/6/15 1:48
+     **/
+    @ResponseBody
+    public String ShowTeacher(Teacher teacher,@RequestParam(value = "page") int page , @RequestParam(value = "limit") int limit){
+        return JSON.toJSONString(teacherService.HomePageShow(teacher,page,limit));
+    }
 }

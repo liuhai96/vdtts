@@ -18,39 +18,85 @@
 <body>
 <form class="layui-form" action="">
     <div class="layui-form-item">
+        <label class="layui-form-label">驾校id</label>
+        <div class="layui-input-block">
+            <input type="text" name="schoolId"  autocomplete="off" class="layui-input" disabled="disabled">
+        </div>
+    </div>
+    <div class="layui-form-item">
         <label class="layui-form-label">驾校名字</label>
         <div class="layui-input-block">
-            <input type="text" name="sName" lay-verify="title" autocomplete="off" class="layui-input">
+            <input type="text" name="sName"  autocomplete="off" class="layui-input" disabled="disabled">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">驾校账号</label>
         <div class="layui-input-block">
-            <input type="text" name="aAccount" lay-verify="title" autocomplete="off" class="layui-input">
+            <input type="text" name="aAccount"  autocomplete="off" class="layui-input" disabled="disabled">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">驾校地址</label>
+        <div class="layui-input-block">
+            <input type="text" name="schoolAddress"  autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">联系电话</label>
+        <div class="layui-input-block">
+            <input type="text" name="schoolPhone"  autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">法人代表名字</label>
         <div class="layui-input-block">
-            <input type="text" name="sOwnerName" lay-verify="title" autocomplete="off" class="layui-input">
+            <input type="text" name="sOwnerName"  autocomplete="off" class="layui-input" disabled="disabled">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">驾校注册时间</label>
         <div class="layui-input-block">
-            <input type="text" name="sName" lay-verify="title" autocomplete="off" class="layui-input">
+            <input type="text" name="sName"  autocomplete="off" class="layui-input" disabled="disabled">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">信用代码</label>
         <div class="layui-input-block">
-            <input type="text" name="sBusinessId" lay-verify="title" autocomplete="off" class="layui-input">
+            <input type="text" name="sBusinessId"  autocomplete="off" class="layui-input" disabled="disabled">
         </div>
     </div>
     <div class="layui-form-item">
         <div class="layui-input-block">
-            <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
-            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            <button class="layui-btn" lay-submit lay-filter="formDemo">修改驾校信息</button>
+        </div>
+    </div>
+</form>
+
+
+<form class="layui-form" action="" id="updateSchoolInfo" style="display:none">
+    <div class="layui-form-item">
+        <label class="layui-form-label">驾校id</label>
+        <div class="layui-input-block">
+            <input type="text" name="sId" required lay-verify="required" autocomplete="off" class="layui-input" disabled="disabled">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">驾校地址</label>
+        <div class="layui-input-block">
+            <input type="text" name="sAddress" required lay-verify="required" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">联系电话</label>
+        <div class="layui-input-block">
+            <input type="text" name="sPhone" required lay-verify="required|phone" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="update">立即提交</button>
+            </div>
         </div>
     </div>
 </form>
@@ -62,8 +108,14 @@
             dataType:'JSON',
             url: '/SchoolControl/findSchoolInfo',
             success: function (remsg) {
-                alert(JSON.stringify(remsg.data.school));
+                alert(remsg.data['school'].sphone);
                 $("input[name='sName']").val(remsg.data['school'].sname);
+                $("input[name='aAccount']").val(remsg.data['school'].aaccount);
+                $("input[name='schoolPhone']").val(remsg.data['school'].sphone);
+                $("input[name='sOwnerName']").val(remsg.data['school'].sownername );
+                $("input[name='schoolAddress']").val(remsg.data['school'].saddress);
+                $("input[name='sBusinessId']").val(remsg.data['school'].sbusinessid);
+                $("input[name='schoolId']").val(remsg.data['school'].sid);
             },
             error:function () {
                 layer.alert("网络错误，请联系运营商");
@@ -72,13 +124,58 @@
     });
 
     layui.use('form', function(){
-
         var form = layui.form;
+        var $ = layui.jquery;
+        var index1="";
         form.on('submit(formDemo)', function(data){
+            $("input[name='sId']").val($("input[name='schoolId']").val())
 
+            index1 = layer.open({
+                type: 1,
+                area:["400","300px"],
+                skin: 'layui-layer-rim',
+                shadeClose: true,//点击其他地方关闭
+                content:$("#updateSchoolInfo"),
+                cancel:function (index) {
+                    layer.close(index);
+                }
+            });
+            return false;
+        });
+        form.on('submit(update)', function(data){
+            form.render();
+            layer.confirm('您确定修改驾校的基本信息？',{
+                btn:["确定","取消"],
+                btn2:function (index) {
+                    $("input[name='sPhone']").val("");
+                    $("input[name='sAddress']").val("");
+                    layer.close(index);
+                    layer.close(index1)
+                },
+                btn1:function () {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/SchoolControl/updateSchoolBasicInfo',
+                        dataType: 'JSON',
+                        data:data.field,
+                        success: function (resmsg) {
+                            if (resmsg.code == 1) {
+                                layer.msg(resmsg.msg);
+                                $("input[name='sPhone']").val("");
+                                $("input[name='sAddress']").val("");
+                                form.render();
+                            } else {
+                                layer.msg(resmsg.msg);
+                                layer.close(index);
+                            }
+                        }
+                    });
+                }
+            });
             return false;
         });
     });
+
 </script>
 </body>
 </html>

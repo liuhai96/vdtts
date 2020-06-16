@@ -2,9 +2,7 @@ package com.lsjbc.vdtts.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
-import com.lsjbc.vdtts.entity.Account;
 import com.lsjbc.vdtts.entity.Car;
-import com.lsjbc.vdtts.entity.School;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.service.intf.CarService;
 import com.lsjbc.vdtts.service.intf.SchoolService;
@@ -34,13 +32,11 @@ public class CarControl {
      *@Date:2020/6/8 23:22
      **/
     @RequestMapping(value = "/findCarList")
-    public String findCarList(HttpServletRequest request, HttpServletResponse response){
-        String page = request.getParameter("page");//接收前端界面的分页在第几页
-        String limit = request.getParameter("limit");//接收前端界面查询数量
+    public String findCarList(String page,String limit,String cNumber,HttpServletRequest request){
+
 //        String tSchoolId = request.getParameter("tShoolId");//接收前端保存的驾校id
-        int pageSize = Integer.parseInt(limit);
-        int start = (Integer.parseInt(page)-1)*pageSize;//计算从数据库第几条开始查
-        return JSON.toJSONString(carService.findCarManageList(start,pageSize,1),SerializerFeature.DisableCircularReferenceDetect);
+
+        return JSON.toJSONString(carService.findCarManageList(page,limit,cNumber,request),SerializerFeature.DisableCircularReferenceDetect);
     }
 
 
@@ -64,8 +60,8 @@ public class CarControl {
      *@Date:2020/6/9 20:48
      **/
     @RequestMapping(value = "/deleteCar")
-    public  String deleteCar(int cId){
-        return JSON.toJSONString(carService.deleteCar(cId));
+    public  String deleteCar(int cId,HttpServletRequest request){
+        return JSON.toJSONString(carService.deleteCar(cId,request));
     }
 
     @RequestMapping(value = "/addCar")
@@ -104,8 +100,8 @@ public class CarControl {
                                    Car car) {
         int page2 = (Integer.valueOf(page)-1)*Integer.valueOf(limit);
         System.out.println(" ---carpage="+page2);
-        List<Car> list= carService.selectAllInfo(car,page2,Integer.valueOf(limit));
-        int count =carService.selectCarCount(car);
+        List<Car> list = carService.selectAllInfo(car, page2, Integer.valueOf(limit));
+        int count = carService.selectCarCount(car);
         System.out.println("教练车信息初始化操作--- list="+list+" count ="+count);
         LayuiTableData layuiData = new LayuiTableData();
         layuiData.setCode(0);

@@ -6,6 +6,7 @@ import com.lsjbc.vdtts.constant.consist.NoticeTypeConstant;
 import com.lsjbc.vdtts.dao.NoticeDao;
 import com.lsjbc.vdtts.dao.mapper.NoticeMapper;
 import com.lsjbc.vdtts.entity.Notice;
+import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.service.intf.NoticeService;
 import com.lsjbc.vdtts.utils.Tool;
 import org.springframework.stereotype.Service;
@@ -71,7 +72,7 @@ public class NoticeServiceImpl implements NoticeService {
      */
     @Override
     public List<Notice> getIndexPageNotice() {
-        return getByType(NoticeTypeConstant.TYPE_NOTICE, 1, 4);
+        return getByType(NoticeTypeConstant.TYPE_NOTICE, 1, 4, "");
     }
 
     /**
@@ -82,7 +83,7 @@ public class NoticeServiceImpl implements NoticeService {
      */
     @Override
     public List<Notice> getIndexPageLaw() {
-        return getByType(NoticeTypeConstant.TYPE_LAW, 1, 4);
+        return getByType(NoticeTypeConstant.TYPE_LAW, 1, 4, "");
     }
 
     /**
@@ -95,7 +96,7 @@ public class NoticeServiceImpl implements NoticeService {
      */
     @Override
     public List<Notice> getByType(String type, Integer page) {
-        return getByType(type, page, 5);
+        return getByType(type, page, 5, "");
     }
 
     /**
@@ -103,13 +104,14 @@ public class NoticeServiceImpl implements NoticeService {
      *
      * @param type 类型
      * @param page 页数
+     * @param name 模糊搜索
      * @return 法律法规/通知公告集合的分页对象
      * @author JX181114 --- 郑建辉
      */
     @Override
-    public Page<Notice> getPageByType(String type, Integer page) {
+    public Page<Notice> getPageByType(String type, Integer page, String name) {
         Page<Notice> noticePage = PageHelper.startPage(page, 5, true);
-        noticeDao.getNoticeByTypeOrderByIdDesc(type);
+        noticeDao.getNoticeByTypeOrderByIdDesc(type, name);
         return noticePage;
     }
 
@@ -131,12 +133,64 @@ public class NoticeServiceImpl implements NoticeService {
      * @param type     类型
      * @param page     页数
      * @param pageSize 页面数据大小
+     * @param name     模糊搜索
      * @return 法律法规/通知公告集合
      * @author JX181114 --- 郑建辉
      */
-    private List<Notice> getByType(String type, Integer page, Integer pageSize) {
+    private List<Notice> getByType(String type, Integer page, Integer pageSize, String name) {
         Page<Notice> noticePage = PageHelper.startPage(page, pageSize, true);
-        noticeDao.getNoticeByTypeOrderByIdDesc(type);
+        noticeDao.getNoticeByTypeOrderByIdDesc(type, name);
         return noticePage.getResult();
+    }
+
+    /*
+     *@Description:公告表查询
+     *@Author:陈竑霖
+     *@Param:
+     *@return:
+     *@Date:2020/6/8 1591587038161
+     **/
+    @Override
+    public LayuiTableData noticeList(Notice notice, int page, int pageSize) {
+        int start = (page - 1) * pageSize;//计算出起始查询位置
+        if(start<0){
+            start=0;
+        }
+        List<Notice> list = noticeMapper.noticeList(notice, start, pageSize);
+        int count = noticeMapper.noticeListCount(notice);
+        LayuiTableData layuiData = new LayuiTableData();
+        if (list.size() > 0) {
+            layuiData.setCode(0);
+            layuiData.setMsg("");
+            layuiData.setCount(count);
+            layuiData.setData(list);
+            System.out.println(notice);
+        } else {
+            layuiData.setCode(1);
+            layuiData.setMsg("查询失败");
+        }
+        return layuiData;
+    }
+//删除公告
+    @Override
+    public LayuiTableData deletenotice(int nId) {
+        LayuiTableData layuiTableData = new LayuiTableData();
+        int num = noticeMapper.deletenotice(nId);
+        if(num>0){
+            layuiTableData.setCode(1);
+        }else{
+            layuiTableData.setCode(0);
+        }
+        return layuiTableData;
+    }
+    //新增公告
+    @Override
+    public LayuiTableData addnotice(Notice notice) {
+        LayuiTableData layuiTableData = new LayuiTableData();
+        int num = noticeMapper.addnotice(notice);
+        if(num>0){
+            layuiTableData.setCode(1);
+        }
+        return layuiTableData;
     }
 }

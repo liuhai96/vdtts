@@ -1,7 +1,6 @@
 package com.lsjbc.vdtts.dao.mapper;
 
 import com.lsjbc.vdtts.entity.Account;
-import com.lsjbc.vdtts.entity.Car;
 import com.lsjbc.vdtts.entity.Teacher;
 import com.lsjbc.vdtts.utils.mopper.CustomBaseMapper;
 import org.apache.ibatis.annotations.Mapper;
@@ -12,10 +11,8 @@ import java.util.List;
 
 @Mapper
 public interface TeacherMapper extends CustomBaseMapper<Teacher> {
-    public int findTeacherCount(@Param("tSchoolId") Integer tSchoolId);
-
-    public ArrayList<Teacher> findTeacherList(@Param("start") int start, @Param("pageSize") int pageSize, @Param("tSchoolId") Integer tSchoolId);
-
+    public int findTeacherCount(@Param("tName") String tName,@Param("tSchoolId") Integer tSchoolId);
+    public ArrayList<Teacher> findTeacherList(@Param("start") int start, @Param("pageSize") int pageSize, @Param("tName") String tName ,@Param("tSchoolId") Integer tSchoolId);
     public int addTeacher(Teacher teacher);
 
     public Teacher findAccountId(@Param("tId") int tId);
@@ -50,4 +47,7 @@ public interface TeacherMapper extends CustomBaseMapper<Teacher> {
      **/
     public List<Teacher> selectAllInfo(@Param("teacher") Teacher teacher, @Param("page") int page, @Param("limit") int limit);
     public int selectTeacherCount(@Param("teacher") Teacher teacher);
+    public int teacherUpdate(@Param("e")Teacher teacher);//教练修改统一方法
+
+    List<Teacher> homePageShow(@Param("e")Teacher teacher,Integer page,Integer  pageSize);
 }
