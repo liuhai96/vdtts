@@ -55,7 +55,7 @@
                     </div>
                 </div>
                 <div class="form-group radio-form layui-form-item" id="test1" onclick="" type="button">
-                    <label skip="true" class="layui-form-label">链接图标<i>*</i></label>
+                    <label skip="true" class="layui-form-label">链接图标</label>
                     <div class="user-type-conatiner layui-upload">
                         <div class="user-type active layui-upload-list" ref="radioWrap" data-index="0"
                              style="width: 60%">
