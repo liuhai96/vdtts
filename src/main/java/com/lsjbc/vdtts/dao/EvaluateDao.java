@@ -30,6 +30,26 @@ public class EvaluateDao implements BaseDao<Evaluate> {
     private EvaluateMapper mapper;
 
     /**
+     * 获取特定驾校/教练的评价
+     *
+     * @param type 驾校/教练类型
+     * @param id   驾校ID/教练ID
+     * @return 评价
+     * @author JX181114 --- 郑建辉
+     */
+    public List<Evaluate> getByTypeAndId(String type, Integer id) {
+
+        //先获取出所有的记录
+        Example example = new Example(Evaluate.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("eType", type);
+        criteria.andEqualTo("eToId", id);
+
+        //获取出所有查询出来的记录
+        return mapper.selectByExample(example);
+    }
+
+    /**
      * 获取特定驾校/教练的平均推荐指数
      *
      * @param type 驾校/教练类型
@@ -39,14 +59,8 @@ public class EvaluateDao implements BaseDao<Evaluate> {
      */
     public Double getAvgByTypeAndId(String type, Integer id) {
 
-        //先获取出所有的记录
-        Example example = new Example(Evaluate.class);
-        Example.Criteria criteria = example.createCriteria();
-        criteria.andEqualTo("eType", type);
-        criteria.andEqualTo("eToId", id);
-
         //获取出所有查询出来的记录
-        List<Evaluate> evaluates = mapper.selectByExample(example);
+        List<Evaluate> evaluates = getByTypeAndId(type, id);
 
         //如果没有记录，直接返回0
         if (evaluates.size() == 0) {

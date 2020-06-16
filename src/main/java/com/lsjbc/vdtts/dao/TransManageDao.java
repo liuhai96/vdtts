@@ -2,6 +2,7 @@ package com.lsjbc.vdtts.dao;
 
 import com.lsjbc.vdtts.dao.mapper.BaseDao;
 import com.lsjbc.vdtts.dao.mapper.TransManageMapper;
+import com.lsjbc.vdtts.entity.Account;
 import com.lsjbc.vdtts.entity.TransManage;
 import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.entity.Example;
@@ -18,11 +19,9 @@ public class TransManageDao implements BaseDao<TransManage> {
         return (TransManage) transManageMapper.selectByPrimaryKey(id);
     }
 
-    public TransManage findTransManage(Integer tmAccountId) {
-        Example example = new Example(TransManage.class);
-        Example.Criteria criteria = example.createCriteria();
-        criteria.andEqualTo("tmAccountId",tmAccountId);
-        return (TransManage) transManageMapper.selectOne(example);
+    public TransManage findTransManage(Account account) {
+        TransManage object = TransManage.builder().tmAccountId(account.getAId()).build();
+        return (TransManage) transManageMapper.selectOne(object);
     }
 
     @Override

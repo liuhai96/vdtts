@@ -134,12 +134,7 @@
             layer.alert(erId);
             var teacherId = data.student.sTeacherId;
             //console.log(obj)
-            if(obj.event === 'del'){
-                layer.confirm('真的删除行么', function(index){
-                    obj.del();
-                    layer.close(index);
-                });
-            } else if(obj.event === 'edit'){
+         if(obj.event === 'edit'){
                 $("#studentName").html(data.student.sName);
                 var index = layer.open({
                     type: 1,
@@ -184,5 +179,6 @@
         });
     });
 </script>
+
 </body>
 </html>

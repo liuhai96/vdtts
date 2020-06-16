@@ -208,7 +208,6 @@ public class SchoolControl {
     @RequestMapping(value = "/updateSchoolBasicInfo")
     private Object updateSchoolBasicInfo(School school){
         System.out.println("school"+school);
-        return null;
-//        return JSON.toJSONString(schoolService.updateSchoolBasicInfo(school));
+        return JSON.toJSONString(schoolService.updateSchoolBasicInfo(school));
     }
 }

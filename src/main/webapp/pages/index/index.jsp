@@ -1,4 +1,4 @@
-<%--
+<%@ page import="com.lsjbc.vdtts.utils.Tool" %><%--
   Created by IntelliJ IDEA.
   User: Admin
   Date: 2020/6/11
@@ -9,6 +9,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
     String path = request.getContextPath();
+    String today = new Tool().getDate("yyyy年MM月dd日");
 %>
 <html>
 <head>
@@ -28,13 +29,13 @@
 <div class="login-inf">
     <div class="inf-box">
         <div class="inf-time">
-            今天是2020年6月11日,欢迎您！
+            今天是<%=today%>,欢迎您！
         </div>
         <div class="inf-login">
             <a target="_blank" href="http://118.178.227.161/web/">管理部门登录</a> |
             <a target="_blank" href="http://47.98.242.153:8666/">驾培机构登录</a> |
             <a href="http://47.96.140.98:20034/coaLogin">教练员登录</a> |
-            <a href="http://47.96.140.98:20034/stuLogin">学员登录</a>
+            <a href="<%=path+"/pages/login-page/login-page.jsp"%>">学员登录</a>
         </div>
     </div>
 </div>
@@ -45,16 +46,18 @@
             <p class="top-title-p1">机动车驾驶员计时培训系统</p>
             <p class="top-title-p2">Timing training system for motor vehicle drivers</p>
         </div>
-        <div class="top-search">
-            <select id="selectType" name="selectType">
-                <option value="1">驾培机构</option>
-                <option value="2">教练员</option>
-                <option value="3">教练车</option>
+        <form id="searchSchoolOrTeacher" action="<%=path+"inquire"%>" class="top-search">
+            <select name="type">
+                <option value="school">驾培机构</option>
+                <option value="teacher">教练员</option>
             </select>
-            <input type="text" name="" id="selectName" value="">
-            <label><a style="cursor: pointer;" onclick="topSelect();"><img
-                    src="<%=path+"/image/pages/index/search.png"%>">搜索</a></label>
-        </div>
+            <input type="text" name="name">
+            <label>
+                <a style="cursor: pointer;" onclick="document:searchSchoolOrTeacher.submit()">
+                    <img src="<%=path + "/image/pages/index/search.png"%>">搜索
+                </a>
+            </label>
+        </form>
     </div>
 </div>
 <div class="menu">

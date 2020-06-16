@@ -94,5 +94,8 @@
         where er_id = #{erId}
     </update>
 
+    <insert id="insertStudent" parameterType="int">
+        insert into tb_exam_result(er_student_id) values (#{erStudentId})
+    </insert>
 
 </mapper>

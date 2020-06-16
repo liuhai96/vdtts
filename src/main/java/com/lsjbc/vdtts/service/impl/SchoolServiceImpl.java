@@ -234,7 +234,7 @@ public class SchoolServiceImpl implements SchoolService {
 			detail.setScore(evaluateDao.getAvgByTypeAndId(EvaluateTypeConstant.TYPE_SCHOOL, schoolId));
 			detail.setCarCount(carDao.getCountBySchoolId(schoolId));
 			detail.setTeacherCount(teacherDao.getCountBySchoolId(schoolId));
-			detail.setStudentCount(studentDao.getCountBySchoolId(schoolId));
+			detail.setStudentCount(studentDao.getStudentCountBySchoolId(schoolId));
 			details.getResult().add(detail);
 		});
 

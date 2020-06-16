@@ -1,4 +1,4 @@
-<%--
+<%@ page import="com.lsjbc.vdtts.utils.Tool" %><%--
   Created by IntelliJ IDEA.
   User: Admin
   Date: 2020/6/12
@@ -9,6 +9,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
     String path = request.getContextPath();
+    String today = new Tool().getDate("yyyy年MM月dd日");
 %>
 <html>
 <head>
@@ -29,13 +30,13 @@
 <div class="login-inf">
     <div class="inf-box">
         <div class="inf-time">
-            今天是2020年6月11日,欢迎您！
+            今天是<%=today%>,欢迎您！
         </div>
         <div class="inf-login">
             <a target="_blank" href="http://118.178.227.161/web/">管理部门登录</a> |
             <a target="_blank" href="http://47.98.242.153:8666/">驾培机构登录</a> |
             <a href="http://47.96.140.98:20034/coaLogin">教练员登录</a> |
-            <a href="http://47.96.140.98:20034/stuLogin">学员登录</a>
+            <a href="<%=path+"/pages/login-page/login-page.jsp"%>">学员登录</a>
         </div>
     </div>
 </div>
@@ -46,16 +47,18 @@
             <p class="top-title-p1">机动车驾驶员计时培训系统</p>
             <p class="top-title-p2">Timing training system for motor vehicle drivers</p>
         </div>
-        <div class="top-search">
-            <select id="selectType" name="selectType">
-                <option value="1">驾培机构</option>
-                <option value="2">教练员</option>
-                <option value="3">教练车</option>
+        <form id="searchSchoolOrTeacher" action="<%=path+"inquire"%>" class="top-search">
+            <select name="type">
+                <option value="school">驾培机构</option>
+                <option value="teacher">教练员</option>
             </select>
-            <input type="text" name="" id="selectName" value="">
-            <label><a style="cursor: pointer;" onclick="topSelect();"><img
-                    src="<%=path+"/image/pages/index/search.png"%>">搜索</a></label>
-        </div>
+            <input type="text" name="name">
+            <label>
+                <a style="cursor: pointer;" onclick="document:searchSchoolOrTeacher.submit()">
+                    <img src="<%=path + "/image/pages/index/search.png"%>">搜索
+                </a>
+            </label>
+        </form>
     </div>
 </div>
 <div class="menu">
@@ -88,55 +91,74 @@
 <div class="main">
     <div class="layui-tab">
         <ul id="selectParent" class="layui-tab-title" style="float: left;width: 150px;height: 200px;top: 45px;">
-            <li class="layui-this">查驾培机构</li>
-            <li id="selectTwo" onclick="selectCoaInfoJump();" class="">查教练员</li>
-            <li id="selectThree" onclick="selectVueInfoJump();" class="">查教练车</li>
+            <c:if test="${type == 'school' || type == null}">
+                <li class="layui-this">查驾培机构</li>
+                <li class="">查教练员</li>
+            </c:if>
+            <c:if test="${type == 'teacher'}">
+                <li class="">查驾培机构</li>
+                <li class="layui-this">查教练员</li>
+            </c:if>
         </ul>
         <span class="inq-inf"><img src="<%=path+"/image/pages/index/inquires.png"%>">信息查询</span>
         <div id="tab-item-parent" class="layui-tab-content" style="margin-left: 165px;">
+            <c:if test="${type == 'school' || type == null}">
             <div class="layui-tab-item layui-show">
+                </c:if>
+                <c:if test="${type == 'teacher'}">
+                <div class="layui-tab-item">
+                    </c:if>
 
-                <div class="inq-rank">
-                    <div class="layui-inline">
-                        <label class="layui-form-label">驾校：</label>
-                        <div class="layui-input-inline pub-inp-box">
-                            <input id="schoolName" type="text" class="layui-input pub-inp" placeholder="请输入驾校名">
-                        </div>
+                    <div class="inq-con">
+                        <span class="title-con">查询条件</span>
                     </div>
-                    <button class="layui-btn pub-but" id="selectSchoolByName"><img
-                            src="<%=path+"/image/pages/index/menu_inquire.png"%>">查询
-                    </button>
-                </div>
-                <div class="inq-school">
-                        <textarea title="消息模版" id="LAY_tpl" style="display:none;">
-                                {{# layui.each(d.data, function(index, item){ }}
-                                <li class="list-school">
+                    <ul class="ul1">
+                        <li>
+                            <span class="title-area">驾校查询：</span>
+                            <div class="layui-inline">
+                                <input id="schoolName" type="text" class="layui-input pub-inp" placeholder="请输入驾校名"
+                                       value="${schoolName}">
+                            </div>
+
+                            <button class="layui-btn" id="selectSchoolByName" style="background-color: #3c97ff">
+                                <img style="margin-left: -10px;margin-top: -3px"
+                                     src="<%=path+"/image/pages/index/menu_inquire.png"%>">&nbsp;&nbsp;搜索
+                            </button>
+                        </li>
+                    </ul>
+                    <hr>
+
+
+                    <div class="inq-school">
+                    <textarea title="消息模版" id="SCHOOL_tpl" style="display:none;">
+                            {{# layui.each(d.data, function(index, item){ }}
+                            <li class="list-school">
+                                <a href="">
+                                    <img src="<%=path+"/image/pages/index/sch6.jpg"%>">
+                                </a>
+                                <div class="inf-school">
                                     <a href="http://47.96.140.98:20034/schInfoDetail?inscode=3322210509142226">
-                                        <img src="<%=path+"/image/pages/index/sch6.jpg"%>">
+                                        <p class="word-1" title="{{ item.name }}">{{ item.name }}</p>
                                     </a>
-                                    <div class="inf-school">
-                                        <a href="http://47.96.140.98:20034/schInfoDetail?inscode=3322210509142226">
-                                            <p class="word-1" title="{{ item.name }}">{{ item.name }}</p>
-                                        </a>
-                                        <p style="float: left;">综合评分：</p>
-                                        <div class="atar_Show" style="display:inline;">
-                                            <p class="scoreStar" tip="{{ item.score }}"></p>
-                                        </div>
-                                        <span>{{ item.score }}分</span>
-                                        <p></p>
-                                        <p>
-                                            <span>教练员数：{{ item.teacherCount }}人</span>
-                                            <span style="margin-left: 35px;">教练车数：{{ item.carCount }}台</span>
-                                        </p>
-                                        <p>
-                                            <span>总学员数：{{ item.studentCount }}人</span>
-                                        </p>
-                                        <p title="{{ item.address }}"
-                                           style="overflow: hidden;text-overflow: ellipsis;white-space: nowrap;width: 275px;display: block;text-align: left;">地址：{{ item.address }}</p>
+                                    <p style="float: left;">综合评分：</p>
+                                    <div class="atar_Show" style="display:inline;">
+                                        <p class="scoreStar" tip="{{ item.score }}"></p>
                                     </div>
-                                </li>
-                                {{# }); }}
-                            </textarea>
+                                    <span>{{ item.score }}分</span>
+                                    <p></p>
+                                    <p>
+                                        <span>教练员数：{{ item.teacherCount }}人</span>
+                                        <span style="margin-left: 35px;">教练车数：{{ item.carCount }}台</span>
+                                    </p>
+                                    <p>
+                                        <span>总学员数：{{ item.studentCount }}人</span>
+                                    </p>
+                                    <p title="{{ item.address }}"
+                                       style="overflow: hidden;text-overflow: ellipsis;white-space: nowrap;width: 275px;display: block;text-align: left;">地址：{{ item.address }}</p>
+                                </div>
+                            </li>
+                            {{# }); }}
+                        </textarea>
                         <ul id="schoolList" style="width: 929px;">
                         </ul>
                         <hr>
@@ -145,11 +167,72 @@
                         </div>
                     </div>
                 </div>
-                <div id="tab-item-two" class="layui-tab-item">
 
-                </div>
-                <div id="tab-item-three" class="layui-tab-item">
+                <c:if test="${type == 'school' || type == null}">
+                <div class="layui-tab-item">
+                    </c:if>
+                    <c:if test="${type == 'teacher'}">
+                    <div class="layui-tab-item layui-show">
+                        </c:if>
+                        <div class="inq-con">
+                            <span class="title-con">查询条件</span>
+                        </div>
+                        <ul class="ul1">
+                            <li>
+                                <span class="title-area">教练查询：</span>
+                                <div class="layui-inline">
+                                    <input class="layui-input" id="teacherName" placeholder="请输入教练姓名"
+                                           value="${teacherName}">
+                                </div>
+                                <button id="selectTeacherByName" class="layui-btn" style="background-color: #3c97ff">
+                                    <img style="margin-left: -10px;margin-top: -3px"
+                                         src="<%=path+"/image/pages/index/menu_inquire.png"%>">&nbsp;&nbsp;搜索
+                                </button>
+                            </li>
+                            <li id="coaSexParent">
+                                <span class="title-area">性　　别：</span>
+                                <button class="sexBtn" value="">不限</button>
+                                <button class="sexBtn" value="男">男</button>
+                                <button class="sexBtn" value="女">女</button>
+                            </li>
+                        </ul>
+                        <hr>
+                        <div class="inq-student">
+                    <textarea title="消息模版" id="TEACHER_tpl" style="display:none;">
+                        {{# layui.each(d.data, function(index, item){ }}
+                        <li class="list-student">
+                            <a href="<%=path%>{{ item.infoUrl }}">
+                                <img width="142px;" height="191px;"
+                                     src="<%=path+"/image/pages/index/53461368581418814_23418.jpg"%>">
+                            </a>
+                            <div class="inf-student">
+                                <a href="<%=path%>{{ item.infoUrl }}">
+                                    <p class="word-1">{{ item.name }}</p>
+                                </a>
+                                <p style="float: left;">综合星级：</p>
+                                <div class="atar_Show" style="display:inline;">
+                                    <p class="scoreStar" tip="{{ item.score }}"></p>
+                                </div>
+                                <span>{{ item.score }}分</span>
+                                <p></p>
+                                <p>
+                                    <span>性别：{{ item.sex }}</span>
+                                    <span style="margin-left: 45px;">年龄：{{ item.age }}岁</span>
+                                </p>
+                                <p><span>总学员数：{{ item.studentCount }}人</span></p>
+                                <p style="overflow: hidden;text-overflow: ellipsis;white-space: nowrap;width: 275px;display: block;text-align: left;">所属驾培机构：{{ item.schoolName }}</p>
+                            </div>
+                        </li>
+                        {{# }); }}
+                    </textarea>
+                            <ul id="teacherList" style="width: 929px;">
+                            </ul>
+                            <hr>
+                            <div id="demo1" style="float: right;">
 
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
             </div>
@@ -174,14 +257,14 @@
         </div>
 
     </div>
-<div class="footer-inf">
-    <ul style="text-align: center;display: table;">
-        <li style="margin: 0 60px 0 0px;">
-            <a href="javascript:void(0);">版权所有：传一科技</a>
-        </li>
-        <li style="margin: 0 60px 0 0px;">
-            <a href="javascript:void(0);">技术支持：传一科技</a>
-        </li>
+    <div class="footer-inf">
+        <ul style="text-align: center;display: table;">
+            <li style="margin: 0 60px 0 0px;">
+                <a href="javascript:void(0);">版权所有：传一科技</a>
+            </li>
+            <li style="margin: 0 60px 0 0px;">
+                <a href="javascript:void(0);">技术支持：传一科技</a>
+            </li>
     </ul>
 </div>
 <script src="<%=path+"/js/pages/index/jquery.min.js"%>"></script>

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @ClassName: TeacherDao
@@ -43,14 +44,39 @@ public class TeacherDao implements BaseDao<Teacher> {
     }
 
     /**
+     * 根据姓名和性别来模糊查询教练记录
+     *
+     * @param name 教练姓名
+     * @param sex  教练性别
+     * @return 教练集合
+     * @author JX181114 --- 郑建辉
+     */
+    public List<Teacher> getByNameAndSex(String name, String sex) {
+        Example example = new Example(Teacher.class);
+        Example.Criteria criteria = example.createCriteria();
+
+        if (name != null && name.length() > 0) {
+            criteria.andLike("tName", "%" + name + "%");
+        }
+
+        if (sex != null && sex.length() > 0) {
+            criteria.andEqualTo("tSex", sex);
+        }
+
+        return mapper.selectByExample(example);
+
+    }
+
+    /**
      * 通过主键来获取一个对象
      *
      * @param id 主键
      * @return 对象
+     * @author JX181114 --- 郑建辉
      */
     @Override
     public Teacher getById(Integer id) {
-        return null;
+        return (Teacher) mapper.selectByPrimaryKey(id);
     }
 
     /**

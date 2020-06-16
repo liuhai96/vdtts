@@ -1,5 +1,12 @@
 package com.lsjbc.vdtts.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.lsjbc.vdtts.constant.consist.EvaluateTypeConstant;
+import com.lsjbc.vdtts.dao.EvaluateDao;
+import com.lsjbc.vdtts.dao.SchoolDao;
+import com.lsjbc.vdtts.dao.StudentDao;
+import com.lsjbc.vdtts.dao.TeacherDao;
 import com.lsjbc.vdtts.dao.mapper.AccountMapper;
 import com.lsjbc.vdtts.dao.mapper.StudentMapper;
 import com.lsjbc.vdtts.dao.mapper.TeacherMapper;
@@ -8,22 +15,41 @@ import com.lsjbc.vdtts.entity.School;
 import com.lsjbc.vdtts.entity.Teacher;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.pojo.vo.ResultData;
+import com.lsjbc.vdtts.pojo.vo.TeacherDetail;
 import com.lsjbc.vdtts.service.intf.TeacherService;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service
-@Transactional
+@Service(TeacherServiceImpl.NAME)
 public class TeacherServiceImpl implements TeacherService {
+
+    /**
+     * Bean名
+     */
+    public static final String NAME = "TeacherService";
+
+
     @Resource
     private TeacherMapper teacherMapper;
     @Resource
     private StudentMapper studentMapper;
+
+    @Resource(name = TeacherDao.NAME)
+    private TeacherDao teacherDao;
+
+    @Resource(name = EvaluateDao.NAME)
+    private EvaluateDao evaluateDao;
+
+    @Resource(name = SchoolDao.NAME)
+    private SchoolDao schoolDao;
+
+    @Resource(name = StudentDao.NAME)
+    private StudentDao studentDao;
+
     @Override
     /*
      *@Description:查询各个驾校的教练基本信息
@@ -32,14 +58,14 @@ public class TeacherServiceImpl implements TeacherService {
      *@return:com.lsjbc.vdtts.pojo.vo.LayuiTableData
      *@Date:2020/6/8 19:02
      **/
-    public LayuiTableData findTeacherList(String page, String limit,String tName, HttpServletRequest request) {
+    public LayuiTableData findTeacherList(String page, String limit, String tName, HttpServletRequest request) {
 
 
         int pageSize = Integer.parseInt(limit);
-        int start = (Integer.parseInt(page)-1)*pageSize;//计算从数据库第几条开始查
-        School school = (School) request .getSession().getAttribute("school");
-        ArrayList<Teacher> teacherList = teacherMapper.findTeacherList(start,pageSize,tName,school.getSId());
-        int teachCount = teacherMapper.findTeacherCount(tName,school.getSId());
+        int start = (Integer.parseInt(page) - 1) * pageSize;//计算从数据库第几条开始查
+        School school = (School) request.getSession().getAttribute("school");
+        ArrayList<Teacher> teacherList = teacherMapper.findTeacherList(start, pageSize, tName, school.getSId());
+        int teachCount = teacherMapper.findTeacherCount(tName, school.getSId());
         LayuiTableData LayuiTableData = new LayuiTableData();
         LayuiTableData.setCode(0);
         LayuiTableData.setMsg("查询成功");
@@ -232,12 +258,72 @@ public class TeacherServiceImpl implements TeacherService {
             return ResultData.success("修改成功！");
         else return ResultData.success("修改失败！");
     }
+
     @Override
-    public ResultData HomePageShow(Teacher teacher, int page, int pageSize){
+    public ResultData HomePageShow(Teacher teacher, int page, int pageSize) {
         ResultData resultData = ResultData.success();
 
 
-        resultData.put("teachers", teacherMapper.homePageShow(teacher,page,pageSize));
+        resultData.put("teachers", teacherMapper.homePageShow(teacher, page, pageSize));
         return resultData;
+    }
+
+    /**
+     * 根据姓名和性别来分页查询教练对象
+     *
+     * @param name 姓名
+     * @param sex  性别
+     * @param page 分页页数
+     * @return 分页记录
+     */
+    @Override
+    public Page<TeacherDetail> getTeacherDetailPageByNameAndSex(String name, String sex, Integer page) {
+
+        Page<Teacher> pageInfo = getTeacherPageByNameAndSex(name, sex, page);
+
+        Page<TeacherDetail> details = new Page<>();
+        details.setTotal(pageInfo.getTotal());
+        details.setPages(pageInfo.getPages());
+
+        pageInfo.getResult().stream().forEach(item -> {
+            TeacherDetail detail = TeacherDetail.generateDetail(item);
+            detail.setScore(evaluateDao.getAvgByTypeAndId(EvaluateTypeConstant.TYPE_TEACHER, item.getTId()));
+            detail.setSchoolName(schoolDao.getById(item.getTSchoolId()).getSName());
+            detail.setStudentCount(studentDao.getStudentCountByTeacherId(item.getTId()));
+
+            //生成跳转路径，必须
+            detail.generateInfoUrl();
+
+            details.getResult().add(detail);
+        });
+
+        return details;
+    }
+
+    /**
+     * 根据姓名和性别来分页查询教练对象
+     *
+     * @param name 姓名
+     * @param sex  性别
+     * @param page 分页页数
+     * @return 分页记录
+     */
+    @Override
+    public Page<Teacher> getTeacherPageByNameAndSex(String name, String sex, Integer page) {
+        Page<Teacher> pageInfo = PageHelper.startPage(page, 6, true);
+        teacherDao.getByNameAndSex(name, sex);
+        return pageInfo;
+    }
+
+    /**
+     * 根据主键获取教练信息
+     *
+     * @param id 主键
+     * @return 对象
+     * @author JX181114 --- 郑建辉
+     */
+    @Override
+    public Teacher zjhGetObjectByTeacherId(Integer id) {
+        return teacherDao.getById(id);
     }
 }

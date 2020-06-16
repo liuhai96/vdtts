@@ -26,6 +26,13 @@ public class SchoolApi {
     @Resource(name = SchoolServiceImpl.NAME)
     private SchoolService schoolService;
 
+    /**
+     * 根据姓名分页查询驾校信息
+     *
+     * @param name 驾校名字
+     * @param page 页数
+     * @return 驾校信息集合
+     */
     @GetMapping("info")
     public LayuiPageData<SchoolDetail> getSchoolDetails(String name, Integer page) {
         Page<SchoolDetail> pageInfo = schoolService.getSchoolDetailPageByName(name, page);

@@ -1,10 +1,7 @@
 package com.lsjbc.vdtts.service.intf;
 
-import com.lsjbc.vdtts.entity.ExamTime;
-
-import java.util.ArrayList;
-
 import com.lsjbc.vdtts.pojo.vo.ExamTimeNew;
+import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.pojo.vo.ResultData;
 
 /**
@@ -15,7 +12,15 @@ import com.lsjbc.vdtts.pojo.vo.ResultData;
  */
 public interface ExamTimeService {
 
-    ArrayList<ExamTime> findStudentExamNotes();
+
+    /*
+     *@Description:查询学员学时记录
+     *@Author:刘海
+     *@Param:
+     *@return:
+     *@Date:2020/6/15 18:54
+     **/
+    LayuiTableData findStudentExamNotes(String page,String limit,Integer studentId);
 
     /**
      * 更新学员的学时
@@ -36,5 +41,8 @@ public interface ExamTimeService {
      * @return 如果有教练车，会直接返回教练车数量，如果没有分配教练，会返回-1，如果所分配的教练没有分配教练车，返回-2
      * @author JX181114 --- 郑建辉
      */
+
+
+
     Integer getCarCountByStudentId(Integer studentId);
 }

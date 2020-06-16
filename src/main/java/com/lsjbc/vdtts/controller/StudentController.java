@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.lsjbc.vdtts.entity.Account;
 import com.lsjbc.vdtts.entity.Student;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
+import com.lsjbc.vdtts.pojo.vo.ResultData;
 import com.lsjbc.vdtts.service.intf.AccountService;
 import com.lsjbc.vdtts.service.intf.StudentService;
 import com.lsjbc.vdtts.utils.Tool;
@@ -185,4 +186,39 @@ public class StudentController {
         return JSON.toJSONString(layuiData);
     }
 
+    /*
+     *@Description:查询驾校内的学员
+     *@Author:刘海
+     *@Param:
+     *@return:
+     *@Date:2020/6/15 23:12
+     **/
+    @RequestMapping(value = "/findStudentList")
+    public String findStudentList(HttpServletRequest request,String page,String limit,String sName){
+        return JSON.toJSONString(studentService.findStudenList(request,page,limit,sName));
+    }
+
+    /*
+     *@Description:修改学员的报名状态
+     *@Author:刘海
+     *@Param:
+     *@return:
+     *@Date:2020/6/16 1:31
+     **/
+    @RequestMapping(value = "/updateStudentApplyState")
+    public ResultData updateStudentApplyState(String sId){
+        return studentService.updateStudentApplyState(Integer.parseInt(sId));
+    }
+
+    /*
+     *@Description:修改教练Id
+     *@Author:刘海
+     *@Param:
+     *@return:
+     *@Date:2020/6/16 1:31
+     **/
+    @RequestMapping(value = "/updateStudentTeacherId")
+    public ResultData updateStudentTeacherId(String sTeacherId,String sId){
+        return studentService.updateStudentTeacherId(Integer.parseInt(sTeacherId),Integer.parseInt(sId));
+    }
 }
