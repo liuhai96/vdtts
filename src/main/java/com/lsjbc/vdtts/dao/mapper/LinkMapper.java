@@ -13,5 +13,8 @@ import java.util.List;
 
 public interface LinkMapper extends CustomBaseMapper<Link> {
     public List<Link> getBlogroll(@Param("e") Link link, @Param("start")int start, @Param("size")int size);
-
+    int addLink(@Param("e")Link link);
+    int getCount(@Param("e") Link link);
+    int updateLink(@Param("e") Link link);
+    int deleteLink(@Param("e") Link link);
 }

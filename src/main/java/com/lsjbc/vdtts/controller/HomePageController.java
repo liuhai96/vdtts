@@ -2,7 +2,7 @@ package com.lsjbc.vdtts.controller;
 
 import com.lsjbc.vdtts.entity.Link;
 import com.lsjbc.vdtts.entity.Notice;
-import com.lsjbc.vdtts.service.intf.LinkServive;
+import com.lsjbc.vdtts.service.intf.LinkService;
 import com.lsjbc.vdtts.service.intf.NoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,7 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class HomePageController {
     @Autowired
-    private LinkServive linkServive;
+    private LinkService linkServive;
     @Autowired
     private NoticeService noticeSerivice;
 /*

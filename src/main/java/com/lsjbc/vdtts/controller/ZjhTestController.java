@@ -6,7 +6,7 @@ import com.lsjbc.vdtts.entity.Video;
 import com.lsjbc.vdtts.service.impl.LinkServiceImpl;
 import com.lsjbc.vdtts.service.impl.NoticeServiceImpl;
 import com.lsjbc.vdtts.service.impl.VideoServiceImpl;
-import com.lsjbc.vdtts.service.intf.LinkServive;
+import com.lsjbc.vdtts.service.intf.LinkService;
 import com.lsjbc.vdtts.service.intf.NoticeService;
 import com.lsjbc.vdtts.service.intf.VideoService;
 import org.springframework.stereotype.Controller;
@@ -31,7 +31,7 @@ public class ZjhTestController {
     private NoticeService noticeService;
 
     @Resource(name = LinkServiceImpl.NAME)
-    private LinkServive linkServive;
+    private LinkService linkServive;
 
     @Resource(name = VideoServiceImpl.NAME)
     private VideoService videoService;
