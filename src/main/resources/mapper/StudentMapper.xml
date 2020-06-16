@@ -88,4 +88,10 @@
     <select id="findAccount" resultType="com.lsjbc.vdtts.entity.School">
         select * from tb_student where s_account_id = #{aAccount}
     </select>
+
+
+<!--    刘海  修改教练Id-->
+    <update id="updateTeacherId" parameterType="int">
+        update tb_student set s_teacher_id = null where s_school_id = #{sSchoolId}
+    </update>
 </mapper>

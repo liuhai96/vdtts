@@ -1,10 +1,12 @@
-package com.lsjbc.vdtts.entity;
+package com.lsjbc.vdtts.pojo.vo;
 
 /**
  * @author LiLang9725
  * @date 2020/6/11 17:00
  */
+
 import lombok.*;
+
 import java.io.File;
 
 @Getter

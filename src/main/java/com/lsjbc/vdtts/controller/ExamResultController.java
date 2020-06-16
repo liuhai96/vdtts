@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+
 @RestController
 @RequestMapping("/examResultController")
 public class ExamResultController {
@@ -19,10 +21,10 @@ public class ExamResultController {
      *@Date:2020/6/10 23:59
      **/
     @RequestMapping(value = "/selectStudentExamList")
-    public Object selectStudentExamList(String page, String limit,String sName,String studentName){
+    public Object selectStudentExamList(String page, String limit, String sName, String studentName, HttpServletRequest request){
         System.out.println("sName>>>>>"+sName);
         System.out.println("sName>>>>>"+studentName);
-        return JSON.toJSONString(examResultService.selectStudentExamList(page,limit,sName,1));
+        return JSON.toJSONString(examResultService.selectStudentExamList(page,limit,sName,request));
     }
 
     @RequestMapping(value = "/arringeExam")

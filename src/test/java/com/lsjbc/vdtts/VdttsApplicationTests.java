@@ -8,13 +8,23 @@ import com.lsjbc.vdtts.entity.ExamQuestion;
 import com.lsjbc.vdtts.entity.ExamSimulateRecord;
 import com.lsjbc.vdtts.utils.CustomTimeUtils;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.annotation.Resource;
-import java.util.*;
+import java.util.Random;
 
 @SpringBootTest
 class VdttsApplicationTests {
+
+    @Resource
+    private NoticeMapper noticeMapper;
+
+    @Resource
+    private EvaluateMapper evaluateMapper;
+
+    @Resource
+    private CarMapper carMapper;
 
     @Resource(name = ExamQuestionDao.NAME)
     private ExamQuestionDao examQuestionDao;
@@ -25,24 +35,25 @@ class VdttsApplicationTests {
     @Resource(name = ExamSimulateRecordDao.NAME)
     private ExamSimulateRecordDao examSimulateRecordDao;
 
+    @Resource(name = EvaluateDao.NAME)
+    private EvaluateDao evaluateDao;
+
+    @Resource(name = CarDao.NAME)
+    private CarDao carDao;
+
+    @Resource(name = TeacherDao.NAME)
+    private TeacherDao teacherDao;
+
+    @Resource(name = StudentDao.NAME)
+    private StudentDao studentDao;
+
+    @Resource(name = SchoolDao.NAME)
+    private SchoolDao schoolDao;
+
     Random ra = new Random();
 
     @Test
     void contextLoads() {
-        for (int i=0;i<25;i++){
-            int year = 2020;
-            int month = (ra.nextInt(12))+1;
-            int day = (ra.nextInt(31))+1;
-            int hour = ra.nextInt(24);
-            int min = ra.nextInt(60);
-            int se = ra.nextInt(60);
-            int score = ra.nextInt(101);
-            ExamSimulateRecord record = ExamSimulateRecord.builder()
-                    .esrStudentId(1).esrLevel(1).esrScore(score).esrTime(""+year+"/"+month+"/"+day+" "+hour+":"+min+":"+se+"")
-                    .build();
-
-            examSimulateRecordDao.add(record);
-        }
     }
 
 

@@ -42,9 +42,8 @@ public interface SchoolService {
     //查询身份证
     public LayuiTableData apply(int sSfz);
 
+
     ResultData updateSchoolBasicInfo(School school);
-
-
 
     int schoolCount(School school);//李浪写  查找数据条数
 
@@ -80,8 +79,12 @@ public interface SchoolService {
      *@Date:2020/6/10
      **/
     public List<School> selectAllInfo(@Param("school") School school, @Param("page") int page, @Param("limit") int limit);
+
     public int selectSchoolCount(@Param("school") School school);
+
     public int deleteSchool(String schoolId);
+
     public int insertSchool(School school);
+
     public int insertSchoolAccount(Account account);
 }

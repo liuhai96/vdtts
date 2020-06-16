@@ -15,24 +15,23 @@ import java.util.List;
  *@Date:2020/6/8 1591600836022
  **/
 public interface SchoolMapper extends CustomBaseMapper<School> {
+
+
 	//查表
 	int schoolcount(@Param("e") School school);
 	List<School> schoolList(@Param("e") School school, @Param("start") int start, @Param("pageSize") int pageSize);
-
 	//修改审核状态
 	public int updateschoolInfo(School school);
 	public List<School> findschool(@Param("e") School school);
-
 	//修改禁止招生
 	public int punishcall(@Param("sId") int sId);
-
 	//修改解禁招生
 	public int unbindcall(@Param("sId") int sId);
-
 	//修改禁止登录
 	public int punishlogon(@Param("sId") int sId);
-
 	//修改解禁登录
+
+
 	public int unbindlogon(@Param("sId") int sId);
 	//sfz
 	public int apply(@Param("sSfz") int sSfz);
@@ -43,7 +42,7 @@ public interface SchoolMapper extends CustomBaseMapper<School> {
 	 *@return:
 	 *@Date:2020/6/13 15:54
 	 **/
-	public int updateSchoolBasicInfo(School school);
+	int updateSchoolBasicInfo(School school);
 
 	School findSchoolInfo(Integer sId);
 

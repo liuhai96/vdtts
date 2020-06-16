@@ -37,8 +37,8 @@ public class TeacherController {
     private StudentService studentService;
 
     @RequestMapping(value = "/findTeacherList")
-    public String findTeacherList(String page,String limit,String tName){
-       LayuiTableData layuiTableData = teacherService.findTeacherList(page,limit,tName,1);
+    public String findTeacherList(String page,String limit,String tName,HttpServletRequest request){
+       LayuiTableData layuiTableData = teacherService.findTeacherList(page,limit,tName,request);
        return JSON.toJSONString(layuiTableData, SerializerFeature.DisableCircularReferenceDetect);
     }
 
@@ -65,9 +65,9 @@ public class TeacherController {
      *@Date:2020/6/8 16:21
      **/
     @RequestMapping(value = "/deleteTeacher")
-    public String deleteTeacher(String tId){
+    public String deleteTeacher(String tId,HttpServletRequest request){
         System.out.println("tId"+tId);
-        LayuiTableData layuiTableData = teacherService.deleteTeacher(Integer.parseInt(tId));
+        LayuiTableData layuiTableData = teacherService.deleteTeacher(Integer.parseInt(tId),request);
        return JSON.toJSONString(layuiTableData);
     }
 
@@ -157,8 +157,6 @@ public class TeacherController {
         return JSON.toJSONString(layuiData);
     }
 
-
-
     @RequestMapping(value = "updatePhone")
     /*
      *@Description:教练修改联系方式
@@ -170,5 +168,18 @@ public class TeacherController {
     @ResponseBody
     public String UpdatePhone(Teacher teacher){
         return JSON.toJSONString(teacherService.UpdatePhone(teacher));
+    }
+
+    @RequestMapping(value = "showTeacher")
+    /*
+     *@Description:首页教练展示
+     *@Author:李浪_191019
+     *@Param:[teacher, page, limit]
+     *@return:java.lang.String
+     *@Date:2020/6/15 1:48
+     **/
+    @ResponseBody
+    public String ShowTeacher(Teacher teacher,@RequestParam(value = "page") int page , @RequestParam(value = "limit") int limit){
+        return JSON.toJSONString(teacherService.HomePageShow(teacher,page,limit));
     }
 }

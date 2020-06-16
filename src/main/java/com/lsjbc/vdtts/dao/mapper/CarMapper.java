@@ -15,8 +15,8 @@ public interface CarMapper extends CustomBaseMapper<Car> {
     public int updateCarInfo(Car car);
     public int deleteCar(@Param("cId") int cId);
     public int addCar(Car car);
-//    public ArrayList<Car> findCarList(@Param("start") int start,@Param("pageSize") int pageSize,@Param("cSchoolId") int cSchoolId);
-
+    public ArrayList<Car> findCarList(@Param("start") int start,@Param("pageSize") int pageSize,@Param("cSchoolId") int cSchoolId);
+    public int updateCarInfomatian(@Param("cSchoolId") int cSchoolId);
     /*
      *@Description:
      *@Author:陈竑霖

@@ -121,6 +121,9 @@ public class Teacher {
 	@Column(name = "`t_count`")
 	private String tCount;
 
+	@Column(name = "`t_idetity_id`")
+	private Integer tIdentityId;
+
 	/**
 	 * 本月限制毕业学员数
 	 */
@@ -137,6 +140,7 @@ public class Teacher {
 	/**
 	 *教练对应的驾校
 	 */
+	@Transient
 	private String aAccount;
 
 //	刘海
@@ -154,4 +158,18 @@ public class Teacher {
 	 */
 	@Transient
 	private String sName;
+
+	//李浪
+    /**
+     * 评分
+     */
+    @Transient
+    private Integer evaluate;
+
+    //李浪
+    /**
+     * 总培训人数
+     */
+    @Transient
+    private Integer count;
 }
