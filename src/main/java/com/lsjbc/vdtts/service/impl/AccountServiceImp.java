@@ -1,10 +1,8 @@
 package com.lsjbc.vdtts.service.impl;
 
+import com.lsjbc.vdtts.dao.TransManageDao;
 import com.lsjbc.vdtts.dao.mapper.*;
-import com.lsjbc.vdtts.entity.Account;
-import com.lsjbc.vdtts.entity.Evaluate;
-import com.lsjbc.vdtts.entity.School;
-import com.lsjbc.vdtts.entity.Teacher;
+import com.lsjbc.vdtts.entity.*;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.pojo.vo.ResultData;
 import com.lsjbc.vdtts.service.intf.AccountService;
@@ -150,6 +148,14 @@ public class AccountServiceImp implements AccountService {
         if(account != null) return ResultData.success("true");
         else return ResultData.success("false");
     }
+
+    /*
+     *@Description:
+     *@Author:周永哲
+     *@Param:
+     *@return:
+     *@Date:2020/6/11
+     **/
     @Override
     public ResultData updatePass(Account account){
         if(accountMapper.updateAccount(account) > 0)
@@ -161,5 +167,17 @@ public class AccountServiceImp implements AccountService {
     public int updateaccount(Account account) {
         int updateaccount = accountMapper.updateaccount(account);
         return updateaccount;
+    }
+    /*
+     *@Description:
+     *@Author:周永哲
+     *@Param:
+     *@return:
+     *@Date:2020/6/14
+     **/
+    @Override
+    public AdminAccount adminLogin(AdminAccount account) {
+        AdminAccount adminLogin = accountMapper.adminLogin(account);
+        return adminLogin;
     }
 }

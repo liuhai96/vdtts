@@ -34,7 +34,7 @@
             <li class="layui-nav-item">
                 <a href="javascript:;">
                     <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
-                    养猪场大姐
+                    hello，${admin.acName}
 <%--                    hello,${user.userName}--%>
                 </a>
                 <dl class="layui-nav-child">
@@ -135,7 +135,7 @@
                     , shade: 0 //不显示遮罩
                     , yes: function () {
                         // layer.msg('账号退出成功，即将跳转到登录界面');
-                        location.href = 'login.jsp'
+                        location.href = 'adminlogin.jsp'
                     }
                     , cancel: function () {
                         layer.closeAll();
@@ -175,6 +175,7 @@
 
     });
 </script>
+
 <div id="updatepwd" style="display: none;margin-top: 20px">
     <form class="layui-form" >
         <div class="layui-form-item">
