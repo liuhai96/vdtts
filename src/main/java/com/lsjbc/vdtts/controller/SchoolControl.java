@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.lsjbc.vdtts.entity.Account;
 import com.lsjbc.vdtts.entity.Link;
 import com.lsjbc.vdtts.entity.School;
+import com.lsjbc.vdtts.entity.Student;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.pojo.vo.ResultData;
 import com.lsjbc.vdtts.service.intf.AccountService;
@@ -104,15 +105,27 @@ public class SchoolControl {
 		LayuiTableData layuiTableData =schoolService.unbindlogon(sId);
 		return layuiTableData;
 	}
-	//身份证查询
-	@RequestMapping(value = "/apply",produces = {"application/json;charset=UTF-8"})
-	@ResponseBody
-	public  LayuiTableData apply(int sSfz){
-		LayuiTableData layuiTableData =schoolService.apply(sSfz);
-		return layuiTableData;
+//	//身份证查询
+//	@RequestMapping(value = "/apply",produces = {"application/json;charset=UTF-8"})
+//	@ResponseBody
+//	public  LayuiTableData apply(int sSfz){
+//		LayuiTableData layuiTableData =schoolService.apply(sSfz);
+//		return layuiTableData;
+//	}
+
+ /*
+  *@Description:身份查询
+  *@Author:陈竑霖
+  *@Param:
+  *@return:
+  *@Date:2020/6/16 1592273275785
+  **/
+ @RequestMapping(value = "/insSfz")
+    @ResponseBody
+	public ResultData insSfz(HttpServletRequest request, HttpServletResponse response, Student student){
+		response.setContentType("text/html;charset=utf-8");
+		return schoolService.insSfz(student,request);
 	}
-
-
 
 	@RequestMapping(value = "/drivingFindInit")
 

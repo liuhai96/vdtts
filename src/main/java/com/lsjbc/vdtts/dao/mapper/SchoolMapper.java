@@ -27,11 +27,8 @@ public interface SchoolMapper extends CustomBaseMapper<School> {
 	//修改禁止登录
 	public int punishlogon(@Param("sId") int sId);
 	//修改解禁登录
-
-
 	public int unbindlogon(@Param("sId") int sId);
-	//sfz
-	public int apply(@Param("sSfz") int sSfz);
+
 	/*
 	 *@Description:
 	 *@Author:刘海

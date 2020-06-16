@@ -8,10 +8,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <% String path = request.getContextPath();%>
 <!doctype html>
+<input hidden="hidden" value="<%=path%>" id="path">
 <HEAD>
-	<META content="IE=11.0000"
-	      http-equiv="X-UA-Compatible">
-
+	<META content="IE=11.0000" http-equiv="X-UA-Compatible">
 	<META charset="utf-8">
 	<META name="viewport"
 	      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
@@ -108,6 +107,7 @@
 </HEAD>
 <BODY style="background: rgb(250, 251, 253);">
 
+<input type="hidden" id="schoolId" value="">
 <DIV class="top">
 	<DIV class="top-box"><IMG class="top-logo" src="school_files/psp-logo.png">
 
@@ -177,63 +177,59 @@
 	<script>
 		layui.use('layer', function () { //独立版的layer无需执行这一句
 			var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句
+
+			$('.layui-btn').on('click', function () {
+				var othis = $(this), method = othis.data('method');
+				active[method] ? active[method].call(this, othis) : '';
+			});
+
 			//触发事件
 			var active = {
 				notice: function () {
 					//示范一个公告层
 					layer.open({
 						type: 1
-						,
-						title: false //不显示标题栏
-						,
-						closeBtn: false
-						,
-						area: '300px;'
-						,
-						shade: 0.8
-						,
-						id: 'LAY_layuipro' //设定一个id，防止重复弹出
-						,
-						btn: ['立即报名', '残忍拒绝']
-						,
-						btnAlign: 'c'
-						,
-						moveType: 1 //拖拽模式，0或者1
-						,
-						content: '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">欢迎报名宏鑫驾校！<br>姓名<br><input type="text" name="sName" id="sName" placeholder="请输入姓名" class="layui-input" ><br>身份证<br><input type="text" name="sSfz" id="sSfz" placeholder="请输入身份证" class="layui-input" ><br>电话<br><input type="text" name="sPhone" id="sPhone" placeholder="请输入电话" class="layui-input" </div>'
-						,
-						yes: function (index,layero) {
-							alert("点击提交");
-							var sSfz = data.sSfz;
+						, title: false //不显示标题栏
+						, closeBtn: false
+						, area: '300px;'
+						, shade: 0.8
+						, id: 'LAY_layuipro' //设定一个id，防止重复弹出
+						, btn: ['立即报名', '残忍拒绝']
+						, btnAlign: 'c'
+						, moveType: 1 //拖拽模式，0或者1
+						, content: '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">欢迎报名宏鑫驾校！<br>姓名<br><input type="text" name="sName" id="sName" placeholder="请输入姓名" class="layui-input" ><br>身份证<br><input type="text" name="sSfz" id="sSfz" placeholder="请输入身份证" class="layui-input" > </div>'
+						, yes: function (index, layero) {
+							let sName = $("#sName").val();
+							let schoolId = $("#schoolId").val();
+							let sSfz = $("#sSfz").val();
+							let sSfz2 = $("#path").val() + '/SchoolControl/insSfz';
 							$.ajax({
-								type: 'POST',
-								url: '/SchoolControl/apply',
+								type: 'get',
+								url: '/SchoolControl/insSfz',
 								dataType: 'JSON',
-								data:{
-									sSfz:sSfz
+								data: {
+									sName: sName
+									, sSfz: sSfz
 								},
-								success: function (msg) {
-									if (msg.code == 1) {
-										layer.msg("报名驾校成功");
-										$table.reload();
+								success: function (remsg) {
+									if (remsg.code==1){
+										layer.msg(remsg.msg);
+										layer.close(index);
+									}else if(remsg.code==2){
+										layer.msg(remsg.msg);
+										layer.close(index);
+									}else {
+										layer.msg(remsg.msg);
+										layer.close(index);
 									}
-									alert(data.sSfz);
-									layer.close(index);
+
 								}
-							});
+							})
 						}
-					});
+					})
 				}
-			};
-
-
-
-			$('.layui-btn').on('click', function(){
-				var othis = $(this), method = othis.data('method');
-				active[method] ? active[method].call(this, othis) : '';
-			});
-		});
-
+			}
+		})
 	</script>
 	<DIV class="table-list">
 		<UL class="blist clearfix">

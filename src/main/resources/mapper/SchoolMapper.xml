@@ -51,13 +51,13 @@
         update tb_school set  s_lock='true' where s_id = #{sId}
     </update>
 
-    <!--    sfz-->
-    <update id="apply" parameterType="com.lsjbc.vdtts.entity.School">
-        select s_sfz from tb_student
-        <where>
-            <if></if>
-        </where>
-    </update>
+<!--    &lt;!&ndash;    sfz&ndash;&gt;-->
+<!--    <update id="apply" parameterType="com.lsjbc.vdtts.entity.School">-->
+<!--        select s_sfz from tb_student-->
+<!--        <where>-->
+<!--            <if></if>-->
+<!--        </where>-->
+<!--    </update>-->
 
 
 

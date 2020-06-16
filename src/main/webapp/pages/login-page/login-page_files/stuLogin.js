@@ -77,46 +77,7 @@ $(function(){
             }
         });
 
-        // $(".reg-box .idcard").blur(function(){//身份证验证
-        //     var reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
-        //     if( $(this).val()==""|| $(this).val()=="请输入学员身份证号码") {
-        //         $(this).addClass("errorC");
-        //         $(this).next().html("身份证号码不能为空！");
-        //         $(this).next().css("display","block");
-        //     }else if($(".reg-box .idcard").val().length<15) {
-        //         $(this).addClass("errorC");
-        //         $(this).next().html("身份证号码长度有误！");
-        //         $(this).next().css("display","block");
-        //     }else if(!reg.test($(".reg-box .idcard").val())) {
-        //         $(this).addClass("errorC");
-        //         $(this).next().html("身份证号码不存在!");
-        //         $(this).next().css("display","block");
-        //     }else{
-        //         $(this).addClass("checkedN");
-        //         $(this).removeClass("errorC");
-        //         $(this).next().empty();
-        //     }
-        // });
-        // $(".reg-box .phone").blur(function(){//手机号验证
-        //     var reg=/^[a-zA-Z0-9_]{3,32}$/;//验证手机正则(输入前7位至11位)
-        //     if( $(this).val()==""|| $(this).val()=="请输入信息采集时所填写的手机号") {
-        //         $(this).addClass("errorC");
-        //         $(this).next().html("手机号码不能为空！");
-        //         $(this).next().css("display","block");
-        //     }else if($(".reg-box .phone").val().length<11) {
-        //         $(this).addClass("errorC");
-        //         $(this).next().html("手机号码长度有误！");
-        //         $(this).next().css("display","block");
-        //     }else if(!reg.test($(".reg-box .phone").val())) {
-        //         $(this).addClass("errorC");
-        //         $(this).next().html("手机号码不存在!");
-        //         $(this).next().css("display","block");
-        //     }else{
-        //         $(this).addClass("checkedN");
-        //         $(this).removeClass("errorC");
-        //         $(this).next().empty();
-        //     }
-        // });
+
     })();
 
     $("form").submit(function(e){
