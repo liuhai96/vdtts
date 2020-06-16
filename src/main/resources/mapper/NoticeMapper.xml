@@ -36,8 +36,7 @@
         delete from tb_notice where n_id = #{nId}
     </delete>
 <!--新增公告-->
-    <insert id="addnotice" parameterType="com.lsjbc.vdtts.entity.Notice">
-        insert into tb_notice(n_name, n_time,n_type,n_content) values (#{nName},#{nTime},'notice',#{nContent})
+    <insert id="addnotice" parameterType="com.lsjbc.vdtts.entity.Notice"  useGeneratedKeys="true" keyProperty="nId">
+        insert into tb_notice(n_name, n_time,n_type,n_content) values (#{nName},#{nTime},#{nType},#{nContent})
     </insert>
-
 </mapper>

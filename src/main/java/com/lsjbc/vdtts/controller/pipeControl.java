@@ -65,7 +65,7 @@ public class pipeControl
 	@RequestMapping(value = "/addnotice")
 	@ResponseBody
 	public LayuiTableData addnotice(Notice notice){
-		System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        notice.setNType("notice");
 		LayuiTableData layuiTableData =noticeService.addnotice(notice);
 		return layuiTableData;
 	}
