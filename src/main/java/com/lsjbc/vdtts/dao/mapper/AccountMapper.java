@@ -1,6 +1,7 @@
 package com.lsjbc.vdtts.dao.mapper;
 
 import com.lsjbc.vdtts.entity.Account;
+import com.lsjbc.vdtts.entity.AdminAccount;
 import org.apache.ibatis.annotations.Param;
 
 public interface AccountMapper {
@@ -12,5 +13,8 @@ public interface AccountMapper {
     public Account selectAccount(@Param("e") Account account);
     public int updateAccount(@Param("e") Account account);//修改数据
 
+
+    public int updateaccount(Account account);
+    public AdminAccount adminLogin(AdminAccount account);
 
 }

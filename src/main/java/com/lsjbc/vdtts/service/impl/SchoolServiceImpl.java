@@ -280,6 +280,12 @@ public class SchoolServiceImpl implements SchoolService {
 	}
 
 	@Override
+	public int updateSchool(School school) {
+		int updateSchool = schoolMapper.updateSchool(school);
+		return updateSchool;
+	}
+
+	@Override
 	public ResultData updateSchoolBasicInfo(School school) {
 		 ResultData resultData = null;
 		 int num = schoolMapper.updateSchoolBasicInfo(school);

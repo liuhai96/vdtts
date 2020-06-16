@@ -17,9 +17,6 @@ import java.util.List;
 public interface SchoolMapper extends CustomBaseMapper<School> {
 
 
-	//查表
-	int schoolcount(@Param("e") School school);
-	List<School> schoolList(@Param("e") School school, @Param("start") int start, @Param("pageSize") int pageSize);
 	//修改审核状态
 	public int updateschoolInfo(School school);
 	public List<School> findschool(@Param("e") School school);
@@ -53,10 +50,18 @@ public interface SchoolMapper extends CustomBaseMapper<School> {
 	 *@return:
 	 *@Date:2020/6/13 1592034621788
 	 **/
-
 	int addSchool(School school);
 	School findAccount(Account account);
 
+	/*
+	 *@Description:
+	 *@Author:陈竑霖
+	 *@Param:
+	 *@return:
+	 *@Date:2020/6/8 1591600836022
+	 **/
+	public int schoolcount(@Param("e") School school);
+	public List<School> schoolList(@Param("e") School school, @Param("start") int start, @Param("pageSize") int pageSize);
 
 	/*
 	 *@Description:
@@ -68,8 +73,8 @@ public interface SchoolMapper extends CustomBaseMapper<School> {
 	public List<School> selectAllInfo(@Param("school") School school, @Param("page") int page, @Param("limit") int limit);
 
 	public int selectSchoolCount(@Param("school") School school);
-
 	public int deleteSchool(String schoolId);
 	public int insertSchool(School school);
 	public int insertSchoolAccount(Account account);
+	public int updateSchool(School school);
 }

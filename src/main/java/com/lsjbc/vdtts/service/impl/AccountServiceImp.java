@@ -148,10 +148,36 @@ public class AccountServiceImp implements AccountService {
         if(account != null) return ResultData.success("true");
         else return ResultData.success("false");
     }
+
+    /*
+     *@Description:
+     *@Author:周永哲
+     *@Param:
+     *@return:
+     *@Date:2020/6/11
+     **/
     @Override
     public ResultData updatePass(Account account){
         if(accountMapper.updateAccount(account) > 0)
             return ResultData.success("true");
         else return ResultData.success("false");
+    }
+
+    @Override
+    public int updateaccount(Account account) {
+        int updateaccount = accountMapper.updateaccount(account);
+        return updateaccount;
+    }
+    /*
+     *@Description:
+     *@Author:周永哲
+     *@Param:
+     *@return:
+     *@Date:2020/6/14
+     **/
+    @Override
+    public AdminAccount adminLogin(AdminAccount account) {
+        AdminAccount adminLogin = accountMapper.adminLogin(account);
+        return adminLogin;
     }
 }

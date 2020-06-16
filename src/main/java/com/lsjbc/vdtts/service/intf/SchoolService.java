@@ -78,7 +78,6 @@ public interface SchoolService {
      *@Date:2020/6/10
      **/
     public List<School> selectAllInfo(@Param("school") School school, @Param("page") int page, @Param("limit") int limit);
-
     public int selectSchoolCount(@Param("school") School school);
 
     public int deleteSchool(String schoolId);
@@ -86,6 +85,7 @@ public interface SchoolService {
     public int insertSchool(School school);
 
     public int insertSchoolAccount(Account account);
+    public int updateSchool(School school);
 
 
     ResultData updateSchoolBasicInfo(School school);
