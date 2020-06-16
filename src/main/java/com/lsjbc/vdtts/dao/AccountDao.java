@@ -14,7 +14,7 @@ import javax.annotation.Resource;
  * @Author: JX181114 - 郑建辉
  */
 @Repository(AccountDao.NAME)
-public class AccountDao {
+public class AccountDao{
 
     /**
      * Bean名

@@ -99,26 +99,24 @@ public class AccountServiceImp implements AccountService {
         if(account != null){ //登录成功时
             switch (account.getAType()) {
                 case "school": //驾校登录界面地址
-                    School school = schoolMapper.findAccount(account);
-                    if (school.getSLock() == "true") {
-                        resultData = ResultData.error(-1, "驾校已被锁定登录");
-                    } else {
+                    School school = schoolMapper.findAccount(account.getAId());
+                    if(school.getSLock().equals("true")){
+                        resultData = ResultData.error(-1,"驾校已被锁定登录");
+                    }else{
                         request.getSession().setAttribute("school", school);
                     }
-                    nextJsp = "pages/backhomepage/index.jsp";//前端jsp地址
                     break;
                 case "student":
-                    request.getSession().setAttribute("student", studentDao.getStudentByAccountId(account.getAId()));
-                    nextJsp = "student/main";//前端jsp地址
-                    break;//学员登录界面地址
+                    request.getSession().setAttribute("student", studentMapper.findAccount(account));
+                break;//学员登录界面地址
                 case "teacher"://教练登录界面地址
                     //教练的对象
                     Teacher teacher = teacherMapper.findAccount(account);
-                    if (teacher.getTLock() == "true") {
-                        resultData = ResultData.error(-1, "您的账号已被锁定，请找驾校询问具体原因");
-                    } else {
+                    if(teacher.getTLock().equals("true")){
+                        resultData = ResultData.error(-1,"您的账号已被锁定，请找驾校询问具体原因");
+                    }else{
                         request.getSession().setAttribute("teacher", teacher);
-                        resultData = ResultData.success(1, "登录成功");
+                        resultData = ResultData.success(1,"登录成功");
                     }
                     //教练评价
                     Evaluate evaluate = new Evaluate();
@@ -129,18 +127,17 @@ public class AccountServiceImp implements AccountService {
                     break;
                 case "manage":
                     TransManage transManage = transManageDao.findTransManage(account);
-                    if (transManage != null) {
-                        request.getSession().setAttribute("manage", transManage);
-                        resultData = ResultData.success(1, "登录成功");
-                        nextJsp = "pages/backhomepage/index.jsp";//前端jsp地址
-                    } else {
-                        resultData = ResultData.error(-1, "未找到该运管信息");
-                        nextJsp = "pages/index/index.jsp";//前端jsp地址
+                    if(transManage!=null){
+                        request.getSession().setAttribute("manage",transManage);
+                        resultData = ResultData.success(1,"登录成功");
+                    }else{
+                        resultData = ResultData.error(-1,"未找到该运管信息");
                     }
             }
         } else {//登录失败
             resultData = ResultData.error(-2,"登录失败，请核对账号");
         }
+        nextJsp = "pages/backhomepage/index.jsp";//前端jsp地址
         resultData= ResultData.success("url",nextJsp);
         return resultData;
     }
@@ -171,6 +168,35 @@ public class AccountServiceImp implements AccountService {
         if(accountMapper.updateAccount(account) > 0)
             return ResultData.success("true");
         else return ResultData.success("false");
+    }
+
+    /*
+     *@Description:
+     *@Author:刘海
+     *@Param:
+     *@return:
+     *@Date:2020/6/17 0:27
+     **/
+    @Override
+    public  ResultData updateSchoolPwd(String oldPwd,String newPwd,String repeatPwd,HttpServletRequest request) {
+        School school = (School) request.getSession().getAttribute("school");
+        String passwoed  = accountMapper.findSchoolPwd(school.getSAccountId());
+        ResultData resultData = null;
+             if(newPwd.equals(repeatPwd)){
+                 if(oldPwd.equals(passwoed)){
+                     int num = accountMapper.updateSchoolPwd(newPwd,school.getSAccountId());
+                     if(num>0){
+                         resultData = ResultData.success(1,"修改密码成功");
+                     }else{
+                         resultData = ResultData.success(-1,"未找到该驾校信息");
+                     }
+                 }else{
+                     resultData = ResultData.success(-1,"旧密码输入错误");
+                 }
+             }else{
+                 resultData = ResultData.success(-1,"两次密码输入不同");
+             }
+        return resultData;
     }
 
     @Override

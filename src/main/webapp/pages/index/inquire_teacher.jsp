@@ -149,7 +149,6 @@
         <p>学员评价</p>
         <hr>
         <div id="evaluateDiv">
-
         </div>
     </div>
 </div>

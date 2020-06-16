@@ -108,9 +108,10 @@
 
 
 <script>
-    layui.use('table', function(){
+    layui.use(['table','layer','form'], function(){
         var table = layui.table;
-
+        var layer = layui.layer;
+        var form = layui.form;
         var $table=table.render({
             elem: '#test'
             ,url:'/carControl/findCarList'
@@ -154,9 +155,8 @@
                             layer.close(index);
                         }
                     });
-                    layui.use('form', function(){
-                        var form = layui.form;
-                        form.on('submit(demo1)', function(data){
+
+                    form.on('submit(demo1)', function(data){
                             $.ajax({
                                 type: 'POST',
                                 url: '/carControl/addCar',
@@ -173,7 +173,6 @@
 
                             return false;
                         });
-                    });
                     break;
 
                 //自定义头工具栏右侧图标 - 提示
@@ -240,7 +239,7 @@
                     url: '/teacherController/findTeacher',
                     dataType: 'JSON',
                     success: function (msg) {
-                        $("#teacherSelect").html();
+                        $("#teacherSelect").html("");
                        $.each(msg.data,function (i,item) {
                            $("#teacherSelect").append("<option value='" + item.tId + "'>" + item.tName + "</option>");
                        });
@@ -259,8 +258,6 @@
                         layer.close(index);
                     },
                 });
-                layui.use('form', function(){
-                    var form = layui.form
                     var cId = data.cId;
                     form.render();
                     form.on('submit(demo2)', function(data){
@@ -279,21 +276,22 @@
                                 }else if(msg.code==1){
                                     layer.msg("修改成功");
                                     layer.close(index1);
-
                                     $table.reload();
                                 }else{
                                     layer.msg("未找到该教练信息");
                                     layer.close(index1);
                                 }
+
                                 layui.use('form',function(){
                                     var form = layui.form;
                                     form.render();
                                 });
+
                             }
                         });
                         return false;
                     });
-                });
+
             }
         });
     });

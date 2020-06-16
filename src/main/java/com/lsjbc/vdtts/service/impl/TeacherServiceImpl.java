@@ -85,9 +85,11 @@ public class TeacherServiceImpl implements TeacherService {
      *@return:com.lsjbc.vdtts.pojo.vo.LayuiTableData
      *@Date:2020/6/7 22:55
      **/
-    public LayuiTableData addTeacher(Teacher teacher, Account teacherAccount) {
+    public LayuiTableData addTeacher(Teacher teacher, Account teacherAccount,HttpServletRequest request) {
         Account rerultAccount = accountMapper.findAccount(teacherAccount.getAAccount());
+        School school = (School) request.getSession().getAttribute("school");
         LayuiTableData LayuiTableData = new LayuiTableData();
+        teacher.setTSchoolId(school.getSId());
         if(null==rerultAccount){
             teacherAccount.setAType("teacher");
             int num = accountMapper.addAccount(teacherAccount);
@@ -150,7 +152,7 @@ public class TeacherServiceImpl implements TeacherService {
         if(null!=teacher.getTAccountId()){
             int num = teacherMapper.deleteTeacher(tId);
             int num1 = accountMapper.deleteAccount(teacher.getTAccountId());
-            int num2 = studentMapper.updateTeacherId(school.getSId());
+            int num2 = studentMapper.updateTeacherId(school.getSId(),teacher.getTId());
             if(num>0&&num1>0){
                 layuiTableData.setCode(1);
             }else{
