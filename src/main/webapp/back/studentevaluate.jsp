@@ -31,12 +31,27 @@
 			/*background-repeat:no-repeat ;!*不平铺*!*/
 			background-size:100% 100%;
 			/*text-align: center;*/
-			background-image: url("../static/layui/images/photo/07.jpg");
+			/*background-image: url("../static/layui/images/photo/07.jpg");*/
 
 		}
 		.layui-field-title{
 			color: #00ACFF;
 			font-size: 40px;
+		}
+		layui-colla-title{
+			 color: #FD482C;
+			 font-size: 20px;
+		 }
+		.layui-a{
+			color: #FD482C;
+			font-size: 20px;
+			margin-top:10px ;
+			margin-left: 20px;
+		}
+		.layui-b{
+			color: #00ACFF;
+			font-size: 20px;
+			margin-left: 20px;
 		}
 		#title {
 			width: 100%;
@@ -61,7 +76,8 @@
 			height: 40px;
 			/*text-align: center;*/
 			color: #fff;
-			background-color: transparent;
+			/*background-color: transparent;*/
+			background-color: #0b90f3;
 			font-size: 20px;
 			margin-left: 22px;
 			width: 100px;
@@ -163,9 +179,10 @@
 			</div>
 			<div class="layui-form-item">
 				<div class="layui-input-block">
-					<a title="驾校投诉系统" href="http://www.zyue.com/tousu/" background-color="red">点击进入驾校投诉系统</a>
 					<button type="submit" class="layui-btn layui-btn-primary" lay-submit="" lay-filter="demo1">立即提交</button>
 					<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+					<a title="返回" class="layui-b" href="https://www.baidu.com" >返回首页</a>
+					<a title="驾校投诉系统" class="layui-a" href="https://www.baidu.com" >点击进入驾校投诉系统</a>
 				</div>
 			</div>
 		</form>
