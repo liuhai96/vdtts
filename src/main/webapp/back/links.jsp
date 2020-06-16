@@ -71,7 +71,7 @@
                                     obj.del();
                                     layer.close(index);
                                     alert(mag.msg);
-                                }
+                                } else {alert(mag.msg);}
                             })
                         });
                     } else if(obj.event === 'edit'){//编辑
@@ -79,8 +79,6 @@
                                 "\n\n             友情链接吗？\n\n") > 0) {
                             skipPage(path+"/back/updateLink.jsp?lkId="+data.lkId+"&lkName="+data.lkName
                                 +"&lkUrl="+data.lkUrl+"&lkPic="+data.lkPic);
-                        } else{
-                            alert("否");
                         }
                     }
                 });

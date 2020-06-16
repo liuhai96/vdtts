@@ -36,7 +36,6 @@ public class LinkController {
     @RequestMapping(value = "/deleteLink")
     @ResponseBody
     public String DeleteLink(Link link){
-        System.out.println(JSON.toJSONString(link));
-        return "JSON.toJSONString(linkService.Delete(link))";
+        return JSON.toJSONString(linkService.Delete(link));
     }
 }
