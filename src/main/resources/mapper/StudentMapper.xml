@@ -97,7 +97,7 @@
 
 <!--    刘海  修改教练Id-->
     <update id="updateTeacherId" parameterType="int">
-        update tb_student set s_teacher_id = null where s_school_id = #{sSchoolId}
+        update tb_student set s_teacher_id = null where s_school_id = #{sSchoolId} and s_teacher_id = #{sTeacherId}
     </update>
 
     <select id="findStudenList" parameterType="int" resultType="com.lsjbc.vdtts.entity.Student">

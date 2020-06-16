@@ -82,8 +82,8 @@
          #{sOwnerId}, #{sOwnerPic}, #{sVerification}, #{sRecruit}, #{sLock}, #{sRegTime}, #{sRegisteryFee})
     </insert>
     <!--用于登录sql 李浪-->
-    <select id="findAccount" resultType="com.lsjbc.vdtts.entity.School">
-        select * from tb_school where s_account_id = #{aAccount}
+    <select id="findAccount" parameterType="int" resultType="com.lsjbc.vdtts.entity.School">
+        select * from tb_school where s_account_id = #{sAccountId}
     </select>
 
     <!--  周永哲，驾校信息初始化-->

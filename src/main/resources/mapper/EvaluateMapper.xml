@@ -16,4 +16,8 @@
         </where>
         order by e_time DESC
     </select><!--查看评价表 有排序 李浪-->
+
+    <select id="findSchoolEvaluate" parameterType="int" resultType="com.lsjbc.vdtts.entity.Evaluate">
+
+    </select>
 </mapper>

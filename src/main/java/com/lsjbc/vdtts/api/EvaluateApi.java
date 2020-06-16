@@ -31,6 +31,12 @@ public class EvaluateApi {
      * @param page 页数
      * @return 20条评价
      */
+    @GetMapping("{type}/{id}")
+    public LayuiFlowData<Evaluate> getTeacherEvaluatePageById(@PathVariable("id") Integer id,@PathVariable("type") String type, Integer page) {
+        Page<Evaluate> pageInfo = evaluateService.getEvaluateByTypeAndId(type, id, page);
+        return null;
+    }
+
     @GetMapping("teacher/{id}")
     public LayuiFlowData<Evaluate> getTeacherEvaluatePageById(@PathVariable("id") Integer id, Integer page) {
         return getEvaluatePageById(id, EvaluateType.TYPE_TEACHER, page);
