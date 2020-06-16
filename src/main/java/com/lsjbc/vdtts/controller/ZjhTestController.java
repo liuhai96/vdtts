@@ -67,7 +67,7 @@ public class ZjhTestController {
         map.put("studentName", student.getSName());
         map.put("level", level);
         map.put("levelName", level == 1 ? "科目一" : "科目四");
-        return "/pages/index/test";
+        return "/pages/student/test";
     }
 
     /**
@@ -94,7 +94,7 @@ public class ZjhTestController {
         }
 
         map.put("level", level);
-        return "/pages/index/video";
+        return "/pages/student/video";
     }
 
 
@@ -132,6 +132,6 @@ public class ZjhTestController {
         map.put("video", video);
         map.put("videoList", videoList);
 
-        return "/pages/index/video_look";
+        return "/pages/student/video_look";
     }
 }

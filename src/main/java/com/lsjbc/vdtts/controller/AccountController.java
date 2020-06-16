@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -42,7 +41,6 @@ public class AccountController {
      **/
     public ResultData UserLogin(HttpServletRequest request, HttpServletResponse response, Account account){
         response.setContentType("text/html;charset=utf-8");
-        response.setContentType("text/html;charset=utf-8");
 //        account.setAPassword(new Tool().createMd5(account.getAPassword()));//转MD5码（加密）
         return accountService.UserLogin(account,request);
     }
@@ -65,5 +63,18 @@ public class AccountController {
     public String changePassword(Account account){
         account.setAPassword(new Tool().createMd5(account.getAPassword()));
         return JSON.toJSONString(accountService.updatePass(account));
+    }
+
+    /*
+     *@Description:修改驾校密码
+     *@Author:刘海
+     *@Param:[oldPwd, newPwd, repeatPwd, request]
+     *@return:com.lsjbc.vdtts.pojo.vo.ResultData
+     *@Date:2020/6/16 23:39
+     **/
+    @RequestMapping(value = "/updateSchoolPwd")
+    @ResponseBody
+    public ResultData updateSchoolPwd(String oldPwd,String newPwd,String repeatPwd,HttpServletRequest request){
+        return accountService.updateSchoolPwd(oldPwd,newPwd,repeatPwd,request);
     }
 }

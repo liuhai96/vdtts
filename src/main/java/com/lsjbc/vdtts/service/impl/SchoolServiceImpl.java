@@ -2,11 +2,13 @@ package com.lsjbc.vdtts.service.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.lsjbc.vdtts.constant.consist.EvaluateTypeConstant;
+import com.lsjbc.vdtts.constant.EvaluateType;
 import com.lsjbc.vdtts.dao.*;
 import com.lsjbc.vdtts.dao.mapper.SchoolMapper;
+import com.lsjbc.vdtts.dao.mapper.StudentMapper;
 import com.lsjbc.vdtts.entity.Account;
 import com.lsjbc.vdtts.entity.School;
+import com.lsjbc.vdtts.entity.Student;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.pojo.vo.ResultData;
 import com.lsjbc.vdtts.pojo.vo.SchoolDetail;
@@ -20,7 +22,8 @@ import java.util.List;
 
 @SuppressWarnings("all")
 @Service(SchoolServiceImpl.NAME)
-public class SchoolServiceImpl implements SchoolService {
+public class SchoolServiceImpl implements SchoolService
+{
 
 	/**
 	 * Bean名
@@ -29,6 +32,9 @@ public class SchoolServiceImpl implements SchoolService {
 
 	@Resource
 	private SchoolMapper schoolMapper;
+
+	@Resource
+	private StudentMapper studentMapper;
 
 	@Resource(name = SchoolDao.NAME)
 	private SchoolDao schoolDao;
@@ -56,33 +62,41 @@ public class SchoolServiceImpl implements SchoolService {
 	public LayuiTableData schoolList(School school, int page, int pageSize)
 	{
 		int start = (page - 1) * pageSize;//计算出起始查询位置
-		if(start<0){
-			start=0;
+		if (start < 0)
+		{
+			start = 0;
 		}
 		List<School> list = schoolMapper.schoolList(school, start, pageSize);
 		int count = schoolMapper.schoolcount(school);
 
 		LayuiTableData layuiData = new LayuiTableData();
-		if (list.size() > 0) {
+		if (list.size() > 0)
+		{
 			layuiData.setCode(0);
 			layuiData.setMsg("");
 			layuiData.setCount(count);
 			layuiData.setData(list);
 			System.out.println(school);
-		} else {
+		} else
+		{
 			layuiData.setCode(1);
 			layuiData.setMsg("查询失败");
 		}
 		return layuiData;
 	}
+
 	@Override
-    public int schoolCount(School school){
-	    return schoolMapper.schoolcount(school);
-    }
-    @Override
-    public List<School> schoolMessageList(School school,int stripStart, int stripEnd){
-	    return schoolMapper.schoolList(school,stripStart, stripEnd);
-    }
+	public int schoolCount(School school)
+	{
+		return schoolMapper.schoolcount(school);
+	}
+
+	@Override
+	public List<School> schoolMessageList(School school, int stripStart, int stripEnd)
+	{
+		return schoolMapper.schoolList(school, stripStart, stripEnd);
+	}
+
 	/*
 	 *@Description:修改审核状态
 	 *@Author:陈竑霖
@@ -91,84 +105,144 @@ public class SchoolServiceImpl implements SchoolService {
 	 *@Date:2020/6/9 15:26
 	 **/
 	@Override
-	public LayuiTableData updateschoolInfo(School school) {
+	public LayuiTableData updateschoolInfo(School school)
+	{
 		LayuiTableData layuiTableData = new LayuiTableData();
 		int num = schoolMapper.updateschoolInfo(school);
-		if(num>0){
+		if (num > 0)
+		{
 			layuiTableData.setCode(1);
 		}
 		return layuiTableData;
 	}
+
 	@Override
-	public LayuiTableData findschool(School school) {
+	public LayuiTableData findschool(School school)
+	{
 		LayuiTableData layuiTableData = new LayuiTableData();
 		List<School> schoolList = schoolMapper.findschool(school);
 		layuiTableData.setData(schoolList);
 		return layuiTableData;
 	}
+
 	//修改处罚招生
 	@Override
-	public LayuiTableData punishcall(int sId){
+	public LayuiTableData punishcall(int sId)
+	{
 
 		LayuiTableData layuiTableData = new LayuiTableData();
 		int num = schoolMapper.punishcall(sId);
-		if(num>0){
+		if (num > 0)
+		{
 			layuiTableData.setCode(1);
-		}else{
+		} else
+		{
 			layuiTableData.setCode(0);
 		}
 		return layuiTableData;
 	}
+
 	//修改解禁招生
 	@Override
-	public LayuiTableData unbindcall(int sId){
+	public LayuiTableData unbindcall(int sId)
+	{
 		LayuiTableData layuiTableData = new LayuiTableData();
 		int num = schoolMapper.unbindcall(sId);
-		if(num>0){
+		if (num > 0)
+		{
 			layuiTableData.setCode(1);
-		}else{
+		} else
+		{
 			layuiTableData.setCode(0);
 		}
 		return layuiTableData;
 	}
+
 	//修改处罚登录
 	@Override
-	public LayuiTableData punishlogon(int sId){
+	public LayuiTableData punishlogon(int sId)
+	{
 
 		LayuiTableData layuiTableData = new LayuiTableData();
 		int num = schoolMapper.punishlogon(sId);
-		if(num>0){
+		if (num > 0)
+		{
 			layuiTableData.setCode(1);
-		}else{
+		} else
+		{
 			layuiTableData.setCode(0);
 		}
 		return layuiTableData;
 	}
+
 	//修改解禁登录
 	@Override
-	public LayuiTableData unbindlogon(int sId){
+	public LayuiTableData unbindlogon(int sId)
+	{
 		LayuiTableData layuiTableData = new LayuiTableData();
 		int num = schoolMapper.unbindlogon(sId);
-		if(num>0){
+		if (num > 0)
+		{
 			layuiTableData.setCode(1);
-		}else{
+		} else
+		{
 			layuiTableData.setCode(0);
 		}
 		return layuiTableData;
 	}
-//查询身份证
-	@Override
-	public LayuiTableData apply(int sSfz){
 
-		LayuiTableData layuiTableData = new LayuiTableData();
-		int num = schoolMapper.apply(sSfz);
-		if(num>0){
-			layuiTableData.setCode(1);
-		}else{
-			layuiTableData.setCode(0);
+	//查询身份证
+	@Override
+	public ResultData insSfz(Student student, HttpServletRequest request)
+	{
+		System.out.println("setSSfz1=" + student);
+		ResultData resultData = null;
+		System.out.println("setSSfz=" + student);
+		student= studentMapper.insSfz(student);
+		System.out.println("setSSfz2=" + student);
+		if (student != null)
+		{ //查询
+//			student = studentMapper.findsfz(student);
+			if (student.getSSchoolId() == null)
+			{
+
+				int num =studentMapper.inschool(student);
+				resultData = ResultData.error(1, "报名成功");
+			} else
+			{
+				resultData = ResultData.error(2, "该学员已报名其他驾校");
+			}
+		} else
+		{
+			resultData = ResultData.error(3, "未该有此学员信息请先去注册");
+
 		}
-		return layuiTableData;
+		return resultData;
 	}
+//	@Override
+//	public ResultData sSfz(Student student, HttpServletRequest request){
+//		ResultData resultData = new ResultData();
+//		student = studentMapper.insSfz(student);
+//		if(student != null)
+//		{ //查询
+//			resultData = ResultData.error(-1,"查询已有该学员信息");
+//		}else{
+//			resultData = ResultData.error(-2,"未该有此学员信息请先去注册");
+//		}
+//		return resultData;
+//	}
+//	@Override
+//	public LayuiTableData apply(int sSfz){
+//
+//		LayuiTableData layuiTableData = new LayuiTableData();
+//		int num = schoolMapper.apply(sSfz);
+//		if(num>0){
+//			layuiTableData.setCode(1);
+//		}else{
+//			layuiTableData.setCode(0);
+//		}
+//		return layuiTableData;
+//	}
 
 
     @Override
@@ -231,7 +305,7 @@ public class SchoolServiceImpl implements SchoolService {
 		schools.getResult().stream().forEach(item -> {
 			Integer schoolId = item.getSId();
 			SchoolDetail detail = SchoolDetail.generateDetail(item);
-			detail.setScore(evaluateDao.getAvgByTypeAndId(EvaluateTypeConstant.TYPE_SCHOOL, schoolId));
+			detail.setScore(evaluateDao.getAvgByTypeAndId(EvaluateType.TYPE_SCHOOL, schoolId));
 			detail.setCarCount(carDao.getCountBySchoolId(schoolId));
 			detail.setTeacherCount(teacherDao.getCountBySchoolId(schoolId));
 			detail.setStudentCount(studentDao.getStudentCountBySchoolId(schoolId));

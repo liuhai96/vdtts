@@ -115,6 +115,21 @@ public class ResultData {
     }
 
     /**
+     * 设置一个正确的error对象，并附言和添加一个数据
+     *
+     * @param msg   消息
+     * @param key   数据
+     * @param value 数据
+     * @return 表示操作正常的ResultData对象
+     * @author JX181114 --- 郑建辉
+     */
+    public static ResultData success(String msg, String key, Object value) {
+        ResultData resultData = success(msg);
+        resultData.put(key, value);
+        return resultData;
+    }
+
+    /**
      * 设置一个出错的Error对象，并设置消息
      *
      * @param msg 消息

@@ -5,12 +5,11 @@ import com.lsjbc.vdtts.entity.Car;
 import com.lsjbc.vdtts.entity.School;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.service.intf.CarService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,7 +71,7 @@ public class CarServiceImpl implements CarService {
         School school = (School) request.getSession().getAttribute("school");
         LayuiTableData layuiTableData = new LayuiTableData();
         int num = carMapper.deleteCar(cId);
-        int num1 = carMapper.updateCarInfomatian(school.getSId());
+        int num1 = carMapper.updateCarInfomatian(school.getSId(),cId);
         if(num>0){
             layuiTableData.setCode(1);
         }else{
@@ -82,7 +81,9 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public LayuiTableData addCar(Car car) {
+    public LayuiTableData addCar(Car car,HttpServletRequest request) {
+        School school = (School) request.getSession().getAttribute("school");
+        car.setCSchoolId(1);
         LayuiTableData layuiTableData = new LayuiTableData();
         int num = carMapper.addCar(car);
         if(num>0){

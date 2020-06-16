@@ -47,7 +47,7 @@
             <form class="layui-form">
                 <input type="text" name="aAccount" required placeholder="请输入你的账号"
                        class="layui-input" style="width: 67%;margin: 0 0 0 18%">
-                <label id="idNotify" style="color:#ff0a29;text-align: left;"></label>
+                <label id="idNotify" style="color:#ff0a29;text-align: left;"></label>n
                 <br><br>
                 <input type="password" name="aPassword" required placeholder="请输入你的密码"
                        class="layui-input" style="width: 67%;margin: 0 0 0 18%">

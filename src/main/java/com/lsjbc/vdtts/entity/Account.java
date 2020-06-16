@@ -1,8 +1,11 @@
 package com.lsjbc.vdtts.entity;
 
 import lombok.*;
+
+import javax.persistence.*;
+
 /**
- *前台人员账号表
+ * 前台人员账号表
  */
 @Getter
 @Setter
@@ -10,27 +13,34 @@ import lombok.*;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "`tb_account`")
 public class Account
 {
 
 	/**
-	 *主键
+	 * 主键
 	 */
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "`a_id`")
 	private Integer aId;
 
 	/**
-	 *账号
+	 * 账号
 	 */
+	@Column(name = "`a_account`")
 	private String aAccount;
 
 	/**
-	 *密码
+	 * 密码
 	 */
+	@Column(name = "`a_password`")
 	private String aPassword;
 
 	/**
-	 * 	要查询的表名
+	 * 要查询的表名
 	 */
+	@Column(name = "`a_type`")
 	private String aType;
 
 

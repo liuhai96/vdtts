@@ -1,12 +1,12 @@
-package com.lsjbc.vdtts.constant.consist;
+package com.lsjbc.vdtts.constant;
 
 /**
- * @ClassName: NoticeTypeConstant
+ * @ClassName: NoticeType
  * @Description: 关于法律法规/通知公告的一些常量
  * @Datetime: 2020/6/11   22:18
  * @Author: JX181114 - 郑建辉
  */
-public class NoticeTypeConstant {
+public class NoticeType {
 
     /**
      * 类型：法律法规

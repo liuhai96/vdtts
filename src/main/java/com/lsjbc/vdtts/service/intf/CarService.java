@@ -12,7 +12,7 @@ public interface CarService {
     public LayuiTableData findCarManageList(String page, String limit, String cNember, HttpServletRequest request);
     public LayuiTableData updateCarInfo(Car car);
     public LayuiTableData deleteCar(int cId, HttpServletRequest request);
-    public LayuiTableData addCar(Car car);
+    public LayuiTableData addCar(Car car,HttpServletRequest request);
 
     /*
      *@Description:

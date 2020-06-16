@@ -1,12 +1,12 @@
-package com.lsjbc.vdtts.constant.consist;
+package com.lsjbc.vdtts.constant;
 
 /**
- * @ClassName: CustomTimeConstant
+ * @ClassName: CustomTime
  * @Description: 关于时间的常量
  * @Datetime: 2020/6/6   18:04
  * @Author: JX181114 - 郑建辉
  */
-public class CustomTimeConstant {
+public class CustomTime {
 
     /**
      * 以秒表示1秒
