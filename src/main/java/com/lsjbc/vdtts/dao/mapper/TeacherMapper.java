@@ -46,7 +46,6 @@ public interface TeacherMapper extends CustomBaseMapper<Teacher> {
      *@Date:2020/6/11
      **/
     public List<Teacher> selectAllInfo(@Param("teacher") Teacher teacher, @Param("page") int page, @Param("limit") int limit);
-
     public int selectTeacherCount(@Param("teacher") Teacher teacher);
     public int teacherUpdate(@Param("e")Teacher teacher);//教练修改统一方法
 

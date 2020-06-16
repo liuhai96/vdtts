@@ -51,6 +51,14 @@
         update tb_school set  s_lock='true' where s_id = #{sId}
     </update>
 
+<!--    &lt;!&ndash;    sfz&ndash;&gt;-->
+<!--    <update id="apply" parameterType="com.lsjbc.vdtts.entity.School">-->
+<!--        select s_sfz from tb_student-->
+<!--        <where>-->
+<!--            <if></if>-->
+<!--        </where>-->
+<!--    </update>-->
+
 
 
 
@@ -66,12 +74,6 @@
     <select id="findSchoolInfo" resultType="com.lsjbc.vdtts.entity.School" parameterType="int">
         select sh.*,ac.* from tb_school sh left join tb_account ac on sh.s_account_id = ac.a_id where sh.s_id = #{sId}
     </select>
-    <update id="updateSchoolBasicInfo" parameterType="com.lsjbc.vdtts.entity.School">
-        update tb_school set s_address = #{sAddress},s_phone = #{sPhone} where s_id = #{sId};
-    </update>
-
-
-
     <!-- 驾校入驻 -->
     <insert id="addSchool" keyProperty="sId" useGeneratedKeys="true">
         insert into tb_school (s_account_id, s_name, s_address, s_phone, s_business_id, s_business_pic,
@@ -83,7 +85,6 @@
     <select id="findAccount" resultType="com.lsjbc.vdtts.entity.School">
         select * from tb_school where s_account_id = #{aAccount}
     </select>
-
 
     <!--  周永哲，驾校信息初始化-->
     <select id="selectAllInfo" resultType="com.lsjbc.vdtts.entity.School"  parameterType="com.lsjbc.vdtts.entity.School">
@@ -97,7 +98,7 @@
     </select>
 
     <!--  周永哲，统计驾校信息条数-->
-    <select id="selectSchoolCount" resultType="int" parameterType="com.lsjbc.vdtts.entity.School">
+    <select id="selectSchoolCount" resultType="int"  parameterType="com.lsjbc.vdtts.entity.School">
         select count(*) from tb_school
         <where>
             <if test="school.sName!=null and school.sName!=''">
@@ -119,5 +120,9 @@
     <insert id="insertSchool" parameterType="com.lsjbc.vdtts.entity.School">
         insert into tb_school(s_account_id, s_name, s_address, s_phone, s_business_id, s_business_pic, s_owner_id, s_owner_pic, s_verification, s_recruit, s_reg_time)
         values (#{sAccountId},#{sName},#{sAddress},#{sPhone},#{sBusinessId},#{sBusinessId},#{sBusinessPic},#{sOwnerId},#{sOwnerPic},#{sVerificattion},#{sRecruit},#{sRegTime})
+    </insert>
+    <!--  周永哲，驾校信息修改-->
+    <insert id="updateSchool" parameterType="com.lsjbc.vdtts.entity.School">
+        update tb_school set s_name =#{sName}, s_address=#{sAddress}, s_phone=#{sPhone}, s_recruit=#{sRecruit}, s_lock=#{sLock} where s_id =#{sId}
     </insert>
 </mapper>

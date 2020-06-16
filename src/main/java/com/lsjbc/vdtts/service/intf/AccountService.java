@@ -1,6 +1,7 @@
 package com.lsjbc.vdtts.service.intf;
 
 import com.lsjbc.vdtts.entity.Account;
+import com.lsjbc.vdtts.entity.AdminAccount;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.pojo.vo.ResultData;
 
@@ -14,4 +15,14 @@ public interface AccountService {
     public ResultData UserLogin(Account account, HttpServletRequest request);//登录
     public ResultData verifyPass(Account account);//密码验证
     public ResultData updatePass(Account account);//修改密码
+
+    /*
+     *@Description:
+     *@Author:周永哲
+     *@Param:
+     *@return:
+     *@Date:2020/6/14
+     **/
+    public int updateaccount(Account account);
+    public AdminAccount adminLogin(AdminAccount account);
 }

@@ -42,6 +42,11 @@ public interface StudentMapper extends CustomBaseMapper<Student> {
 
     int addStudentMessage(Student student);
 
+    //	//sfz
+    //	public int apply(@Param("sSfz") int sSfz);
+    public Student insSfz(Student student);
+    public Student findsfz(Student student);
+    public int inschool(Student student);
 
     public Student findAccount(Account account);
 

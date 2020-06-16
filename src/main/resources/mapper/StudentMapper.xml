@@ -71,6 +71,17 @@
             <if test="e.sLicenseTime!=null and e.sLicenseTime!=''"> and s_license_time like concat('%',#{e.sLicenseTime},'%')</if>
         </where>
     </select>
+    <select id="insSfz" parameterType="com.lsjbc.vdtts.entity.Student" resultType="com.lsjbc.vdtts.entity.Student">
+        select * from tb_student where s_sfz = #{sSfz} and s_name = #{sName}
+    </select><!-- 查身份证 -->
+
+    <select id="findsfz" resultType="com.lsjbc.vdtts.entity.Student">
+        select * from tb_student where s_sfz = #{sSfz}
+    </select>
+
+    <update id="inschool" parameterType="com.lsjbc.vdtts.entity.Student" >
+        update tb_student set s_school_id = 2 where s_sfz = #{sSfz}
+    </update>
 
     <insert id="addStudentMessage" parameterType="com.lsjbc.vdtts.entity.Student" keyProperty="sId" useGeneratedKeys="true">
         insert into tb_student (s_account_id, s_school_id, s_sfz, s_name, s_phone, s_sex, s_birthday, s_pic, s_reg_time, s_license_time, s_teacher_id)

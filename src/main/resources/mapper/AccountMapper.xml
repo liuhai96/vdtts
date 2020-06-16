@@ -32,4 +32,8 @@
              <if test="e.aId != null and e.aId != ''"> and a_id = #{e.aId}</if>
          </where>
     </update>
+    <!--    周永哲  管理端登录-->
+    <select id="adminLogin" parameterType="com.lsjbc.vdtts.entity.AdminAccount" resultType="com.lsjbc.vdtts.entity.AdminAccount">
+      select * from tb_admin_account where ac_account = #{acAccount} and ac_password=#{acPassword}
+    </select>
 </mapper>

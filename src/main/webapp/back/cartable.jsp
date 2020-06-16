@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<% String path = request.getContextPath();%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,7 +8,7 @@
 	<meta name="renderer" content="webkit">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	<link rel="stylesheet" href="../static/layui/css/layui.css" media="all">
+	<link rel="stylesheet" href="<%=path%>/static/layui/css/layui.css" media="all">
 	<!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
 </head>
 <body>
@@ -20,22 +21,6 @@
 				<input type="text" name="cNumber" id="cNumber" placeholder="请输入姓名" class="layui-input">
 			</div>
 		</div>
-<%--		<div class="layui-inline">--%>
-<%--			<label class="layui-form-label">性别</label>--%>
-<%--			<div class="layui-input-inline">--%>
-<%--				<select name="sSex" lay-verify="required" lay-search="">--%>
-<%--					<option value="0">选择性别查询</option>--%>
-<%--					<option value="男">男</option>--%>
-<%--					<option value="女">女</option>--%>
-<%--				</select>--%>
-<%--			</div>--%>
-<%--		</div>--%>
-<%--		<div class="layui-inline">--%>
-<%--			<label class="layui-form-label">获取时间：</label>--%>
-<%--			<div class="layui-input-block">--%>
-<%--				<input type="text" name="sLicenseTime" id="sLicenseTime" placeholder="请输入姓名" class="layui-input">--%>
-<%--			</div>--%>
-<%--		</div>--%>
 		<div class="layui-inline">
 			<button class="layui-btn" lay-submit="search_submits" lay-filter="search">查询</button>
 		</div>
@@ -50,7 +35,7 @@
 		<button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
 	</div>
 </script>
-<script src="../static/layui/layui.js" charset="utf-8"></script>
+<script src="<%=path%>/static/layui/layui.js" charset="utf-8"></script>
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 
 <script>
@@ -104,10 +89,7 @@
 		});
 		//表单查询
 		form.on('submit(search)',function (data) {
-
 			var cNumber = $("#cNumber").val();
-			// var sSex=$("#sSex").val();
-            // var sLicenseTime=$("#sLicenseTime").val();
 			tableinf.reload({
 				url:'/carControl/carList',
 				page: {
@@ -115,8 +97,6 @@
 				},
 				where:{
 					cNumber:cNumber
-					// ,sLicenseTime:sLicenseTime
-					// ,sSex:sSex
 				}
 			});
 

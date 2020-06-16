@@ -72,4 +72,5 @@ public interface NoticeService {
     public LayuiTableData deletenotice(int nId);
     //新增公告
     public LayuiTableData addnotice(Notice notice);
+
 }

@@ -3,6 +3,7 @@ package com.lsjbc.vdtts.service.intf;
 import com.github.pagehelper.Page;
 import com.lsjbc.vdtts.entity.Account;
 import com.lsjbc.vdtts.entity.School;
+import com.lsjbc.vdtts.entity.Student;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.pojo.vo.ResultData;
 import com.lsjbc.vdtts.pojo.vo.SchoolDetail;
@@ -39,7 +40,9 @@ public interface SchoolService {
 	public LayuiTableData punishlogon(int sId);
 	//修改解禁登录
 	public LayuiTableData unbindlogon(int sId);
-
+    //查询身份证
+//    public LayuiTableData apply(int sSfz);
+    public ResultData insSfz(Student student, HttpServletRequest request);
 
 
 
@@ -77,7 +80,6 @@ public interface SchoolService {
      *@Date:2020/6/10
      **/
     public List<School> selectAllInfo(@Param("school") School school, @Param("page") int page, @Param("limit") int limit);
-
     public int selectSchoolCount(@Param("school") School school);
 
     public int deleteSchool(String schoolId);
@@ -85,6 +87,7 @@ public interface SchoolService {
     public int insertSchool(School school);
 
     public int insertSchoolAccount(Account account);
+    public int updateSchool(School school);
 
 
     ResultData updateSchoolBasicInfo(School school);
