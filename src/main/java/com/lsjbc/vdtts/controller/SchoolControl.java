@@ -104,6 +104,16 @@ public class SchoolControl {
 		LayuiTableData layuiTableData =schoolService.unbindlogon(sId);
 		return layuiTableData;
 	}
+	//身份证查询
+	@RequestMapping(value = "/apply",produces = {"application/json;charset=UTF-8"})
+	@ResponseBody
+	public  LayuiTableData apply(int sSfz){
+		LayuiTableData layuiTableData =schoolService.apply(sSfz);
+		return layuiTableData;
+	}
+
+
+
 	@RequestMapping(value = "/drivingFindInit")
 
     /*

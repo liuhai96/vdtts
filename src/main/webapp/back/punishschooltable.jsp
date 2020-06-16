@@ -1,4 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+	String path = request.getContextPath();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,7 +10,7 @@
 	<meta name="renderer" content="webkit">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	<link rel="stylesheet" href="../static/layui/css/layui.css" media="all">
+	<link rel="stylesheet" href="<%=path%>/static/layui/css/layui.css" media="all">
 	<!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
 </head>
 <body>
@@ -54,35 +57,7 @@
 		<button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
 	</div>
 </script>
-<%--<script type="text/html" id="barDemo">--%>
-<%--	<a class="layui-btn layui-btn-xs" lay-event="audit">禁止</a>--%>
-<%--	table.render({--%>
-<%--	elem: '#fileTable'--%>
-<%--	, url: $("#path").val() + '/File/PageAll.action'--%>
-<%--	, toolbar: '#toolbar'--%>
-<%--	, cols: [[--%>
-<%--	{fixed: 'left',type:'checkbox'}--%>
-<%--	,{field:'tFileName', title: '文件名', fixed: 'left', width:300 }--%>
-<%--	,{field:'tRealPath', title: '文件保存路径', width:250 }--%>
-<%--	,{field:'tUser', title: '上传者',templet: '<div>{{d.tUser.tUsername}}</div>', width:250 }--%>
-<%--	,{field:'tTime', title: '上传时间', width:200 }--%>
-<%--	,{field:'tState', title: '文件状态', width:100 }--%>
-<%--	,{title: '文件操作',templet: function (d) {--%>
-<%--	var str="<a class=\"layui-btn layui-btn-xs\" lay-event=\"rename\">重命名</a>";--%>
-<%--	if(d.tState=='正常'){--%>
-<%--	str+="<a class=\"layui-btn layui-btn-danger layui-btn-xs\" lay-event=\"del\">下架</a>";--%>
-<%--	}else if(d.tState=='已下架'){--%>
-<%--	str+="<a class=\"layui-btn layui-btn-warm layui-btn-xs\" lay-event=\"update\">上架</a>";--%>
-<%--	}--%>
-<%--	str+="<a href='"+$("#path").val()+"/file/"+d.tRealPath+"' download='"+$("#path").val()+"/file/"+d.tRealPath+"' class=\"layui-btn layui-btn-normal layui-btn-xs\">下载</a>";--%>
-<%--	return str;--%>
-<%--	}, width:195 }--%>
-<%--	]]--%>
-<%--	, page: true--%>
-<%--	, id: "fileTable"--%>
-<%--	});--%>
-<%--</script>--%>
-<script src="../static/layui/layui.js" charset="utf-8"></script>
+<script src="<%=path%>/static/layui/layui.js" charset="utf-8"></script>
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 
 <script>

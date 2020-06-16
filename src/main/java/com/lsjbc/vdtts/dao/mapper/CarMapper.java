@@ -2,6 +2,7 @@ package com.lsjbc.vdtts.dao.mapper;
 
 import com.lsjbc.vdtts.entity.Car;
 import com.lsjbc.vdtts.utils.mopper.CustomBaseMapper;
+import com.lsjbc.vdtts.entity.School;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

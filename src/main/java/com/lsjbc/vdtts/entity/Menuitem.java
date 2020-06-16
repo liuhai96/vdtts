@@ -33,4 +33,5 @@ public class Menuitem
 	 *父级菜单项ID
 	 */
 	private Integer mParentId;
+
 }

@@ -29,7 +29,8 @@
 </script>
 
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-xs" lay-event="delete">删除驾校</a>
+    <a class="layui-btn layui-btn-xs" lay-event="updateinfo">修改信息</a>
+    <a class="layui-btn layui-btn-xs" lay-event="addcar">添加教练车</a>
 </script>
 
 <script>
@@ -61,24 +62,24 @@
             ,cols: [[ //表头
                 {type: 'checkbox', fixed: 'left'}
                 ,{field: 'sId', title: '序号', width:80, sort: true, fixed: 'left', }
-                ,{field: 'sName', title: '驾校名称', width:100}
+                ,{field: 'sName', title: '驾校名称', width:90}
                 ,{field: 'sAccount', title: '账号', width:80, sort: true, totalRow: true}
-                ,{field: 'sAddress', title: '驾校地址', width: 110}
-                ,{field: 'sPhone', title: '报名电话', width: 100}
+                ,{field: 'sAddress', title: '驾校地址', width: 90}
+                ,{field: 'sPhone', title: '报名电话', width: 90}
                 ,{field: 'sBusinessId', title: '统一信用代码', width: 120}
                 ,{field: 'sOwnerId', title: '法人身份证', width: 110}
                 ,{field: 'sRegTime', title: '注册时间', width:90 }
                 ,{field: 'sRecruit', title: '允许招生', width:90}
                 ,{field: 'sRecruit', title: '允许登录', width:90}
-                ,{field: 'sVerificattion', title: '审核状态', width:90}
+                ,{field: 'sVerification', title: '审核状态', width:90}
                 ,{field: 'sLock', title: '锁定', width:70}
                 ,{field: 'sAccountId', title: '账号id', width:10, hide:'true'}
-                ,{fixed: 'right', title: '管理操作',width: 100, align:'center', toolbar: '#barDemo'}
+                ,{fixed: 'right', title: '管理操作',width: 175, align:'center', toolbar: '#barDemo'}
             ]]
         });
 
         //监听头工具栏事件
-        var addstudent =null;
+        var addcar =null;
         var addschool = null;
             table.on('toolbar(demo)', function(obj){
             var checkStatus = table.checkStatus(obj.config.id)
@@ -91,7 +92,7 @@
                         ,area: ['400px','500px']
                         ,offset: 'auto' //具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
                         ,id: 'layerDemo'+'auto' //防止重复弹出
-                        ,content: $('#add')
+                        ,content: $('#addschool')
                         // ,btn: '关闭全部'
                         ,btnAlign: 'c' //按钮居中
                         ,shade: 0 //不显示遮罩
@@ -118,93 +119,6 @@
             };
         });
 
-        //监听行工具事件
-        table.on('tool(demo)', function(obj){ //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
-            var data = obj.data //获得当前行数据
-                ,layEvent = obj.event; //获得 lay-event 对应的值
-            if(layEvent === 'detail'){
-                layer.msg('查看操作');
-            }
-
-            else if(layEvent === 'delete'){       //删除驾校
-                var schoolId = data.sId;
-                var sName= data.sName;
-                layer.alert('schoolId='+schoolId);
-                var data ={
-                    schoolId: schoolId,
-                    dealtype: "delete"
-                }
-                layer.alert('data='+JSON.stringify(data));
-                layer.confirm('确认删除此驾校？', function(index){
-                    obj.del(); //删除对应行（tr）的DOM结构
-                    layer.close(index);
-                    $.ajax({
-                        url: "/schoolController/deleteSchool",
-                        type: "POST",
-                        dataType: "text",
-                        data: data,
-                        success: function (msg) {
-                            if (msg.trim() == "success") {
-                                alert(sName+"删除成功！");
-                                layer.close(addstudent);
-                                location.reload();
-                            } else {
-                                alert(msg)
-                            }
-                        }
-                    });
-                    //向服务端发送删除指令
-                });
-            }
-        //     else if(layEvent === 'del'){       //删除/禁用学员
-        //         var studentId = data.studentId;
-        //        var studentName= data.studentName;
-        //         layer.alert('studentId='+studentId);
-        //         var data ={
-        //             studentId: studentId,
-        //             dealtype: "delete"
-        //         }
-        //         layer.alert('data='+JSON.stringify(data));
-        //         layer.confirm('确认删除此学员信息？', function(index){
-        //             obj.del(); //删除对应行（tr）的DOM结构
-        //             layer.close(index);
-        //             $.ajax({
-        //                 url: "/sharefile/studentControl/deletestudent",
-        //                 type: "POST",
-        //                 dataType: "text",
-        //                 data: data,
-        //                 success: function (msg) {
-        //                     if (msg.trim() == "success") {
-        //                         alert("学员"+studentName+"删除成功！");
-        //                         layer.close(addstudent);
-        //                         // location.href = "userlogin.jsp";
-        //                     } else {
-        //                         alert(msg)
-        //                     }
-        //                 }
-        //             });
-        //             //向服务端发送删除指令
-        //         });
-        //     }
-        //
-        //     else if(layEvent === 'edit'){ //修改学员
-        //        studentId2 = data.studentId;
-        //         addstudent = layer.open({
-        //             type: 1,
-        //             title:"学员信息修改"
-        //             , offset: 'auto' //具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
-        //             ,id: 'layerDemo'+'auto' //防止重复弹出
-        //             ,content: $('#update')
-        //             // ,btn: '关闭全部'
-        //             ,btnAlign: 'c' //按钮居中
-        //             ,shade: 0 //不显示遮罩
-        //             , yes: function(){
-        //                 layer.closeAll();
-        //             }
-        //         });
-        //     }
-        });
-
         layui.use(['layer', 'form'], function () {
             var layer = layui.layer
                 , form = layui.form;
@@ -214,20 +128,139 @@
                 // var account = $("input[name='account']").val();
                 // var pwd = $("input[name='pwd']").val();
                 // var pwd2 = $("input[name='pwd2']").val();
+                $.ajax({
+                    url: "/schoolController/insertSchool",
+                    type: "POST",
+                    dataType: "text",
+                    data: data.field,
+                    success: function (msg) {
+                        if (msg.trim() == "success") {
+                            alert("添加成功！");
+                            layer.close(addschool);
+                            location.reload();
+                        } else if (msg.trim() == "already") {
+                            alert("此账号或驾校名已存在！");
+                            layer.close(addschool);
+                            location.reload();
+                        } else {
+                            alert(msg)
+                        }
+                    }
+                });
+                return false;
+            });
+        });
+        //监听行工具事件
+        table.on('tool(demo)', function(obj){ //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+            var data = obj.data //获得当前行数据
+            var schoolId = data.sId
+            var layEvent = obj.event; //获得 lay-event 对应的值
+            if(layEvent === 'detail'){
+                layer.msg('查看操作');
+            }
+
+            else if(layEvent === 'updateinfo'){ //修改信息
+                 $("input[name='sId']").val(schoolId);
+                updateinfo = layer.open({
+                    type: 1
+                    ,title:"驾校信息修改"
+                    ,area:['400px','400px']
+                    , offset: 'auto' //具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
+                    ,id: 'layerDemo'+'auto' //防止重复弹出
+                    ,content: $('#updateinfo')
+                    // ,btn: '关闭全部'
+                    ,btnAlign: 'c' //按钮居中
+                    ,shade: 0 //不显示遮罩
+                        // , yes: function(){
+                        //     layer.closeAll();
+                        // }
+                });
+                layui.use(['layer', 'form'], function () {
+                    var layer = layui.layer
+                        , form = layui.form;
+                    var $ = layui.jquery;
+                    form.on('submit(formDemo2)', function (data) {//修改驾校信息
+                        alert(JSON.stringify(data.field)+"schoolid="+schoolId);
+                        // var updatedata={
+                        //     sName:data.field.sName,
+                        //     sAddress:data.field.sAddress,
+                        //     sId: schoolId,
+                        //     sPhone:data.field.sPhone,
+                        //     sRecruit:data.field.sRecruit,
+                        //     sLock:data.field.sLock,
+                        // }
+                        $.ajax({
+                            url: "/schoolController/updateSchool",
+                            type: "POST",
+                            dataType: "text",
+                            data: data.field,
+                            success: function (msg) {
+                                if (msg.trim() == "success") {
+                                    alert("驾校信息修改成功！");
+                                    layer.close(updateinfo);
+                                    window.location.reload();
+                                } else {
+                                    alert("驾校信息修改失败！")
+                                }
+                            }
+                        });
+                        return false;
+                    });
+                });
+
+            }
+            else if(layEvent === 'addcar'){       //添加教练车
+                var data ={
+                    schoolId: schoolId,
+                    dealtype: "addcar"
+                }
+                // layer.alert('schoolId='+schoolId);
+                // layer.alert('data='+JSON.stringify(data));
+                    addcar = layer.open({
+                        type: 1,
+                        title:"添加教练车"
+                        ,area:['400px','350px']
+                        , offset: 'auto' //具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
+                        ,id: 'layerDemo'+'auto' //防止重复弹出
+                        ,content: $('#addcar')
+                        // ,btn: '关闭全部'
+                        ,btnAlign: 'c' //按钮居中
+                        ,shade: 0 //不显示遮罩
+                        , yes: function(){
+                            layer.closeAll();
+                        }
+                    });
+                }
+
+        });
+
+
+
+
+        layui.use(['layer', 'form'], function () {
+            var layer = layui.layer
+                , form = layui.form;
+            var $ = layui.jquery;
+            form.on('submit(formDemo1)', function (data) {//添加教练车
+                // alert(JSON.stringify(data.field));
+                var data={
+                    cLogo:cLogo,
+                    cModel:cModel,
+                    sId: schoolId,
+                    cColor:cColor,
+                    cNumber:cNumber,
+                }
+                alert("data="+JSON.stringify(data));
                     $.ajax({
-                        url: "/schoolController/insertSchool",
+                        url: "/carControl/insertCar",
                         type: "POST",
                         dataType: "text",
-                        data: data.field,
+                        data: data,
                         success: function (msg) {
                             if (msg.trim() == "success") {
-                                alert("添加成功！");
-                                layer.close(addschool);
-                                location.reload();
-                            } else if (msg.trim() == "already") {
-                                alert("此账号或驾校名已存在！");
-                                layer.close(addschool);
-                                location.reload();
+                                alert("教练车添加成功！");
+                                layer.close(addcar);
+                                // location.href = "userlogin.jsp";
                             } else {
                                 alert(msg)
                             }
@@ -237,116 +270,183 @@
             });
         });
 
-        // layui.use(['layer', 'form'], function () {
-        //     var layer = layui.layer
-        //         , form = layui.form;
-        //     var $ = layui.jquery;
-        //     form.on('submit(formDemo)', function (data) {//修改学员信息
-        //         // alert(JSON.stringify(data.field));
-        //         var account = $("input[name='account1']").val();
-        //         var pwd = $("input[name='studentpwd']").val();
-        //         var pwd2 = $("input[name='studentpwd2']").val();
-        //         var data={
-        //             account1:account,
-        //             pwd:pwd,
-        //             dealtype: "updatestudent",
-        //             studentId2:studentId2,
-        //         }
-        //         alert("data="+JSON.stringify(data));
-        //         if (pwd != pwd2) {
-        //             alert("密码不一致！")
-        //         } else if (account == '' || pwd == '' || pwd2 == '') {
-        //             alert("姓名或密码不能为空!！")
-        //         } else if (pwd == pwd2) {
-        //             $.ajax({
-        //                 url: "/sharefile/studentControl/updatestudent",
-        //                 type: "POST",
-        //                 dataType: "text",
-        //                 data: data,
-        //                 success: function (msg) {
-        //                     if (msg.trim() == "success") {
-        //                         alert("学员信息修改成功！");
-        //                         layer.close(addstudent);
-        //                         // location.href = "userlogin.jsp";
-        //                     } else {
-        //                         alert(msg)
-        //                     }
-        //                 }
-        //             });
-        //
-        //         }
-        //         return false;
-        //     });
-        // });
-
         // $('.demoTable .layui-btn').on('click', function(){
         //     var type = $(this).data('type');
         //     active[type] ? active[type].call(this) : '';
         // });
 
         $("#cancle").click(function () {
-            layer.close(addstudent);
+            layer.close(updateinfo);
         })
         $("#cancle2").click(function () {
             layer.close(addschool);
         })
+        $("#cancle3").click(function () {
+            layer.close(addcar);
+        })
     });
 </script>
-<div id="add" style="display: none">
-        <form class="layui-form" action="">
-            <div class="layui-form-item" style="margin-top: 10px">
-                <label class="layui-form-label">驾校名称：</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="sName" placeholder="" autocomplete="off" class="layui-input" lay-verify="required">
-                </div>
+<div id="addschool" style="display: none">
+    <form class="layui-form" action="">
+        <div class="layui-form-item" style="margin-top: 10px">
+            <label class="layui-form-label">驾校名称：</label>
+            <div class="layui-input-inline">
+                <input type="text" name="sName" placeholder="" autocomplete="off" class="layui-input" lay-verify="required">
             </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">账号：</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="aAccount" placeholder="" autocomplete="off" class="layui-input"  lay-verify="required">
-                </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">账号：</label>
+            <div class="layui-input-inline">
+                <input type="text" name="aAccount" placeholder="" autocomplete="off" class="layui-input"  lay-verify="required">
             </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">密码：</label>
-                <div class="layui-input-inline">
-                    <input type="password" name="aPassword" placeholder="" autocomplete="off" class="layui-input"  lay-verify="required">
-                </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">密码：</label>
+            <div class="layui-input-inline">
+                <input type="password" name="aPassword" placeholder="" autocomplete="off" class="layui-input"  lay-verify="required">
             </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">驾校地址：</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="sAddress" placeholder="" autocomplete="off" class="layui-input"
-                           lay-verify="required">
-                </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">驾校地址：</label>
+            <div class="layui-input-inline">
+                <input type="text" name="sAddress" placeholder="" autocomplete="off" class="layui-input"
+                       lay-verify="required">
             </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">报名电话：</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="sPhone" placeholder="" autocomplete="off" class="layui-input"lay-verify="required">
-                </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">报名电话：</label>
+            <div class="layui-input-inline">
+                <input type="text" name="sPhone" placeholder="" autocomplete="off" class="layui-input"lay-verify="required">
             </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">统一信用代码：</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="sBusinessId" placeholder="" autocomplete="off" class="layui-input"lay-verify="required">
-                </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">统一信用代码：</label>
+            <div class="layui-input-inline">
+                <input type="text" name="sBusinessId" placeholder="" autocomplete="off" class="layui-input"lay-verify="required">
             </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">法人身份证：</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="sOwnerId" placeholder="" autocomplete="off" class="layui-input"lay-verify="required">
-                </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">法人身份证：</label>
+            <div class="layui-input-inline">
+                <input type="text" name="sOwnerId" placeholder="" autocomplete="off" class="layui-input"lay-verify="required">
             </div>
-            <div class="layui-form-item">
-                <div class="layui-input-block">
-                    <input type="hidden" name="dealtype" value="addstudent" placeholder="" autocomplete="off" class="layui-input"
-                           lay-verify="required">
-                    <button class="layui-btn layui-btn-primary" lay-submit lay-filter="formDemo">添加</button>
-                    <button type="button" id="cancle2"class="layui-btn layui-btn-primary" style="margin-right: 60px">取消</button>
-                </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <input type="hidden" name="dealtype" value="addstudent" placeholder="" autocomplete="off" class="layui-input"
+                       lay-verify="required">
+                <button class="layui-btn layui-btn-primary" lay-submit lay-filter="formDemo">添加</button>
+                <button type="button" id="cancle2"class="layui-btn layui-btn-primary" style="margin-right: 60px">取消</button>
             </div>
-        </form>
-    </div>
+        </div>
+    </form>
+</div>
+
+<div id="addcar" style="display: none">
+    <form class="layui-form" action="">
+        <div class="layui-form-item" style="margin-top: 10px">
+            <label class="layui-form-label">汽车品牌：</label>
+            <div class="layui-input-inline">
+                <select name="cLogo" lay-filter="aihao">
+                    <option value=""></option>
+                    <option value="奔驰">奔驰</option>
+                    <option value="科尼塞克" selected="">科尼塞克</option>
+                    <option value="奥迪">奥迪</option>
+                    <option value="宝马">宝马</option>
+                    <option value="丰田">丰田</option>
+                    <option value="本田">本田</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">车型：</label>
+            <div class="layui-input-inline">
+                <select name="cModel" lay-filter="aihao">
+                    <option value=""></option>
+                    <option value="轿车">轿车</option>
+                    <option value="SUV" selected="">SUV</option>
+                    <option value="MPV">MPV</option>
+                    <option value="卡车">卡车</option>
+                    <option value="货车">货车</option>
+                    <option value="公交车">公交车</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">颜色：</label>
+            <div class="layui-input-inline">
+                <select name="cColor" lay-filter="aihao">
+                    <option value=""></option>
+                    <option value="白色">白色</option>
+                    <option value="红色" selected="">红色</option>
+                    <option value="蓝色">蓝色</option>
+                    <option value="粉色">粉色</option>
+                    <option value="黑色">黑色</option>
+                    <option value="绿色">绿色</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">车牌号码：</label>
+            <div class="layui-input-inline">
+                <input type="text" name="cNumber" placeholder="" autocomplete="off" class="layui-input"
+                       lay-verify="required">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <input type="hidden" name="sId" value="schoolId" autocomplete="off" class="layui-input"lay-verify="required">
+                <button class="layui-btn layui-btn-primary" lay-submit lay-filter="formDemo1">确认</button>
+                <button type="button" id="cancle3"class="layui-btn layui-btn-primary" style="margin-right: 60px">取消</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div id="updateinfo" style="display: none">
+    <form class="layui-form" action="">
+        <div class="layui-form-item" style="margin-top: 10px">
+            <label class="layui-form-label">驾校名称：</label>
+            <div class="layui-input-inline">
+                <input type="text" name="sName" placeholder="" autocomplete="off" class="layui-input" lay-verify="required">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">驾校地址：</label>
+            <div class="layui-input-inline">
+                <input type="text" name="sAddress" placeholder="" autocomplete="off" class="layui-input"  lay-verify="required">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">联系电话：</label>
+            <div class="layui-input-inline">
+                <input type="text" name="sPhone" placeholder="" autocomplete="off" class="layui-input"  lay-verify="required">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">允许招生：</label>
+            <div class="layui-input-block">
+                <input type="radio" name="sRecruit" value="true" title="允许" checked="">
+                <input type="radio" name="sRecruit" value="false" title="禁止">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">允许登录：</label>
+            <div class="layui-input-block">
+                <input type="radio" name="sLock" value="true" title="允许" checked="">
+                <input type="radio" name="sLock" value="false" title="禁止">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <input type="hidden" name="sId" value="${schoolId}"  class="layui-input" >
+                <button class="layui-btn layui-btn-primary" lay-submit lay-filter="formDemo2">确认修改</button>
+                <button type="button" id="cancle"class="layui-btn layui-btn-primary" style="margin-right: 60px">取消</button>
+            </div>
+        </div>
+    </form>
+</div>
     </form>
 </div>
 </body>
