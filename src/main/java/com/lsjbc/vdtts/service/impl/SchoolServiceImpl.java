@@ -2,7 +2,7 @@ package com.lsjbc.vdtts.service.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.lsjbc.vdtts.constant.consist.EvaluateTypeConstant;
+import com.lsjbc.vdtts.constant.EvaluateType;
 import com.lsjbc.vdtts.dao.*;
 import com.lsjbc.vdtts.dao.mapper.SchoolMapper;
 import com.lsjbc.vdtts.entity.Account;
@@ -220,7 +220,7 @@ public class SchoolServiceImpl implements SchoolService {
 		schools.getResult().stream().forEach(item -> {
 			Integer schoolId = item.getSId();
 			SchoolDetail detail = SchoolDetail.generateDetail(item);
-			detail.setScore(evaluateDao.getAvgByTypeAndId(EvaluateTypeConstant.TYPE_SCHOOL, schoolId));
+			detail.setScore(evaluateDao.getAvgByTypeAndId(EvaluateType.TYPE_SCHOOL, schoolId));
 			detail.setCarCount(carDao.getCountBySchoolId(schoolId));
 			detail.setTeacherCount(teacherDao.getCountBySchoolId(schoolId));
 			detail.setStudentCount(studentDao.getStudentCountBySchoolId(schoolId));

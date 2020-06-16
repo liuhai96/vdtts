@@ -1,7 +1,8 @@
 package com.lsjbc.vdtts.controller;
 
-import com.lsjbc.vdtts.constant.consist.EvaluateTypeConstant;
+import com.lsjbc.vdtts.constant.EvaluateType;
 import com.lsjbc.vdtts.dao.ExamResultDao;
+import com.lsjbc.vdtts.entity.Student;
 import com.lsjbc.vdtts.entity.Teacher;
 import com.lsjbc.vdtts.service.impl.LinkServiceImpl;
 import com.lsjbc.vdtts.service.impl.NoticeServiceImpl;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 /**
@@ -107,7 +109,7 @@ public class IndexController {
     public String inquire(Map<String, Object> map, String type, String name) {
         if (type != null) {
             map.put("type", type);
-            map.put(type.equalsIgnoreCase(EvaluateTypeConstant.TYPE_SCHOOL) ? "schoolName" : "teacherName", name);
+            map.put(type.equalsIgnoreCase(EvaluateType.TYPE_SCHOOL) ? "schoolName" : "teacherName", name);
         }
         map.put("linkList", linkServive.getFooterFriendLink());
         return "/pages/index/inquire";
@@ -138,5 +140,58 @@ public class IndexController {
 
         map.put("linkList", linkServive.getFooterFriendLink());
         return "/pages/index/inquire_teacher";
+    }
+
+    /**
+     * 访问学教专区的页面
+     *
+     * @param map     ModelAndView中的属性键值对
+     * @param request HttpServletRequest
+     * @return 页面
+     */
+    @GetMapping("student")
+    public String student(Map<String, Object> map, HttpServletRequest request) {
+
+        Student student = (Student) request.getSession().getAttribute("student");
+
+        if (student == null) {
+            //如果用户未登录，直接访问登录页面
+            map.put("iframeUrl", "/student/login");
+        } else {
+            //如果用户已经登录，直接访问学员主页
+            map.put("iframeUrl", "/student/main");
+        }
+
+        map.put("linkList", linkServive.getFooterFriendLink());
+        return "/pages/index/student";
+    }
+
+    /**
+     * 访问学员登录界面
+     *
+     * @return 页面
+     */
+    @GetMapping("student/login")
+    public String studentLogin() {
+        return "/pages/index/student_login";
+    }
+
+    /**
+     * 学员注销
+     *
+     * @param request HttpServletRequest
+     * @return 页面
+     */
+    @GetMapping("logout/student")
+    public String studentLogout(HttpServletRequest request) {
+        request.getSession().removeAttribute("student");
+        request.getSession().invalidate();
+        return "redirect:/index";
+    }
+
+
+    @GetMapping("student/main")
+    public String studentMain(Map<String, Object> map, HttpServletRequest request) {
+        return "/pages/student/home";
     }
 }

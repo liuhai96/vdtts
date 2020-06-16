@@ -2,7 +2,7 @@ package com.lsjbc.vdtts.service.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.lsjbc.vdtts.constant.consist.NoticeTypeConstant;
+import com.lsjbc.vdtts.constant.NoticeType;
 import com.lsjbc.vdtts.dao.NoticeDao;
 import com.lsjbc.vdtts.dao.mapper.NoticeMapper;
 import com.lsjbc.vdtts.entity.Notice;
@@ -72,7 +72,7 @@ public class NoticeServiceImpl implements NoticeService {
      */
     @Override
     public List<Notice> getIndexPageNotice() {
-        return getByType(NoticeTypeConstant.TYPE_NOTICE, 1, 4, "");
+        return getByType(NoticeType.TYPE_NOTICE, 1, 4, "");
     }
 
     /**
@@ -83,7 +83,7 @@ public class NoticeServiceImpl implements NoticeService {
      */
     @Override
     public List<Notice> getIndexPageLaw() {
-        return getByType(NoticeTypeConstant.TYPE_LAW, 1, 4, "");
+        return getByType(NoticeType.TYPE_LAW, 1, 4, "");
     }
 
     /**

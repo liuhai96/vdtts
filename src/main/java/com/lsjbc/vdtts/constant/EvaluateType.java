@@ -1,12 +1,12 @@
-package com.lsjbc.vdtts.constant.consist;
+package com.lsjbc.vdtts.constant;
 
 /**
- * @ClassName: EvaluateTypeConstant
+ * @ClassName: EvaluateType
  * @Description:
  * @Datetime: 2020/6/12   11:31
  * @Author: JX181114 - 郑建辉
  */
-public class EvaluateTypeConstant {
+public class EvaluateType {
 
     /**
      * 评价表的教练类型

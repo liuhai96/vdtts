@@ -2,7 +2,7 @@ package com.lsjbc.vdtts.service.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.lsjbc.vdtts.constant.consist.EvaluateTypeConstant;
+import com.lsjbc.vdtts.constant.EvaluateType;
 import com.lsjbc.vdtts.dao.EvaluateDao;
 import com.lsjbc.vdtts.dao.SchoolDao;
 import com.lsjbc.vdtts.dao.StudentDao;
@@ -287,7 +287,7 @@ public class TeacherServiceImpl implements TeacherService {
 
         pageInfo.getResult().stream().forEach(item -> {
             TeacherDetail detail = TeacherDetail.generateDetail(item);
-            detail.setScore(evaluateDao.getAvgByTypeAndId(EvaluateTypeConstant.TYPE_TEACHER, item.getTId()));
+            detail.setScore(evaluateDao.getAvgByTypeAndId(EvaluateType.TYPE_TEACHER, item.getTId()));
             detail.setSchoolName(schoolDao.getById(item.getTSchoolId()).getSName());
             detail.setStudentCount(studentDao.getStudentCountByTeacherId(item.getTId()));
 

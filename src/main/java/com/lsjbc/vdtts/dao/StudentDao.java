@@ -26,6 +26,17 @@ public class StudentDao implements BaseDao<Student> {
     private StudentMapper mapper;
 
     /**
+     * 根据账号ID来获取学员信息
+     *
+     * @param accountId 账号Id
+     * @return 学员信息
+     * @author JX181114 --- 郑建辉
+     */
+    public Student getStudentByAccountId(Integer accountId) {
+        return (Student) mapper.selectOne(Student.builder().sAccountId(accountId).build());
+    }
+
+    /**
      * 根据驾校ID来拉取学员数量
      *
      * @param schoolId 驾校ID

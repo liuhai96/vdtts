@@ -1,12 +1,12 @@
-package com.lsjbc.vdtts.constant.consist;
+package com.lsjbc.vdtts.constant;
 
 /**
- * @ClassName: ExamTextConstant
+ * @ClassName: ExamText
  * @Description: 关于模拟考试的一些常量
  * @Datetime: 2020/6/7   9:57
  * @Author: JX181114 - 郑建辉
  */
-public class ExamTextConstant {
+public class ExamText {
 
     /**
      * 单张试卷的最大题目数量

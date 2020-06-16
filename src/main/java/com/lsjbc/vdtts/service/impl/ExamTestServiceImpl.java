@@ -1,6 +1,6 @@
 package com.lsjbc.vdtts.service.impl;
 
-import com.lsjbc.vdtts.constant.consist.ExamTextConstant;
+import com.lsjbc.vdtts.constant.ExamText;
 import com.lsjbc.vdtts.dao.ExamAnswerDao;
 import com.lsjbc.vdtts.dao.ExamQuestionDao;
 import com.lsjbc.vdtts.entity.ExamQuestion;
@@ -45,7 +45,7 @@ public class ExamTestServiceImpl implements ExamTestService {
         List<ExamQuestion> list = examQuestionDao.getAll(level);
 
         //生成考卷
-        return list.size() > ExamTextConstant.NUMBER_OF_QUESTIONS_ON_A_TEST ? generateManyTest(list) : generateOneTest(list);
+        return list.size() > ExamText.NUMBER_OF_QUESTIONS_ON_A_TEST ? generateManyTest(list) : generateOneTest(list);
     }
 
     /**
@@ -83,12 +83,12 @@ public class ExamTestServiceImpl implements ExamTestService {
         Integer questionCount = questions.length;
 
         //算出能生成的考卷总数
-        Integer examCount = questionCount / ExamTextConstant.NUMBER_OF_QUESTIONS_ON_A_TEST;
+        Integer examCount = questionCount / ExamText.NUMBER_OF_QUESTIONS_ON_A_TEST;
 
         //生成空考卷
         Map<Integer, List<ExamQuestion>> map = new HashMap<>(examCount);
         for (int i = 0; i < examCount; i++) {
-            map.put(i, new ArrayList<ExamQuestion>(ExamTextConstant.NUMBER_OF_QUESTIONS_ON_A_TEST));
+            map.put(i, new ArrayList<ExamQuestion>(ExamText.NUMBER_OF_QUESTIONS_ON_A_TEST));
         }
 
         //生成随机数获取对象
@@ -103,7 +103,7 @@ public class ExamTestServiceImpl implements ExamTestService {
              * 步骤时会抛出异常，因为nextInt()中的值必须大于1
              * 当考卷内的题目达到上限时，或者只剩下最后一道题时，会结束循环
              */
-            while (value.size() < ExamTextConstant.NUMBER_OF_QUESTIONS_ON_A_TEST && questionCount > 1) {
+            while (value.size() < ExamText.NUMBER_OF_QUESTIONS_ON_A_TEST && questionCount > 1) {
 
                 //获取出随机的一个数组下标，并取出考题放入考卷
                 Integer index = random.nextInt(questionCount - 1);

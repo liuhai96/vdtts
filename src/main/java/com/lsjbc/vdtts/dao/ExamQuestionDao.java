@@ -1,6 +1,6 @@
 package com.lsjbc.vdtts.dao;
 
-import com.lsjbc.vdtts.constant.consist.CustomTimeConstant;
+import com.lsjbc.vdtts.constant.CustomTime;
 import com.lsjbc.vdtts.dao.mapper.BaseDao;
 import com.lsjbc.vdtts.dao.mapper.ExamQuestionMapper;
 import com.lsjbc.vdtts.entity.ExamQuestion;
@@ -134,7 +134,7 @@ public class ExamQuestionDao extends BaseRedisClient implements BaseDao<ExamQues
      * 测试时使用30天
      * 上线时使用1小时或10分钟
      */
-    private Long defaultRedisSaveTime = CustomTimeConstant.SECOND_OF_30_DAY;
+    private Long defaultRedisSaveTime = CustomTime.SECOND_OF_30_DAY;
 
     /**
      * 读取redis中所有的数据

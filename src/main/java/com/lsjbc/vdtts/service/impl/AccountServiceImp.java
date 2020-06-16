@@ -1,5 +1,6 @@
 package com.lsjbc.vdtts.service.impl;
 
+import com.lsjbc.vdtts.dao.StudentDao;
 import com.lsjbc.vdtts.dao.TransManageDao;
 import com.lsjbc.vdtts.dao.mapper.*;
 import com.lsjbc.vdtts.entity.*;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -33,11 +35,15 @@ public class AccountServiceImp implements AccountService {
     @Autowired
     private TransManageDao transManageDao;
 
+    @Resource(name = StudentDao.NAME)
+    private StudentDao studentDao;
+
 
     @Override
     public LayuiTableData findAccount(String account) {
         return null;
     }
+
     @Override
     /*
      *@Description:
@@ -94,43 +100,47 @@ public class AccountServiceImp implements AccountService {
             switch (account.getAType()) {
                 case "school": //驾校登录界面地址
                     School school = schoolMapper.findAccount(account);
-                    if(school.getSLock()=="true"){
-                        resultData = ResultData.error(-1,"驾校已被锁定登录");
-                    }else{
+                    if (school.getSLock() == "true") {
+                        resultData = ResultData.error(-1, "驾校已被锁定登录");
+                    } else {
                         request.getSession().setAttribute("school", school);
                     }
+                    nextJsp = "pages/backhomepage/index.jsp";//前端jsp地址
                     break;
                 case "student":
-                    request.getSession().setAttribute("student", studentMapper.findAccount(account));
-                break;//学员登录界面地址
+                    request.getSession().setAttribute("student", studentDao.getStudentByAccountId(account.getAId()));
+                    nextJsp = "student/main";//前端jsp地址
+                    break;//学员登录界面地址
                 case "teacher"://教练登录界面地址
                     //教练的对象
                     Teacher teacher = teacherMapper.findAccount(account);
-                    if(teacher.getTLock()=="true"){
-                        resultData = ResultData.error(-1,"您的账号已被锁定，请找驾校询问具体原因");
-                    }else{
+                    if (teacher.getTLock() == "true") {
+                        resultData = ResultData.error(-1, "您的账号已被锁定，请找驾校询问具体原因");
+                    } else {
                         request.getSession().setAttribute("teacher", teacher);
-                        resultData = ResultData.success(1,"登录成功");
+                        resultData = ResultData.success(1, "登录成功");
                     }
                     //教练评价
                     Evaluate evaluate = new Evaluate();
                     evaluate.setEToId(teacher.getTId());
                     evaluate.setEType("teacher");
                     request.getSession().setAttribute("evaluate", evaluateMapper.selectEvaluate(evaluate));
+                    nextJsp = "pages/backhomepage/index.jsp";//前端jsp地址
                     break;
                 case "manage":
                     TransManage transManage = transManageDao.findTransManage(account);
-                    if(transManage!=null){
-                        request.getSession().setAttribute("manage",transManage);
-                        resultData = ResultData.success(1,"登录成功");
-                    }else{
-                        resultData = ResultData.error(-1,"未找到该运管信息");
+                    if (transManage != null) {
+                        request.getSession().setAttribute("manage", transManage);
+                        resultData = ResultData.success(1, "登录成功");
+                        nextJsp = "pages/backhomepage/index.jsp";//前端jsp地址
+                    } else {
+                        resultData = ResultData.error(-1, "未找到该运管信息");
+                        nextJsp = "pages/index/index.jsp";//前端jsp地址
                     }
             }
         } else {//登录失败
             resultData = ResultData.error(-2,"登录失败，请核对账号");
         }
-        nextJsp = "pages/backhomepage/index.jsp";//前端jsp地址
         resultData= ResultData.success("url",nextJsp);
         return resultData;
     }
