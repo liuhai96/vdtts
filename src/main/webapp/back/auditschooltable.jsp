@@ -22,8 +22,8 @@
 			<div class="layui-input-inline">
 				<select name="sVerification" id="sVerification" >
 					<option value="">选择审核状态查询</option>
-					<option value=" ">未审核</option>
-					<option value="true">已通过</option>
+					<option value="0">未审核</option>
+					<option value="1">已通过</option>
 				</select>
 			</div>
 		</div>
@@ -42,7 +42,7 @@
 	</div>
 </script>
 <script type="text/html" id="barDemo">
-	{{#  if(d.sVerification == ""){}}
+	{{#  if(d.sVerification == "0"){}}
 	<a class="layui-btn layui-btn-xs" lay-event="audit">审核</a>
 	{{#  }else{}}
 	<a >已审核</a>
@@ -84,12 +84,17 @@
 			]]
 			, page: true
 			, done: function (res, curr, count) {
-				$("[data-field='sVerification']").children().each(function () {
-					 if ($(this).text() == 'true') {
+				$("[data-field='sVerification'],[data-field='sRecruit'],[data-field='sLock']").children().each(function () {
+					if ($(this).text() == '1') {
 						$(this).text("已通过")
-					} else if ($(this).text() == '') {
+					} else if ($(this).text() == '0') {
 						$(this).text("未审核")
+					}else if ($(this).text() == 'true') {
+						$(this).text("允许")
+					} else if ($(this).text() == 'false') {
+						$(this).text("不允许")
 					}
+
 				});
 			}
 		});

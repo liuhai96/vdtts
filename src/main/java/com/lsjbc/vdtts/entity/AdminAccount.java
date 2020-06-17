@@ -37,4 +37,10 @@ public class AdminAccount
 	 *手机号
 	 */
 	private String acPhone;
+
+
+	/**
+	 * 角色Id
+	 */
+	private Integer roleId;
 }

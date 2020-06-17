@@ -20,4 +20,15 @@
     <select id="findSchoolEvaluate" parameterType="int" resultType="com.lsjbc.vdtts.entity.Evaluate">
 
     </select>
+
+    <!--添加驾校评价 周永哲-->
+    <insert id="schoolEvaluate" parameterType="com.lsjbc.vdtts.entity.Evaluate">
+        insert into tb_evaluate(e_student_id,e_to_id,e_score,e_content,e_type)
+        values(#{eStudentId},#{eToId},#{eScore},#{eContent},'school')
+    </insert>
+    <!--添加教练评价 周永哲-->
+    <insert id="teacherEvaluate" parameterType="com.lsjbc.vdtts.entity.Evaluate">
+        insert into tb_evaluate(e_student_id,e_to_id,e_score,e_content,e_type)
+        values(#{eStudentId},#{eToId},#{eScore},#{eContent},'teacher')
+    </insert>
 </mapper>

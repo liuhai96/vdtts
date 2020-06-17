@@ -43,7 +43,7 @@ public interface SchoolService {
     //查询身份证
     public ResultData insSfz(Student student, HttpServletRequest request);
     //根据主键获取驾校信息
-    School chlGetObjectByschoolid(Integer id);
+    School getSchoolBySchoolId(Integer id);
 
 
 

@@ -90,10 +90,10 @@ public class AccountServiceImp implements AccountService {
     }
     @Override
     public ResultData UserLogin(Account account, HttpServletRequest request){
-        String nextJsp = null;//下一个界面的路径
+        String nextJsp = "";//下一个界面的路径
         Tool tool = new Tool();
         String notify = "";//弹窗通知信息
-        ResultData resultData = null;
+        ResultData resultData = ResultData.success();
         account.setAPassword(tool.createMd5(account.getAPassword()));
         account = accountMapper.UserLogin(account);
         if(account != null){ //登录成功时
@@ -101,10 +101,11 @@ public class AccountServiceImp implements AccountService {
                 case "school": //驾校登录界面地址
                     School school = schoolMapper.findAccount(account.getAId());
                     if(school.getSLock().equals("true")){
-                        resultData = ResultData.error(-1,"驾校 已被锁定登录");
+                        resultData.setMsg("驾校已被锁定登录");
+                        nextJsp = "pages/homepage/login.jsp";
                     }else{
                         request.getSession().setAttribute("school", school);
-                        resultData = ResultData.success(1,"登录成功");
+                        resultData.setMsg("登录成功!");
                         nextJsp = "pages/backhomepage/index.jsp";//前端jsp地址
                     }
                     break;
@@ -112,32 +113,35 @@ public class AccountServiceImp implements AccountService {
                     //教练的对象
                     Teacher teacher = teacherMapper.findAccount(account);
                     if(teacher.getTLock().equals("true")){
-                        resultData = ResultData.error(-1,"您的账号已被锁定，请找驾校询问具体原因");
+                        resultData.setMsg("您的账号已被锁定，请找驾校询问具体原因");
+                        nextJsp = "pages/homepage/login.jsp";
                     }else{
                         request.getSession().setAttribute("teacher", teacher);
-                        resultData = ResultData.success(1,"登录成功");
+                        //教练评价
+                        Evaluate evaluate = new Evaluate();
+                        evaluate.setEToId(teacher.getTId());
+                        evaluate.setEType("teacher");
+                        request.getSession().setAttribute("evaluate", evaluateMapper.selectEvaluate(evaluate));
                         nextJsp = "pages/backhomepage/index.jsp";//前端jsp地址
                     }
-                    //教练评价
-                    Evaluate evaluate = new Evaluate();
-                    evaluate.setEToId(teacher.getTId());
-                    evaluate.setEType("teacher");
-                    request.getSession().setAttribute("evaluate", evaluateMapper.selectEvaluate(evaluate));
-                    nextJsp = "pages/backhomepage/index.jsp";//前端jsp地址
                     break;
                 case "manage":
                     TransManage transManage = transManageDao.findTransManage(account);
                     if(transManage!=null){
                         request.getSession().setAttribute("manage",transManage);
-                        resultData = ResultData.success(1,"登录成功");
+                        resultData.setMsg("登录成功");
                         nextJsp = "pages/backhomepage/index.jsp";//前端jsp地址
                     }else{
-                        resultData = ResultData.error(-1,"未找到该运管信息");
+                        resultData.setMsg("未找到该运管信息");
+                        nextJsp = "pages/homepage/login.jsp";
                     }
+                    break;
             }
         } else {//登录失败
-            resultData = ResultData.error(-2,"登录失败，请核对账号");
+            resultData.setMsg("登录失败，请核对账号");
+            nextJsp = "pages/homepage/login.jsp";//前端jsp地址
         }
+        resultData.put("url",nextJsp);
         return resultData;
     }
 
@@ -199,8 +203,8 @@ public class AccountServiceImp implements AccountService {
     }
 
     @Override
-    public int updateaccount(Account account) {
-        int updateaccount = accountMapper.updateaccount(account);
+    public int updateAdminAccount(AdminAccount adminAccount) {
+        int updateaccount = accountMapper.updateAdminAccount(adminAccount);
         return updateaccount;
     }
     /*
@@ -214,5 +218,11 @@ public class AccountServiceImp implements AccountService {
     public AdminAccount adminLogin(AdminAccount account) {
         AdminAccount adminLogin = accountMapper.adminLogin(account);
         return adminLogin;
+    }
+
+    @Override
+    public List<Menuitem> adminList(int roleId) {
+        List<Menuitem> adminList = accountMapper.adminList(roleId);
+        return adminList;
     }
 }

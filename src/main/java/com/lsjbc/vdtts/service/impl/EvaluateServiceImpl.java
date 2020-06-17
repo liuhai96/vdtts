@@ -3,6 +3,7 @@ package com.lsjbc.vdtts.service.impl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.lsjbc.vdtts.dao.EvaluateDao;
+import com.lsjbc.vdtts.dao.mapper.EvaluateMapper;
 import com.lsjbc.vdtts.entity.Evaluate;
 import com.lsjbc.vdtts.service.intf.EvaluateService;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,8 @@ public class EvaluateServiceImpl implements EvaluateService {
     @Resource(name = EvaluateDao.NAME)
     private EvaluateDao evaluateDao;
 
-
+    @Resource
+    private EvaluateMapper evaluateMapper;
     /**
      * 分页获取评价
      *
@@ -42,5 +44,25 @@ public class EvaluateServiceImpl implements EvaluateService {
 
 
         return userPage;
+    }
+
+
+    /*
+     *@Description:
+     *@Author:周永哲
+     *@Param:
+     *@return:
+     *@Date:2020/6/17
+     **/
+    @Override
+    public int schoolEvaluate(Evaluate evaluate) {
+        int schoolEvaluate =evaluateMapper.schoolEvaluate(evaluate);
+        return schoolEvaluate;
+    }
+
+    @Override
+    public int teacherEvaluate(Evaluate evaluate) {
+        int teacherEvaluate =evaluateMapper.teacherEvaluate(evaluate);
+        return teacherEvaluate;
     }
 }

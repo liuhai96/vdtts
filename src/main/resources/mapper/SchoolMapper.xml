@@ -28,7 +28,7 @@
     </select>
     <!--    修改审核状态-->
     <update id="updateschoolInfo" parameterType="com.lsjbc.vdtts.entity.School">
-        update tb_school set s_verification = 'true', s_lock='true', s_recruit='true' where s_id = #{sId}
+        update tb_school set s_verification = '1', s_lock='true', s_recruit='true' where s_id = #{sId}
     </update>
     <!--    查询驾校-->
     <select id="findschool" parameterType="int" resultType="com.lsjbc.vdtts.entity.School">

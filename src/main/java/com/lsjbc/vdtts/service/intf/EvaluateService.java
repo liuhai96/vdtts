@@ -2,6 +2,7 @@ package com.lsjbc.vdtts.service.intf;
 
 import com.github.pagehelper.Page;
 import com.lsjbc.vdtts.entity.Evaluate;
+import org.springframework.stereotype.Service;
 
 /**
  * @ClassName: EvaluateService
@@ -9,6 +10,7 @@ import com.lsjbc.vdtts.entity.Evaluate;
  * @Datetime: 2020/6/16   0:38
  * @Author: JX181114 - 郑建辉
  */
+@Service
 public interface EvaluateService {
 
     /**
@@ -21,4 +23,14 @@ public interface EvaluateService {
      * @author JX181114 --- 郑建辉
      */
     Page<Evaluate> getEvaluateByTypeAndId(String type, Integer id, Integer page);
+
+    /*
+     *@Description:
+     *@Author:周永哲
+     *@Param:
+     *@return:
+     *@Date:2020/6/17
+     **/
+     public int schoolEvaluate (Evaluate evaluate);
+     public int teacherEvaluate (Evaluate evaluate);
 }

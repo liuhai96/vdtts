@@ -38,7 +38,8 @@ public class FileAcceptController {
         String filename = imgFile.getOriginalFilename();
         fileAccept.setFName(filename);//返回对象的名称赋值
         // 存放上传图片的文件夹
-        File fileDir = fileAccept.getImgDirFile(request.getSession().getServletContext().getRealPath("/image/"));//存放image路径
+        File fileDir = fileAccept.getImgDirFile(request.getSession().
+                getServletContext().getRealPath("/image/"));//存放image路径（动态）
         System.out.println(fileDir.getAbsolutePath());
         fileAccept.setFPath("/image/"+filename);//返回对象的路径赋值
         try {// 构建真实的文件路径

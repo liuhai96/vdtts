@@ -1,5 +1,4 @@
-<%@ page import="com.lsjbc.vdtts.utils.Tool" %>
-<%--
+<%@ page import="com.lsjbc.vdtts.utils.Tool" %><%--
   Created by IntelliJ IDEA.
   User: Admin
   Date: 2020/6/12
@@ -35,10 +34,10 @@
         </div>
         <div class="inf-login">
             <c:if test="${sessionScope.student == null }">
-                <a target="_blank" href="http://118.178.227.161/web/">管理部门登录</a> |
-                <a target="_blank" href="http://47.98.242.153:8666/">驾培机构登录</a> |
-                <a href="http://47.96.140.98:20034/coaLogin">教练员登录</a> |
+                <a target="_blank" href="<%=path+"/back/adminlogin.jsp"%>">管理登录</a> |
+                <a target="_blank" href="<%=path+"/pages/homepage/login.jsp"%>">机构登录</a> |
                 <a href="<%=path+"/student"%>">学员登录</a>
+                <a target="_blank" href="<%=path+"/pages/homepage/driving-in/driving-in.jsp"%>">驾校入驻</a>
             </c:if>
             <c:if test="${sessionScope.student != null }">
                 <a href="<%=path+"/student"%>" id="studentName">欢迎您！ 学员: ${sessionScope.student.SName}</a>
@@ -141,11 +140,11 @@
                     <textarea title="消息模版" id="SCHOOL_tpl" style="display:none;">
                             {{# layui.each(d.data, function(index, item){ }}
                             <li class="list-school">
-                                <a href="<%=path%>{{ item.urlInfo }}">
+                                <a href="">
                                     <img src="<%=path+"/image/pages/index/sch6.jpg"%>">
                                 </a>
                                 <div class="inf-school">
-                                    <a href="<%=path%>{{ item.urlInfo }}">
+                                    <a href="http://47.96.140.98:20034/schInfoDetail?inscode=3322210509142226">
                                         <p class="word-1" title="{{ item.name }}">{{ item.name }}</p>
                                     </a>
                                     <p style="float: left;">综合评分：</p>

@@ -1,109 +1,92 @@
-
 .clearfix::after {
-	display: block;
-	content: '';
-	height: 0;
+	height: 0px;
 	overflow: hidden;
 	clear: both;
+	display: block;
+	content: "";
 }
-
-
-/*星星样式*/
-
 .content {
-}
 
+}
 .title {
-	font-size: 14px;
-	background: #dfdfdf;
+	background: rgb(223, 223, 223);
 	padding: 10px;
+	font-size: 14px;
 	margin-bottom: 10px;
 }
-
 .block {
 	
 }
-
 .block .star_score {
 	display: inline-block;
 }
 
 .star_list {
-	height: 21px;
 	margin: 50px;
+	height: 21px;
 	line-height: 21px;
 }
 
-.block p{
+.block p {
+	top: -5px;
 	display: inline-block;
 	position: relative;
-    top: -5px;
-}
-.block .attitude {
-	padding-left: 20px;
-	line-height: 21px;
 }
 
+.block .attitude {
+	line-height: 21px;
+	padding-left: 20px;
+}
 .block p span {
-	color: #C00;
+	color: rgb(204, 0, 0);
 	font-size: 14px;
 }
-
 .star_score {
-	background: url(../../../../../../../image/pages/index/stark2.png);
+	background: url("../../../../../../../../../image/pages/index/stark2.png");
 	width: 150px;
 	height: 21px;
 	position: relative;
 }
-
 .star_score a {
+	left: 0px;
 	height: 21px;
-	display: block;
 	text-indent: -999em;
+	display: block;
 	position: absolute;
-	left: 0;
 }
-
 .star_score a:hover {
-	background: url(../../../../../../../../image/pages/index/stars2.png);
-	left: 0;
+	background: url("../../../../../../../../../image/pages/index/stark2.png");
+	left: 0px;
 }
-
 .star_score a.clibg {
-	background: url(../../../../../../../../image/pages/index/stars2.png);
-	left: 0;
+	background: url("../../../../../../../../../image/pages/index/stark2.png");
+	left: 0px;
 }
-
-
-/*星星样式*/
-
 .show_number {
-}
 
+}
 .show_number li {
-	width: 240px;
-	border: 1px solid #ccc;
 	padding: 10px;
+	border: 1px solid rgb(204, 204, 204);
+	border-image: none;
+	width: 240px;
 	margin-right: 5px;
 	margin-bottom: 20px;
 }
-
 .atar_Show {
-	background: url(../../../../../../../image/pages/index/stark2.png);
+	background: url("../../../../../../../../../image/pages/index/stark2.png");
 	width: 150px;
 	height: 21px;
-	position: relative;
 	float: left;
+	position: relative;
 }
-
 .atar_Show p {
-	background: url(../../../../../../../../image/pages/index/stars2.png);
-	left: 0;
-	height: 21px;
+	background: url("../../../../../../../../../image/pages/index/stars2.png");
+	left: 0px;
 	width: 134px;
+	height: 21px;
 }
-
 .show_number li span {
-	display: inline-block;
 	line-height: 21px;
+	display: inline-block;
 }
