@@ -84,7 +84,8 @@
                             +"&aId="+$("#aId").val(), function (mag) {
                             if (mag.msg) {
                                 alert("修改成功！请重新登录");
-                                skipPage($("#path").val()+"/pages/homepage/home-page.jsp?logout=cc632ef332fex2ee3010012e");
+                                if(top.location!=self.location)top.location=window.open($("#path").
+                                val()+"/pages/index/index.jsp");
                             } else{
                                 alert("修改失败,请检查网络!");
                             }

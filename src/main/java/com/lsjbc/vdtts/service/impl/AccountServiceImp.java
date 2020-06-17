@@ -98,9 +98,11 @@ public class AccountServiceImp implements AccountService {
         ResultData resultData = ResultData.success();
         account.setAPassword(tool.createMd5(account.getAPassword()));
         account = accountMapper.UserLogin(account);
-        request.getSession().setAttribute("account", account);
-        request.getSession().setAttribute("aId", account.getAId());
-        request.getSession().setAttribute("aType", account.getAType());
+        try{
+            request.getSession().setAttribute("account", account);
+            request.getSession().setAttribute("aId", account.getAId());
+            request.getSession().setAttribute("aType", account.getAType());
+        }catch (Exception e){}
         if(account != null){ //登录成功时
             switch (account.getAType()) {
                 case "school": //驾校登录界面地址
