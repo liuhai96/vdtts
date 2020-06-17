@@ -44,16 +44,6 @@
 			</div>
 		</div>
 		<div class="layui-inline">
-			<label class="layui-form-label">登录状态</label>
-			<div class="layui-input-inline">
-				<select name="sLock" id="sLock">
-					<option value="">选择登录状态查询</option>
-					<option value="true">允许</option>
-					<option value="false">不允许</option>
-				</select>
-			</div>
-		</div>
-		<div class="layui-inline">
 			<button class="layui-btn" lay-submit="search_submits" lay-filter="search">查询</button>
 		</div>
 	</div>
