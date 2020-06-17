@@ -1,7 +1,6 @@
 package com.lsjbc.vdtts.api;
 
 import com.github.pagehelper.Page;
-import com.lsjbc.vdtts.constant.consist.EvaluateTypeConstant;
 import com.lsjbc.vdtts.entity.Evaluate;
 import com.lsjbc.vdtts.pojo.vo.LayuiFlowData;
 import com.lsjbc.vdtts.service.impl.EvaluateServiceImpl;
@@ -31,9 +30,9 @@ public class EvaluateApi {
      * @param page 页数
      * @return 20条评价
      */
-    @GetMapping("teacher/{id}")
-    public LayuiFlowData<Evaluate> getTeacherEvaluatePageById(@PathVariable("id") Integer id, Integer page) {
-        Page<Evaluate> pageInfo = evaluateService.getEvaluateByTypeAndId(EvaluateTypeConstant.TYPE_TEACHER, id, page);
+    @GetMapping("{type}/{id}")
+    public LayuiFlowData<Evaluate> getTeacherEvaluatePageById(@PathVariable("id") Integer id,@PathVariable("type") String type, Integer page) {
+        Page<Evaluate> pageInfo = evaluateService.getEvaluateByTypeAndId(type, id, page);
 
         LayuiFlowData<Evaluate> flowData = new LayuiFlowData<>();
 
