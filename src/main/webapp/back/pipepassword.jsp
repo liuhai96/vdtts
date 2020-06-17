@@ -84,6 +84,8 @@
                             +"&aId="+$("#aId").val(), function (mag) {
                             if (mag.msg) {
                                 alert("修改成功！");
+	                            if(top.location!=self.location)top.location=window.open($("#path").
+	                            val()+"/pages/index/index.jsp");
                             } else{
                                 alert("修改失败,请检查网络!");
                             }

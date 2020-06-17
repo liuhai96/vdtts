@@ -102,11 +102,12 @@
 	<a href="javascript:void(0)" title="返回上一页" class="sina" onclick="history.go(-1);"></a>
 	<a href="javascript:void(0)" title="刷新" class="tencent" onclick="history.go(0);"></a>
 </div>
+<DIV class="main">
 <DIV class="del-1">
 	<DIV class="del-lun">
 	</DIV>
 	<DIV style="float: left">
-		<IMG style="height: 260px; width: 900px;" src="<%=path%>/static/layui/images/photo/06.png">
+		<IMG style="height: 260px; width: 700px;" src="<%=path%>/static/layui/images/photo/06.png">
 	</DIV>
 	<DIV class="del-schinf">
 		<P class="del-p"><span>${name}</span><IMG src="<%=path%>/image/pages/index/tower.png"></P>
