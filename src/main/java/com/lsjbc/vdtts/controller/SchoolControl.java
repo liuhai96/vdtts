@@ -211,6 +211,7 @@ public class SchoolControl {
         account.setAPassword(tool.createMd5(account.getAPassword()));//转MD5码
 
         if(school.getSRegisteryFee() < 10) school.setSRegisteryFee(4000);
+        school.setSVerification("0");
         school.setSRegTime(tool.getDate("yyyy/MM/dd HH:mm:ss"));
         accountService.addAccountData(account);//加入登录账号
         school.setSAccountId(account.getAId());

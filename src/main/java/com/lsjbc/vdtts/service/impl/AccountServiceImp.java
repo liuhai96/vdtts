@@ -97,7 +97,9 @@ public class AccountServiceImp implements AccountService {
         ResultData resultData = ResultData.success();
         account.setAPassword(tool.createMd5(account.getAPassword()));
         account = accountMapper.UserLogin(account);
-        System.out.println(JSON.toJSONString(account));
+        request.getSession().setAttribute("account", account);
+        request.getSession().setAttribute("aId", account.getAId());
+        request.getSession().setAttribute("aType", account.getAType());
         if(account != null){ //登录成功时
             switch (account.getAType()) {
                 case "school": //驾校登录界面地址
@@ -156,6 +158,7 @@ public class AccountServiceImp implements AccountService {
      *@Date:2020/6/13 14:34
      **/
     public ResultData verifyPass(Account account){
+        System.out.println(JSON.toJSONString(account));
         account = accountMapper.selectAccount(account);
         if(account != null) return ResultData.success("true");
         else return ResultData.success("false");

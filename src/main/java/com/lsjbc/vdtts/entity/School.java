@@ -122,10 +122,11 @@ public class  School {
 	private String sRegTime;
 
 	/**
-	 *法人代表证件
+	 *法人代表证件地址
 	 */
 	@Column(name = "`s_owner_pic`")
 	private String sOwnerPic;
+
 
     /**
      *驾校报名费
