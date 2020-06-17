@@ -24,28 +24,17 @@ public class ExamErrorDao implements BaseDao<ExamError> {
     private ExamErrorMapper mapper;
 
     /**
-     * 根据模拟考试记录ID来删除记录
+     * 根据学员来查询错题
      *
-     * @param recordId 模拟考试记录ID
-     * @return 受影响条数
-     * @author JX181114 --- 郑建辉
-     */
-    public Integer deleteByRecordId(Integer recordId) {
-        return mapper.delete(ExamError.builder().eeRecordId(recordId).build());
-    }
-
-    /**
-     * 根据考试记录来查询错题
-     *
-     * @param recordId 考试记录ID
+     * @param studentId 学员ID
      * @return 错题集合
      * @author JX181114 --- 郑建辉
      */
-    public List<ExamError> getByRecordId(Integer recordId) {
+    public List<ExamError> getByStudentId(Integer studentId) {
         Example example = new Example(ExamError.class);
         Example.Criteria criteria = example.createCriteria();
 
-        criteria.andEqualTo("eeRecordId", recordId);
+        criteria.andEqualTo("eeStudentId", studentId);
         return mapper.selectByExample(example);
     }
 

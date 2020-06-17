@@ -7,15 +7,16 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="com.lsjbc.vdtts.utils.Tool" %>
 <%
     String path = request.getContextPath();
+    String today = new Tool().getDate("yyyy年MM月dd日");
 %>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport"  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <title>教练员详情</title>
     <link rel="stylesheet" href="https://www.layuicdn.com/layui-v2.5.6/css/layui.css" media="all">
     <link rel="stylesheet" href="<%=path+"/css/pages/index/common.css"%>">
@@ -28,13 +29,20 @@
 <div class="login-inf">
     <div class="inf-box">
         <div class="inf-time">
-            今天是2020年6月11日,欢迎您！
+            今天是<%=today%>
         </div>
         <div class="inf-login">
-            <a target="_blank" href="http://118.178.227.161/web/">管理部门登录</a> |
-            <a target="_blank" href="http://47.98.242.153:8666/">驾培机构登录</a> |
-            <a href="http://47.96.140.98:20034/coaLogin">教练员登录</a> |
-            <a href="http://47.96.140.98:20034/stuLogin">学员登录</a>
+            <c:if test="${sessionScope.student == null }">
+                <a target="_blank" href="<%=path+"/back/adminlogin.jsp"%>">管理登录</a> |
+                <a target="_blank" href="<%=path+"/pages/homepage/login.jsp"%>">机构登录</a> |
+                <a href="<%=path+"/student"%>">学员登录</a>
+                <a target="_blank" href="<%=path+"/pages/homepage/driving-in/driving-in.jsp"%>">驾校入驻</a>
+            </c:if>
+            <c:if test="${sessionScope.student != null }">
+                <a href="<%=path+"/student"%>" id="studentName">欢迎您！ 学员: ${sessionScope.student.SName}</a>
+                &nbsp;&nbsp;&nbsp;
+                <a href="<%=path+"/logout/student"%>">退出</a>
+            </c:if>
         </div>
     </div>
 </div>
@@ -76,7 +84,7 @@
             </li>
             <li id="menu-title-six">
                 <img src="<%=path+"/image/pages/index/menu_student1.png"%>">
-                <a href="http://47.96.140.98:20034/studentCoaInfo">学教专区</a>
+                <a href="<%=path+"/student"%>">学教专区</a>
             </li>
         </ul>
     </div>
@@ -142,7 +150,6 @@
         <p>学员评价</p>
         <hr>
         <div id="evaluateDiv">
-
         </div>
     </div>
 </div>

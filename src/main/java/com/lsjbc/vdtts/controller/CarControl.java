@@ -65,8 +65,8 @@ public class CarControl {
     }
 
     @RequestMapping(value = "/addCar")
-    public Object addCar(Car car){
-        return JSON.toJSONString(carService.addCar(car));
+    public Object addCar(Car car,HttpServletRequest request){
+        return JSON.toJSONString(carService.addCar(car,request));
     }
 /*
  *@Description:

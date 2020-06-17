@@ -47,7 +47,7 @@
 //方法级渲染
             table.render({//表格
                 elem: '#LAY_table_user'
-                ,url: '/teacherController/stuTableData?sTeacherId='+$("#aId").val()
+                ,url: $("#path").val()+'/teacherController/stuTableData?sTeacherId='+$("#aId").val()
                 ,cols: [[
                     {field:'sId', title: 'ID', width:80, sort: true, fixed: true}
                     ,{field:'sName', title: '学生姓名', width:150}
@@ -65,8 +65,7 @@
             var $ = layui.$, active = {
                 reload: function(){
                     var demoReload = $('#demoReload');
-
-//执行重载
+                    //执行重载
                     table.reload('testReload', {
                         page: {curr: 1 }//重新从第 1 页开始
                         ,where: {sName:demoReload.val()}

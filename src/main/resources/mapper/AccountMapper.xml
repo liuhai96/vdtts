@@ -33,7 +33,13 @@
          </where>
     </update>
 
-
+<!--   刘海 修改驾校密码-->
+    <select id="findSchoolPwd" parameterType="int" resultType="int">
+        select a_password from  tb_account where a_id = {aId}
+    </select>
+    <update id="updateSchoolPwd">
+        update tb_account set a_password = #{aPassword} where a_id = #{aId}
+    </update>
     <!--    周永哲  管理端登录-->
     <select id="adminLogin" parameterType="com.lsjbc.vdtts.entity.AdminAccount" resultType="com.lsjbc.vdtts.entity.AdminAccount">
       SELECT tb_admin_account.*, tb_role.r_id roleId FROM tb_admin_account, tb_admin_role,tb_role

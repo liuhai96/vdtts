@@ -147,11 +147,6 @@ public class Teacher {
 	/**
 	 * 教练对应的驾校
 	 */
-	@Transient
-	private School school;
-
-	@Transient
-	private Account account;
 
 	/**
 	 * 教练所属的学校名
@@ -172,4 +167,7 @@ public class Teacher {
      */
     @Transient
     private Integer count;
+
+	@Transient
+    private String account;
 }

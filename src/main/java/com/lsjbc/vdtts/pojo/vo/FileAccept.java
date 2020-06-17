@@ -43,12 +43,10 @@ public class FileAccept {
     private String fPath;
 
 
-    public final static String IMG_PATH_PREFIX = "image";
+    public final static String IMG_PATH_PREFIX = "src/main/webapp/image"; /* 传入云*/
     public static File getImgDirFile(String path){// 构建上传文件的存放 “文件夹” 路径
-        String fileDirPath = null;
         if(path == null || path.equals("")) path = IMG_PATH_PREFIX;
-        fileDirPath = new String("src/main/webapp/" + path);
-        File fileDir = new File(fileDirPath);
+        File fileDir = new File(path);
         if(!fileDir.exists())// 递归生成文件夹
             fileDir.mkdirs();
         return fileDir;

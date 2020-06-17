@@ -14,7 +14,7 @@ import java.util.List;
 public interface TeacherService {
     LayuiTableData findTeacherList(String page, String limit, String tName, HttpServletRequest request);
 
-    LayuiTableData addTeacher(Teacher teacher, Account teacherAccount);
+    LayuiTableData addTeacher(Teacher teacher, Account teacherAccount,HttpServletRequest request);
 
     LayuiTableData deleteTeacher(int tId, HttpServletRequest request);
 

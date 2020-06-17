@@ -2,7 +2,7 @@ package com.lsjbc.vdtts.service.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.lsjbc.vdtts.constant.consist.EvaluateTypeConstant;
+import com.lsjbc.vdtts.constant.EvaluateType;
 import com.lsjbc.vdtts.dao.EvaluateDao;
 import com.lsjbc.vdtts.dao.SchoolDao;
 import com.lsjbc.vdtts.dao.StudentDao;
@@ -85,9 +85,11 @@ public class TeacherServiceImpl implements TeacherService {
      *@return:com.lsjbc.vdtts.pojo.vo.LayuiTableData
      *@Date:2020/6/7 22:55
      **/
-    public LayuiTableData addTeacher(Teacher teacher, Account teacherAccount) {
+    public LayuiTableData addTeacher(Teacher teacher, Account teacherAccount,HttpServletRequest request) {
         Account rerultAccount = accountMapper.findAccount(teacherAccount.getAAccount());
+        School school = (School) request.getSession().getAttribute("school");
         LayuiTableData LayuiTableData = new LayuiTableData();
+        teacher.setTSchoolId(school.getSId());
         if(null==rerultAccount){
             teacherAccount.setAType("teacher");
             int num = accountMapper.addAccount(teacherAccount);
@@ -150,7 +152,7 @@ public class TeacherServiceImpl implements TeacherService {
         if(null!=teacher.getTAccountId()){
             int num = teacherMapper.deleteTeacher(tId);
             int num1 = accountMapper.deleteAccount(teacher.getTAccountId());
-            int num2 = studentMapper.updateTeacherId(school.getSId());
+            int num2 = studentMapper.updateTeacherId(school.getSId(),teacher.getTId());
             if(num>0&&num1>0){
                 layuiTableData.setCode(1);
             }else{
@@ -287,7 +289,7 @@ public class TeacherServiceImpl implements TeacherService {
 
         pageInfo.getResult().stream().forEach(item -> {
             TeacherDetail detail = TeacherDetail.generateDetail(item);
-            detail.setScore(evaluateDao.getAvgByTypeAndId(EvaluateTypeConstant.TYPE_TEACHER, item.getTId()));
+            detail.setScore(evaluateDao.getAvgByTypeAndId(EvaluateType.TYPE_TEACHER, item.getTId()));
             detail.setSchoolName(schoolDao.getById(item.getTSchoolId()).getSName());
             detail.setStudentCount(studentDao.getStudentCountByTeacherId(item.getTId()));
 
