@@ -1,5 +1,6 @@
 package com.lsjbc.vdtts.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.lsjbc.vdtts.dao.StudentDao;
 import com.lsjbc.vdtts.dao.TransManageDao;
 import com.lsjbc.vdtts.dao.mapper.*;
@@ -90,55 +91,59 @@ public class AccountServiceImp implements AccountService {
     }
     @Override
     public ResultData UserLogin(Account account, HttpServletRequest request){
-        String nextJsp = null;//下一个界面的路径
+        String nextJsp = "";//下一个界面的路径
         Tool tool = new Tool();
         String notify = "";//弹窗通知信息
-        ResultData resultData = null;
+        ResultData resultData = ResultData.success();
         account.setAPassword(tool.createMd5(account.getAPassword()));
         account = accountMapper.UserLogin(account);
+        System.out.println(JSON.toJSONString(account));
         if(account != null){ //登录成功时
             switch (account.getAType()) {
                 case "school": //驾校登录界面地址
                     School school = schoolMapper.findAccount(account.getAId());
                     if(school.getSLock().equals("true")){
-                        resultData = ResultData.error(-1,"驾校已被锁定登录");
+                        resultData.setMsg("驾校已被锁定登录");
+                        nextJsp = "pages/homepage/login.jsp";
                     }else{
                         request.getSession().setAttribute("school", school);
+                        resultData.setMsg("登录成功!");
+                        nextJsp = "pages/backhomepage/index.jsp";//前端jsp地址
                     }
                     break;
-                case "student":
-                    request.getSession().setAttribute("student", studentMapper.findAccount(account));
-                break;//学员登录界面地址
                 case "teacher"://教练登录界面地址
                     //教练的对象
                     Teacher teacher = teacherMapper.findAccount(account);
                     if(teacher.getTLock().equals("true")){
-                        resultData = ResultData.error(-1,"您的账号已被锁定，请找驾校询问具体原因");
+                        resultData.setMsg("您的账号已被锁定，请找驾校询问具体原因");
+                        nextJsp = "pages/homepage/login.jsp";
                     }else{
                         request.getSession().setAttribute("teacher", teacher);
-                        resultData = ResultData.success(1,"登录成功");
+                        //教练评价
+                        Evaluate evaluate = new Evaluate();
+                        evaluate.setEToId(teacher.getTId());
+                        evaluate.setEType("teacher");
+                        request.getSession().setAttribute("evaluate", evaluateMapper.selectEvaluate(evaluate));
+                        nextJsp = "pages/backhomepage/index.jsp";//前端jsp地址
                     }
-                    //教练评价
-                    Evaluate evaluate = new Evaluate();
-                    evaluate.setEToId(teacher.getTId());
-                    evaluate.setEType("teacher");
-                    request.getSession().setAttribute("evaluate", evaluateMapper.selectEvaluate(evaluate));
-                    nextJsp = "pages/backhomepage/index.jsp";//前端jsp地址
                     break;
                 case "manage":
                     TransManage transManage = transManageDao.findTransManage(account);
                     if(transManage!=null){
                         request.getSession().setAttribute("manage",transManage);
-                        resultData = ResultData.success(1,"登录成功");
+                        resultData.setMsg("登录成功");
+                        nextJsp = "pages/backhomepage/index.jsp";//前端jsp地址
                     }else{
-                        resultData = ResultData.error(-1,"未找到该运管信息");
+                        resultData.setMsg("未找到该运管信息");
+                        nextJsp = "pages/homepage/login.jsp";
                     }
+                    break;
             }
         } else {//登录失败
-            resultData = ResultData.error(-2,"登录失败，请核对账号");
+            resultData.setMsg("登录失败，请核对账号");
+            nextJsp = "pages/homepage/login.jsp";//前端jsp地址
         }
-        nextJsp = "pages/backhomepage/index.jsp";//前端jsp地址
-        resultData= ResultData.success("url",nextJsp);
+        resultData.put("url",nextJsp);
         return resultData;
     }
 

@@ -41,7 +41,7 @@ public class AccountController {
      **/
     public ResultData UserLogin(HttpServletRequest request, HttpServletResponse response, Account account){
         response.setContentType("text/html;charset=utf-8");
-//        account.setAPassword(new Tool().createMd5(account.getAPassword()));//转MD5码（加密）
+        System.out.println(JSON.toJSONString(account));
         return accountService.UserLogin(account,request);
     }
 

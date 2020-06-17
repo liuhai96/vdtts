@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
-    String schoolName = "老司机驾考";//名称
+    String schoolName = "机动车驾驶员计时培训系统";//名称
     String path = request.getContextPath();
     int type = 1011010;
     try { type = Integer.parseInt(request.getParameter("type")); } catch (Exception e){}
@@ -31,15 +31,10 @@
     <input hidden="hidden" value="<%=path%>" id="path">
         <div class="layui-col-md12" style="height: 20%;">
             <br><label class="layui-col-md-offset3" style="font-size: 35px;color:#ffda90;"><%=schoolName%></label>
-            <br><label class="layui-col-md-offset4" style="font-size: 25px;color: crimson">
-                <c:if test="<%=type==1011010%>"><label>学员</label></c:if>
-                <c:if test="<%=type==1101010%>"><label>驾校</label></c:if>
-                <c:if test="<%=type==1010110%>"><label>教练</label></c:if>登录
-            </label><br>
+            <br><label class="layui-col-md-offset4" style="font-size: 25px;color: crimson">机构登录</label><br>
             <div class="layui-col-md-offset9" style="font-size: 18px;">
-                <a href="<%=path+"/pages/homepage/home-page.jsp"%>" style="color: #2aa8ff">首页</a>&nbsp;|
-                <a href="<%=path%>" style="color: #ffb840;background-color: #528bff">登录</a>&nbsp;|
-                <a href="<%=path+"/pages/homepage/register.jsp"%>" style="color: #2aa8ff">注册</a>
+                <a href="<%=path+"/pages/index/index.jsp"%>" style="color: #2aa8ff">首页</a>&nbsp;|
+                <a href="<%=path%>" style="color: #ffb840;background-color: #528bff">登录</a>
             </div>
         </div>
         <div class="layui-col-md3 layui-col-md-offset7" style="height: 70%;text-align: center;background: rgba(82,139,255,0.3);">
@@ -47,7 +42,7 @@
             <form class="layui-form">
                 <input type="text" name="aAccount" required placeholder="请输入你的账号"
                        class="layui-input" style="width: 67%;margin: 0 0 0 18%">
-                <label id="idNotify" style="color:#ff0a29;text-align: left;"></label>n
+                <label id="idNotify" style="color:#ff0a29;text-align: left;"></label>
                 <br><br>
                 <input type="password" name="aPassword" required placeholder="请输入你的密码"
                        class="layui-input" style="width: 67%;margin: 0 0 0 18%">
