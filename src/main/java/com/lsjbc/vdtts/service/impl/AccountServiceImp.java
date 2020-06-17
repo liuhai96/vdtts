@@ -104,6 +104,8 @@ public class AccountServiceImp implements AccountService {
                         resultData = ResultData.error(-1,"驾校已被锁定登录");
                     }else{
                         request.getSession().setAttribute("school", school);
+                        resultData = ResultData.success(1,"登录成功");
+                        nextJsp = "pages/backhomepage/index.jsp";//前端jsp地址
                     }
                     break;
                 case "student":
@@ -117,6 +119,7 @@ public class AccountServiceImp implements AccountService {
                     }else{
                         request.getSession().setAttribute("teacher", teacher);
                         resultData = ResultData.success(1,"登录成功");
+                        nextJsp = "pages/backhomepage/index.jsp";//前端jsp地址
                     }
                     //教练评价
                     Evaluate evaluate = new Evaluate();
@@ -130,6 +133,7 @@ public class AccountServiceImp implements AccountService {
                     if(transManage!=null){
                         request.getSession().setAttribute("manage",transManage);
                         resultData = ResultData.success(1,"登录成功");
+                        nextJsp = "pages/backhomepage/index.jsp";//前端jsp地址
                     }else{
                         resultData = ResultData.error(-1,"未找到该运管信息");
                     }
@@ -137,7 +141,6 @@ public class AccountServiceImp implements AccountService {
         } else {//登录失败
             resultData = ResultData.error(-2,"登录失败，请核对账号");
         }
-        nextJsp = "pages/backhomepage/index.jsp";//前端jsp地址
         resultData= ResultData.success("url",nextJsp);
         return resultData;
     }

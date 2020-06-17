@@ -146,14 +146,14 @@
                         layer.close(index);
                     }
                 });
-                layui.use('form', function(){
-                    var form = layui.form;
+                layui.use(['form',layer], function(){
+                    var form = layui.form,layer = layui.layer;
                     form.on('submit(demo1)', function(data){
                         examSujectId = $("#examSelect").val();
                         erScore = $("input[name='erScore']").val();
                         $.ajax({
                             type: 'POST',
-                            url: '/examResultController/enterResults',
+                            url: '<%=path%>/examResultController/enterResults',
                             dataType: 'JSON',
                             data: {
                                 sId:sId,

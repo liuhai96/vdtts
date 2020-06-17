@@ -192,7 +192,7 @@
                      form.on('submit(demo1)', function(data,index){
                          $.ajax({
                              type: 'POST',
-                             url: '/teacherController/addTeacher',
+                             url: '<%=path%>/teacherController/addTeacher',
                              dataType: 'JSON',
                              data: data.field,
                              success: function (msg) {
@@ -251,7 +251,7 @@
                     btn1:function () {
                        $.ajax({
                            type: 'POST',
-                           url: '/teacherController/deleteTeacher',
+                           url: '<%=path%>/teacherController/deleteTeacher',
                            dataType: 'JSON',
                            data:{
                                tId:tId
@@ -290,7 +290,7 @@
                     form.on('submit(demo2)', function(data){
                         $.ajax({
                             type: 'POST',
-                            url: '/teacherController/updateTeacherInfo',
+                            url: '<%=path%>/teacherController/updateTeacherInfo',
                             dataType:'JSON',
                             data: data.field,
                             success: function (msg) {

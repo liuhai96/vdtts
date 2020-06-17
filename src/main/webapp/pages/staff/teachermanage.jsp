@@ -44,9 +44,9 @@
 
 </body>
 <script>
-    layui.use('table',function(){
+    layui.use(['table','layer'],function(){
 
-        var table = layui.table;
+        var table = layui.table,layer=layui.layer;
         var $table =  table.render({
             elem: '#test'
             ,url:'/teacherController/findTeacherList'
@@ -113,7 +113,7 @@
                     btn1:function () {
                         $.ajax({
                             type: 'POST',
-                            url: '/teacherController/updateTeacherApplyState',
+                            url: '<%=path%>/teacherController/updateTeacherApplyState',
                             dataType: 'JSON',
                             data: {
                                 tId: data.tId,
@@ -137,7 +137,7 @@
                             btn1:function () {
                                 $.ajax({
                                     type: 'POST',
-                                    url: '/teacherController/updateTeacherAccountLockState',
+                                    url: '<%=path%>/teacherController/updateTeacherAccountLockState',
                                     dataType: 'JSON',
                                     data:{
                                         tId:data.tId

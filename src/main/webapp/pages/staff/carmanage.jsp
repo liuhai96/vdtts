@@ -159,7 +159,7 @@
                     form.on('submit(demo1)', function(data){
                             $.ajax({
                                 type: 'POST',
-                                url: '/carControl/addCar',
+                                url: '<%=path%>/carControl/addCar',
                                 dataType: 'JSON',
                                 data: data.field,
                                 success: function (msg) {
@@ -212,7 +212,7 @@
                     btn1:function () {
                         $.ajax({
                             type: 'POST',
-                            url: '/carControl/deleteCar',
+                            url: '<%=path%>/carControl/deleteCar',
                             dataType: 'JSON',
                             data:{
                                 cId:cId
@@ -236,7 +236,7 @@
                 $("#carLogo").html(data.cLogo);
                 $.ajax({
                     type: 'POST',
-                    url: '/teacherController/findTeacher',
+                    url: '<%=path%>/teacherController/findTeacher',
                     dataType: 'JSON',
                     success: function (msg) {
                         $("#teacherSelect").html("");
@@ -264,7 +264,7 @@
                         teacherId = $("#teacherSelect").val();
                         $.ajax({
                             type: 'POST',
-                            url: '/carControl/updateCarInfo',
+                            url: '<%=path%>/carControl/updateCarInfo',
                             dataType:'JSON',
                             data:{
                                 cTeacherId:teacherId,

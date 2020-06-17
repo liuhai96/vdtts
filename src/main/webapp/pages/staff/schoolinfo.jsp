@@ -123,9 +123,10 @@
         });
     });
 
-    layui.use('form', function(){
+    layui.use(['form','layer'], function(){
         var form = layui.form;
         var $ = layui.jquery;
+        var layer = layui.layer;
         var index1="";
         form.on('submit(formDemo)', function(data){
             $("input[name='sId']").val($("input[name='schoolId']").val())
@@ -155,7 +156,7 @@
                 btn1:function () {
                     $.ajax({
                         type: 'POST',
-                        url: '/SchoolControl/updateSchoolBasicInfo',
+                        url: '<%=path%>/SchoolControl/updateSchoolBasicInfo',
                         dataType: 'JSON',
                         data:data.field,
                         success: function (resmsg) {

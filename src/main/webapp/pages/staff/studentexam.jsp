@@ -158,7 +158,7 @@
                         examSujectId = $("#examSelect").val();
                         $.ajax({
                             type: 'POST',
-                            url: '/examResultController/arringeExam',
+                            url: '<%=path%>/examResultController/arringeExam',
                             dataType: 'JSON',
                             data: {
                                 sId:sId,

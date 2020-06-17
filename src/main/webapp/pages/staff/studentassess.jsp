@@ -69,7 +69,7 @@
         //请求消息
         let renderMsg = function (page, callback) {
             var sId =
-            $.get(path + "/api/evaluate/school/" + 1, {
+            $.get(path + "/api/evaluate/school/", {
                 page: page || 1
             }, function (res) {
                 if (res.code != 0) {

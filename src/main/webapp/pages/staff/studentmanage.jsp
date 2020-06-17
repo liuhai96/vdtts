@@ -121,7 +121,7 @@
             if(obj.event === 'addTeacher'){
                 $.ajax({
                     type: 'POST',
-                    url: '/teacherController/findTeacher',
+                    url: '<%=path%>/teacherController/findTeacher',
                     dataType: 'JSON',
                     success: function (msg) {
                         $("#teacherSelect").html("");
@@ -151,7 +151,7 @@
                         teacherId = $("#teacherSelect").val();
                         $.ajax({
                             type: 'POST',
-                            url: '/studentController/updateStudentTeacherId',
+                            url: '<%=path%>/studentController/updateStudentTeacherId',
                             dataType:'JSON',
                             data:{
                                 sTeacherId:teacherId,
@@ -183,7 +183,7 @@
                         sId:data.sId
                     },
                     type: 'POST',
-                    url: '/studentController/updateStudentApplyState',
+                    url: '<%=path%>/studentController/updateStudentApplyState',
                     dataType: 'JSON',
                     success: function (regmsg) {
                         if (regmsg.code==1){
