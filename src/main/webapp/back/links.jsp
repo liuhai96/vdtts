@@ -33,6 +33,7 @@
                     <ins class="adsbygoogle" style="display:inline-block;width:970px;height:90px" data-ad-client="ca-pub-6111334333458862" data-ad-slot="3820120620"></ins>
 
                 </div>
+                <div style="text-align: right;font-size: 30px;"><a href="<%=path+"/back/addLink.jsp"%>">+</a></div>
                 <table class="layui-table" lay-data="{width: 892, height:330, url:<%=path%>'/link/selectLink',
                 page:true, id:'idTest',page: {limit: 6,limits: [6, 12, 18, 24,30],}}" lay-filter="demo">
                     <thead>

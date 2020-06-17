@@ -70,9 +70,15 @@ public class LinkServiceImpl implements LinkService {
      *@Date:2020/6/17 0:49
      **/
     public ResultData addLink(Link link){
-        if(linkMapper.addLink(link) > 0)
-            return ResultData.success("1");
-        else return ResultData.success("0");
+        ResultData resultData;
+        if(linkMapper.addLink(link) > 0){
+            resultData = ResultData.success("\n添加友情链接成功\n\n是否返回上一层！\n");
+            resultData.setCode(1);
+        } else {
+            resultData = ResultData.success("\n添加失败，请检查你的网络！\n\n    是否返回上一层！\n");
+            resultData.setCode(0);
+        }
+        return resultData;
     }
     @Override
     /*

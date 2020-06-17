@@ -17,7 +17,7 @@
         </where>
     </select>
     <insert id="addLink" parameterType="com.lsjbc.vdtts.entity.Link" useGeneratedKeys="true" keyProperty="lkId">
-        insert into tb_link (lk_name, lk_url, lk_pic) values (#{lkName},#{lkUrl},#{lkPic})
+        insert into tb_link (lk_name, lk_url, lk_pic) values (#{e.lkName},#{e.lkUrl},#{e.lkPic})
     </insert><!--增加链接-->
     <update id="updateLink" parameterType="com.lsjbc.vdtts.entity.Link">
         update tb_link set lk_id = #{e.lkId}
