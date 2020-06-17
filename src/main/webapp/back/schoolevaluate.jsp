@@ -12,7 +12,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-	<title>学员评价</title>
+	<title>学员评价-驾校</title>
 	<meta name="renderer" content="webkit">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -37,11 +37,14 @@
 		.layui-field-title{
 			color: #00ACFF;
 			font-size: 40px;
+			margin: 5px 0 5px ;
+			border-width: 1px 0 0;
 		}
-		layui-colla-title{
+		.layui-colla-title{
 			 color: #FD482C;
 			 font-size: 20px;
 		 }
+
 		.layui-a{
 			color: #FD482C;
 			font-size: 20px;
@@ -60,9 +63,8 @@
 			font-size: 15px;
 			line-height: 120px;
 		}
-		.layui-field-title {
-			margin: 5px 0 5px;
-			border-width: 1px 0 0;
+		.starevalute{
+			margin-left: 30px;
 		}
 		.layui-input {
 			font-size: 16px;
@@ -88,9 +90,6 @@
 		}
 		.layui-input-block {
 			margin-left: 0px;
-		}
-		.layui-rate, .layui-rate * {
-
 		}
 		.layui-container{
 			float: top;
@@ -131,8 +130,8 @@
 				</div>
 				<hr size="2" color="darkcyan"/>
 			</div>
-			<fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
-				<legend><h3>学员点评须知</h3></legend>
+			<fieldset class="layui-elem-field layui-field-title" id="knowlege"style="margin-top: 30px;">
+				<legend><h3>学员点评驾校须知</h3></legend>
 			</fieldset>
 			<div class="layui-collapse" lay-filter="test"style="margin-right: 200px">
 				<div class="layui-colla-item">
@@ -154,15 +153,17 @@
 			<fieldset class="layui-elem-field layui-field-title" >
 				<legend><h3>考试合格率</h3></legend>
 			</fieldset>
-			<div><div id="test5"></div></div>
+			<div><div id="test5"class="starevalute"></div></div>
 			<fieldset class="layui-elem-field layui-field-title" >
 				<legend><h3>教练口碑</h3></legend>
 			</fieldset>
-			<div><div id="test6"></div></div>
+			<div><div id="test6"class="starevalute">
+
+			</div></div>
 			<fieldset class="layui-elem-field layui-field-title" >
 				<legend><h3>场地设施</h3></legend>
 			</fieldset>
-			<div><div id="test7"></div></div>
+			<div><div id="test7" class="starevalute"></div></div>
 <%--			<div class="layui-form-item">--%>
 <%--				<div class="layui-input-block">--%>
 <%--					<button class="layui-btn"  name="confirm" lay-submit lay-filter="formDemo">登 录</button>--%>
@@ -179,7 +180,7 @@
 			</div>
 			<div class="layui-form-item">
 				<div class="layui-input-block">
-					<button type="submit" class="layui-btn layui-btn-primary" lay-submit="" lay-filter="demo1">立即提交</button>
+					<button type="submit" class="layui-btn layui-btn-primary" lay-submit lay-filter="formDemo">立即提交</button>
 					<button type="reset" class="layui-btn layui-btn-primary">重置</button>
 					<a title="返回" class="layui-b" href="https://www.baidu.com" >返回首页</a>
 					<a title="驾校投诉系统" class="layui-a" href="https://www.baidu.com" >点击进入驾校投诉系统</a>
@@ -199,6 +200,7 @@
 		// 	// layer.msg('展开状态：'+ data.show);
 		// });
 	});
+	var t5="",t6="",t7="";
 	layui.use(['rate'], function(){
 		var rate = layui.rate;
 		rate.render({
@@ -207,13 +209,14 @@
 			,text: true
 			,setText: function(value){ //自定义文本的回调
 				var arrs = {
-					'1': '极差'
-					,'2': '差'
-					,'3': '中等'
-					,'4': '好'
-					,'5': '极好'
+					'1': '1分 极差'
+					,'2': '2分 差'
+					,'3': '3分 中等'
+					,'4': '4分 好'
+					,'5': '5分 极好'
 				};
 				this.span.text(arrs[value] || ( value + "星"));
+				t5=value;
 			}
 		})
 		rate.render({
@@ -223,13 +226,14 @@
 			,theme: '#FE0000'
 			,setText: function(value){ //自定义文本的回调
 				var arrs = {
-					'1': '极差'
-					,'2': '差'
-					,'3': '中等'
-					,'4': '好'
-					,'5': '极好'
+					'1': '1分 极差'
+					,'2': '2分 差'
+					,'3': '3分 中等'
+					,'4': '4分 好'
+					,'5': '5分 极好'
 				};
 				this.span.text(arrs[value] || ( value + "星"));
+				t6=value;
 			}
 		})
 		rate.render({
@@ -239,15 +243,47 @@
 			,theme: '#009688'
 			,setText: function(value){ //自定义文本的回调
 				var arrs = {
-					'1': '极差'
-					,'2': '差'
-					,'3': '中等'
-					,'4': '好'
-					,'5': '极好'
+					'1': '1分 极差'
+					,'2': '2分 差'
+					,'3': '3分 中等'
+					,'4': '4分 好'
+					,'5': '5分 极好'
 				};
 				this.span.text(arrs[value] || ( value + "星"));
+				t7=value;
 			}
-		})
+		});
+
+		layui.use(['form','jquery','layer'],function () {
+			var layer = layui.layer,form=layui.form;
+			var $ = layui.jquery;
+			form.on('submit(formDemo)',function (data) {
+				var textarea=$('.layui-textarea').val();
+				alert('t5='+t5+' t6='+t6+' t7='+t7+' textarea='+textarea)
+				$.ajax({
+					url: "/evaluateController/schoolEvaluate",
+					type: "POST",
+					dataType: "text",
+					data:{
+						examScore:t5,
+						teacherScore:t6,
+						palaceScore:t7,
+						eContent:textarea,
+						eToId:3,
+						eStudentId:2
+					},
+					success: function (msg) {
+						if (msg.trim() == "success") {
+							layer.alert("谢谢您的评价，评价已提交");
+						} else {
+							alert("评价失败，请重新提交评价")
+						}
+					}
+				});
+				return false;
+			});
+		});
+
 
 
 

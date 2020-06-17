@@ -2,9 +2,12 @@ package com.lsjbc.vdtts.controller;
 
 import com.lsjbc.vdtts.entity.Account;
 import com.lsjbc.vdtts.entity.AdminAccount;
+import com.lsjbc.vdtts.entity.FrontMenu;
+import com.lsjbc.vdtts.entity.Menuitem;
 import com.lsjbc.vdtts.pojo.vo.ResultData;
 import com.lsjbc.vdtts.service.intf.AccountService;
 import com.lsjbc.vdtts.utils.Tool;
+import com.lsjbc.vdtts.utils.menuUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
 
 /*
  *@Description:
@@ -60,5 +65,41 @@ public class AdminControl {
             res = "failed";
         }
         return res;
+    }
+    @RequestMapping(value = "/adminList")
+    public List adminList(HttpServletRequest request){
+        AdminAccount adminAccount = (AdminAccount) request.getSession().getAttribute("admin");
+            System.out.println("adminAccount="+adminAccount.toString());
+        List<Menuitem> menuitemList = accountService.adminList(adminAccount.getRoleId());
+        List<Menuitem> mList = new ArrayList<>();
+        for (Menuitem menu : menuitemList) {
+            menu.setId(menu.getMId());
+            menu.setTitle(menu.getMName());
+            menu.setType("0");
+            menu.setHref(menu.getMUrl());
+            if (menu.getMParentId() != 0) {
+                menu.setType("1");
+                menu.setOpenType("_iframe");
+            }
+            mList.add(menu);
+        }
+        List menuList = menuUtil.toTree(menuitemList,0);
+        return menuList;
+    }
+
+    @RequestMapping(value = "/updatePwd")
+    public String updatePwd(HttpServletRequest request,HttpServletResponse response,AdminAccount adminAccount){
+
+        int updateaAccount = accountService.updateAdminAccount(adminAccount);
+        String res = "";
+        if(updateaAccount>0){
+            res="success";
+            System.out.println("修改管理员信息成功");
+            return res;
+        }else {
+            res="failed";
+            System.out.println("修改管理员信息失败");
+            return res;
+        }
     }
 }

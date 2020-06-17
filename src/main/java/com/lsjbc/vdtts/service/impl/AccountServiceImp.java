@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * @author LiLang9725
@@ -208,8 +209,8 @@ public class AccountServiceImp implements AccountService {
     }
 
     @Override
-    public int updateaccount(Account account) {
-        int updateaccount = accountMapper.updateaccount(account);
+    public int updateAdminAccount(AdminAccount adminAccount) {
+        int updateaccount = accountMapper.updateAdminAccount(adminAccount);
         return updateaccount;
     }
     /*
@@ -223,5 +224,11 @@ public class AccountServiceImp implements AccountService {
     public AdminAccount adminLogin(AdminAccount account) {
         AdminAccount adminLogin = accountMapper.adminLogin(account);
         return adminLogin;
+    }
+
+    @Override
+    public List<Menuitem> adminList(int roleId) {
+        List<Menuitem> adminList = accountMapper.adminList(roleId);
+        return adminList;
     }
 }

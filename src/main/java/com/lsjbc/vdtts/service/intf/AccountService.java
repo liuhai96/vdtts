@@ -2,10 +2,12 @@ package com.lsjbc.vdtts.service.intf;
 
 import com.lsjbc.vdtts.entity.Account;
 import com.lsjbc.vdtts.entity.AdminAccount;
+import com.lsjbc.vdtts.entity.Menuitem;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.pojo.vo.ResultData;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 public interface AccountService {
     public LayuiTableData findAccount(String account);
@@ -26,6 +28,7 @@ public interface AccountService {
      *@return:
      *@Date:2020/6/14
      **/
-    public int updateaccount(Account account);
+    public int updateAdminAccount(AdminAccount account);
     public AdminAccount adminLogin(AdminAccount account);
+    public List<Menuitem> adminList(int roleId);
 }

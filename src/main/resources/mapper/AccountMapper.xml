@@ -42,6 +42,17 @@
     </update>
     <!--    周永哲  管理端登录-->
     <select id="adminLogin" parameterType="com.lsjbc.vdtts.entity.AdminAccount" resultType="com.lsjbc.vdtts.entity.AdminAccount">
-      select * from tb_admin_account where ac_account = #{acAccount} and ac_password=#{acPassword}
+      SELECT tb_admin_account.*, tb_role.r_id roleId FROM tb_admin_account, tb_admin_role,tb_role
+        WHERE  tb_admin_account.ac_id = tb_admin_role.ar_admin_id AND tb_admin_role.ar_role_id = tb_role.r_id
+	    AND tb_admin_account.ac_account=#{acAccount} AND tb_admin_account.ac_password=#{acPassword};
     </select>
+    <!--    周永哲  动态菜单查询-->
+    <select id="adminList" parameterType="int" resultType="com.lsjbc.vdtts.entity.Menuitem">
+      SELECT * FROM tb_role_menuitem,tb_menuitem WHERE tb_role_menuitem.rm_role_id=#{roleId}
+      AND tb_menuitem.m_id=tb_role_menuitem.rm_menuitem_id;
+    </select>
+
+    <update id="updateAdminAccount" parameterType="com.lsjbc.vdtts.entity.AdminAccount">
+        update tb_admin_account set ac_password = #{acPassword} where ac_id = #{acId}
+    </update>
 </mapper>
