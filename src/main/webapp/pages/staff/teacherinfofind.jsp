@@ -25,9 +25,6 @@
 
 <script type="text/html" id="toolbarDemo">
         <button class="layui-btn layui-btn-sm" lay-event="addTeacher">添加教练</button>
-        <button class="layui-btn layui-btn-sm" lay-event="findTeacher">查询</button>
-        <button class="layui-btn layui-btn-sm" lay-event="noRegistration">禁止学员报名</button>
-        <button class="layui-btn layui-btn-sm" lay-event="findTeacher">账号锁定</button>
         <div class="layui-form-item" style="display:inline-block">
             <div class="layui-input-block">
                 <input type="text" name="inputname" placeholder="请输入教练姓名查询" autocomplete="off" class="layui-input" style="width:100%;">
@@ -120,12 +117,6 @@
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">修改本月限制人数</label>
-        <div class="layui-input-inline">
-            <input type="text"  name="tLimit" required  lay-verify="required" placeholder="请输修改数量" autocomplete="off" class="layui-input">
-        </div>
-    </div>
-    <div class="layui-form-item">
         <div class="layui-input-block">
             <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo2">立即提交</button>
             <button type="reset" class="layui-btn layui-btn-primary">重置</button>
@@ -139,7 +130,7 @@
         var table = layui.table;
         var $table =  table.render({
             elem: '#test'
-            ,url:'/teacherController/findTeacherList'
+            ,url:'<%=path%>/teacherController/findTeacherList'
             ,toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
             ,defaultToolbar: ['filter', 'exports', 'print', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
                 title: '提示'
@@ -173,7 +164,7 @@
                             case 'addTeacher':
                              index  =   layer.open({
                                     type: 1,
-                                    area:["400","300px"],
+                                    area:["400","600px"],
                                     skin: 'layui-layer-rim',
                                     shadeClose: true,//点击其他地方关闭
                                     content:$("#addTeacher"),
@@ -181,7 +172,6 @@
                                         layer.close(index);
                                     }
                 });
-
                  layui.use(['form','laydate','layer'],function(){
                      var laydate = layui.laydate;
                      var form = layui.form;
@@ -189,28 +179,24 @@
                      laydate.render({
                          elem: '#date'
                      });
-                     form.on('submit(demo1)', function(data,index){
+                     form.on('submit(demo1)', function(data){
                          $.ajax({
                              type: 'POST',
-                             url: '/teacherController/addTeacher',
+                             url: '<%=path%>/teacherController/addTeacher',
                              dataType: 'JSON',
                              data: data.field,
                              success: function (msg) {
                                if (msg.code==1){
                                    layer.msg("添加教练成功");
-
+                                   $table.reload();
                                }else if (msg.code==0 ) {
                                    layer.msg("该账号已存在");
                                }else{
                                    layer.msg("添加教练失败");
                                }
                                  layer.close(index);
-                                 $("input[name='aAccount']").val();
-                                 $("input[name='tSfz']").val();
-                                 $("input[name='tName']").val();
-                                 $("input[name='aPassword']").val();
-                                 $("input[name='tPhone']").val();
-                                 $("input[name='tLicenseTime']").val();
+                                 $('#addTeacher')[0].reset();//重置表单
+                                 form.render();
                              }
                          });
 
@@ -251,7 +237,7 @@
                     btn1:function () {
                        $.ajax({
                            type: 'POST',
-                           url: '/teacherController/deleteTeacher',
+                           url: '<%=path%>/teacherController/deleteTeacher',
                            dataType: 'JSON',
                            data:{
                                tId:tId
@@ -259,6 +245,7 @@
                            success: function (msg) {
                                if(msg.code==1){
                                    layer.msg("您已成功删除该教练信息");
+                                   $table.reload();
                                }else if(msg.code==0 ){
                                    layer.msg("删除失败");
                                }else{
@@ -270,7 +257,7 @@
                     }
                 );
             } else if(obj.event === 'edit'){
-                $("#account").html(data.account.aAccount);
+                $("#account").html(data.account);
                 $("#name").html(data.tName);
                 $("#teacherId").val(data.tId);
                 var index1 = layer.open({
@@ -286,11 +273,10 @@
                 layui.use(['form','layer'], function(){
                     var form = layui.form;
                     var layer = layui.layer;
-                    form.render();
                     form.on('submit(demo2)', function(data){
                         $.ajax({
                             type: 'POST',
-                            url: '/teacherController/updateTeacherInfo',
+                            url: '<%=path%>/teacherController/updateTeacherInfo',
                             dataType:'JSON',
                             data: data.field,
                             success: function (msg) {
@@ -301,6 +287,8 @@
                                 layer.close(index1);
                                 $("input[name='tPhone']").val();
                                 $("input[name='tLimit']").val();
+                                $('#updateTeacher')[0].reset();//重置表单
+                                form.render();
                             }
                         });
                         return false;

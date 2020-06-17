@@ -191,6 +191,7 @@ public class SchoolControl {
      **/
 
     @RequestMapping(value = "/findSchoolInfo")
+	@ResponseBody
     public Object findSchoolInfo(HttpServletRequest request, HttpServletResponse response){
         System.out.println("JSON.toJSONString(schoolService.findSchoolInfo(request,response):>>>>>>)"+JSON.toJSONString(schoolService.findSchoolInfo(request,response)));
 	    return schoolService.findSchoolInfo(request,response);
@@ -220,8 +221,15 @@ public class SchoolControl {
     }
 
     @RequestMapping(value = "/updateSchoolBasicInfo")
-    private Object updateSchoolBasicInfo(School school){
+	@ResponseBody
+    private ResultData updateSchoolBasicInfo(School school){
         System.out.println("school"+school);
-        return JSON.toJSONString(schoolService.updateSchoolBasicInfo(school));
+        return schoolService.updateSchoolBasicInfo(school);
     }
+
+	@RequestMapping(value = "/updateSchoolPwd")
+	@ResponseBody
+	private ResultData updateSchoolPwd(HttpServletRequest request){
+		return schoolService.updateSchoolPwd(request);
+	}
 }

@@ -161,7 +161,6 @@ public class AccountServiceImp implements AccountService {
      *@Date:2020/6/13 14:34
      **/
     public ResultData verifyPass(Account account){
-        System.out.println(JSON.toJSONString(account));
         account = accountMapper.selectAccount(account);
         if(account != null) return ResultData.success("true");
         else return ResultData.success("false");

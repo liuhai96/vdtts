@@ -16,7 +16,7 @@
     <script type="text/javascript" src=<%=path+"/static/layui/layui.js"%>></script>
 </head>
 <body>
-<form class="layui-form" action="">
+<form class="layui-form" action="" id="updatePwd">
     <div class="layui-form-item">
         <label class="layui-form-label">旧密码</label>
         <div class="layui-input-inline">
@@ -51,29 +51,43 @@
         form.on('submit(formDemo)', function(data){
             var newPwd = $("input[name='newPwd']").val();
             var repeatPwd = $("input[name='repeatPwd']").val();
-            if (newPwd!=repeatPwd){
-                layer.msg("两次新密码输入不同请重新输入");
-            }else{
-                $.ajax({
-                    type: 'POST',
-                    url: '<%=path%>/updateSchoolPwd',
-                    dataType: 'JSON',
-                    data:data.field,
-                    success: function (resmsg) {
-                        if (resmsg.code == 1) {
-                            layer.msg(resmsg.msg);
-                            $("input[name='sPhone']").val("");
-                            $("input[name='sAddress']").val("");
-                            form.render();
+                var index = layer.confirm('您确定修改驾校的基本信息？', {
+                    btn: ["确定", "取消"],
+                    btn2: function (index) {
+                        layer.close(index);
+                        layer.close(index1)
+                        $('#updatePwd')[0].reset();//重置表单
+                        form.render();
+                    },
+                    btn1: function () {
+                        if (newPwd != repeatPwd) {
+                            layer.msg("两次新密码输入不同请重新输入");
                         } else {
-                            layer.msg(resmsg.msg);
-                            layer.close(index);
+                            $.ajax({
+                                type: 'POST',
+                                url: '<%=path%>/SchoolControl/updateSchoolPwd',
+                                dataType: 'JSON',
+                                data:{
+                                    oldPwd:$("input[name='oldPwd']").val(),
+                                    newPwd:$("input[name='newPwd']").val(),
+                                    repeatPwd:$("input[name='repeatPwd']").val()
+                                },
+                                success: function (resmsg) {
+                                    if (resmsg.code == 1) {
+                                        layer.msg(resmsg.msg);
+                                    } else {
+                                        layer.msg(resmsg.msg);
+                                        layer.close(index);
+                                    }
+                                    $('#updatePwd')[0].reset();//重置表单
+                                    form.render();
+                                }
+                            });
                         }
                     }
                 });
-            }
+                return false;
 
-            return false;
         });
     });
 </script>

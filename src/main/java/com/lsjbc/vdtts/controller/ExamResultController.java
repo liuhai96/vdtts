@@ -40,7 +40,7 @@ public class ExamResultController {
         return JSON.toJSONString(examResultService.arringeExam(Integer.parseInt(erId),Integer.parseInt(sId),Integer.parseInt(examSujectId),Integer.parseInt(teacherId)));
     }
 
-    @RequestMapping(value = "/enterResults")
+
     /*
      *@Description:录入学员成绩
      *@Author:刘海
@@ -48,6 +48,7 @@ public class ExamResultController {
      *@return:java.lang.Object
      *@Date:2020/6/11 11:12
      **/
+    @RequestMapping(value = "/enterResults")
     public Object enterResults(String erId,String sId,String examSujectId,String erScore){
         return JSON.toJSONString(examResultService.enterResults(Integer.parseInt(erId),Integer.parseInt(sId),Integer.parseInt(examSujectId),Integer.parseInt(erScore)));
     }

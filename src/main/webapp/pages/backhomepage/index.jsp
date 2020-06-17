@@ -107,13 +107,7 @@
 </script>
 <!-- 新 增 百 度 统 计  ( 可 移 除 )-->
 <script>
-    // var _hmt = _hmt || [];
-    // (function() {
-    //     var hm = document.createElement("script");
-    //     hm.src = "https://hm.baidu.com/hm.js?6ab27a14480b19bc9ce3eef146674287";
-    //     var s = document.getElementsByTagName("script")[0];
-    //     s.parentNode.insertBefore(hm, s);
-    // })();
+
 </script>
 
 </body>
