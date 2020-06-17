@@ -101,16 +101,13 @@ public class AccountServiceImp implements AccountService {
                 case "school": //驾校登录界面地址
                     School school = schoolMapper.findAccount(account.getAId());
                     if(school.getSLock().equals("true")){
-                        resultData = ResultData.error(-1,"驾校已被锁定登录");
+                        resultData = ResultData.error(-1,"驾校 已被锁定登录");
                     }else{
                         request.getSession().setAttribute("school", school);
                         resultData = ResultData.success(1,"登录成功");
                         nextJsp = "pages/backhomepage/index.jsp";//前端jsp地址
                     }
                     break;
-                case "student":
-                    request.getSession().setAttribute("student", studentMapper.findAccount(account));
-                break;//学员登录界面地址
                 case "teacher"://教练登录界面地址
                     //教练的对象
                     Teacher teacher = teacherMapper.findAccount(account);
@@ -141,7 +138,6 @@ public class AccountServiceImp implements AccountService {
         } else {//登录失败
             resultData = ResultData.error(-2,"登录失败，请核对账号");
         }
-        resultData= ResultData.success("url",nextJsp);
         return resultData;
     }
 
