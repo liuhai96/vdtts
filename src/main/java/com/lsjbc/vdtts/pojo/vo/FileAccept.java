@@ -47,7 +47,7 @@ public class FileAccept {
     public static File getImgDirFile(String path){// 构建上传文件的存放 “文件夹” 路径
         String fileDirPath = null;
         if(path == null || path.equals("")) path = IMG_PATH_PREFIX;
-        fileDirPath = new String("vdtts-0.0.1-SNAPSHOT/" + path);
+        fileDirPath = new String(path);
         /*src/main/webapp/ 传入云*/
         File fileDir = new File(fileDirPath);
         if(!fileDir.exists())// 递归生成文件夹
