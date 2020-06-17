@@ -21,8 +21,6 @@
     <link rel="stylesheet" href="https://www.layuicdn.com/layui-v2.5.6/css/layui.css" media="all">
     <link rel="stylesheet" href="<%=path+"/zjh_test/css/common.css"%>">
     <link rel="shortcut icon" type="image/x-icon" href="http://47.96.140.98:20034/static/img/logo_favicon.ico">
-    <script src="<%=path+"/zjh_test/js/hm.js"%>"></script>
-    <style type="text/css" abt="234"></style>
 
     <link rel="stylesheet" href="<%=path+"/zjh_test/css/style.css"%>">
     <link rel="stylesheet" href="<%=path+"/zjh_test/css/home_main.css"%>">
@@ -37,7 +35,7 @@
                 <a target="_blank" href="http://118.178.227.161/web/">管理部门登录</a> |
                 <a target="_blank" href="http://47.98.242.153:8666/">驾培机构登录</a> |
                 <a href="http://47.96.140.98:20034/coaLogin">教练员登录</a> |
-                <a href="<%=path+"/pages/login-page/login-page.jsp"%>">学员登录</a>
+                <a href="<%=path+"/student"%>">学员登录</a>
             </div>
         </div>
     </div>

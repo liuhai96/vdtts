@@ -16,6 +16,9 @@ public interface AccountService {
     public ResultData verifyPass(Account account);//密码验证
     public ResultData updatePass(Account account);//修改密码
 
+    //修改驾校密码刘海
+    ResultData updateSchoolPwd(String oldPwd,String newPwd,String repeatPwd,HttpServletRequest request);//修改驾校密码
+
     /*
      *@Description:
      *@Author:周永哲

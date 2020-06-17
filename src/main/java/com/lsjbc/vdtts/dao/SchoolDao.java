@@ -27,18 +27,6 @@ public class SchoolDao implements BaseDao<School> {
     private SchoolMapper mapper;
 
     /**
-     * 根据主键来获取信息
-     *
-     * @param id 主键
-     * @return 驾校信息
-     * @author JX181114 --- 郑建辉
-     */
-    @Override
-    public School getById(Integer id) {
-        return (School) mapper.selectByPrimaryKey(id);
-    }
-
-    /**
      * 新增对象
      * 注意
      * 调用这个方法，会自动的向对象中注入主键
@@ -93,5 +81,12 @@ public class SchoolDao implements BaseDao<School> {
         criteria.andLike("sName", "%" + name + "%");
 
         return mapper.selectByExample(example);
+    }
+
+    //陈竑霖
+    //通过主键来获取一个对象
+    @Override
+    public School getById(Integer id) {
+        return (School) mapper.selectByPrimaryKey(id);
     }
 }

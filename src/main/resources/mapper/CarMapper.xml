@@ -30,8 +30,8 @@
         update tb_car set c_teacher_id = #{cTeacherId} where c_id = #{cId}
     </update>
 
-    <update id="updateCarInfomatian">
-        update tb_car set c_teacher_id = null where c_school_id = #{cSchoolId};
+    <update id="updateCarInfomatian" parameterType="int">
+        update tb_car set c_teacher_id = null where c_school_id = #{cSchoolId} and c_id = #{cId};
     </update>
 
     <delete id="deleteCar" parameterType="int">

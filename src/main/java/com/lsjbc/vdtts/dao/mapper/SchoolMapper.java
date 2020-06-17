@@ -48,7 +48,7 @@ public interface SchoolMapper extends CustomBaseMapper<School> {
 	 *@Date:2020/6/13 1592034621788
 	 **/
 	int addSchool(School school);
-	School findAccount(Account account);
+	School findAccount(Integer sAccountId);
 
 	/*
 	 *@Description:

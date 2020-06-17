@@ -57,7 +57,7 @@ public interface StudentMapper extends CustomBaseMapper<Student> {
      *@return:
      *@Date:2020/6/15 22:55
      **/
-    public int updateTeacherId(@Param("sSchoolId") Integer sSchoolId);
+    public int updateTeacherId(@Param("sSchoolId") Integer sSchoolId,@Param("sTeacherId") Integer sTeacherId);
     List<Student> findStudenList(@Param("sSchoolId") Integer sSchoolId, @Param("start") int start, @Param("pageSize") int pageSize,@Param("sName") String sName);
     int findStudentCount(@Param("sSchoolId") Integer sSchoolId,@Param("sName") String sName);
     int updateApplyState(Integer sId);

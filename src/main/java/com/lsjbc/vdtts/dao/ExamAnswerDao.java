@@ -1,10 +1,9 @@
 package com.lsjbc.vdtts.dao;
 
-import com.lsjbc.vdtts.constant.consist.CustomTimeConstant;
+import com.lsjbc.vdtts.constant.CustomTime;
 import com.lsjbc.vdtts.dao.mapper.BaseDao;
 import com.lsjbc.vdtts.dao.mapper.ExamAnswerMapper;
 import com.lsjbc.vdtts.entity.ExamAnswer;
-import com.lsjbc.vdtts.entity.ExamQuestion;
 import com.lsjbc.vdtts.service.BaseRedisClient;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
@@ -122,7 +121,7 @@ public class ExamAnswerDao extends BaseRedisClient implements BaseDao<ExamAnswer
      * 测试时使用30天
      * 上线时使用1小时或10分钟
      */
-    private Long defaultRedisSaveTime = CustomTimeConstant.SECOND_OF_30_DAY;
+    private Long defaultRedisSaveTime = CustomTime.SECOND_OF_30_DAY;
 
     /**
      * 根据题目ID去获取redis中的数据

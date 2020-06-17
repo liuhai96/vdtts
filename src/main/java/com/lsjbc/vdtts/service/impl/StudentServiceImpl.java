@@ -1,32 +1,49 @@
 package com.lsjbc.vdtts.service.impl;
 
+import com.lsjbc.vdtts.constant.AccountType;
+import com.lsjbc.vdtts.dao.AccountDao;
+import com.lsjbc.vdtts.dao.StudentDao;
 import com.lsjbc.vdtts.dao.mapper.ExamResultMapper;
 import com.lsjbc.vdtts.dao.mapper.StudentMapper;
+import com.lsjbc.vdtts.entity.Account;
 import com.lsjbc.vdtts.entity.School;
 import com.lsjbc.vdtts.entity.Student;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.pojo.vo.ResultData;
 import com.lsjbc.vdtts.service.intf.StudentService;
+import com.lsjbc.vdtts.utils.Tool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+
 @SuppressWarnings("all")
-@Service("studentService")
-public class StudentServiceImpl implements StudentService
-{
+@Service(StudentServiceImpl.NAME)
+public class StudentServiceImpl implements StudentService {
+
+	public static final String NAME = "StudentService";
+
 	@Autowired
-    public StudentMapper studentMapper;
+	public StudentMapper studentMapper;
 	@Autowired
 	private ExamResultMapper examResultMapper;
+
+	@Resource(name = StudentDao.NAME)
+	private StudentDao studentDao;
+
+	@Resource(name = AccountDao.NAME)
+	private AccountDao accountDao;
+
 	/**
 	 * student 里面所有的属性将会作为查询条件
 	 * page 要查询的特定页数
 	 * limit 每页条数
-	 *
+	 * <p>
 	 * List<Student 最终返回的查询结果
-	 * @author  周永哲
+	 *
+	 * @author 周永哲
 	 */
 	@Override
 	public List<Student> selectAllInfo(Student student, int page, int limit) {
@@ -161,7 +178,7 @@ public class StudentServiceImpl implements StudentService
 	public ResultData updateStudentTeacherId(Integer sTeacherId, Integer sId) {
 		Student student = studentMapper.findTeacher(sId);
 		ResultData resultData = null;
-		if(sTeacherId!=0) {
+		if (sTeacherId != 0) {
 			if (student.getSTeacherId() != null) {
 				resultData = ResultData.error(-2, "该学员已分配教练，不能重新分配");
 			} else {
@@ -172,9 +189,46 @@ public class StudentServiceImpl implements StudentService
 					resultData = ResultData.error(-1, "未找到该教练信息");
 				}
 			}
-		}else{
+		} else {
 			resultData = ResultData.error(-1, "请选择教练");
 		}
+		return resultData;
+	}
+
+	/**
+	 * 学员登录
+	 *
+	 * @param account 账号和密码对象
+	 * @param request request域
+	 * @return 结果集合
+	 */
+	@Override
+	public ResultData studentLogin(Account account, HttpServletRequest request) {
+
+		if (account == null || account.getAAccount() == null || account.getAPassword() == null) {
+			return ResultData.error("账号或密码错误，请重试");
+		}
+
+		Tool tool = new Tool();
+
+		account.setAPassword(tool.createMd5(account.getAPassword()));
+
+		Account token = accountDao.login(account);
+
+		if (token == null) {
+			return ResultData.error("账号或密码错误，请重试");
+		}
+
+		if (!token.getAType().equals(AccountType.STUDENT)) {
+			return ResultData.error("账号或密码错误，请重试");
+		}
+
+		Student student = studentDao.getStudentByAccountId(token.getAId());
+
+		request.getSession().setAttribute("student", student);
+
+		ResultData resultData = ResultData.success("登录成功", "url", "student/main");
+		resultData.put("username", student.getSName());
 		return resultData;
 	}
 }

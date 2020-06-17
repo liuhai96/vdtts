@@ -1,6 +1,7 @@
 package com.lsjbc.vdtts.api;
 
 import com.github.pagehelper.Page;
+import com.lsjbc.vdtts.constant.EvaluateType;
 import com.lsjbc.vdtts.entity.Evaluate;
 import com.lsjbc.vdtts.pojo.vo.LayuiFlowData;
 import com.lsjbc.vdtts.service.impl.EvaluateServiceImpl;
@@ -29,9 +30,36 @@ public class EvaluateApi {
      * @param id   教练ID
      * @param page 页数
      * @return 20条评价
+     * @author JX181114 --- 郑建辉
      */
-    @GetMapping("{type}/{id}")
-    public LayuiFlowData<Evaluate> getTeacherEvaluatePageById(@PathVariable("id") Integer id,@PathVariable("type") String type, Integer page) {
+    @GetMapping("teacher/{id}")
+    public LayuiFlowData<Evaluate> getTeacherEvaluatePageById(@PathVariable("id") Integer id, Integer page) {
+        return getEvaluatePageById(id, EvaluateType.TYPE_TEACHER, page);
+    }
+
+    /**
+     * 使用流加载获取叫教练评价
+     *
+     * @param id   教练ID
+     * @param page 页数
+     * @return 20条评价
+     * @author JX181114 --- 郑建辉
+     */
+    @GetMapping("school/{id}")
+    public LayuiFlowData<Evaluate> getSchoolEvaluatePageById(@PathVariable("id") Integer id, Integer page) {
+        return getEvaluatePageById(id, EvaluateType.TYPE_SCHOOL, page);
+    }
+
+    /**
+     * 使用流加载获取评价
+     *
+     * @param id   教练ID/驾校ID
+     * @param type 驾校或者教练
+     * @param page 页数
+     * @return 20条评价
+     * @author JX181114 --- 郑建辉
+     */
+    public LayuiFlowData<Evaluate> getEvaluatePageById(Integer id, String type, Integer page) {
         Page<Evaluate> pageInfo = evaluateService.getEvaluateByTypeAndId(type, id, page);
 
         LayuiFlowData<Evaluate> flowData = new LayuiFlowData<>();

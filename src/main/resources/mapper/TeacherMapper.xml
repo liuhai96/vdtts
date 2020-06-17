@@ -16,33 +16,23 @@
     </select>
 
 <!--    连表查询所属驾校的信息-->
-    <select id="findTeacherList" parameterType="java.lang.Integer" resultMap="findTeachList">
-        select * from tb_teacher
+    <select id="findTeacherList" resultType="com.lsjbc.vdtts.entity.Teacher">
+        select ter.*,acc.a_account account from tb_teacher ter left join tb_account acc on ter.t_account_id = acc.a_id
         <where>
             <if test="tName!=null and tName!=''">
                 and t_name like concat('%',#{tName},'%')
             </if>
-            and t_school_id = #{tSchoolId} order by t_id limit ${start},#{pageSize}
+            and t_school_id = #{tSchoolId} limit ${start},#{pageSize}
         </where>
 
     </select>
-    <resultMap id="findTeachList" type="com.lsjbc.vdtts.entity.Teacher">
-        <result property="tSchoolId" column="t_school_id"></result>
-        <result property="tAccountId" column="t_account_id"></result>
-        <association property="school" column="t_school_id" javaType="com.lsjbc.vdtts.entity.School" select="findSchool"></association>
-        <association property="account" column="t_account_id" javaType="com.lsjbc.vdtts.entity.Account" select="findAccount"></association>
-    </resultMap>
-    <select id="findSchool" parameterType="com.lsjbc.vdtts.entity.School" resultType="com.lsjbc.vdtts.entity.School">
-        select * from tb_school where s_id = #{tSchoolId}
-    </select>
-
-
+    
     <select id="findAccount" parameterType="com.lsjbc.vdtts.entity.Account" resultType="com.lsjbc.vdtts.entity.Teacher">
         select a.*,b.s_name from tb_school b,(select * from tb_teacher where t_account_id =
         #{e.aId}) a where b.s_id = a.t_school_id
     </select><!--   李浪换 select * from tb_teacher where t_account_id = #{e.aId}-->
+    <!--    连表查询结束-->
 
-<!--    连表查询结束-->
 
     <select id="findTeacherList2" parameterType="java.lang.Integer" resultType="com.lsjbc.vdtts.entity.Teacher">
         select t.*,s.s_name from tb_teacher t left join tb_school s on s.s_id = t.t_school_id where t.t_school_id = #{tSchoolId}  limit ${start},#{pageSize}

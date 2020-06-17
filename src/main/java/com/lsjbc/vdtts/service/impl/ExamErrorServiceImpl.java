@@ -10,10 +10,8 @@ import com.lsjbc.vdtts.service.intf.ExamErrorService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
-import java.util.stream.Collectors;
 
 /**
  * @ClassName: ExamErrorServiceImpl
@@ -39,28 +37,32 @@ public class ExamErrorServiceImpl implements ExamErrorService {
     private ExamAnswerDao examAnswerDao;
 
     /**
-     * 根据模拟考试记录的ID，来查找错题集合
+     * 根据学员ID，来查找错题集合
      *
-     * @param recordId 模拟考试ID
+     * @param level     科目等级
+     * @param studentId 学员ID
      * @return 错题集合
      * @author JX181114 --- 郑建辉
      */
     @Override
-    public List<ExamQuestionWithEeId> getErrorQuestionByRecordId(Integer recordId) {
-
+    public List<ExamQuestionWithEeId> getErrorQuestionByStudentId(Integer level, Integer studentId) {
         //根据ID查询出所有的错题ID
-        List<ExamError> errorQuestion = examErrorDao.getByRecordId(recordId);
+        List<ExamError> errorQuestion = examErrorDao.getByStudentId(studentId);
 
-        List<ExamQuestionWithEeId> questionList = errorQuestion.stream().map(item -> {
+        List<ExamQuestionWithEeId> questionList = new ArrayList<>();
 
-            //根据每一个错题ID来查询出错题
-            ExamQuestion question = examQuestionDao.getById(item.getEeQuestionId());
+        for (Integer index = 0; index < errorQuestion.size(); index++) {
+            ExamQuestion question = examQuestionDao.getById(errorQuestion.get(index).getEeQuestionId());
 
-            //根据错题ID查询出错题答案
-            question.setAnswers(examAnswerDao.getByQuestionId(item.getEeQuestionId()));
+            System.out.println(question);
 
-            return new ExamQuestionWithEeId(item,question);
-        }).collect(Collectors.toList());
+            if (question.getEqLevel().equals(level)) {
+                //根据错题ID查询出错题答案
+                question.setAnswers(examAnswerDao.getByQuestionId(errorQuestion.get(index).getEeQuestionId()));
+
+                questionList.add(new ExamQuestionWithEeId(errorQuestion.get(index), question));
+            }
+        }
 
         return questionList;
     }
@@ -68,18 +70,12 @@ public class ExamErrorServiceImpl implements ExamErrorService {
     /**
      * 根据错题ID来删除记录
      *
-     * @param ids 错题ID集合
+     * @param id 错题ID
      * @return 受影响条数
      * @author JX181114 --- 郑建辉
      */
     @Override
-    public Integer deleteErrorQuestionByRecordId(Integer[] ids) {
-        AtomicReference<Integer> count = new AtomicReference<>(0);
-
-        Arrays.asList(ids).forEach(item->{
-            count.updateAndGet(v -> v + examErrorDao.deleteById(item));
-        });
-
-        return count.get();
+    public Integer deleteErrorQuestionByRecordId(Integer id) {
+        return examErrorDao.deleteById(id);
     }
 }

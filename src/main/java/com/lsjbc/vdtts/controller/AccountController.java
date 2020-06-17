@@ -64,4 +64,17 @@ public class AccountController {
         account.setAPassword(new Tool().createMd5(account.getAPassword()));
         return JSON.toJSONString(accountService.updatePass(account));
     }
+
+    /*
+     *@Description:修改驾校密码
+     *@Author:刘海
+     *@Param:[oldPwd, newPwd, repeatPwd, request]
+     *@return:com.lsjbc.vdtts.pojo.vo.ResultData
+     *@Date:2020/6/16 23:39
+     **/
+    @RequestMapping(value = "/updateSchoolPwd")
+    @ResponseBody
+    public ResultData updateSchoolPwd(String oldPwd,String newPwd,String repeatPwd,HttpServletRequest request){
+        return accountService.updateSchoolPwd(oldPwd,newPwd,repeatPwd,request);
+    }
 }

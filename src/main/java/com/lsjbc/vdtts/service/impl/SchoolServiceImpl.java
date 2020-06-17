@@ -2,7 +2,7 @@ package com.lsjbc.vdtts.service.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.lsjbc.vdtts.constant.consist.EvaluateTypeConstant;
+import com.lsjbc.vdtts.constant.EvaluateType;
 import com.lsjbc.vdtts.dao.*;
 import com.lsjbc.vdtts.dao.mapper.SchoolMapper;
 import com.lsjbc.vdtts.dao.mapper.StudentMapper;
@@ -191,6 +191,18 @@ public class SchoolServiceImpl implements SchoolService
 		return layuiTableData;
 	}
 
+	/**
+	 * 根据主键获取学校信息
+	 *
+	 * @param id 主键
+	 * @return 对象
+	 * @author 陈竑霖
+	 */
+	@Override
+	public School chlGetObjectByschoolid(Integer id) {
+	    return schoolDao.getById(id);
+	}
+
 	//查询身份证
 	@Override
 	public ResultData insSfz(Student student, HttpServletRequest request)
@@ -219,30 +231,6 @@ public class SchoolServiceImpl implements SchoolService
 		}
 		return resultData;
 	}
-//	@Override
-//	public ResultData sSfz(Student student, HttpServletRequest request){
-//		ResultData resultData = new ResultData();
-//		student = studentMapper.insSfz(student);
-//		if(student != null)
-//		{ //查询
-//			resultData = ResultData.error(-1,"查询已有该学员信息");
-//		}else{
-//			resultData = ResultData.error(-2,"未该有此学员信息请先去注册");
-//		}
-//		return resultData;
-//	}
-//	@Override
-//	public LayuiTableData apply(int sSfz){
-//
-//		LayuiTableData layuiTableData = new LayuiTableData();
-//		int num = schoolMapper.apply(sSfz);
-//		if(num>0){
-//			layuiTableData.setCode(1);
-//		}else{
-//			layuiTableData.setCode(0);
-//		}
-//		return layuiTableData;
-//	}
 
 
     @Override
@@ -305,10 +293,14 @@ public class SchoolServiceImpl implements SchoolService
 		schools.getResult().stream().forEach(item -> {
 			Integer schoolId = item.getSId();
 			SchoolDetail detail = SchoolDetail.generateDetail(item);
-			detail.setScore(evaluateDao.getAvgByTypeAndId(EvaluateTypeConstant.TYPE_SCHOOL, schoolId));
+			detail.setScore(evaluateDao.getAvgByTypeAndId(EvaluateType.TYPE_SCHOOL, schoolId));
 			detail.setCarCount(carDao.getCountBySchoolId(schoolId));
 			detail.setTeacherCount(teacherDao.getCountBySchoolId(schoolId));
 			detail.setStudentCount(studentDao.getStudentCountBySchoolId(schoolId));
+			details.getResult().add(detail);
+			//生成跳转路径，必须
+			detail.generateInfoUrl();
+
 			details.getResult().add(detail);
 		});
 

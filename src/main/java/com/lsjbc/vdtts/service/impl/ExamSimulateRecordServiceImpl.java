@@ -73,19 +73,4 @@ public class ExamSimulateRecordServiceImpl implements ExamSimulateRecordService 
         examSimulateRecordDao.getByStudentId(studentId,level);
         return pageResult;
     }
-
-    /**
-     * 根据模拟考试ID来删除记录
-     *
-     * @param id 主键
-     * @return 受影响条数
-     * @author JX181114 --- 郑建辉
-     */
-    @Override
-    public Integer deleteByRecordId(Integer id) {
-
-        examErrorDao.deleteByRecordId(id);
-        //功能还不完整，修改表之后需要把错题记录表中的数据也删除
-        return examSimulateRecordDao.deleteById(id);
-    }
 }

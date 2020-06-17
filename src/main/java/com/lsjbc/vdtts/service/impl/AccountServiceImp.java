@@ -1,5 +1,6 @@
 package com.lsjbc.vdtts.service.impl;
 
+import com.lsjbc.vdtts.dao.StudentDao;
 import com.lsjbc.vdtts.dao.TransManageDao;
 import com.lsjbc.vdtts.dao.mapper.*;
 import com.lsjbc.vdtts.entity.*;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -33,11 +35,15 @@ public class AccountServiceImp implements AccountService {
     @Autowired
     private TransManageDao transManageDao;
 
+    @Resource(name = StudentDao.NAME)
+    private StudentDao studentDao;
+
 
     @Override
     public LayuiTableData findAccount(String account) {
         return null;
     }
+
     @Override
     /*
      *@Description:
@@ -93,8 +99,8 @@ public class AccountServiceImp implements AccountService {
         if(account != null){ //登录成功时
             switch (account.getAType()) {
                 case "school": //驾校登录界面地址
-                    School school = schoolMapper.findAccount(account);
-                    if(school.getSLock()=="true"){
+                    School school = schoolMapper.findAccount(account.getAId());
+                    if(school.getSLock().equals("true")){
                         resultData = ResultData.error(-1,"驾校已被锁定登录");
                     }else{
                         request.getSession().setAttribute("school", school);
@@ -106,7 +112,7 @@ public class AccountServiceImp implements AccountService {
                 case "teacher"://教练登录界面地址
                     //教练的对象
                     Teacher teacher = teacherMapper.findAccount(account);
-                    if(teacher.getTLock()=="true"){
+                    if(teacher.getTLock().equals("true")){
                         resultData = ResultData.error(-1,"您的账号已被锁定，请找驾校询问具体原因");
                     }else{
                         request.getSession().setAttribute("teacher", teacher);
@@ -117,6 +123,7 @@ public class AccountServiceImp implements AccountService {
                     evaluate.setEToId(teacher.getTId());
                     evaluate.setEType("teacher");
                     request.getSession().setAttribute("evaluate", evaluateMapper.selectEvaluate(evaluate));
+                    nextJsp = "pages/backhomepage/index.jsp";//前端jsp地址
                     break;
                 case "manage":
                     TransManage transManage = transManageDao.findTransManage(account);
@@ -161,6 +168,35 @@ public class AccountServiceImp implements AccountService {
         if(accountMapper.updateAccount(account) > 0)
             return ResultData.success("true");
         else return ResultData.success("false");
+    }
+
+    /*
+     *@Description:
+     *@Author:刘海
+     *@Param:
+     *@return:
+     *@Date:2020/6/17 0:27
+     **/
+    @Override
+    public  ResultData updateSchoolPwd(String oldPwd,String newPwd,String repeatPwd,HttpServletRequest request) {
+        School school = (School) request.getSession().getAttribute("school");
+        String passwoed  = accountMapper.findSchoolPwd(school.getSAccountId());
+        ResultData resultData = null;
+             if(newPwd.equals(repeatPwd)){
+                 if(oldPwd.equals(passwoed)){
+                     int num = accountMapper.updateSchoolPwd(newPwd,school.getSAccountId());
+                     if(num>0){
+                         resultData = ResultData.success(1,"修改密码成功");
+                     }else{
+                         resultData = ResultData.success(-1,"未找到该驾校信息");
+                     }
+                 }else{
+                     resultData = ResultData.success(-1,"旧密码输入错误");
+                 }
+             }else{
+                 resultData = ResultData.success(-1,"两次密码输入不同");
+             }
+        return resultData;
     }
 
     @Override
