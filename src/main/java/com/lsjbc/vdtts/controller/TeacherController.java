@@ -105,18 +105,18 @@ public class TeacherController {
     }
 
    @RequestMapping(value = "/findTeacher")
-    public String findTeacher(){
-        return JSON.toJSONString(teacherService.findTeacher(1));
+    public String findTeacher(HttpServletRequest request){
+        return JSON.toJSONString(teacherService.findTeacher(request));
     }
 
     @RequestMapping(value = "/updateTeacherApplyState")
-    public Object updateTeacherApplyState(String tId){
-        return  JSON.toJSONString(teacherService.updateTeacherApplyState(Integer.parseInt(tId)));
+    public Object updateTeacherApplyState(String tId, String tTeach){
+        return  JSON.toJSONString(teacherService.updateTeacherApplyState(tTeach,Integer.parseInt(tId)));
     }
 
     @RequestMapping(value = "/updateTeacherAccountLockState")
-   public Object updateTeacherAccountLockState(String tId){
-        return  JSON.toJSONString(teacherService.updateTeacherAccountLockState(Integer.parseInt(tId)));
+   public Object updateTeacherAccountLockState(String tLock,String tId){
+        return  JSON.toJSONString(teacherService.updateTeacherAccountLockState(tLock,Integer.parseInt(tId)));
     }
     @RequestMapping(value = "/teacherInit")
     public ModelAndView TeacherInit(){

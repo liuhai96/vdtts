@@ -50,7 +50,7 @@ public class EvaluateApi {
     @GetMapping("school/{id}")
     public LayuiFlowData<Evaluate> getSchoolEvaluatePageById(@PathVariable("id") Integer id, Integer page, HttpServletRequest request) {
 
-        if(id==null){
+        if(id<0){
             School school= (School) request.getSession().getAttribute("school");
             id=school.getSId();
         }

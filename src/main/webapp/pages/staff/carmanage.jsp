@@ -20,6 +20,13 @@
     <link rel="shortcut icon" href="#"/>
     <link rel="stylesheet" href=<%=path+"/static/layui/css/layui.css"%>>
     <script type="text/javascript" src=<%=path+"/static/layui/layui.js"%>></script>
+    <style>
+        .layui-input-block{
+            margin-right: 10px;
+            margin-top: 10px;
+        }
+
+    </style>
 </head>
 <body>
 
@@ -147,12 +154,14 @@
                     var data = checkStatus.data;
                     var index =   layer.open({
                         type: 1,
-                        area:["400","300px"],
+                        area:["350","450px"],
                         skin: 'layui-layer-rim',
                         shadeClose: true,//点击其他地方关闭
                         content:$("#addCar"),
                         cancel:function (index) {
                             layer.close(index);
+                            $('#addCar')[0].reset();//重置表单
+                            form.render();
                         }
                     });
 
@@ -168,6 +177,8 @@
                                         $table.reload();
                                     }
                                     layer.close(index);
+                                    $('#addCar')[0].reset();//重置表单
+                                    form.render();
                                 }
                             });
 
@@ -250,7 +261,7 @@
                     }});
                 var index1 = layer.open({
                     type: 1,
-                    area:["500","400px"],
+                    area:["350","400px"],
                     skin: 'layui-layer-rim',
                     shadeClose: true,//点击其他地方关闭
                     content:$("#updateTeacher"),

@@ -13,6 +13,7 @@ import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.pojo.vo.ResultData;
 import com.lsjbc.vdtts.pojo.vo.SchoolDetail;
 import com.lsjbc.vdtts.service.intf.SchoolService;
+import com.lsjbc.vdtts.utils.Tool;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -250,7 +251,8 @@ public class SchoolServiceImpl implements SchoolService
 
 	@Override
 	public ResultData findSchoolInfo(HttpServletRequest request, HttpServletResponse response) {
-		School school = schoolMapper.findSchoolInfo(1);
+		School school = (School) request.getSession().getAttribute("school");
+		school = schoolMapper.findSchoolInfo(school.getSId());
 		ResultData resultData = null;
 		if (school != null) {
 			resultData = ResultData.success("school", school);
@@ -347,6 +349,29 @@ public class SchoolServiceImpl implements SchoolService
 	public int updateSchool(School school) {
 		int updateSchool = schoolMapper.updateSchool(school);
 		return updateSchool;
+	}
+
+	@Override
+	public ResultData updateSchoolPwd(HttpServletRequest request) {
+		ResultData resultData = null;
+		Tool tool = new Tool();
+		School school = (School) request.getSession().getAttribute("school");
+		String pwd = schoolMapper.findSchoolPwd(school.getSAccountId());
+		String  oldPwd = tool.createMd5(request.getParameter("oldPwd"));
+		String  newPwd = tool.createMd5(request.getParameter("newPwd"));
+		String  repeatPwd = tool.createMd5(request.getParameter("repeatPwd"));
+		System.out.println("pwd"+pwd);
+		if(newPwd.equals(repeatPwd)){
+			if(oldPwd.equals(pwd)){
+				int num = schoolMapper.updateSchoolPwd(school.getSAccountId(),newPwd);
+				resultData = ResultData.error(1,"密码修改成功");
+			}else{
+				resultData = ResultData.error(-1,"旧密码输入错误");
+			}
+		}else{
+			resultData = ResultData.error(-1,"新密码与重复输入密码不同");
+		}
+		return resultData;
 	}
 
 	@Override

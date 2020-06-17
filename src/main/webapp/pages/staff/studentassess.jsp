@@ -23,7 +23,6 @@
     <script type="text/javascript" src=<%=path+"/static/layui/layui.js"%>></script>
 </head>
 <body>
-<input type="hidden" value="${sessionScope.school.tId}" id="sId">
 <div class="coach-stu-evaluate">
         <textarea title="评价模板" id="evaluate_tpl" style="display:none;">
             {{# layui.each(d.data, function(index, item){ }}
@@ -68,8 +67,7 @@
 
         //请求消息
         let renderMsg = function (page, callback) {
-            var sId =
-            $.get(path + "/api/evaluate/school/", {
+            $.get(path + "/api/evaluate/school/-1", {
                 page: page || 1
             }, function (res) {
                 if (res.code != 0) {

@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * @author LiLang9725
@@ -221,7 +222,7 @@ public class AccountServiceImp implements AccountService {
     }
 
     @Override
-    public List<Menuitem> adminList(int roleId) {
+    public  List<Menuitem> adminList(int roleId) {
         List<Menuitem> adminList = accountMapper.adminList(roleId);
         return adminList;
     }

@@ -37,19 +37,26 @@
 </script>
 
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="noRegistration">禁止学员报名</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="accountLock">账号锁定</a>
+    {{#  if(d.tTeach=='true'){}}
+      <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="noRegistration">允许学员报名</a>
+    {{#  }else{}}
+      <a class="layui-btn layui-btn-xs" lay-event="noRegistration">禁止学员报名</a>
+    {{#  } }}
+    {{#  if(d.tLock=='true'){}}
+      <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="accountLock">解锁账号</a>
+    {{#  }else{}}
+      <a class="layui-btn  layui-btn-xs" lay-event="accountLock">锁定账号</a>
+    {{#  } }}
 </script>
-
 
 </body>
 <script>
     layui.use(['table','layer'],function(){
 
-        var table = layui.table,layer=layui.layer;
+        var table = layui.table,layer=layui.layer,$=layui.jquery;
         var $table =  table.render({
             elem: '#test'
-            ,url:'/teacherController/findTeacherList'
+            ,url:'<%=path%>/teacherController/findTeacherList'
             ,toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
             ,defaultToolbar: ['filter', 'exports', 'print', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
                 title: '提示'
@@ -64,14 +71,30 @@
                 ,{field:'tName', title:'姓名', edit: 'text'}
                 ,{field:'tSfz', title:'身份证号'}
                 ,{field:'tSex', title:'性别'}
+                ,{field:'tTeach', title:'是否允许报名'}
+                ,{field:'tLock', title:'是否锁定账号'}
                 ,{field:'tPhone', title:'电话'}
-                ,{field:'tLicenseTime', title:'获取驾照时间'}
-                ,{field:'tLimit', title:'本月限制通过学员人数'}
                 ,{fixed: 'right', title:'操作', toolbar: '#barDemo',width: 200}
             ]]
             ,page: {limit: 5,//指定每页显示的条数
                 limits: [5, 10, 15, 20,
                     25, 30, 35, 40, 45, 50],},//每页条数的选择项
+            done: function (res, curr, count) {
+                $("[data-field='tTeach']").children().each(function () {
+                    if ($(this).text() == 'true') {
+                        $(this).text("不允许")
+                    } else if ($(this).text() == 'false') {
+                        $(this).text("允许")
+                    }
+                });
+                $("[data-field='tLock']").children().each(function () {
+                    if ($(this).text() == 'true') {
+                        $(this).text("禁用")
+                    } else if ($(this).text() == 'false') {
+                        $(this).text("启用")
+                    }
+                });
+            }
         });
 
         //头工具栏事件
@@ -79,7 +102,6 @@
             var checkStatus = table.checkStatus(obj.config.id);
             var $ = layui.jquery;
             switch(obj.event){
-
                  case 'findTeacher':
                      var data = checkStatus.data;
                      var inputname = $("input[name='inputname']").val();
@@ -103,9 +125,9 @@
         table.on('tool(test)', function(obj){
             var $ = layui.jquery;
             var data = obj.data
-            var tId = data.tId;
+            var tTeach = data.tTeach;
             if(obj.event === 'noRegistration'){
-                layer.confirm('真的锁定此账号么',{
+                layer.confirm('您确定要做此操作嘛',{
                     btn:["确定","取消"],
                     btn2:function (index) {
                         layer.close(index);
@@ -117,10 +139,12 @@
                             dataType: 'JSON',
                             data: {
                                 tId: data.tId,
+                                tTeach:tTeach
                             },
                             success: function (msg) {
                                 if (msg.code == 1) {
                                     layer.msg("禁止报名成功");
+                                    $table.reload();
                                 } else {
                                     layer.msg("未找到教练相关信息");
                                 }
@@ -129,7 +153,8 @@
                     }
                     });
             }else if (obj.event === 'accountLock'){
-                    layer.confirm('真的锁定此账号么',{
+                var tLock = data.tLock;
+                    layer.confirm('您确定要做此操作嘛',{
                             btn:["确定","取消"],
                             btn2:function (index) {
                                 layer.close(index);
@@ -140,11 +165,13 @@
                                     url: '<%=path%>/teacherController/updateTeacherAccountLockState',
                                     dataType: 'JSON',
                                     data:{
-                                        tId:data.tId
+                                        tId:data.tId,
+                                        tLock:tLock
                                     },
                                     success: function (msg) {
                                         if(msg.code==1){
                                             layer.msg("您已成功锁定该教练账号,该教练下的学员需要您重新分配教练");
+                                            $table.reload();
                                         }else{
                                             layer.msg("未找到该教练信息");
                                         }
