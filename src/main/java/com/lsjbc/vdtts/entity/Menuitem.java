@@ -2,6 +2,9 @@ package com.lsjbc.vdtts.entity;
 
 import lombok.*;
 
+import javax.persistence.Transient;
+import java.util.ArrayList;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -33,5 +36,27 @@ public class Menuitem
 	 *父级菜单项ID
 	 */
 	private Integer mParentId;
+	@Transient
+	private ArrayList<Menuitem> children;
 
+	@Transient
+	private String title;
+
+	@Transient
+	private int id;
+
+	@Transient
+	private String type;
+
+	@Transient
+	private String icon;
+
+	@Transient
+	private String href;
+
+	@Transient
+	private String openType;
+
+	@Transient
+	private String checked;
 }

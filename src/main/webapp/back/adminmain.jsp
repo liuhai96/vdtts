@@ -160,6 +160,7 @@
                     layer.closeAll();
                 }
             });
+
         }
         };
 
