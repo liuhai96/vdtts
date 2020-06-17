@@ -28,8 +28,8 @@
 			<div class="layui-input-inline">
 				<select name="tTeach"id="tTeach" >
 					<option value="">选择状态查询</option>
-					<option value="true">true</option>
-					<option value="false">false</option>
+					<option value="true">允许招生</option>
+					<option value="false">不允许招生</option>
 				</select>
 			</div>
 		</div>
@@ -38,8 +38,8 @@
 			<div class="layui-input-inline">
 				<select name="tLock"id="tLock" >
 					<option value="">选择状态查询</option>
-					<option value="true">true</option>
-					<option value="false">false</option>
+					<option value="true">允许登录</option>
+					<option value="false">不允许登录</option>
 				</select>
 			</div>
 		</div>
@@ -92,6 +92,15 @@
 				,{field:'tLimit', title:'本月限制毕业学员数', width:150}
 			]]
 			,page: true
+			, done: function (res, curr, count) {
+				$("[data-field='tTeach'],[data-field='tLock']").children().each(function () {
+					if ($(this).text() == 'true') {
+						$(this).text("允许")
+					} else if ($(this).text() == 'false') {
+						$(this).text("不允许")
+					}
+				});
+			}
 		});
 
 		//头工具栏事件
