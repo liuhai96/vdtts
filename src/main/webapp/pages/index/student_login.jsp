@@ -19,6 +19,7 @@
 <body>
 
 <input type="hidden" id="path" value="<%=path%>">
+<input type="hidden" id="zjh_msg" value="${zjh_msg}">
 
 <p style="font-family: newword;color: #274472;font-size: 26px;text-align: center;height: 80px; margin-left: -230px;line-height: 110px;">
     欢迎登录驾驶培训公共服务平台！</p>
@@ -28,14 +29,14 @@
         <ul class="reg-box">
             <li>
                 <label style="letter-spacing: 3px;">学员账号：</label>
-                <input name="aAccount" type="text" value="${username}"
+                <input name="aAccount" type="text" value="yw76CiYS8F"
                        placeholder="请输入你的账号"
                        style="margin-left: 2px;" class="account accounts"
                        onblur="textBlur(this)" onfocus="textFocus(this)">
                 <span class="error error5"></span>
             <li>
                 <label style="letter-spacing: 3px;">登录密码：</label>
-                <input name="aPassword" type="password" value=""
+                <input name="aPassword" type="password" value="123456"
                        placeholder="请输入登录密码"
                        style="margin-left: 2px;" class="idcard"
                        onblur="textBlur(this)" onfocus="textFocus(this)">
@@ -62,5 +63,18 @@
     </form>
 </div>
 <div class="layui-layer-move"></div>
+<script src="https://www.layuicdn.com/layui/layui.js"></script>
+<script>
+    layui.use(['form', 'table', 'element', 'layer'], function () {
+        let $ = layui.$;
+        let layer = layui.layer;
+
+        let msg = $("#zjh_msg").val();
+
+        if (msg.length > 0) {
+            layer.msg(msg, {icon: 0});
+        }
+    });
+</script>
 </body>
 </html>

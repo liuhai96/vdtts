@@ -11,6 +11,7 @@
     <groupId>com.lsjbc</groupId>
     <artifactId>vdtts</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <packaging>war</packaging>
     <name>vdtts</name>
     <description>Demo project for Spring Boot</description>
 

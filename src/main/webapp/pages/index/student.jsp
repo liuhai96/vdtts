@@ -130,6 +130,5 @@
 <script src="https://www.layuicdn.com/layui/layui.js"></script>
 <script src="<%=path+"/js/pages/index/common.js"%>"></script>
 <script src="<%=path+"/js/pages/index/commonpage.js"%>"></script>
-
 </body>
 </html>

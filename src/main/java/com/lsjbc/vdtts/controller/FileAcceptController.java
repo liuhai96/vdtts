@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 
@@ -29,7 +30,7 @@ public class FileAcceptController {
      *@Date:2020/6/11 21:18
      * 用途：接收本地上传的文件 并上传到保存到git路径
      **/
-    private Object FileUpImage(@RequestParam("file") MultipartFile imgFile){
+    private Object FileUpImage(@RequestParam("file") MultipartFile imgFile, HttpServletRequest request){
         long startTime = System.currentTimeMillis();
         FileAccept fileAccept = new FileAccept();
         if (imgFile.isEmpty()) fileAccept.setFProResult("上传失败");
@@ -37,7 +38,8 @@ public class FileAcceptController {
         String filename = imgFile.getOriginalFilename();
         fileAccept.setFName(filename);//返回对象的名称赋值
         // 存放上传图片的文件夹
-        File fileDir = fileAccept.getImgDirFile(null);//为null默认存放image路径
+        File fileDir = fileAccept.getImgDirFile(request.getSession().getServletContext().getRealPath("/image/"));//存放image路径
+        System.out.println(fileDir.getAbsolutePath());
         fileAccept.setFPath("/image/"+filename);//返回对象的路径赋值
         try {// 构建真实的文件路径
             File newFile = new File(fileDir.getAbsolutePath() + File.separator + filename);

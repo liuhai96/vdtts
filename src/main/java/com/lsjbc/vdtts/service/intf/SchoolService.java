@@ -41,8 +41,9 @@ public interface SchoolService {
 	//修改解禁登录
 	public LayuiTableData unbindlogon(int sId);
     //查询身份证
-//    public LayuiTableData apply(int sSfz);
     public ResultData insSfz(Student student, HttpServletRequest request);
+    //根据主键获取驾校信息
+    School chlGetObjectByschoolid(Integer id);
 
 
 

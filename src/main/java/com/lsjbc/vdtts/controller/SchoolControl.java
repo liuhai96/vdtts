@@ -8,7 +8,7 @@ import com.lsjbc.vdtts.entity.Student;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.pojo.vo.ResultData;
 import com.lsjbc.vdtts.service.intf.AccountService;
-import com.lsjbc.vdtts.service.intf.LinkServive;
+import com.lsjbc.vdtts.service.intf.LinkService;
 import com.lsjbc.vdtts.service.intf.SchoolService;
 import com.lsjbc.vdtts.utils.Tool;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +31,7 @@ public class SchoolControl {
 	@Autowired
 	private SchoolService schoolService;
 	@Autowired
-    private LinkServive linkServive;
+    private LinkService linkServive;
 	@Autowired
     private AccountService accountService;
 /*

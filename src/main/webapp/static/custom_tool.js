@@ -69,6 +69,9 @@ function cutOut(str,begin,end) {//截取字符
 //          <p id="demoText"></p>
 //     </div>
 // </div>
+//调用方法样例
+//Layui_uploadImage("#test1",$("#path").val()+'/upImage',$('#demo1'),function (mag) {
+//             sBusinessPic = mag.fPath;},$('#demoText'));
 //js
 function Layui_uploadImage(keyId,url,browse,Yfun,arqKey) {//Layui下 上传图片的方法
     layui.use('upload', function() {

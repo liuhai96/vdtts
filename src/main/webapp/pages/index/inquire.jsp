@@ -1,4 +1,5 @@
-<%@ page import="com.lsjbc.vdtts.utils.Tool" %><%--
+<%@ page import="com.lsjbc.vdtts.utils.Tool" %>
+<%--
   Created by IntelliJ IDEA.
   User: Admin
   Date: 2020/6/12
@@ -140,11 +141,11 @@
                     <textarea title="消息模版" id="SCHOOL_tpl" style="display:none;">
                             {{# layui.each(d.data, function(index, item){ }}
                             <li class="list-school">
-                                <a href="">
+                                <a href="<%=path%>{{ item.urlInfo }}">
                                     <img src="<%=path+"/image/pages/index/sch6.jpg"%>">
                                 </a>
                                 <div class="inf-school">
-                                    <a href="http://47.96.140.98:20034/schInfoDetail?inscode=3322210509142226">
+                                    <a href="<%=path%>{{ item.urlInfo }}">
                                         <p class="word-1" title="{{ item.name }}">{{ item.name }}</p>
                                     </a>
                                     <p style="float: left;">综合评分：</p>
