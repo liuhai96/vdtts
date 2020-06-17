@@ -33,7 +33,7 @@ public class IndexController {
     private NoticeService noticeService;
 
     @Resource(name = LinkServiceImpl.NAME)
-    private LinkServive linkServive;
+    private LinkService linkServive;
 
     @Resource(name = VideoServiceImpl.NAME)
     private VideoService videoService;
