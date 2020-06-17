@@ -85,7 +85,7 @@
                             if (mag.msg) {
                                 alert("修改成功！请重新登录");
                                 if(top.location!=self.location)top.location=window.open($("#path").
-                                val()+"/pages/index/index.jsp");
+                                val()+"/pages/index/index.jsp");//跳出iframe到指定位置
                             } else{
                                 alert("修改失败,请检查网络!");
                             }
