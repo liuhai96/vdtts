@@ -199,8 +199,8 @@ public class SchoolServiceImpl implements SchoolService
 	 * @author 陈竑霖
 	 */
 	@Override
-	public School chlGetObjectByschoolid(Integer id) {
-	    return schoolDao.getById(id);
+	public School getSchoolBySchoolId(Integer id) {
+		return schoolDao.getById(id);
 	}
 
 	//查询身份证
@@ -300,8 +300,6 @@ public class SchoolServiceImpl implements SchoolService
 			details.getResult().add(detail);
 			//生成跳转路径，必须
 			detail.generateInfoUrl();
-
-			details.getResult().add(detail);
 		});
 
 		return details;

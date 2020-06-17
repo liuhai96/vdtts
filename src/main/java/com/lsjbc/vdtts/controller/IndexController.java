@@ -360,32 +360,31 @@ public class IndexController {
     }
 
     /**
-     * 跳转到教练的详细信息界面
+     * 跳转到驾校的详细信息界面
      *
      * @param map          ModelAndView中的属性键值对
-     * @param schoolid   教练ID
+     * @param schoolid     教练ID
      * @param score        评分
      * @param studentCount 学员人数
      * @param teachercount 教练人数
-     * @param carcount      车数
+     * @param carcount     车数
      * @return 页面
      */
     @GetMapping("inquire/school/{id}/{score}/{studentcount}/{teachercount}/{carcount}")
-    public String inquireschool(Map<String, Object> map, @PathVariable("id") Integer schoolid, @PathVariable("score") Double score, @PathVariable("studentcount") Integer studentCount, @PathVariable("teachercount") String teachercount, @PathVariable("carcount") String carcount) {
-        School school = schoolService.chlGetObjectByschoolid(schoolid);
+    public String inquireSchool(Map<String, Object> map, @PathVariable("id") Integer schoolid, @PathVariable("score") Double score, @PathVariable("studentcount") Integer studentCount, @PathVariable("teachercount") String teachercount, @PathVariable("carcount") String carcount) {
+        School school = schoolService.getSchoolBySchoolId(schoolid);
 
         map.put("sid", school.getSId());
-        map.put("name", school.getSName());
+        map.put("sbusinessId", school.getSBusinessId());
+        map.put("time", school.getSRegTime());
         map.put("teachercount", teachercount);
         map.put("carcount", carcount);
-//        map.put("id", CustomStringUtils.encryptionIdCardNumber(teacher.getTSfz()));
-        map.put("sbusinessId", school.getSIdentityId());
-//        map.put("age", CustomTimeUtils.getTimeSubTime(teacher.getTBirthday()));
+        map.put("address", school.getSAddress());
         map.put("studencount", studentCount);
-        map.put("sregtime", school.getSRegTime());
         map.put("score", score);
+        map.put("name", school.getSName());
 
         map.put("linkList", linkServive.getFooterFriendLink());
-        return "/back/school-1/school";
+        return "/pages/index/inquire_school";
     }
 }
