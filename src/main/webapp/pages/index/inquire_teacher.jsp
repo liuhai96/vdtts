@@ -16,8 +16,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport"  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <title>教练员详情</title>
     <link rel="stylesheet" href="https://www.layuicdn.com/layui-v2.5.6/css/layui.css" media="all">
     <link rel="stylesheet" href="<%=path+"/css/pages/index/common.css"%>">
@@ -34,9 +33,9 @@
         </div>
         <div class="inf-login">
             <c:if test="${sessionScope.student == null }">
+                <a target="_blank" href="<%=path+"/back/adminlogin.jsp"%>">管理登录</a> |
                 <a target="_blank" href="<%=path+"/pages/homepage/login.jsp"%>">机构登录</a> |
-                <a href="<%=path+"/student"%>">学员登录</a> |
-                <a target="_blank" href="<%=path+"/pages/homepage/driving-in/driving-in.jsp"%>">驾校入驻</a>
+                <a href="<%=path+"/student"%>">学员登录</a>
             </c:if>
             <c:if test="${sessionScope.student != null }">
                 <a href="<%=path+"/student"%>" id="studentName">欢迎您！ 学员: ${sessionScope.student.SName}</a>

@@ -2,10 +2,7 @@ package com.lsjbc.vdtts.controller;
 
 import com.lsjbc.vdtts.constant.EvaluateType;
 import com.lsjbc.vdtts.dao.ExamResultDao;
-import com.lsjbc.vdtts.entity.ExamResult;
-import com.lsjbc.vdtts.entity.Student;
-import com.lsjbc.vdtts.entity.Teacher;
-import com.lsjbc.vdtts.entity.Video;
+import com.lsjbc.vdtts.entity.*;
 import com.lsjbc.vdtts.pojo.dto.QuestionBank;
 import com.lsjbc.vdtts.service.impl.*;
 import com.lsjbc.vdtts.service.intf.*;
@@ -49,6 +46,11 @@ public class IndexController {
 
     @Resource(name = ExamErrorServiceImpl.NAME)
     private ExamErrorService examErrorService;
+
+
+//陈竑霖
+    @Resource(name = SchoolServiceImpl.NAME)
+    private SchoolService schoolService;
 
     /**
      * 访问主页
@@ -355,5 +357,34 @@ public class IndexController {
         }
 
         return "/pages/student/video_look";
+    }
+
+    /**
+     * 跳转到驾校的详细信息界面
+     *
+     * @param map          ModelAndView中的属性键值对
+     * @param schoolid     教练ID
+     * @param score        评分
+     * @param studentCount 学员人数
+     * @param teachercount 教练人数
+     * @param carcount     车数
+     * @return 页面
+     */
+    @GetMapping("inquire/school/{id}/{score}/{studentcount}/{teachercount}/{carcount}")
+    public String inquireSchool(Map<String, Object> map, @PathVariable("id") Integer schoolid, @PathVariable("score") Double score, @PathVariable("studentcount") Integer studentCount, @PathVariable("teachercount") String teachercount, @PathVariable("carcount") String carcount) {
+        School school = schoolService.getSchoolBySchoolId(schoolid);
+
+        map.put("sid", school.getSId());
+        map.put("sbusinessId", school.getSBusinessId());
+        map.put("time", school.getSRegTime());
+        map.put("teachercount", teachercount);
+        map.put("carcount", carcount);
+        map.put("address", school.getSAddress());
+        map.put("studencount", studentCount);
+        map.put("score", score);
+        map.put("name", school.getSName());
+
+        map.put("linkList", linkServive.getFooterFriendLink());
+        return "/pages/index/inquire_school";
     }
 }

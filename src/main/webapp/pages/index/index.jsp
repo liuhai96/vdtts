@@ -36,7 +36,6 @@
                 <a target="_blank" href="<%=path+"/pages/homepage/login.jsp"%>">机构登录</a> |
                 <a href="<%=path+"/student"%>">学员登录</a> |
                 <a target="_blank" href="<%=path+"/pages/homepage/driving-in/driving-in.jsp"%>">驾校入驻</a>
-                <a href="<%=path+"/"%>"></a>
             </c:if>
             <c:if test="${sessionScope.student != null }">
                 <a href="<%=path+"/student"%>" id="studentName">欢迎您！ 学员: ${sessionScope.student.SName}</a>

@@ -28,8 +28,8 @@
 			<div class="layui-input-inline">
 				<select name="sRecruit" id="sRecruit">
 					<option value="">选择招生状态查询</option>
-					<option value="true">true</option>
-					<option value="false">false</option>
+					<option value="true">允许</option>
+					<option value="false">不允许</option>
 				</select>
 			</div>
 		</div>
@@ -38,8 +38,8 @@
 			<div class="layui-input-inline">
 				<select name="sLock" id="sLock">
 					<option value="">选择登录状态查询</option>
-					<option value="true">true</option>
-					<option value="false">false</option>
+					<option value="true">允许</option>
+					<option value="false">不允许</option>
 				</select>
 			</div>
 		</div>
@@ -112,6 +112,20 @@
 	              ]]
 	             , page: true
 		         , id: "test"
+			     , done: function (res, curr, count) {
+				$("[data-field='sVerification'],[data-field='sRecruit'],[data-field='sLock']").children().each(function () {
+					if ($(this).text() == '1') {
+						$(this).text("已通过")
+					} else if ($(this).text() == '0') {
+						$(this).text("未审核")
+					}else if ($(this).text() == 'true') {
+						$(this).text("允许")
+					} else if ($(this).text() == 'false') {
+						$(this).text("不允许")
+					}
+
+				});
+			}
 	        });
 //监听行工具事件
 		table.on('tool(test)', function(obj){

@@ -20,7 +20,7 @@
 		<div class="layui-inline">
 			<label class="layui-form-label">驾校名：</label>
 			<div class="layui-input-block">
-				<input type="text" name="sName" id="sName" placeholder="请输入姓名" class="layui-input">
+				<input type="text" name="sName" id="sName" placeholder="请输入驾校名" class="layui-input">
 			</div>
 		</div>
 		<div class="layui-inline">
@@ -28,8 +28,8 @@
 			<div class="layui-input-inline">
 				<select name="sVerification" id="sVerification">
 					<option value="">选择审核状态查询</option>
-					<option value=" ">未审核</option>
-					<option value="true">已通过</option>
+					<option value="0">未审核</option>
+					<option value="1">已通过</option>
 				</select>
 			</div>
 		</div>
@@ -38,8 +38,8 @@
 			<div class="layui-input-inline">
 				<select name="sRecruit" id="sRecruit">
 					<option value="">选择招生状态查询</option>
-					<option value="true">true</option>
-					<option value="false">false</option>
+					<option value="true">允许</option>
+					<option value="false">不允许</option>
 				</select>
 			</div>
 		</div>
@@ -48,8 +48,8 @@
 			<div class="layui-input-inline">
 				<select name="sLock" id="sLock">
 					<option value="">选择登录状态查询</option>
-					<option value="true">true</option>
-					<option value="false">false</option>
+					<option value="true">允许</option>
+					<option value="false">不允许</option>
 				</select>
 			</div>
 		</div>
@@ -102,12 +102,17 @@
 			]]
 			,page: true
 			, done: function (res, curr, count) {
-				$("[data-field='sVerification']").children().each(function () {
-					if ($(this).text() == 'true') {
+				$("[data-field='sVerification'],[data-field='sRecruit'],[data-field='sLock']").children().each(function () {
+					if ($(this).text() == '1') {
 						$(this).text("已通过")
-					} else if ($(this).text() == '') {
+					} else if ($(this).text() == '0') {
 						$(this).text("未审核")
+					}else if ($(this).text() == 'true') {
+						$(this).text("允许")
+					} else if ($(this).text() == 'false') {
+						$(this).text("不允许")
 					}
+
 				});
 			}
 		});
