@@ -26,6 +26,15 @@
     <script src="https://www.layuicdn.com/layui/layui.js"></script>
     <link href="https://www.layuicdn.com/layui/css/layui.css" rel="stylesheet" type="text/css"/>
     <script src="<%=path+"/static/custom_tool.js"%>"></script>
+    <style>
+        .inputdiv{
+            display:flex;border: 1px solid #D2D2D2!important;background-color: #fff;height: 38px;line-height: 38px;padding: 0px 19px;
+            border-radius: 19px;
+        }
+        .layui-input {
+            border-style: none;
+        }
+    </style>
 </head>
     <body background="<%=path+"/image/home-page/loginGround.png"%>" style="background-size: 100%">
     <input hidden="hidden" value="<%=path%>" id="path">
@@ -40,16 +49,32 @@
         <div class="layui-col-md3 layui-col-md-offset7" style="height: 70%;text-align: center;background: rgba(82,139,255,0.3);">
             <br><br><label style="font-size: 30px">欢迎登录</label><br><br><br>
             <form class="layui-form">
-                <input type="text" name="aAccount" required placeholder="请输入你的账号"
-                       class="layui-input" style="width: 67%;margin: 0 0 0 18%">
-                <label id="idNotify" style="color:#ff0a29;text-align: left;"></label>
+<%--                <input type="text" name="aAccount" required placeholder="请输入你的账号"--%>
+<%--                       class="layui-input" style="width: 67%;margin: 0 0 0 18%">--%>
+
+                <div class="layui-form-item">
+                    <div class="inputdiv" style="width: 60%;margin: 0 0 0 18%">
+                        <i class="layui-icon layui-icon-username"></i>
+                        <input type="text" name="aAccount" lay-verify="title" autocomplete="off"
+                               placeholder="请输入你的账号" class="layui-input" style="text-align:
+                                center;background-color: #f3fdff;">
+                    </div>
+                    <label id="idNotify" style="color:#ff0a29;text-align: left;"></label>
+                    <br><br>
+                    <div class="inputdiv" style="width: 60%;margin: 0 0 0 18%">
+                        <i class="layui-icon layui-icon-password"></i>
+                        <input type="password" name="aPassword" lay-verify="title" autocomplete="off"
+                               placeholder="请输入你的密码" class="layui-input" style="text-align:
+                                center;background-color: #f3fdff;">
+                        <i class="layui-icon layui-icon-face-surprised" id="viewN"
+                           onmousedown="PassView(true)" onmouseup="PassView(false)"></i>
+                    </div>
+                    <label id="passNotify" style="color:#ff0a29;text-align: left;"></label>
+                </div>
+
                 <br><br>
-                <input type="password" name="aPassword" required placeholder="请输入你的密码"
-                       class="layui-input" style="width: 67%;margin: 0 0 0 18%">
-                <label id="passNotify" style="color:#ff0a29;text-align: left;"></label>
-                <br><br>
-                <a href="" class="layui-col-md-offset6" style="color:#229bff;">忘记密码</a>|
-                <a href="<%=path+"/pages/homepage/register.jsp"%>" style="color:#229bff;">快速注册</a><br><br><br>
+<%--                <a href="" class="layui-col-md-offset6" style="color:#229bff;">忘记密码</a>|--%>
+<%--                <a href="<%=path+"/pages/homepage/register.jsp"%>" style="color:#229bff;">快速注册</a><br><br><br>--%>
 
                <input type="button" style="font-size: 25px" class="layui-btn layui-btn-normal"
                        value="&nbsp;&nbsp;登&nbsp;录&nbsp;&nbsp;" onclick="ToLogin()"><br><br><br>
@@ -60,6 +85,17 @@
             </form>
         </div>
         <script>
+            function PassView(vie) {
+                let aPassword = $("input[name = 'aPassword']");
+                let viewN = $("#viewN");
+                if (vie){
+                    aPassword.attr("type","text");
+                    viewN.attr("class","layui-icon layui-icon-face-smile");
+                } else {
+                    aPassword.attr("type","password");
+                    viewN.attr("class","layui-icon layui-icon-face-surprised");
+                }
+            }
             function ToLogin() {
                 let aAccount = $("input[name = 'aAccount']").val();
                 let idNotify = $("#idNotify");
