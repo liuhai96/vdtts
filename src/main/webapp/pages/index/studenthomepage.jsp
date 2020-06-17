@@ -21,8 +21,6 @@
     <link rel="stylesheet" href="https://www.layuicdn.com/layui-v2.5.6/css/layui.css" media="all">
     <link rel="stylesheet" href="<%=path+"/zjh_test/css/common.css"%>">
     <link rel="shortcut icon" type="image/x-icon" href="http://47.96.140.98:20034/static/img/logo_favicon.ico">
-    <script src="<%=path+"/zjh_test/js/hm.js"%>"></script>
-    <style type="text/css" abt="234"></style>
 
     <link rel="stylesheet" href="<%=path+"/zjh_test/css/style.css"%>">
     <link rel="stylesheet" href="<%=path+"/zjh_test/css/home_main.css"%>">

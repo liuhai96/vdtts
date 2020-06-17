@@ -30,13 +30,8 @@ public class EvaluateApi {
      * @param id   教练ID
      * @param page 页数
      * @return 20条评价
+     * @author JX181114 --- 郑建辉
      */
-    @GetMapping("{type}/{id}")
-    public LayuiFlowData<Evaluate> getTeacherEvaluatePageById(@PathVariable("id") Integer id,@PathVariable("type") String type, Integer page) {
-        Page<Evaluate> pageInfo = evaluateService.getEvaluateByTypeAndId(type, id, page);
-        return null;
-    }
-
     @GetMapping("teacher/{id}")
     public LayuiFlowData<Evaluate> getTeacherEvaluatePageById(@PathVariable("id") Integer id, Integer page) {
         return getEvaluatePageById(id, EvaluateType.TYPE_TEACHER, page);
@@ -48,6 +43,7 @@ public class EvaluateApi {
      * @param id   教练ID
      * @param page 页数
      * @return 20条评价
+     * @author JX181114 --- 郑建辉
      */
     @GetMapping("school/{id}")
     public LayuiFlowData<Evaluate> getSchoolEvaluatePageById(@PathVariable("id") Integer id, Integer page) {
@@ -61,6 +57,7 @@ public class EvaluateApi {
      * @param type 驾校或者教练
      * @param page 页数
      * @return 20条评价
+     * @author JX181114 --- 郑建辉
      */
     public LayuiFlowData<Evaluate> getEvaluatePageById(Integer id, String type, Integer page) {
         Page<Evaluate> pageInfo = evaluateService.getEvaluateByTypeAndId(type, id, page);

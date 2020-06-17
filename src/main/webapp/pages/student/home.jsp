@@ -20,17 +20,19 @@
     <link rel="stylesheet" href="<%=path+"/css/pages/student/reset.css"%>">
     <link rel="stylesheet" href="<%=path+"/css/pages/student/idangerous.swiper.css"%>">
     <link rel="stylesheet" href="<%=path+"/css/pages/student/jx_index.css"%>">
+    <link rel="stylesheet" href="https://www.layuicdn.com/layui-v2.5.6/css/layui.css" media="all">
+    <link rel="stylesheet" href="<%=path+"/css/pages/student/mnks_pc.css"%>">
+    <link rel="stylesheet" href="<%=path + "/css/pages/index/jx_video.css"%>">
+    <link rel="stylesheet" href="<%=path+"/css/pages/student/comm_style.css"%>">
+    <link rel="stylesheet" href="<%=path+"/css/pages/student/bootstrap.min.css"%>">
+    <link rel="stylesheet" href="<%=path+"/css/pages/student/comm_style.css"%>">
+    <link rel="stylesheet" href="<%=path+"/css/pages/student/footer.css"%>">
 </head>
 <body>
+<input type="hidden" id="userToken" value="${sessionScope.student.getSId()}">
+<input type="hidden" id="zjh_msg" value="${zjh_msg}">
 <div class="commonhead_line" style="border-top: 1px solid rgb(0, 195, 86); display: none;"></div>
 <div class="home">
-    <!--[if IE 9]>
-    <style type="text/css">
-        .rank_card_jx, .rank_card_jl, .rank_card_pl {
-            height: 640px !important;
-        }
-    </style>
-    <![endif]-->
     <div class="banner banner_top">
         <div class="swiper-container-banner" style="display: block;">
             <div class="swiper-wrapper"
@@ -131,110 +133,105 @@
             </ul>
         </div>
     </div>
-    <!--小车考试-->
-    <div class="car_s_exam">
-        <div class="car_s_exam_context">
-            <div class="title">小车理论考试</div>
-            <div class="exam_card">
-                <div class="exam_card_header">
-                    科目一交规
-                </div>
-                <div class="exam_card_body">
-                    <div>
-                        <a href="http://mnks.jxedt.com/ckm1/sxlx/" target="_blank"
-                           onclick="clickLog('from=JXEDT_HOME_LLKS_KM1_SSLX')"><span>顺序练习</span></a>
-                        <a href="http://mnks.jxedt.com/ckm1/sjlx/" target="_blank"
-                           onclick="clickLog('from=JXEDT_HOME_LLKS_KM1_SJLX')"><span>随机练习</span></a>
-                    </div>
-                    <div>
-                        <a href="http://mnks.jxedt.com/ckm1/zxlx/" target="_blank"
-                           onclick="clickLog('from=JXEDT_HOME_LLKS_KM1_ZXLX')"><span>专项练习</span></a>
-                        <a href="http://mnks.jxedt.com/ckm1/yct/" target="_blank"
-                           onclick="clickLog('from=JXEDT_HOME_LLKS_KM1_CTLX')"><span>易错题练习</span></a>
-                    </div>
-                </div>
-                <div class="exam_card_footer">
-<span>
-<a href="http://mnks.jxedt.com/ckm1/mnks/" target="_blank" onclick="clickLog('from=JXEDT_HOME_LLKS_KM1_MNLX&')">
-模拟考试
-</a>
-</span>
 
-                </div>
+
+    <div class="commonhead_line" style="border-top: 1px solid #00C356;"></div>
+</div>
+
+
+<br>
+<br>
+<br>
+
+<div class="commonhead_line" style="border-top: 1px solid #00C356;"></div>
+
+
+<div class="video-page">
+    <div class="video-main">
+        <p>位置：模拟考试</p>
+        <div style="width:937px;margin: 0px auto;">
+            <div class="tabCon nozgz">
+                <div id="course1" class="tab tab-active">科目一（交规）</div>
+                <div id="course4" class="tab">科目四（安全文明驾驶）</div>
             </div>
-            <div class="exam_card">
-                <div class="exam_card_header">
-                    科目四安全文明驾驶
+            <div class="topicCon">
+                <div style="margin-top: -10px;width: 699px;float: left;margin-left: 1px;">
+                    <table id="courseTestRecord" lay-filter="demo"></table>
                 </div>
-                <div class="exam_card_body">
+                <div class="topic_ks borderL">
                     <div>
-                        <a href="http://mnks.jxedt.com/ckm4/sxlx/" target="_blank"
-                           onclick="clickLog('from=JXEDT_HOME_LLKS_KM4_SSLX')"><span>顺序练习</span></a>
-                        <a href="http://mnks.jxedt.com/ckm4/sjlx/" target="_blank"
-                           onclick="clickLog('from=JXEDT_HOME_LLKS_KM4_SJLX')"><span>随机练习</span></a>
+                        <a id="test"
+                           style="float: left;text-align: center;width: 100%;height: 150px;margin-top: -45px;"
+                           class="lx-link"
+                           href="">
+                            <span class="topicIcon topic_mnks"></span>
+                            <p>模拟考试</p>
+                            <p class="topicDes">模拟在线真实考试</p>
+                        </a>
                     </div>
-                    <div>
-                        <a href="http://mnks.jxedt.com/ckm4/zxlx/" target="_blank"
-                           onclick="clickLog('from=JXEDT_HOME_LLKS_KM4_ZXLX')"><span>专项练习</span></a>
-                        <a href="http://mnks.jxedt.com/ckm4/yct/" target="_blank"
-                           onclick="clickLog('from=JXEDT_HOME_LLKS_KM4_CTLX')"><span>易错题练习</span></a>
+                    <div class="borderB height149">
+                        <a id="retest" style="float: left;text-align: center;width: 100%;height: 150px;"
+                           class="lx-link"
+                           href="">
+                            <span class="topicIcon topic_yct"></span>
+                            <p>错题重做</p>
+                            <p class="topicDes">准确把握考试难点</p>
+                        </a>
                     </div>
-                </div>
-                <div class="exam_card_footer">
-<span>
-<a href="http://mnks.jxedt.com/ckm4/mnks/" target="_blank" onclick="clickLog('from=JXEDT_HOME_LLKS_KM4_MNLX')">
-模拟考试
-</a>
-</span>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<link rel="stylesheet" href="<%=path+"/css/pages/student/bootstrap.min.css"%>">
-<link rel="stylesheet" href="<%=path+"/css/pages/student/comm_style.css"%>">
-<link rel="stylesheet" href="<%=path+"/css/pages/student/footer.css"%>">
+
+<div class="con">
+    <div class="main">
+        <div class="ksCon" style="margin: 0px auto;">
+            <div class="ksRight">
+
+            </div>
+        </div>
+    </div>
+</div>
 
 
-<script src="<%=path+"/js/pages/student/hm.js"%>"></script>
-<script src="<%=path+"/js/pages/student/jquery.1.12.4.js"%>"></script>
-<script src="<%=path+"/js/pages/student/cookie_tool.js"%>"></script>
-<!--[if lt IE 10]>
-<script type="text/javascript" src="//j1.58cdn.com.cn/dist/jxedt/pc/products/jxregister/js/placeholder.js?_t=20180710"
-        charset="utf-8"></script>
-<![endif]-->
+<br>
+<br>
+<br>
 
-<script>
-    function linkclick(obj) {
-        var baseurl = ""
-        switch (obj.getAttribute("linkrul")) {
-            case "jiaxiao":
-                baseurl = "http://jiaxiao.jxedt.com";
-                break;
-            case "jl":
-                baseurl = "http://jl.jxedt.com";
-                break;
-            case "pl":
-                baseurl = "http://pl.jxedt.com";
-                break;
-            default:
-                baseurl = "http:www.jxedt.com"
-        }
-        var afterurl = cookie.get("local_city_pingying");
-        if (null == afterurl) {
-            afterurl = "";
-        }
-        obj.href = baseurl + afterurl;
-    }
-</script>
-<script src="<%=path+"/js/pages/student/common_header.js"%>"></script>
-<script src="<%=path+"/js/pages/student/footer.js"%>"></script>
-<script src="<%=path+"/js/pages/student/common_footer.js"%>"></script>
-<script src="<%=path+"/js/pages/student/referrer_jxedt_pc.js"%>"></script>
-<script src="<%=path+"/js/pages/student/hits.js"%>"></script>
+<div class="commonhead_line" style="border-top: 1px solid #00C356;"></div>
 
-<script src="<%=path+"/js/pages/student/idangerous.swiper.min.js"%>"></script>
-<script src="<%=path+"/js/pages/student/jxindex.js"%>"></script>
+<div class="video-page">
+    <div class="video-main">
+        <p>位置：学车视频</p>
+        <!-- 学车视频左侧 -->
+        <div class="video-left">
+
+            <div class="video-left-bottom" id="jinxuan">
+                <ul class="car-video">
+                    <li level="2">
+                        <a class="active" href="javascript:void(0);">科目二</a>
+                    </li>
+                    <li level="3">
+                        <a href="javascript:void(0);">科目三</a>
+                    </li>
+                </ul>
+                <div class="car-video-border"></div>
+                <div class="car-video-list">
+                    <div class="mediawarp" id="videoList"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<br>
+<br>
+<br>
+
+<script src="https://www.layuicdn.com/layui/layui.js"></script>
+<script src="<%=path+"/js/pages/student/home.js"%>"></script>
 </body>
 </html>

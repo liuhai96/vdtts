@@ -54,8 +54,8 @@ public class ExamError
 	/**
 	 * 模拟考试记录ID
 	 */
-	@Column(name = "`ee_record_id`")
-	private Integer eeRecordId;
+	@Column(name = "`ee_student_id`")
+	private Integer eeStudentId;
 
 	/**
 	 *错题ID

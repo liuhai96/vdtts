@@ -7,8 +7,10 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="com.lsjbc.vdtts.utils.Tool" %>
 <%
     String path = request.getContextPath();
+    String today = new Tool().getDate("yyyy年MM月dd日");
 %>
 <html>
 <head>

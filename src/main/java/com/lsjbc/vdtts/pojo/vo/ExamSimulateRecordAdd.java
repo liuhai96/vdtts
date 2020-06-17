@@ -9,7 +9,6 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @ClassName: ExamSimulateRecordAdd
@@ -69,7 +68,7 @@ public class ExamSimulateRecordAdd {
         //遍历错题ID，生成错题对象
         try {
             for(int index = 0;index<errorQuestions.length;index++){
-                examErrors.add(ExamError.builder().eeRecordId(record.getEsrId()).eeQuestionId(errorQuestions[index]).build());
+                examErrors.add(ExamError.builder().eeStudentId(record.getEsrStudentId()).eeQuestionId(errorQuestions[index]).build());
             }
         } catch (Exception e) {
             log.error(e.getMessage());
