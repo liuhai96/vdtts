@@ -21,7 +21,7 @@
 			width: 100%;
 			height: 100%;
 			margin: 0 auto;
-			padding: 0 auto;
+			/*padding: 0 auto;*/
 		}
 
 		body {
@@ -175,8 +175,8 @@
 				data: data.field,
 				success: function (msg) {
 					if (msg.trim() == "success") {
-						layer.alert("后端登录成功");
-						location.href = 'adminmain.jsp';
+						layer.alert("管理端登录成功");
+						location.href = 'adminmenu.jsp';
 					} else {
 						alert(msg)
 					}

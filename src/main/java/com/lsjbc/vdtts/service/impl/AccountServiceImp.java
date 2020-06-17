@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * @author LiLang9725
@@ -97,7 +98,11 @@ public class AccountServiceImp implements AccountService {
         ResultData resultData = ResultData.success();
         account.setAPassword(tool.createMd5(account.getAPassword()));
         account = accountMapper.UserLogin(account);
-        System.out.println(JSON.toJSONString(account));
+        try{
+            request.getSession().setAttribute("account", account);
+            request.getSession().setAttribute("aId", account.getAId());
+            request.getSession().setAttribute("aType", account.getAType());
+        }catch (Exception e){}
         if(account != null){ //登录成功时
             switch (account.getAType()) {
                 case "school": //驾校登录界面地址
@@ -156,6 +161,7 @@ public class AccountServiceImp implements AccountService {
      *@Date:2020/6/13 14:34
      **/
     public ResultData verifyPass(Account account){
+        System.out.println(JSON.toJSONString(account));
         account = accountMapper.selectAccount(account);
         if(account != null) return ResultData.success("true");
         else return ResultData.success("false");
@@ -205,8 +211,8 @@ public class AccountServiceImp implements AccountService {
     }
 
     @Override
-    public int updateaccount(Account account) {
-        int updateaccount = accountMapper.updateaccount(account);
+    public int updateAdminAccount(AdminAccount adminAccount) {
+        int updateaccount = accountMapper.updateAdminAccount(adminAccount);
         return updateaccount;
     }
     /*
@@ -220,5 +226,11 @@ public class AccountServiceImp implements AccountService {
     public AdminAccount adminLogin(AdminAccount account) {
         AdminAccount adminLogin = accountMapper.adminLogin(account);
         return adminLogin;
+    }
+
+    @Override
+    public List<Menuitem> adminList(int roleId) {
+        List<Menuitem> adminList = accountMapper.adminList(roleId);
+        return adminList;
     }
 }

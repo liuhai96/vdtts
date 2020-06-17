@@ -14,4 +14,14 @@ import java.util.List;
  */
 public interface EvaluateMapper extends CustomBaseMapper<Evaluate> {
     public List<Evaluate> selectEvaluate(@Param("e")Evaluate evaluate);//查看评价 李浪
+
+    /*
+     *@Description:
+     *@Author:周永哲
+     *@Param:
+     *@return:
+     *@Date:2020/6/17
+     **/
+    public int schoolEvaluate (Evaluate evaluate);
+    public int teacherEvaluate (Evaluate evaluate);
 }
