@@ -1,5 +1,6 @@
 package com.lsjbc.vdtts.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.lsjbc.vdtts.dao.StudentDao;
 import com.lsjbc.vdtts.dao.TransManageDao;
 import com.lsjbc.vdtts.dao.mapper.*;
@@ -97,6 +98,11 @@ public class AccountServiceImp implements AccountService {
         ResultData resultData = ResultData.success();
         account.setAPassword(tool.createMd5(account.getAPassword()));
         account = accountMapper.UserLogin(account);
+        try{
+            request.getSession().setAttribute("account", account);
+            request.getSession().setAttribute("aId", account.getAId());
+            request.getSession().setAttribute("aType", account.getAType());
+        }catch (Exception e){}
         if(account != null){ //登录成功时
             switch (account.getAType()) {
                 case "school": //驾校登录界面地址
@@ -222,7 +228,7 @@ public class AccountServiceImp implements AccountService {
     }
 
     @Override
-    public  List<Menuitem> adminList(int roleId) {
+    public List<Menuitem> adminList(int roleId) {
         List<Menuitem> adminList = accountMapper.adminList(roleId);
         return adminList;
     }

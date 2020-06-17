@@ -198,7 +198,7 @@
                 } else sPhoneNotify.html("");
                 if (isPass){
                     AjaxTransfer($("#path").val()+"/SchoolControl/drivingIn","sName="+fName.val()+"&sBusinessPic="+
-                        sBusinessPic+"&sRecruit="+sRecruit+"&sOwnerId="+sOwnerId.val()+"&sAddress="+sAddress.val()+
+                        sBusinessPic+"&sOwnerPic="+sRecruit+"&sOwnerId="+sOwnerId.val()+"&sAddress="+sAddress.val()+
                         "&sPhone=" +sPhone.val()+"&sRegisteryFee="+$("input[name='sRegisteryFee']").val()+"&aPassword="
                         +aPassword.val(), function (mag) {
                         alert(mag.data.result);
