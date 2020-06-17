@@ -79,13 +79,13 @@
                     if (newPass.val().length < 6) alert("密码长度应大于6位");
                     else if (!done(newPass.val(),0,newPass.val().length)) alert("密码有非法字符！");
                     else if (newPass.val() != newPass2.val()) alert("设置密码不一致");
-                    else{
+                    else {
                         AjaxTransfer($("#path").val()+"/changePassword","aPassword="+newPass.val()
                             +"&aId="+$("#aId").val(), function (mag) {
                             if (mag.msg) {
                                 alert("修改成功！请重新登录");
-                                if(top.location!=self.location)top.location=window.open($("#path").
-                                val()+"/pages/index/index.jsp");//跳出iframe到指定位置
+                                if(top.location!=self.location)top.location=top.location = $("#path").
+                                val()+"/pages/index/index.jsp";//跳出iframe到指定位置
                             } else{
                                 alert("修改失败,请检查网络!");
                             }
