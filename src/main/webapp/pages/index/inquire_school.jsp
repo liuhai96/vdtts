@@ -42,7 +42,7 @@
 		<div class="inf-login">
 			<c:if test="${sessionScope.student == null }">
                 <a target="_blank" href="<%=path+"/back/adminlogin.jsp"%>">管理登录</a> |
-                <a target="_blank" href="<%=path+"/pages/homepage/login.jsp"%>">机构登录</a> |
+                <a target="_blank" href="<%=path+"/pages/index/institution.jsp"%>">机构登录</a> |
                 <a href="<%=path+"/student"%>">学员登录</a>
                 <a target="_blank" href="<%=path+"/pages/homepage/driving-in/driving-in.jsp"%>">驾校入驻</a>
 			</c:if>

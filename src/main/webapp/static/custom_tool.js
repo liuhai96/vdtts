@@ -26,6 +26,9 @@ function Skip(c) {//表单换页
 function skipPage(box) {
     window.location.href = $("#path").val()+box;
 }
+function skipAbsolute(box) {
+    if(top.location!=self.location)top.location=top.location = $("#path").val()+box;//跳出iframe到指定位置
+}
 function isContain(beingMeasured,con) {
     if (con == undefined)con = "~`!@#$%^&*()_+-=/\\?><., :;\"'~！@#￥%……&*（）——+·-=：“；”？》《。，、";
     for (let i = 0;i < con.length;i++){

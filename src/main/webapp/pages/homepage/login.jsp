@@ -25,6 +25,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <script src="https://www.layuicdn.com/layui/layui.js"></script>
     <link href="https://www.layuicdn.com/layui/css/layui.css" rel="stylesheet" type="text/css"/>
+    <link href="<%=path+"/css/pages/index/login.css"%>" rel="stylesheet" type="text/css">
     <script src="<%=path+"/static/custom_tool.js"%>"></script>
     <style>
         .inputdiv{
@@ -36,53 +37,44 @@
         }
     </style>
 </head>
-    <body background="<%=path+"/image/home-page/loginGround.png"%>" style="background-size: 100%">
+    <body>
     <input hidden="hidden" value="<%=path%>" id="path">
-        <div class="layui-col-md12" style="height: 20%;">
-            <br><label class="layui-col-md-offset3" style="font-size: 35px;color:#ffda90;"><%=schoolName%></label>
-            <br><label class="layui-col-md-offset4" style="font-size: 25px;color: crimson">机构登录</label><br>
-            <div class="layui-col-md-offset9" style="font-size: 18px;">
-                <a href="<%=path+"/pages/index/index.jsp"%>" style="color: #2aa8ff">首页</a>&nbsp;|
-                <a href="<%=path%>" style="color: #ffb840;background-color: #528bff">登录</a>
-            </div>
-        </div>
-        <div class="layui-col-md3 layui-col-md-offset7" style="height: 70%;text-align: center;background: rgba(82,139,255,0.3);">
-            <br><br><label style="font-size: 30px">欢迎登录</label><br><br><br>
-            <form class="layui-form">
-<%--                <input type="text" name="aAccount" required placeholder="请输入你的账号"--%>
-<%--                       class="layui-input" style="width: 67%;margin: 0 0 0 18%">--%>
-
-                <div class="layui-form-item">
-                    <div class="inputdiv" style="width: 60%;margin: 0 0 0 18%">
-                        <i class="layui-icon layui-icon-username"></i>
-                        <input type="text" name="aAccount" lay-verify="title" autocomplete="off"
-                               placeholder="请输入你的账号" class="layui-input" style="text-align:
-                                center;background-color: #f3fdff;">
-                    </div>
-                    <label id="idNotify" style="color:#ff0a29;text-align: left;"></label>
-                    <br><br>
-                    <div class="inputdiv" style="width: 60%;margin: 0 0 0 18%">
-                        <i class="layui-icon layui-icon-password"></i>
-                        <input type="password" name="aPassword" lay-verify="title" autocomplete="off"
-                               placeholder="请输入你的密码" class="layui-input" style="text-align:
-                                center;background-color: #f3fdff;">
-                        <i class="layui-icon layui-icon-face-surprised" id="viewN"
-                           onmousedown="PassView(true)" onmouseup="PassView(false)"></i>
-                    </div>
-                    <label id="passNotify" style="color:#ff0a29;text-align: left;"></label>
+    <p style="font-family: newword;color: #274472;font-size: 26px;text-align: center;height: 80px; margin-left: -230px;line-height: 110px;">
+        欢迎登录驾驶培训公共服务平台！</p>
+    <div class="main-box">
+<%--        <form action="">--%>
+            <p style="font-size: 18px;margin: 3% 0 3% 10%;">机构登录</p>
+            <ul class="reg-box">
+                <div class="inputdiv" style="width: 60%;margin: 0 0 0 18%">
+                    <i class="layui-icon layui-icon-username"></i>
+                    <input type="text" name="aAccount"
+                           placeholder="请输入你的账号" class="layui-input" style="text-align:
+                                center;background-color: #f3fdff;height: 100%">
                 </div>
-
+                <label id="idNotify" style="color:#ff0a29;text-align: left;"></label><br><br>
+                <div class="inputdiv" style="width: 60%;margin: 0 0 0 18%">
+                    <i class="layui-icon layui-icon-password"></i>
+                    <input type="password" name="aPassword"
+                           placeholder="请输入你的密码" class="layui-input" style="text-align:
+                                center;background-color: #f3fdff;height: 100%;width: 80%">
+                    <i class="layui-icon layui-icon-face-surprised" id="viewN"
+                       onmousedown="PassView(true)" onmouseup="PassView(false)"></i>
+                </div>
+                <label id="passNotify" style="color:#ff0a29;text-align: left;"></label><br><br>
+                <li>
+                    <div style="width: 80%;margin: 0 0 0 18%">
+                        <input type="text" value="" placeholder="验证码" class="input-val sradd photokey" style="height: 35px;width: 25%;">
+                        <canvas id="canvas" class="" style="height: 35px;background-color: ghostwhite; margin: 0 0 0 10%;width: 65%"></canvas>
+                    </div><br>
+                </li>
+            </ul>
+            <div class="sub space">
+                <button class="btn layui-btn layui-btn-normal layui-btn-radius" id="dd" type="submit">登录</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                <br><br><br>
                 <br><br>
-<%--                <a href="" class="layui-col-md-offset6" style="color:#229bff;">忘记密码</a>|--%>
-<%--                <a href="<%=path+"/pages/homepage/register.jsp"%>" style="color:#229bff;">快速注册</a><br><br><br>--%>
-
-               <input type="button" style="font-size: 25px" class="layui-btn layui-btn-normal"
-                       value="&nbsp;&nbsp;登&nbsp;录&nbsp;&nbsp;" onclick="ToLogin()"><br><br><br>
-                <a href="https://graph.qq.com/oauth2.0/show?which=Login&display=pc&response_type=code&client_id=100227517
-                &redirect_uri=http%3A%2F%2Fauth.cysq.com%2Flogin%2Fapp_QQ.php%3Fstyle%3D" class="layui-col-md-offset7">
-                    <i class="layui-icon" style="width: 40px;height: 40px;color: crimson">&#xe676;</i>QQ登录账号</a><!-- QQ登录接口 -->
-
-            </form>
+                <button class="" id="cc"  style="display: block;" type="button">重置</button>&nbsp;&nbsp;&nbsp;&nbsp;
+            </div><br><br>
+            <div class="layui-layer-move"></div>
         </div>
         <script>
             function PassView(vie) {
@@ -96,7 +88,7 @@
                     viewN.attr("class","layui-icon layui-icon-face-surprised");
                 }
             }
-            function ToLogin() {
+            function toService() {
                 let aAccount = $("input[name = 'aAccount']").val();
                 let idNotify = $("#idNotify");
                 let aPassword = $("input[name = 'aPassword']").val();
@@ -116,7 +108,7 @@
                 if (!isStop){
                     AjaxTransfer($("#path").val()+"/userLogin","aAccount="+aAccount+"&aPassword="+aPassword,function (mag) {
                         alert(mag.msg);//提示信息
-                        skipPage($("#path").val()+"/"+mag.data.url);//路径跳转路径
+                        skipAbsolute("/"+mag.data.url);//路径跳转路径
                     });
                 }
             }
