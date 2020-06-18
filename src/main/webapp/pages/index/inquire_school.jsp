@@ -61,7 +61,7 @@
 			<p class="top-title-p1">机动车驾驶员计时培训系统</p>
 			<p class="top-title-p2">Timing training system for motor vehicle drivers</p>
 		</div>
-		<form id="searchSchoolOrTeacher" action="<%=path+"inquire"%>" class="top-search">
+		<form id="searchSchoolOrTeacher" action="<%=path+"/../../../inquire"%>" class="top-search">
 			<select name="type">
 				<option value="school">驾培机构</option>
 				<option value="teacher">教练员</option>
