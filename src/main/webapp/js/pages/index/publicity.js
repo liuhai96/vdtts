@@ -56,11 +56,13 @@ layui.use(['laytpl','laypage'], function() {
 
     //点击通知公告时，通过分页插件获取数据
     $("#selectOne").on("click", function (event) {
+        name = $("#selectTitle").val("");
         searchList("notice", 1, "");
     });
 
     //点击法律法规时，通过分页插件获取数据
     $("#selectThree").on("click", function (event) {
+        name = $("#selectTitle").val("");
         searchList("law", 1, "");
     });
 
