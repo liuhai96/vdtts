@@ -235,7 +235,7 @@ public class SchoolServiceImpl implements SchoolService
 	}
 
 
-    @Override
+    @Override//驾驶入驻
     public ResultData schoolToProduct(School school, String id){
         ResultData resultData = ResultData.success();
         if(schoolMapper.addSchool(school) > 0){
@@ -301,8 +301,6 @@ public class SchoolServiceImpl implements SchoolService
 			detail.setTeacherCount(teacherDao.getCountBySchoolId(schoolId));
 			detail.setStudentCount(studentDao.getStudentCountBySchoolId(schoolId));
 			details.getResult().add(detail);
-			//生成跳转路径，必须
-			detail.generateInfoUrl();
 		});
 
 		return details;

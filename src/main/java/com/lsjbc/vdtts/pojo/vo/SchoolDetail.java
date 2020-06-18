@@ -78,12 +78,4 @@ public class SchoolDetail {
                 .address(school.getSAddress()).build();
         return detail;
     }
-    /**
-     * 生成详细信息的跳转界面
-     *
-     * @author JX181114 --- 陈竑霖
-     */
-    public void generateInfoUrl() {
-        this.urlInfo="inquire/school/" + id + "/" + score + "/" + studentCount + "/" + teacherCount+ "/" +carCount;
-    }
 }
