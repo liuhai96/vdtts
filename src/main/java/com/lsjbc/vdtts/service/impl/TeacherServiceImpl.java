@@ -338,25 +338,23 @@ public class TeacherServiceImpl implements TeacherService {
         System.out.println("setSSfz1=" + student);
         ResultData resultData = null;
         System.out.println("setSSfz=" + student);
+        Integer  tTeacherId = Integer.parseInt(request.getParameter("teacherId"));
         student= studentMapper.insSfz(student);
-        Integer  teacherId = Integer.parseInt(request.getParameter("teacherId"));
-        String teacher=teacherMapper.findteacher(teacherId);
-        Integer  schoolId = Integer.parseInt(request.getParameter("schoolId"));
+        System.out.println("setSSfz=" + student+"asdasd"+tTeacherId);
         if (student != null)
         { //查询
 //
             if (student.getSTeacherId() == null)
             {
-                int num =studentMapper.updateStudentTecaherId(teacherId,schoolId,student);
+                Teacher teacher=teacherMapper.fteacher(tTeacherId);
+                int num =studentMapper.updateStudentTecaherId(tTeacherId,teacher.getTSchoolId(),student);
                 resultData = ResultData.error(1, "报名教练成功");
             } else
             {
                 resultData = ResultData.error(2, "该学员已报名其他教练");
             }
-        } else
-        {
-            resultData = ResultData.error(3, "未该有此学员信息请先去注册");
-
+        } else {
+                resultData = ResultData.error(3, "未该有此学员信息请先去注册");
         }
         return resultData;
     }

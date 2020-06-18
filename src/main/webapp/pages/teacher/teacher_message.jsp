@@ -128,8 +128,7 @@
                     AjaxTransfer($("#path").val()+"/teacherController/updatePhone",
                         "tPhone="+phone.val()+"&tAccountId="+$("#aId").val(),function (mag) {
                             if (confirm(mag.msg+"是否重新登录")){
-                                if(top.location!=self.location)top.location=top.location = $("#path").
-                                val()+"/pages/homepage/login.jsp";//跳出iframe到指定位置
+                                skipAbsolute("/transfer?logo=logout");//跳出iframe到指定位置
                             }
                         });
                 }

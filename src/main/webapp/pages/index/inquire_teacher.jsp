@@ -34,9 +34,9 @@
         <div class="inf-login">
             <c:if test="${sessionScope.student == null }">
                 <a target="_blank" href="<%=path+"/back/adminlogin.jsp"%>">管理登录</a> |
-                <a target="_blank" href="<%=path+"/pages/index/institution.jsp"%>">机构登录</a>|
+                <a target="_blank" href="<%=path+"/transfer?logo=institutionLogin"%>">机构登录</a> |
                 <a href="<%=path+"/student"%>">学员登录</a> |
-                <a target="_blank" href="<%=path+"/pages/homepage/driving-in/driving-in.jsp"%>">驾校入驻</a>
+                <a target="_blank" href="<%=path+"/transfer?logo=schoolIn"%>">驾校入驻</a>
             </c:if>
             <c:if test="${sessionScope.student != null }">
                 <a href="<%=path+"/student"%>" id="studentName">欢迎您！ 学员: ${sessionScope.student.SName}</a>
@@ -198,7 +198,7 @@
 <script>
     layui.use(['laytpl', 'flow','layer'], function () {
         var laytpl = layui.laytpl
-            , $ = layui.jquery
+            , $ = layui.$
             , flow = layui.flow
 	        , layer = layui.layer;
 
@@ -256,14 +256,14 @@
 
 	    var active = {
 		    notice: function () {
-			    layer.open({
+			    var index = layer.open({
 				    type: 1
 				    ,
 				    title: '学员报名'
 				    ,
 				    closeBtn: true
 				    ,
-				    area: '500px;'
+				    area: '400px;'
 				    ,
 				    shade: 0.8
 				    ,
@@ -275,13 +275,17 @@
 				    ,
 				    moveType: 1
 				    ,
-				    offset: ['100px', '50px'],
-
-				    content: '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">欢迎报名宏鑫驾校！<br>姓名<br><input type="text" name="sName" id="sName" placeholder="请输入姓名" class="layui-input" ><br>身份证<br><input type="text" name="sSfz" id="sSfz" placeholder="请输入身份证" class="layui-input" > </div>'
+				    offset: ['100px', '300px']
+                    ,
+				    content: '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">' +
+                            '欢迎报名该教练！' +
+                            '<br>姓名<br><input type="text" name="sName" id="sName" placeholder="请输入姓名" class="layui-input" >' +
+                            '<br>身份证<br><input type="text" name="sSfz" id="sSfz" placeholder="请输入身份证" class="layui-input" > ' +
+                            '</div>'
 				    ,
 				    yes: function (index, layer) {
                         let sName = $("#sName").val();
-                        let teacherId = $("#teacherId").val();
+                        let teacherId = $("#teacherId").html();
                         let sSfz = $("#sSfz").val();
                         $.ajax({
                             type: 'get',
@@ -293,16 +297,9 @@
                                 ,teacherId:teacherId
                             },
                             success: function (remsg) {
-                                if (remsg.code == 1) {
-                                    layer.msg(remsg.msg);
-                                    layer.close(index);
-                                } else if (remsg.code == 2) {
-                                    layer.msg(remsg.msg);
-                                    layer.close(index);
-                                } else {
-                                    layer.msg(remsg.msg);
-                                    layer.close(index);
-                                }
+                                console.log(remsg);
+                                alert(remsg.msg);
+                                layer.close(index);
                             }
                         })
                     }
