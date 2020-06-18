@@ -234,7 +234,7 @@ public class SchoolServiceImpl implements SchoolService
 	}
 
 
-    @Override
+    @Override//驾驶入驻
     public ResultData schoolToProduct(School school, String id){
         ResultData resultData = ResultData.success();
         if(schoolMapper.addSchool(school) > 0){
