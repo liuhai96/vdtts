@@ -54,11 +54,6 @@ public class TeacherDetail {
     private String schoolName;
 
     /**
-     * 详细信息跳转路径
-     */
-    private String infoUrl;
-
-    /**
      * 把平均分转换为小数点后保留一位的分数
      *
      * @param score 分数
@@ -93,15 +88,6 @@ public class TeacherDetail {
 
 
         return detail;
-    }
-
-    /**
-     * 生成详细信息的跳转界面
-     *
-     * @author JX181114 --- 郑建辉
-     */
-    public void generateInfoUrl() {
-        setInfoUrl("inquire/teacher/" + id + "/" + score + "/" + studentCount + "/" + schoolName);
     }
 
 

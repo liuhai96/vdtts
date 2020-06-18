@@ -8,7 +8,7 @@ layui.use(['form', 'table', 'element', 'layer'], function () {
     let msg = $("#zjh_msg").val();
 
     if (msg.length > 0) {
-        layer.msg(msg, {icon: 0});
+        alert(msg);
     }
 
     let path = window.document.location.href.substring(0, (window.document.location.href).indexOf(window.document.location.pathname));

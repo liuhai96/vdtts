@@ -35,7 +35,7 @@
             <c:if test="${sessionScope.student == null }">
                 <a target="_blank" href="<%=path+"/back/adminlogin.jsp"%>">管理登录</a> |
                 <a target="_blank" href="<%=path+"/transfer?logo=institutionLogin"%>">机构登录</a> |
-                <a href="<%=path+"/student"%>">学员登录</a>
+                <a href="<%=path+"/student"%>">学员登录</a> |
                 <a target="_blank" href="<%=path+"/transfer?logo=schoolIn"%>">驾校入驻</a>
             </c:if>
             <c:if test="${sessionScope.student != null }">
@@ -53,7 +53,7 @@
             <p class="top-title-p1">机动车驾驶员计时培训系统</p>
             <p class="top-title-p2">Timing training system for motor vehicle drivers</p>
         </div>
-        <form id="searchSchoolOrTeacher" action="<%=path+"/../../../inquire"%>" class="top-search">
+        <form id="searchSchoolOrTeacher" action="<%=path+"inquire"%>" method="post" class="top-search">
             <select name="type">
                 <option value="school">驾培机构</option>
                 <option value="teacher">教练员</option>
@@ -127,7 +127,9 @@
                 </div>
                 <span style="font-size: 17px;color: #65B0F1;">${score}</span>
             </div>
-
+	        <div class="site-demo-button" id="layerDemo" style="margin-bottom: 0; text-align: center">
+		        <button data-method="notice" data-type="auto" class="layui-btn">学生报名</button>
+	        </div>
             <p></p>
         </div>
     </div>
@@ -189,11 +191,14 @@
 <script src="<%=path+"/js/pages/index/auto_area.js"%>"></script>
 <script src="<%=path+"/js/pages/index/common.js"%>"></script>
 <script src="<%=path+"/js/pages/index/commonpage.js"%>"></script>
+
+<SCRIPT src="<%=path+"/js/pages/index/inquireSchDetails.js"%>"></SCRIPT>
 <script>
-    layui.use(['laytpl', 'flow'], function () {
+    layui.use(['laytpl', 'flow','layer'], function () {
         var laytpl = layui.laytpl
             , $ = layui.jquery
-            , flow = layui.flow;
+            , flow = layui.flow
+	        , layer = layui.layer;
 
 
         let path = window.document.location.href.substring(0, (window.document.location.href).indexOf(window.document.location.pathname));
@@ -241,6 +246,67 @@
                 })
             }
         });
+
+	    $('.layui-btn').on('click', function () {
+		    var othis = $(this), method = othis.data('method');
+		    active[method] ? active[method].call(this, othis) : '';
+	    });
+
+	    var active = {
+		    notice: function () {
+			    layer.open({
+				    type: 1
+				    ,
+				    title: '学员报名'
+				    ,
+				    closeBtn: true
+				    ,
+				    area: '500px;'
+				    ,
+				    shade: 0.8
+				    ,
+				    id: 'LAY_layuipro'
+				    ,
+				    btn: ['立即报名', '残忍拒绝']
+				    ,
+				    btnAlign: 'c'
+				    ,
+				    moveType: 1
+				    ,
+				    offset: ['100px', '50px'],
+
+				    content: '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">欢迎报名宏鑫驾校！<br>姓名<br><input type="text" name="sName" id="sName" placeholder="请输入姓名" class="layui-input" ><br>身份证<br><input type="text" name="sSfz" id="sSfz" placeholder="请输入身份证" class="layui-input" > </div>'
+				    ,
+				    yes: function (index, layer) {
+                        let sName = $("#sName").val();
+                        let teacherId = $("#teacherId").val();
+                        let sSfz = $("#sSfz").val();
+                        $.ajax({
+                            type: 'get',
+                            url: '/teacherController/checksSfz',
+                            dataType: 'JSON',
+                            data: {
+                                sName: sName
+                                , sSfz: sSfz
+                                ,teacherId:teacherId
+                            },
+                            success: function (remsg) {
+                                if (remsg.code == 1) {
+                                    layer.msg(remsg.msg);
+                                    layer.close(index);
+                                } else if (remsg.code == 2) {
+                                    layer.msg(remsg.msg);
+                                    layer.close(index);
+                                } else {
+                                    layer.msg(remsg.msg);
+                                    layer.close(index);
+                                }
+                            }
+                        })
+                    }
+                })
+            }
+        }
     });
 
 </script>

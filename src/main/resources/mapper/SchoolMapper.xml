@@ -51,13 +51,6 @@
         update tb_school set  s_lock='true' where s_id = #{sId}
     </update>
 
-<!--    &lt;!&ndash;    sfz&ndash;&gt;-->
-<!--    <update id="apply" parameterType="com.lsjbc.vdtts.entity.School">-->
-<!--        select s_sfz from tb_student-->
-<!--        <where>-->
-<!--            <if></if>-->
-<!--        </where>-->
-<!--    </update>-->
 
 <!--    刘海-->
     <select id="findSchoolInfo" resultType="com.lsjbc.vdtts.entity.School" parameterType="int">

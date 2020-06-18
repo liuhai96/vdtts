@@ -36,7 +36,7 @@
             <c:if test="${sessionScope.student == null }">
                 <a target="_blank" href="<%=path+"/back/adminlogin.jsp"%>">管理登录</a> |
                 <a target="_blank" href="<%=path+"/transfer?logo=institutionLogin"%>">机构登录</a> |
-                <a href="<%=path+"/student"%>">学员登录</a>
+                <a href="<%=path+"/student"%>">学员登录</a> |
                 <a target="_blank" href="<%=path+"/transfer?logo=schoolIn"%>">驾校入驻</a>
             </c:if>
             <c:if test="${sessionScope.student != null }">
@@ -54,7 +54,7 @@
             <p class="top-title-p1">机动车驾驶员计时培训系统</p>
             <p class="top-title-p2">Timing training system for motor vehicle drivers</p>
         </div>
-        <form id="searchSchoolOrTeacher" action="<%=path+"/../../../inquire"%>" class="top-search">
+        <form id="searchSchoolOrTeacher" action="<%=path+"inquire"%>" method="post" class="top-search">
             <select name="type">
                 <option value="school">驾培机构</option>
                 <option value="teacher">教练员</option>
@@ -140,29 +140,36 @@
                     <textarea title="消息模版" id="SCHOOL_tpl" style="display:none;">
                             {{# layui.each(d.data, function(index, item){ }}
                             <li class="list-school">
-                                <a href="<%=path%>{{ item.urlInfo }}">
-                                    <img src="<%=path+"/image/pages/index/sch6.jpg"%>">
-                                </a>
-                                <div class="inf-school">
-                                    <a href="<%=path%>{{ item.urlInfo }}">
-                                        <p class="word-1" title="{{ item.name }}">{{ item.name }}</p>
+                                <form action="<%=path+"/school"%>" method="post" id="schoolForm{{ item.id }}">
+                                    <input type="hidden" name="schoolid" value="{{ item.id }}">
+                                    <input type="hidden" name="score" value="{{ item.score }}">
+                                    <input type="hidden" name="studentCount" value="{{ item.studentCount }}">
+                                    <input type="hidden" name="teachercount" value="{{ item.teacherCount }}">
+                                    <input type="hidden" name="carcount" value="{{ item.carCount }}">
+                                    <a href="javascript:;" onclick="document:schoolForm{{ item.id }}.submit()">
+                                        <img src="<%=path+"/image/pages/index/sch6.jpg"%>">
                                     </a>
-                                    <p style="float: left;">综合评分：</p>
-                                    <div class="atar_Show" style="display:inline;">
-                                        <p class="scoreStar" tip="{{ item.score }}"></p>
+                                    <div class="inf-school">
+                                        <a href="javascript:;" onclick="document:schoolForm{{ item.id }}.submit()">
+                                            <p class="word-1" title="{{ item.name }}">{{ item.name }}</p>
+                                        </a>
+                                        <p style="float: left;">综合评分：</p>
+                                        <div class="atar_Show" style="display:inline;">
+                                            <p class="scoreStar" tip="{{ item.score }}"></p>
+                                        </div>
+                                        <span>{{ item.score }}分</span>
+                                        <p></p>
+                                        <p>
+                                            <span>教练员数：{{ item.teacherCount }}人</span>
+                                            <span style="margin-left: 35px;">教练车数：{{ item.carCount }}台</span>
+                                        </p>
+                                        <p>
+                                            <span>总学员数：{{ item.studentCount }}人</span>
+                                        </p>
+                                        <p title="{{ item.address }}"
+                                           style="overflow: hidden;text-overflow: ellipsis;white-space: nowrap;width: 275px;display: block;text-align: left;">地址：{{ item.address }}</p>
                                     </div>
-                                    <span>{{ item.score }}分</span>
-                                    <p></p>
-                                    <p>
-                                        <span>教练员数：{{ item.teacherCount }}人</span>
-                                        <span style="margin-left: 35px;">教练车数：{{ item.carCount }}台</span>
-                                    </p>
-                                    <p>
-                                        <span>总学员数：{{ item.studentCount }}人</span>
-                                    </p>
-                                    <p title="{{ item.address }}"
-                                       style="overflow: hidden;text-overflow: ellipsis;white-space: nowrap;width: 275px;display: block;text-align: left;">地址：{{ item.address }}</p>
-                                </div>
+                                </form>
                             </li>
                             {{# }); }}
                         </textarea>
@@ -208,27 +215,33 @@
                     <textarea title="消息模版" id="TEACHER_tpl" style="display:none;">
                         {{# layui.each(d.data, function(index, item){ }}
                         <li class="list-student">
-                            <a href="<%=path%>{{ item.infoUrl }}">
-                                <img width="142px;" height="191px;"
-                                     src="<%=path+"/image/pages/index/53461368581418814_23418.jpg"%>">
-                            </a>
-                            <div class="inf-student">
-                                <a href="<%=path%>{{ item.infoUrl }}">
-                                    <p class="word-1">{{ item.name }}</p>
+                            <form action="<%=path+"/teacher"%>" method="post" id="teacherForm{{ item.id }}">
+                                <input type="hidden" name="teacherId" value="{{ item.id }}">
+                                <input type="hidden" name="score" value="{{ item.score }}">
+                                <input type="hidden" name="studentCount" value="{{ item.studentCount }}">
+                                <input type="hidden" name="school" value="{{ item.schoolName }}">
+                                <a href="javascript:;" onclick="document:teacherForm{{ item.id }}.submit()">
+                                    <img width="142px;" height="191px;"
+                                         src="<%=path+"/image/pages/index/53461368581418814_23418.jpg"%>">
                                 </a>
-                                <p style="float: left;">综合星级：</p>
-                                <div class="atar_Show" style="display:inline;">
-                                    <p class="scoreStar" tip="{{ item.score }}"></p>
+                                <div class="inf-student">
+                                    <a href="javascript:;" onclick="document:teacherForm{{ item.id }}.submit()">
+                                        <p class="word-1">{{ item.name }}</p>
+                                    </a>>
+                                    <p style="float: left;">综合星级：</p>
+                                    <div class="atar_Show" style="display:inline;">
+                                        <p class="scoreStar" tip="{{ item.score }}"></p>
+                                    </div>
+                                    <span>{{ item.score }}分</span>
+                                    <p></p>
+                                    <p>
+                                        <span>性别：{{ item.sex }}</span>
+                                        <span style="margin-left: 45px;">年龄：{{ item.age }}岁</span>
+                                    </p>
+                                    <p><span>总学员数：{{ item.studentCount }}人</span></p>
+                                    <p style="overflow: hidden;text-overflow: ellipsis;white-space: nowrap;width: 275px;display: block;text-align: left;">所属驾培机构：{{ item.schoolName }}</p>
                                 </div>
-                                <span>{{ item.score }}分</span>
-                                <p></p>
-                                <p>
-                                    <span>性别：{{ item.sex }}</span>
-                                    <span style="margin-left: 45px;">年龄：{{ item.age }}岁</span>
-                                </p>
-                                <p><span>总学员数：{{ item.studentCount }}人</span></p>
-                                <p style="overflow: hidden;text-overflow: ellipsis;white-space: nowrap;width: 275px;display: block;text-align: left;">所属驾培机构：{{ item.schoolName }}</p>
-                            </div>
+                            </form>
                         </li>
                         {{# }); }}
                     </textarea>

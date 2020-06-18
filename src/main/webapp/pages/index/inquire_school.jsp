@@ -43,7 +43,7 @@
 			<c:if test="${sessionScope.student == null }">
                 <<a target="_blank" href="<%=path+"/back/adminlogin.jsp"%>">管理登录</a> |
                 <a target="_blank" href="<%=path+"/transfer?logo=institutionLogin"%>">机构登录</a> |
-                <a href="<%=path+"/student"%>">学员登录</a>
+                <a href="<%=path+"/student"%>">学员登录</a> |
                 <a target="_blank" href="<%=path+"/transfer?logo=schoolIn"%>">驾校入驻</a>
 			</c:if>
 			<c:if test="${sessionScope.student != null }">
@@ -61,7 +61,7 @@
 			<p class="top-title-p1">机动车驾驶员计时培训系统</p>
 			<p class="top-title-p2">Timing training system for motor vehicle drivers</p>
 		</div>
-		<form id="searchSchoolOrTeacher" action="<%=path+"/../../../inquire"%>" class="top-search">
+		<form id="searchSchoolOrTeacher" action="<%=path+"inquire"%>" method="post" class="top-search">
 			<select name="type">
 				<option value="school">驾培机构</option>
 				<option value="teacher">教练员</option>
@@ -106,7 +106,7 @@
 	<DIV class="del-lun">
 	</DIV>
 	<DIV style="float: left">
-		<IMG style="height: 260px; width: 900px;" src="<%=path%>/static/layui/images/photo/06.png">
+		<IMG style="height: 260px; width: 700px;" src="<%=path%>/static/layui/images/photo/06.png">
 	</DIV>
 	<DIV class="del-schinf">
 		<P class="del-p"><span>${name}</span><IMG src="<%=path%>/image/pages/index/tower.png"></P>
@@ -126,10 +126,10 @@
 			</p>
 
 			<p><b>地址：</b>
-				<span id="address">${address}</span>
-				<b style="margin-left: 182px;">学员总人数：</b>
-				<span>${studencount}</span>人
-			</p>
+				<span id="address">${address}</span></p>
+			<p>
+				<b>学员总人数：</b>
+				<span>${studencount}</span>人</p>
 			<hr>
 			<p>
 				<b style="float: left;">综合星级：</b>
@@ -279,7 +279,7 @@
 		var laytpl = layui.laytpl
 				, $ = layui.$
 				, flow = layui.flow
-				, layer = layui.layer;
+			    , layer = layui.layer;
 
 
 		function showStar() {
@@ -373,7 +373,6 @@
 						let sName = $("#sName").val();
 						let schoolId = $("#schoolId").val();
 						let sSfz = $("#sSfz").val();
-						let sSfz2 = $("#path").val() + '/SchoolControl/insSfz';
 						$.ajax({
 							type: 'get',
 							url: '/SchoolControl/insSfz',
@@ -381,6 +380,7 @@
 							data: {
 								sName: sName
 								, sSfz: sSfz
+								,schoolId:schoolId
 							},
 							success: function (remsg) {
 								if (remsg.code == 1) {
