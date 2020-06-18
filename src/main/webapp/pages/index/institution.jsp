@@ -77,9 +77,11 @@
                 <img src="<%=path+"/image/pages/index/menu_publicity1.png"%>">
                 <a href="<%=path+"/publicity/notice/1/-1"%>">公开公示</a>
             </li>
-            <li id="menu-title-three">
-                <img src="<%=path+"/image/pages/index/menu_inquire1.png"%>">
-                <a href="<%=path+"/inquire"%>">信息查询</a></li>
+            <li id="menu-title-three" style="display: block;cursor:hand;">
+                <form id="jumpToInquire" action="<%=path+"inquire"%>" method="post">
+                    <img src="<%=path+"/image/pages/index/menu_inquire1.png"%>">
+                    <a onclick="document:jumpToInquire.submit()">信息查询</a>
+                </form>
             </li>
             <li id="menu-title-six" class="layui-this menu-title-bg">
                 <img src="<%=path+"/image/pages/index/menu_student1.png"%>">

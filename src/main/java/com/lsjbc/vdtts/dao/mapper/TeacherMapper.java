@@ -38,7 +38,7 @@ public interface TeacherMapper extends CustomBaseMapper<Teacher> {
     public List<Teacher> teacherlist(@Param("e") Teacher teacher, @Param("start") int start, @Param("pageSize") int pageSize);
     public Teacher findAccount(@Param("e")Account account);//李浪 登录用的查找
     //教练归属驾校查找
-    public String findteacher(@Param("tTeacherId")Integer  tTeacherId);
+    public Teacher fteacher(@Param("tTeacherId")Integer  tTeacherId);
     /*
      *@Description:
      *@Author:周永哲

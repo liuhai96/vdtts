@@ -75,9 +75,9 @@
         select * from tb_student where s_sfz = #{sSfz} and s_name = #{sName}
     </select><!-- 查身份证 -->
 
-    <select id="findsfz" resultType="com.lsjbc.vdtts.entity.Student">
-        select * from tb_student where s_sfz = #{sSfz}
-    </select>
+<!--    <select id="findsfz" resultType="com.lsjbc.vdtts.entity.Student">-->
+<!--        select * from tb_student where s_sfz = #{sSfz}-->
+<!--    </select>-->
 
     <update id="inschool" parameterType="com.lsjbc.vdtts.entity.Student" >
         update tb_student set s_school_id = #{sSchoolId} where s_sfz = #{e.sSfz}
