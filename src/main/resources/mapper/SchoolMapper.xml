@@ -107,4 +107,17 @@
     <insert id="updateSchool" parameterType="com.lsjbc.vdtts.entity.School">
         update tb_school set s_name =#{sName}, s_address=#{sAddress}, s_phone=#{sPhone}, s_recruit=#{sRecruit}, s_lock=#{sLock} where s_id =#{sId}
     </insert>
+
+<!--    刘海-->
+    <update id="updateSchoolBasicInfo" parameterType="com.lsjbc.vdtts.entity.School">
+        update tb_school set s_address = #{sAddress},s_phone = #{sPhone} where s_id = #{sId}
+    </update>
+
+    <select id="findSchoolPwd" parameterType="int" resultType="java.lang.String">
+        select a_password from tb_account where a_id=#{aId}
+    </select>
+
+    <update id="updateSchoolPwd">
+        update tb_account set a_password = #{aPassword} where a_id=#{aId}
+    </update>
 </mapper>

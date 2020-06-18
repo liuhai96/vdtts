@@ -124,10 +124,13 @@
                     let phone = $("#phone");
                     if (phone.val().length < 3 || phone.val().length > 15) {alert("联系方式长度为3~15");return;}
                     else if (!number.test(phone.val())) {alert("联系方式为纯数字");return;}
+                    if ($("#tPhone").val() == phone.val()) {alert("你并未更改信息，不用提交");return;}
                     AjaxTransfer($("#path").val()+"/teacherController/updatePhone",
                         "tPhone="+phone.val()+"&tAccountId="+$("#aId").val(),function (mag) {
-                            alert(mag.msg);
-                            skipPage($("#path").val()+"/pages/homepage/home-page.jsp?logout=cc632ef332fex2ee3010012e");
+                            if (confirm(mag.msg+"是否重新登录")){
+                                if(top.location!=self.location)top.location=top.location = $("#path").
+                                val()+"/pages/homepage/login.jsp";//跳出iframe到指定位置
+                            }
                         });
                 }
                 keys();

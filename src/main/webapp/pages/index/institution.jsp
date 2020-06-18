@@ -33,7 +33,7 @@
         <div class="inf-login" id="studentName">
             <c:if test="${sessionScope.student == null }">
                 <a target="_blank" href="<%=path+"/back/adminlogin.jsp"%>">管理登录</a> |
-                <a target="_blank" href="<%=path+"/pages/index/institution.jsp"%>">机构登录</a> |
+                <a target="_blank" href="<%=path+"/pages/homepage/login.jsp"%>">机构登录</a> |
                 <a href="<%=path+"/student"%>">学员登录</a>
                 <a target="_blank" href="<%=path+"/pages/homepage/driving-in/driving-in.jsp"%>">驾校入驻</a>
             </c:if>
@@ -94,7 +94,7 @@
     <a href="javascript:void(0)" title="刷新" class="tencent" onclick="history.go(0);"></a>
 </div>
 <div class="main">
-    <iframe src="<%=path%>${iframeUrl}" style="width: 100%;height: 100%"></iframe>
+    <iframe src="<%=path+"/pages/homepage/login.jsp"%>" style="width: 100%;height: 100%"></iframe>
 </div>
 
 <div class="footer">

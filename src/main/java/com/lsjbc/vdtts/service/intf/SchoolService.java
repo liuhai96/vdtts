@@ -91,6 +91,7 @@ public interface SchoolService {
     public int updateSchool(School school);
 
 
+    ResultData updateSchoolPwd(HttpServletRequest request);
     ResultData updateSchoolBasicInfo(School school);
 
 

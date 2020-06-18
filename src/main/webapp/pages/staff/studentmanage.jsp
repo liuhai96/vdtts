@@ -20,6 +20,12 @@
     <link rel="shortcut icon" href="#"/>
     <link rel="stylesheet" href=<%=path+"/static/layui/css/layui.css"%>>
     <script type="text/javascript" src=<%=path+"/static/layui/layui.js"%>></script>
+    <style>
+        .layui-input-block{
+            margin-right: 10px;
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
 
@@ -55,7 +61,7 @@
         var $ = layui.jquery;
         var $table=table.render({
             elem: '#test'
-            ,url:'/studentController/findStudentList'
+            ,url:'<%=path%>/studentController/findStudentList'
             ,toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
             ,defaultToolbar: ['filter', 'exports', 'print', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
                 title: '提示'
@@ -121,7 +127,7 @@
             if(obj.event === 'addTeacher'){
                 $.ajax({
                     type: 'POST',
-                    url: '/teacherController/findTeacher',
+                    url: '<%=path%>/teacherController/findTeacher',
                     dataType: 'JSON',
                     success: function (msg) {
                         $("#teacherSelect").html("");
@@ -135,7 +141,7 @@
                     }});
                 var index1 = layer.open({
                     type: 1,
-                    area:["500","400px"],
+                    area:["350","400px"],
                     skin: 'layui-layer-rim',
                     shadeClose: true,//点击其他地方关闭
                     content:$("#updateTeacher"),
@@ -151,7 +157,7 @@
                         teacherId = $("#teacherSelect").val();
                         $.ajax({
                             type: 'POST',
-                            url: '/studentController/updateStudentTeacherId',
+                            url: '<%=path%>/studentController/updateStudentTeacherId',
                             dataType:'JSON',
                             data:{
                                 sTeacherId:teacherId,
@@ -183,7 +189,7 @@
                         sId:data.sId
                     },
                     type: 'POST',
-                    url: '/studentController/updateStudentApplyState',
+                    url: '<%=path%>/studentController/updateStudentApplyState',
                     dataType: 'JSON',
                     success: function (regmsg) {
                         if (regmsg.code==1){

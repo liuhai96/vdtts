@@ -20,6 +20,13 @@
     <link rel="shortcut icon" href="#"/>
     <link rel="stylesheet" href=<%=path+"/static/layui/css/layui.css"%>>
     <script type="text/javascript" src=<%=path+"/static/layui/layui.js"%>></script>
+    <style>
+        .layui-input-block{
+            margin-right: 10px;
+            margin-top: 10px;
+        }
+
+    </style>
 </head>
 <body>
 
@@ -114,7 +121,7 @@
         var form = layui.form;
         var $table=table.render({
             elem: '#test'
-            ,url:'/carControl/findCarList'
+            ,url:'<%=path%>/carControl/findCarList'
             ,toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
             ,defaultToolbar: ['filter', 'exports', 'print', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
                 title: '提示'
@@ -147,19 +154,21 @@
                     var data = checkStatus.data;
                     var index =   layer.open({
                         type: 1,
-                        area:["400","300px"],
+                        area:["350","450px"],
                         skin: 'layui-layer-rim',
                         shadeClose: true,//点击其他地方关闭
                         content:$("#addCar"),
                         cancel:function (index) {
                             layer.close(index);
+                            $('#addCar')[0].reset();//重置表单
+                            form.render();
                         }
                     });
 
                     form.on('submit(demo1)', function(data){
                             $.ajax({
                                 type: 'POST',
-                                url: '/carControl/addCar',
+                                url: '<%=path%>/carControl/addCar',
                                 dataType: 'JSON',
                                 data: data.field,
                                 success: function (msg) {
@@ -168,6 +177,8 @@
                                         $table.reload();
                                     }
                                     layer.close(index);
+                                    $('#addCar')[0].reset();//重置表单
+                                    form.render();
                                 }
                             });
 
@@ -212,7 +223,7 @@
                     btn1:function () {
                         $.ajax({
                             type: 'POST',
-                            url: '/carControl/deleteCar',
+                            url: '<%=path%>/carControl/deleteCar',
                             dataType: 'JSON',
                             data:{
                                 cId:cId
@@ -236,7 +247,7 @@
                 $("#carLogo").html(data.cLogo);
                 $.ajax({
                     type: 'POST',
-                    url: '/teacherController/findTeacher',
+                    url: '<%=path%>/teacherController/findTeacher',
                     dataType: 'JSON',
                     success: function (msg) {
                         $("#teacherSelect").html("");
@@ -250,7 +261,7 @@
                     }});
                 var index1 = layer.open({
                     type: 1,
-                    area:["500","400px"],
+                    area:["350","400px"],
                     skin: 'layui-layer-rim',
                     shadeClose: true,//点击其他地方关闭
                     content:$("#updateTeacher"),
@@ -264,7 +275,7 @@
                         teacherId = $("#teacherSelect").val();
                         $.ajax({
                             type: 'POST',
-                            url: '/carControl/updateCarInfo',
+                            url: '<%=path%>/carControl/updateCarInfo',
                             dataType:'JSON',
                             data:{
                                 cTeacherId:teacherId,

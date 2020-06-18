@@ -52,7 +52,7 @@
 <!--  陈竑霖-->
 <!--表单-->
     <select id="selectList" resultType="com.lsjbc.vdtts.entity.Student">
-         select stu.s_id,sch.s_name schoolName,stu.s_sfz,stu.s_name,stu.s_sex,stu.s_birthday,stu.s_reg_time,stu.s_license_time,tea.t_name teacherName
+         select stu.s_id,stu.s_phone,sch.s_name schoolName,stu.s_sfz,stu.s_name,stu.s_sex,stu.s_birthday,stu.s_reg_time,stu.s_license_time,tea.t_name teacherName
          from tb_student stu,tb_school sch,tb_teacher tea where stu.s_school_id=sch.s_id and stu.s_teacher_id =tea.t_id
             <if test="e.sName!=null and e.sName!=''"> and stu.s_name like concat('%',#{e.sName},'%')</if>
             <if test="e.sSex!=null and e.sSex!=''"> and stu.s_sex = #{e.sSex}</if>

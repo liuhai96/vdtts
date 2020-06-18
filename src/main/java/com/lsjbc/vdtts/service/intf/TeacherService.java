@@ -21,11 +21,12 @@ public interface TeacherService {
 
     LayuiTableData updateTeacherInfo(Teacher teacher);
 
-    LayuiTableData findTeacher(int tSchoolId);
+    LayuiTableData findTeacher(HttpServletRequest request);
 
-    LayuiTableData updateTeacherApplyState(int tId);
+    LayuiTableData updateTeacherApplyState(String tTeach,int tId);
 
-    LayuiTableData updateTeacherAccountLockState(int tId);
+    LayuiTableData updateTeacherAccountLockState(String tTeach, int tId);
+
     /*
      *@Description:
      *@Author:陈竑霖

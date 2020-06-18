@@ -23,9 +23,9 @@ public interface TeacherMapper extends CustomBaseMapper<Teacher> {
 
     public ArrayList<Teacher> findTeacher(@Param("tSchoolId") int tSchoolId);
 
-    public int updateTeacherApplyState(int tId);
+    public int updateTeacherApplyState(@Param("tTeach") String tTeach, @Param("tId")int tId);
 
-    public int updateTeacherAccountLockState(int tId);
+    public int updateTeacherAccountLockState(@Param("tLock") String tLock, @Param("tId")int tId);
 
     /*
      *@Description:

@@ -166,7 +166,7 @@ public class TeacherServiceImpl implements TeacherService {
         return layuiTableData;
     }
 
-    @Override
+
     /*
      *@Description:修改教练基本信息
      *@Author:刘海
@@ -174,6 +174,7 @@ public class TeacherServiceImpl implements TeacherService {
      *@return:com.lsjbc.vdtts.pojo.vo.LayuiTableData
      *@Date:2020/6/9 15:26
      **/
+    @Override
     public LayuiTableData updateTeacherInfo(Teacher teacher) {
         LayuiTableData layuiTableData = new LayuiTableData();
         int num = teacherMapper.updateTeacherInfo(teacher);
@@ -183,7 +184,7 @@ public class TeacherServiceImpl implements TeacherService {
         return layuiTableData;
     }
 
-    @Override
+
     /*
      *@Description:
      *@Author:刘海
@@ -191,15 +192,16 @@ public class TeacherServiceImpl implements TeacherService {
      *@return:com.lsjbc.vdtts.pojo.vo.LayuiTableData
      *@Date:2020/6/9 15:27
      **/
-
-    public LayuiTableData findTeacher(int tSchoolId) {
+    @Override
+    public LayuiTableData findTeacher(HttpServletRequest request) {
         LayuiTableData layuiTableData = new LayuiTableData();
-        ArrayList<Teacher> teacherList = teacherMapper.findTeacher(tSchoolId);
+        School school = (School) request.getSession().getAttribute("school");
+        ArrayList<Teacher> teacherList = teacherMapper.findTeacher(school.getSId());
         layuiTableData.setData(teacherList);
         return layuiTableData;
     }
 
-    @Override
+
     /*
      *@Description:
      *@Author:刘海
@@ -207,9 +209,10 @@ public class TeacherServiceImpl implements TeacherService {
      *@return:com.lsjbc.vdtts.pojo.vo.LayuiTableData
      *@Date:2020/6/9 21:39
      **/
-    public LayuiTableData updateTeacherApplyState(int tId) {
+    @Override
+    public LayuiTableData updateTeacherApplyState(String tTeach,int tId) {
         LayuiTableData layuiTableData = new LayuiTableData();
-        int num = teacherMapper.updateTeacherApplyState(tId);
+        int num = teacherMapper.updateTeacherApplyState(tTeach,tId);
         if(num>0){
             layuiTableData.setCode(1);
         }else{
@@ -218,7 +221,7 @@ public class TeacherServiceImpl implements TeacherService {
         return layuiTableData;
     }
 
-    @Override
+
     /*
      *@Description:
      *@Author:刘海
@@ -226,9 +229,10 @@ public class TeacherServiceImpl implements TeacherService {
      *@return:com.lsjbc.vdtts.pojo.vo.LayuiTableData
      *@Date:2020/6/9 22:25
      **/
-    public LayuiTableData updateTeacherAccountLockState(int tId) {
+    @Override
+    public LayuiTableData updateTeacherAccountLockState(String tLock,int tId) {
         LayuiTableData layuiTableData = new LayuiTableData();
-        int num = teacherMapper.updateTeacherAccountLockState(tId);
+        int num = teacherMapper.updateTeacherAccountLockState(tLock,tId);
         if(num>0){
             layuiTableData.setCode(1);
         }else{

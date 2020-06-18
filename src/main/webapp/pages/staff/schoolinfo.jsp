@@ -106,9 +106,8 @@
         $.ajax({
             type: 'POST',
             dataType:'JSON',
-            url: '/SchoolControl/findSchoolInfo',
+            url: '<%=path%>/SchoolControl/findSchoolInfo',
             success: function (remsg) {
-                alert(remsg.data['school'].sphone);
                 $("input[name='sName']").val(remsg.data['school'].sname);
                 $("input[name='aAccount']").val(remsg.data['school'].aaccount);
                 $("input[name='schoolPhone']").val(remsg.data['school'].sphone);
@@ -123,9 +122,10 @@
         });
     });
 
-    layui.use('form', function(){
+    layui.use(['form','layer'], function(){
         var form = layui.form;
         var $ = layui.jquery;
+        var layer = layui.layer;
         var index1="";
         form.on('submit(formDemo)', function(data){
             $("input[name='sId']").val($("input[name='schoolId']").val())
@@ -144,30 +144,31 @@
         });
         form.on('submit(update)', function(data){
             form.render();
-            layer.confirm('您确定修改驾校的基本信息？',{
+          var index = layer.confirm('您确定修改驾校的基本信息？',{
                 btn:["确定","取消"],
                 btn2:function (index) {
-                    $("input[name='sPhone']").val("");
-                    $("input[name='sAddress']").val("");
                     layer.close(index);
                     layer.close(index1)
+                    $('#updateSchoolInfo')[0].reset();//重置表单
+                    form.render();
                 },
                 btn1:function () {
                     $.ajax({
                         type: 'POST',
-                        url: '/SchoolControl/updateSchoolBasicInfo',
+                        url: '<%=path%>/SchoolControl/updateSchoolBasicInfo',
                         dataType: 'JSON',
                         data:data.field,
                         success: function (resmsg) {
                             if (resmsg.code == 1) {
                                 layer.msg(resmsg.msg);
-                                $("input[name='sPhone']").val("");
-                                $("input[name='sAddress']").val("");
                                 form.render();
                             } else {
                                 layer.msg(resmsg.msg);
-                                layer.close(index);
                             }
+                            layer.close(index)
+                            layer.close(index1);
+                            $('#updateSchoolInfo')[0].reset();//重置表单
+                            form.render();
                         }
                     });
                 }
