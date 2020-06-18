@@ -298,9 +298,6 @@ public class TeacherServiceImpl implements TeacherService {
             detail.setSchoolName(schoolDao.getById(item.getTSchoolId()).getSName());
             detail.setStudentCount(studentDao.getStudentCountByTeacherId(item.getTId()));
 
-            //生成跳转路径，必须
-            detail.generateInfoUrl();
-
             details.getResult().add(detail);
         });
 
