@@ -6,6 +6,7 @@ import com.lsjbc.vdtts.entity.Account;
 import com.lsjbc.vdtts.entity.Student;
 import com.lsjbc.vdtts.entity.Teacher;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
+import com.lsjbc.vdtts.pojo.vo.ResultData;
 import com.lsjbc.vdtts.service.intf.StudentService;
 import com.lsjbc.vdtts.service.intf.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -181,5 +182,13 @@ public class TeacherController {
     @ResponseBody
     public String ShowTeacher(Teacher teacher,@RequestParam(value = "page") int page , @RequestParam(value = "limit") int limit){
         return JSON.toJSONString(teacherService.HomePageShow(teacher,page,limit));
+    }
+
+
+    @RequestMapping(value = "/checksSfz")
+    @ResponseBody
+    public ResultData checksSfz(HttpServletRequest request, HttpServletResponse response, Student student){
+        response.setContentType("text/html;charset=utf-8");
+        return teacherService.checksSfz(student,request);
     }
 }

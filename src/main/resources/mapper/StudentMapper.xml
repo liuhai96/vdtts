@@ -80,7 +80,11 @@
     </select>
 
     <update id="inschool" parameterType="com.lsjbc.vdtts.entity.Student" >
-        update tb_student set s_school_id = 2 where s_sfz = #{sSfz}
+        update tb_student set s_school_id = #{sSchoolId} where s_sfz = #{e.sSfz}
+    </update>
+
+    <update id="updateStudentTecaherId" parameterType="com.lsjbc.vdtts.entity.Teacher">
+     update tb_student set s_teacher_id = #{sTeacherId},s_school_id = #{sSchoolId} where s_id = #{e.sId}
     </update>
 
     <insert id="addStudentMessage" parameterType="com.lsjbc.vdtts.entity.Student" keyProperty="sId" useGeneratedKeys="true">

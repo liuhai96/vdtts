@@ -203,7 +203,7 @@ public class SchoolServiceImpl implements SchoolService
 		return schoolDao.getById(id);
 	}
 
-	//查询身份证
+	//驾校查询身份证
 	@Override
 	public ResultData insSfz(Student student, HttpServletRequest request)
 	{
@@ -211,14 +211,15 @@ public class SchoolServiceImpl implements SchoolService
 		ResultData resultData = null;
 		System.out.println("setSSfz=" + student);
 		student= studentMapper.insSfz(student);
+		Integer  schoolId = Integer.parseInt(request.getParameter("schoolId"));
+		System.out.println("setSSfzwqeeeeeeeeeeee=" + schoolId);
 		System.out.println("setSSfz2=" + student);
 		if (student != null)
 		{ //查询
-//			student = studentMapper.findsfz(student);
+
 			if (student.getSSchoolId() == null)
 			{
-
-				int num =studentMapper.inschool(student);
+				int num =studentMapper.inschool(student,schoolId);
 				resultData = ResultData.error(1, "报名成功");
 			} else
 			{

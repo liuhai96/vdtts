@@ -127,10 +127,10 @@
 			</p>
 
 			<p><b>地址：</b>
-				<span id="address">${address}</span>
-				<b style="margin-left: 182px;">学员总人数：</b>
-				<span>${studencount}</span>人
-			</p>
+				<span id="address">${address}</span></p>
+			<p>
+				<b>学员总人数：</b>
+				<span>${studencount}</span>人</p>
 			<hr>
 			<p>
 				<b style="float: left;">综合星级：</b>
@@ -274,13 +274,12 @@
 <script src="<%=path+"/js/pages/index/common.js"%>"></script>
 <script src="<%=path+"/js/pages/index/commonpage.js"%>"></script>
 
-
 <script>
 	layui.use(['laytpl', 'layer', 'flow'], function () {
 		var laytpl = layui.laytpl
 				, $ = layui.$
 				, flow = layui.flow
-				, layer = layui.layer;
+			    , layer = layui.layer;
 
 
 		function showStar() {
@@ -374,7 +373,6 @@
 						let sName = $("#sName").val();
 						let schoolId = $("#schoolId").val();
 						let sSfz = $("#sSfz").val();
-						let sSfz2 = $("#path").val() + '/SchoolControl/insSfz';
 						$.ajax({
 							type: 'get',
 							url: '/SchoolControl/insSfz',
@@ -382,6 +380,7 @@
 							data: {
 								sName: sName
 								, sSfz: sSfz
+								,schoolId:schoolId
 							},
 							success: function (remsg) {
 								if (remsg.code == 1) {
