@@ -89,6 +89,8 @@
 			color: red;
 			text-align: left;
 		}
+
+
 		input:hover{color:black;
 			/*background-color:rgba(234 ,231 ,123 ,0.2);*/
 			border: 2px solid darkcyan;}/*鼠标悬停*/
