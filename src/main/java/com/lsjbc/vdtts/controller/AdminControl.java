@@ -89,17 +89,29 @@ public class AdminControl {
 
     @RequestMapping(value = "/updatePwd")
     public String updatePwd(HttpServletRequest request,HttpServletResponse response,AdminAccount adminAccount){
-
         int updateaAccount = accountService.updateAdminAccount(adminAccount);
         String res = "";
         if(updateaAccount>0){
             res="success";
+            request.getSession().invalidate();//清空session中的信息
             System.out.println("修改管理员信息成功");
             return res;
         }else {
             res="failed";
             System.out.println("修改管理员信息失败");
             return res;
+        }
+    }
+
+    @RequestMapping(value = "/logout")
+    public String logout(HttpServletRequest request,HttpServletResponse response,String logout){
+        if(logout!=null&&!logout.equals("")){
+            request.getSession().invalidate();//清空session中的信息
+            System.out.println("账号退出成功");
+            return "success";
+        }else {
+            System.out.println("账号退出失败");
+            return "failed";
         }
     }
 }

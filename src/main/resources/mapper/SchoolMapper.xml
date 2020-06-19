@@ -118,4 +118,11 @@
     <update id="updateSchoolPwd">
         update tb_account set a_password = #{aPassword} where a_id=#{aId}
     </update>
+    <!--  周永哲，驾校信息修改-->
+    <select id="selectStudentCount" resultType="com.lsjbc.vdtts.entity.School">
+     select tsl.s_name ,count(tst.s_id) student_count from tb_school tsl,tb_student tst
+     where tsl.s_id=tst.s_school_id group by tsl.s_name
+    </select>
+
+
 </mapper>

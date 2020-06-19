@@ -150,4 +150,10 @@ public class  School {
 	 */
 	@Transient
 	private String aPassword;
+
+	/**
+	 * 学生人数
+	 */
+	@Transient
+	private Integer studentCount;
 }

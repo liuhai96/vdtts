@@ -1,5 +1,7 @@
 package com.lsjbc.vdtts.service.impl;
 
+
+
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.lsjbc.vdtts.constant.EvaluateType;
@@ -369,6 +371,12 @@ public class SchoolServiceImpl implements SchoolService
 			resultData = ResultData.error(-1,"新密码与重复输入密码不同");
 		}
 		return resultData;
+	}
+
+	@Override
+	public List<School> selectStudentCount() {
+		List<School> selectStudentCount = schoolMapper.selectStudentCount();
+		return selectStudentCount;
 	}
 
 	@Override

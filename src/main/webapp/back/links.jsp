@@ -26,7 +26,7 @@
     <body>
         <div>
             <input hidden="hidden" value="<%=path%>" id="path">
-            <div style="margin: 0 15% 0 15%">
+            <div style="margin: 0 10% 0 10%">
                 <div style="margin-bottom: 5px;">
 
                     <!-- 示例-970 -->

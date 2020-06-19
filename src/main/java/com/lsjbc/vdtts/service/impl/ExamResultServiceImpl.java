@@ -291,12 +291,12 @@ public class ExamResultServiceImpl implements ExamResultService {
         examSimulateRecord.setEsrStudentId(student.getSId());
         System.out.println(examResult);
         resultData.put("examResult",examResultMapper.getRecord(examResult));
-        for(int i = 1;i <= 3;i++){//回滚获取考试情况
-            examSimulateRecord.setEsrLevel(i);
-            try {
-                resultData.put("esr"+i,examSimulateRecordMapper.getExamSimulate(examSimulateRecord));
-            }catch (Exception e){}
-        }
+//        for(int i = 1;i <= 3;i++){//回滚获取考试情况
+//            examSimulateRecord.setEsrLevel(i);
+//            try {
+//                resultData.put("esr"+i,examSimulateRecordMapper.getExamSimulate(examSimulateRecord));
+//            }catch (Exception e){}
+//        }
         return resultData;
     }
 
