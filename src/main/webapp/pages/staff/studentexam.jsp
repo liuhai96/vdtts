@@ -32,7 +32,7 @@
                 <option value="1">科目一</option>
                 <option value="2">科目二</option>
                 <option value="3">科目三</option>
-                <option value="3">科目四</option>
+                <option value="4">科目四</option>
             </select>
         </div>
     </div>
@@ -62,12 +62,12 @@
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
 <script>
-    layui.use('table', function(){
-        var $ = layui.jquery;
+    layui.use(['table','layer'], function(){
+        var $ = layui.jquery,layer = layui.layer;
         var table = layui.table;
       var $table = table.render({
             elem: '#test'
-            ,url:'/examResultController/selectStudentExamList'
+            ,url:'<%=path%>/examResultController/selectStudentExamList'
             ,toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
             ,defaultToolbar: ['filter', 'exports', 'print', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
                 title: '提示'
@@ -135,12 +135,7 @@
             var sId = data.student.sId;
             var erId = data.erId;
             var teacherId = data.student.sTeacherId;
-            if(obj.event === 'del'){
-                layer.confirm('真的删除行么', function(index){
-                    obj.del();
-                    layer.close(index);
-                });
-            } else if(obj.event === 'edit'){
+          if(obj.event === 'edit'){
                 $("#studentName").html(data.student.sName);
                 var index = layer.open({
                     type: 1,
@@ -152,13 +147,12 @@
                         layer.close(index);
                     }
                 });
-                layui.use('form', function(){
                     var form = layui.form;
                     form.on('submit(demo1)', function(data){
                         examSujectId = $("#examSelect").val();
                         $.ajax({
                             type: 'POST',
-                            url: '/examResultController/arringeExam',
+                            url: '<%=path%>/examResultController/arringeExam',
                             dataType: 'JSON',
                             data: {
                                 sId:sId,
@@ -171,8 +165,13 @@
                                     layer.msg(remsg.msg);
                                     layer.close(index);
                                     $table.reload();
+                                    $('#scheduleExam')[0].reset();//重置表单
+                                    form.render();
                                 }else{
                                     layer.msg(remsg.msg);
+                                    layer.close(index);
+                                    $('#scheduleExam')[0].reset();//重置表单
+                                    form.render();
                                 }
 
                             }
@@ -180,7 +179,6 @@
 
                         return false;
                     });
-                });
             }
         });
     });

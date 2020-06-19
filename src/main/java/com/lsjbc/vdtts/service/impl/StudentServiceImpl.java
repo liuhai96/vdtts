@@ -172,7 +172,7 @@ public class StudentServiceImpl implements StudentService {
 		int start = (Integer.parseInt(page)-1)*pageSize;//计算从数据库第几条开始查
 		School school = (School) request.getSession().getAttribute("school");
 		LayuiTableData layuiTableData = new LayuiTableData();
-		List<Student> studentList = studentMapper.findStudenList(1,start,pageSize,sName);
+		List<Student> studentList = studentMapper.findStudenList(school.getSId(),start,pageSize,sName);
 		System.out.println("studentList"+studentList);
 		int count = studentMapper.findStudentCount(1,sName);
 		layuiTableData.setData(studentList);

@@ -6,6 +6,7 @@ import com.lsjbc.vdtts.entity.Account;
 import com.lsjbc.vdtts.entity.Student;
 import com.lsjbc.vdtts.entity.Teacher;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
+import com.lsjbc.vdtts.pojo.vo.ResultData;
 import com.lsjbc.vdtts.service.intf.StudentService;
 import com.lsjbc.vdtts.service.intf.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -105,18 +106,18 @@ public class TeacherController {
     }
 
    @RequestMapping(value = "/findTeacher")
-    public String findTeacher(){
-        return JSON.toJSONString(teacherService.findTeacher(1));
+    public String findTeacher(HttpServletRequest request){
+        return JSON.toJSONString(teacherService.findTeacher(request));
     }
 
     @RequestMapping(value = "/updateTeacherApplyState")
-    public Object updateTeacherApplyState(String tId){
-        return  JSON.toJSONString(teacherService.updateTeacherApplyState(Integer.parseInt(tId)));
+    public Object updateTeacherApplyState(String tId, String tTeach){
+        return  JSON.toJSONString(teacherService.updateTeacherApplyState(tTeach,Integer.parseInt(tId)));
     }
 
     @RequestMapping(value = "/updateTeacherAccountLockState")
-   public Object updateTeacherAccountLockState(String tId){
-        return  JSON.toJSONString(teacherService.updateTeacherAccountLockState(Integer.parseInt(tId)));
+   public Object updateTeacherAccountLockState(String tLock,String tId){
+        return  JSON.toJSONString(teacherService.updateTeacherAccountLockState(tLock,Integer.parseInt(tId)));
     }
     @RequestMapping(value = "/teacherInit")
     public ModelAndView TeacherInit(){
@@ -181,5 +182,13 @@ public class TeacherController {
     @ResponseBody
     public String ShowTeacher(Teacher teacher,@RequestParam(value = "page") int page , @RequestParam(value = "limit") int limit){
         return JSON.toJSONString(teacherService.HomePageShow(teacher,page,limit));
+    }
+
+
+    @RequestMapping(value = "/checksSfz")
+    @ResponseBody
+    public ResultData checksSfz(HttpServletRequest request, HttpServletResponse response, Student student){
+        response.setContentType("text/html;charset=utf-8");
+        return teacherService.checksSfz(student,request);
     }
 }

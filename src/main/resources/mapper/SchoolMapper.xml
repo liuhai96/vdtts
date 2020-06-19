@@ -51,13 +51,6 @@
         update tb_school set  s_lock='true' where s_id = #{sId}
     </update>
 
-<!--    &lt;!&ndash;    sfz&ndash;&gt;-->
-<!--    <update id="apply" parameterType="com.lsjbc.vdtts.entity.School">-->
-<!--        select s_sfz from tb_student-->
-<!--        <where>-->
-<!--            <if></if>-->
-<!--        </where>-->
-<!--    </update>-->
 
 <!--    刘海-->
     <select id="findSchoolInfo" resultType="com.lsjbc.vdtts.entity.School" parameterType="int">
@@ -114,6 +107,19 @@
     <insert id="updateSchool" parameterType="com.lsjbc.vdtts.entity.School">
         update tb_school set s_name =#{sName}, s_address=#{sAddress}, s_phone=#{sPhone}, s_recruit=#{sRecruit}, s_lock=#{sLock} where s_id =#{sId}
     </insert>
+
+<!--    刘海-->
+    <update id="updateSchoolBasicInfo" parameterType="com.lsjbc.vdtts.entity.School">
+        update tb_school set s_address = #{sAddress},s_phone = #{sPhone} where s_id = #{sId}
+    </update>
+
+    <select id="findSchoolPwd" parameterType="int" resultType="java.lang.String">
+        select a_password from tb_account where a_id=#{aId}
+    </select>
+
+    <update id="updateSchoolPwd">
+        update tb_account set a_password = #{aPassword} where a_id=#{aId}
+    </update>
     <!--  周永哲，驾校信息修改-->
     <select id="selectStudentCount" resultType="com.lsjbc.vdtts.entity.School">
      select tsl.s_name ,count(tst.s_id) student_count from tb_school tsl,tb_student tst

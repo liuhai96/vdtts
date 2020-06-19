@@ -40,6 +40,12 @@ public interface SchoolMapper extends CustomBaseMapper<School> {
 
 	School findSchoolInfo(Integer sId);
 
+	int updateSchoolPwd(@Param("aId") int aId,@Param("aPassword") String aPassword);
+
+	String findSchoolPwd(@Param("aId") Integer aId);
+	//刘海
+
+
 	/*
 	 *@Description:
 	 *@Author:李浪

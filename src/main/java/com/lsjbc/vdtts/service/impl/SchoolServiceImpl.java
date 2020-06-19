@@ -203,7 +203,7 @@ public class SchoolServiceImpl implements SchoolService
 		return schoolDao.getById(id);
 	}
 
-	//查询身份证
+	//驾校查询身份证
 	@Override
 	public ResultData insSfz(Student student, HttpServletRequest request)
 	{
@@ -211,14 +211,15 @@ public class SchoolServiceImpl implements SchoolService
 		ResultData resultData = null;
 		System.out.println("setSSfz=" + student);
 		student= studentMapper.insSfz(student);
+		Integer  schoolId = Integer.parseInt(request.getParameter("schoolId"));
+		System.out.println("setSSfzwqeeeeeeeeeeee=" + schoolId);
 		System.out.println("setSSfz2=" + student);
 		if (student != null)
 		{ //查询
-//			student = studentMapper.findsfz(student);
+
 			if (student.getSSchoolId() == null)
 			{
-
-				int num =studentMapper.inschool(student);
+				int num =studentMapper.inschool(student,schoolId);
 				resultData = ResultData.error(1, "报名成功");
 			} else
 			{
@@ -233,7 +234,7 @@ public class SchoolServiceImpl implements SchoolService
 	}
 
 
-    @Override
+    @Override//驾驶入驻
     public ResultData schoolToProduct(School school, String id){
         ResultData resultData = ResultData.success();
         if(schoolMapper.addSchool(school) > 0){
@@ -250,7 +251,8 @@ public class SchoolServiceImpl implements SchoolService
 
 	@Override
 	public ResultData findSchoolInfo(HttpServletRequest request, HttpServletResponse response) {
-		School school = schoolMapper.findSchoolInfo(1);
+		School school = (School) request.getSession().getAttribute("school");
+		school = schoolMapper.findSchoolInfo(school.getSId());
 		ResultData resultData = null;
 		if (school != null) {
 			resultData = ResultData.success("school", school);
@@ -298,8 +300,6 @@ public class SchoolServiceImpl implements SchoolService
 			detail.setTeacherCount(teacherDao.getCountBySchoolId(schoolId));
 			detail.setStudentCount(studentDao.getStudentCountBySchoolId(schoolId));
 			details.getResult().add(detail);
-			//生成跳转路径，必须
-			detail.generateInfoUrl();
 		});
 
 		return details;
@@ -347,6 +347,29 @@ public class SchoolServiceImpl implements SchoolService
 	public int updateSchool(School school) {
 		int updateSchool = schoolMapper.updateSchool(school);
 		return updateSchool;
+	}
+
+	@Override
+	public ResultData updateSchoolPwd(HttpServletRequest request) {
+		ResultData resultData = null;
+		Tool tool = new Tool();
+		School school = (School) request.getSession().getAttribute("school");
+		String pwd = schoolMapper.findSchoolPwd(school.getSAccountId());
+		String  oldPwd = tool.createMd5(request.getParameter("oldPwd"));
+		String  newPwd = tool.createMd5(request.getParameter("newPwd"));
+		String  repeatPwd = tool.createMd5(request.getParameter("repeatPwd"));
+		System.out.println("pwd"+pwd);
+		if(newPwd.equals(repeatPwd)){
+			if(oldPwd.equals(pwd)){
+				int num = schoolMapper.updateSchoolPwd(school.getSAccountId(),newPwd);
+				resultData = ResultData.error(1,"密码修改成功");
+			}else{
+				resultData = ResultData.error(-1,"旧密码输入错误");
+			}
+		}else{
+			resultData = ResultData.error(-1,"新密码与重复输入密码不同");
+		}
+		return resultData;
 	}
 
 	@Override

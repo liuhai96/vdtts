@@ -25,7 +25,7 @@
     <div>
         <input hidden="hidden" value="<%=path%>" id="path">
         <input hidden="hidden" value="${aId}" id="aId">
-        <input hidden="hidden" value="${teacher.TPhone}" id="tPhone">
+<%--        <input hidden="hidden" value="${teacher.TPhone}" id="tPhone">--%>
         <div style="text-align: center;">
             <br> <br> <br>
             <div class="layui-form-item" id="oldPass">
@@ -57,14 +57,13 @@
         </div>
     </div>
     <script>
-        let verify = -1;
+        let verify = false;
         let passTypes = true;
         function verifyPass(){//旧密码验证
             AjaxTransfer($("#path").val()+"/verifyAdmin","aId="+$("#aId").val()+
                 "&aPassword="+ $("#oldPass input").val(),function (mag) {
-                if (mag.msg > 0);
-                else {alert("验证密码失败！");}
                 verify = mag.msg;
+                if (!verify) alert("密码不正确！");
             });
         }//密码验证
 
@@ -76,26 +75,23 @@
                 toPass.html("提交");
                 not.attr("class","layui-btn layui-btn-warm");
             } else {//提交按钮
-                if (verify > 0){
+                if (verify){
                     if (newPass.val().length < 6) alert("密码长度应大于6位");
                     else if (!done(newPass.val(),0,newPass.val().length)) alert("密码有非法字符！");
                     else if (newPass.val() != newPass2.val()) alert("设置密码不一致");
-                    else {
+                    else
                         AjaxTransfer($("#path").val()+"/changePassword","aPassword="+newPass.val()
                             +"&aId="+$("#aId").val(), function (mag) {
                             if (mag.msg) {
-                                alert("修改成功！请重新登录");
-                                skipAbsolute("/transfer?logo=logout");//跳出iframe到指定位置
+                                alert("修改成功！");
+	                            // if(top.location!=self.location)top.location=window.open($("#path").
+	                            // val()+"/pages/index/index.jsp");
+                                if(top.location!=self.location)top.location=top.location = $("#path").val()+"/pages/index/index.jsp";
                             } else{
                                 alert("修改失败,请检查网络!");
                             }
                         });
-                    }
-
-                } else {
-                    alert("验证密码失败！");
-                    return;
-                }
+                } else alert("原密码错误！");
             }
             passNot();
         }//更改密码

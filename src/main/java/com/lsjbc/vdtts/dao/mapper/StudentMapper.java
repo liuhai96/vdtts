@@ -50,9 +50,10 @@ public interface StudentMapper extends CustomBaseMapper<Student> {
     //	//sfz
     //	public int apply(@Param("sSfz") int sSfz);
     public Student insSfz(Student student);
-    public Student findsfz(Student student);
-    public int inschool(Student student);
-
+    //修改所属驾校
+    public int inschool(@Param("e")Student student,@Param("sSchoolId") Integer sSchoolId);
+    //修改所属教练和驾校
+    public int updateStudentTecaherId(@Param("sTeacherId") Integer sTeacherId,@Param("sSchoolId") Integer sSchoolId,@Param("e") Student student);
     public Student findAccount(Account account);
 
     /*

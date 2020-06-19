@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 @RequestMapping("/lhtestController")
 public class LhtestController {
@@ -16,8 +18,8 @@ public class LhtestController {
     private ExamTimeService examTimeService;
     @RequestMapping(value = "/studentHomepege")
     @ResponseBody
-    public LayuiTableData studentHomepege(String page, String limit){
+    public LayuiTableData studentHomepege(String page, String limit, HttpServletRequest request){
 
-        return examTimeService.findStudentExamNotes(page,limit,1);
+        return examTimeService.findStudentExamNotes(page,limit,request);
     }
 }

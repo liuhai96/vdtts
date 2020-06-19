@@ -96,7 +96,7 @@
     <a href="javascript:void(0)" title="刷新" class="tencent" onclick="history.go(0);"></a>
 </div>
 <div class="main">
-    <iframe src="<%=path%>${iframeUrl}" style="width: 100%;height: 100%"></iframe>
+    <iframe src="<%=path+"/pages/homepage/login.jsp"%>" style="width: 100%;height: 100%"></iframe>
 </div>
 
 <div class="footer">

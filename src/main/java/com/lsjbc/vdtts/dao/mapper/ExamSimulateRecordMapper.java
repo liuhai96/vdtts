@@ -3,6 +3,8 @@ package com.lsjbc.vdtts.dao.mapper;
 import com.lsjbc.vdtts.utils.mopper.CustomBaseMapper;
 import com.lsjbc.vdtts.entity.ExamSimulateRecord;
 
+import java.util.List;
+
 /**
  * @ClassName: ExamSimulateRecordMapper
  * @Description: 模拟考试答案表(单表操作Mapper)
@@ -10,4 +12,5 @@ import com.lsjbc.vdtts.entity.ExamSimulateRecord;
  * @Author: JX181114 - 郑建辉
  */
 public interface ExamSimulateRecordMapper extends CustomBaseMapper<ExamSimulateRecord> {
+    List<ExamSimulateRecord> getExamSimulate(ExamSimulateRecord record);
 }

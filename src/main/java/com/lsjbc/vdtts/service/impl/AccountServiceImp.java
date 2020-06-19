@@ -72,11 +72,11 @@ public class AccountServiceImp implements AccountService {
 
     @Override
     /*
-     *@Description:
+     *@Description:加登录数据
      *@Author:李浪_191019
      *@Param:[account]
      *@return:com.lsjbc.vdtts.entity.Account
-     *@Date:2020/6/12 0:14 加登录数据
+     *@Date:2020/6/12 0:14
      **/
     public Account addAccountData(Account account){
         Tool tool = new Tool();
@@ -98,18 +98,22 @@ public class AccountServiceImp implements AccountService {
         ResultData resultData = ResultData.success();
         account.setAPassword(tool.createMd5(account.getAPassword()));
         account = accountMapper.UserLogin(account);
-        System.out.println(JSON.toJSONString(account));
+        try{
+            request.getSession().setAttribute("account", account);
+            request.getSession().setAttribute("aId", account.getAId());
+            request.getSession().setAttribute("aType", account.getAType());
+        }catch (Exception e){}
         if(account != null){ //登录成功时
             switch (account.getAType()) {
                 case "school": //驾校登录界面地址
                     School school = schoolMapper.findAccount(account.getAId());
                     if(school.getSLock().equals("true")){
                         resultData.setMsg("驾校已被锁定登录");
-                        nextJsp = "pages/homepage/login.jsp";
+                        nextJsp = "transfer?logo=institutionLogin";
                     }else{
                         request.getSession().setAttribute("school", school);
                         resultData.setMsg("登录成功!");
-                        nextJsp = "pages/backhomepage/index.jsp";//前端jsp地址
+                        nextJsp = "transfer?logo=institutionIndex";//前端jsp地址
                     }
                     break;
                 case "teacher"://教练登录界面地址
@@ -117,7 +121,7 @@ public class AccountServiceImp implements AccountService {
                     Teacher teacher = teacherMapper.findAccount(account);
                     if(teacher.getTLock().equals("true")){
                         resultData.setMsg("您的账号已被锁定，请找驾校询问具体原因");
-                        nextJsp = "pages/homepage/login.jsp";
+                        nextJsp = "transfer?logo=institutionLogin";
                     }else{
                         request.getSession().setAttribute("teacher", teacher);
                         //教练评价
@@ -125,7 +129,7 @@ public class AccountServiceImp implements AccountService {
                         evaluate.setEToId(teacher.getTId());
                         evaluate.setEType("teacher");
                         request.getSession().setAttribute("evaluate", evaluateMapper.selectEvaluate(evaluate));
-                        nextJsp = "pages/backhomepage/index.jsp";//前端jsp地址
+                        nextJsp = "transfer?logo=institutionIndex";//前端jsp地址
                     }
                     break;
                 case "manage":
@@ -133,16 +137,16 @@ public class AccountServiceImp implements AccountService {
                     if(transManage!=null){
                         request.getSession().setAttribute("manage",transManage);
                         resultData.setMsg("登录成功");
-                        nextJsp = "pages/backhomepage/index.jsp";//前端jsp地址
+                        nextJsp = "transfer?logo=institutionIndex";//前端jsp地址
                     }else{
                         resultData.setMsg("未找到该运管信息");
-                        nextJsp = "pages/homepage/login.jsp";
+                        nextJsp = "transfer?logo=institutionLogin";
                     }
                     break;
             }
         } else {//登录失败
             resultData.setMsg("登录失败，请核对账号");
-            nextJsp = "pages/homepage/login.jsp";//前端jsp地址
+            nextJsp = "transfer?logo=institutionLogin";//前端jsp地址
         }
         resultData.put("url",nextJsp);
         return resultData;
@@ -156,10 +160,11 @@ public class AccountServiceImp implements AccountService {
      *@return:com.lsjbc.vdtts.pojo.vo.ResultData
      *@Date:2020/6/13 14:34
      **/
-    public ResultData verifyPass(Account account){
+    public ResultData verifyPass(Account account){  //有改动，原来的true和false在js里不识别
         account = accountMapper.selectAccount(account);
-        if(account != null) return ResultData.success("true");
-        else return ResultData.success("false");
+        System.out.println(account);
+        if(account != null) return ResultData.success("1");
+        else return ResultData.success("-1");
     }
 
     /*

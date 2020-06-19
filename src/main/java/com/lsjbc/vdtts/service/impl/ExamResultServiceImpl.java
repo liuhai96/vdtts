@@ -1,11 +1,15 @@
 package com.lsjbc.vdtts.service.impl;
 
 import com.lsjbc.vdtts.dao.mapper.ExamResultMapper;
+import com.lsjbc.vdtts.dao.mapper.ExamSimulateRecordMapper;
 import com.lsjbc.vdtts.entity.ExamResult;
+import com.lsjbc.vdtts.entity.ExamSimulateRecord;
 import com.lsjbc.vdtts.entity.School;
+import com.lsjbc.vdtts.entity.Student;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.pojo.vo.ResultData;
 import com.lsjbc.vdtts.service.intf.ExamResultService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -22,6 +26,8 @@ public class ExamResultServiceImpl implements ExamResultService {
 
     @Resource
     private ExamResultMapper examResultMapper;
+    @Resource
+    private ExamSimulateRecordMapper examSimulateRecordMapper;
 
     @Override
     public LayuiTableData selectStudentExamList(String page, String limit, String sName, HttpServletRequest request) {
@@ -154,6 +160,14 @@ public class ExamResultServiceImpl implements ExamResultService {
         return resultData;
     }
 
+
+    /*
+     *@Description:学员考试成绩录入
+     *@Author:刘海
+     *@Param:
+     *@return:
+     *@Date:2020/6/17 19:54
+     **/
     @Override
     public ResultData enterResults(int erId, int studentId, int examSujectId, int erScore) {
         ResultData resultData = null;
@@ -164,83 +178,126 @@ public class ExamResultServiceImpl implements ExamResultService {
                 resultData = ResultData.error(-1, "请选择考试科目");
                 break;
             case 1:
-                if (examResult.getErScore1() >= 90 && examResult.getErState1() == 1) {
-                    resultData = ResultData.error(-1, "该学员的科目一已经考试通过，不能重复录入成绩");
-                } else {
-                    if (erScore >= 90) {
-                        int num = examResultMapper.updateStudentExanState(examSujectId, erId, erState);
-                        int num1 = examResultMapper.updateStudentScore(erId, erScore, examSujectId);
-                        if (num > 0 && num1 > 0) {
-                            resultData = ResultData.error(0, "您已成功录入该学员的科目一成绩,该学员已通过考试");
-                        }
-                    } else {
-                        int num1 = examResultMapper.updateStudentScore(erId, erScore, examSujectId);
-                        resultData = ResultData.error(0, "您已成功录入该学员的科目一成绩,该学员未通过考试");
-                    }
-                }
-                break;
-            case 2:
-                if (examResult.getErScore1() > 90) {
-                    if (examResult.getErScore2() >= 80 && examResult.getErState2() == 1) {
-                        resultData = ResultData.error(-1, "该学员的科目二已经考试通过，不能重复录入成绩");
+                if(erScore>100){
+                    resultData = ResultData.error(-1, "成绩输入不合法，请重新输入");
+                }else{
+                    if (examResult.getErScore1() >= 90 && examResult.getErState1() == 1) {
+                        resultData = ResultData.error(-1, "该学员的科目一已经考试通过，不能重复录入成绩");
                     } else {
                         if (erScore >= 90) {
                             int num = examResultMapper.updateStudentExanState(examSujectId, erId, erState);
                             int num1 = examResultMapper.updateStudentScore(erId, erScore, examSujectId);
                             if (num > 0 && num1 > 0) {
-                                resultData = ResultData.error(0, "您已成功录入该学员的科目二成绩,该学员已通过考试");
+                                resultData = ResultData.error(0, "您已成功录入该学员的科目一成绩,该学员已通过考试");
                             }
                         } else {
                             int num1 = examResultMapper.updateStudentScore(erId, erScore, examSujectId);
-                            resultData = ResultData.error(0, "您已成功录入该学员的科目二成绩,该学员未通过考试");
+                            resultData = ResultData.error(0, "您已成功录入该学员的科目一成绩,该学员未通过考试");
                         }
                     }
+                }
+
+                break;
+            case 2:
+                if(erScore>100){
+                    resultData = ResultData.error(-1, "成绩输入不合法，请重新输入");
                 }else{
-                    resultData = ResultData.error(-1,"该学员的科目一考试未通过，不能录入科目二成绩");
+                    if (examResult.getErScore1() > 90) {
+                        if (examResult.getErScore2() >= 80 && examResult.getErState2() == 1) {
+                            resultData = ResultData.error(-1, "该学员的科目二已经考试通过，不能重复录入成绩");
+                        } else {
+                            if (erScore >= 90) {
+                                int num = examResultMapper.updateStudentExanState(examSujectId, erId, erState);
+                                int num1 = examResultMapper.updateStudentScore(erId, erScore, examSujectId);
+                                if (num > 0 && num1 > 0) {
+                                    resultData = ResultData.error(0, "您已成功录入该学员的科目二成绩,该学员已通过考试");
+                                }
+                            } else {
+                                int num1 = examResultMapper.updateStudentScore(erId, erScore, examSujectId);
+                                resultData = ResultData.error(0, "您已成功录入该学员的科目二成绩,该学员未通过考试");
+                            }
+                        }
+                    }else{
+                        resultData = ResultData.error(-1,"该学员的科目一考试未通过，不能录入科目二成绩");
+                    }
                 }
                 break;
             case 3:
-                if(examResult.getErScore2()>80){
-                    if(examResult.getErScore3()>=90&&examResult.getErState3()==1){
-                        resultData = ResultData.error(-1,"该学员的科目三已经考试通过，不能重复录入成绩");
-                    }else{
-                        if (erScore >= 90) {
-                            int num = examResultMapper.updateStudentExanState(examSujectId, erId, erState);
-                            int num1 = examResultMapper.updateStudentScore(erId, erScore, examSujectId);
-                            if (num > 0 && num1 > 0) {
-                                resultData = ResultData.error(0, "您已成功录入该学员的科目三成绩,该学员已通过考试");
+                if(erScore>100){
+                    resultData = ResultData.error(-1, "成绩输入不合法，请重新输入");
+                }else{
+                    if(examResult.getErScore2()>80){
+                        if(examResult.getErScore3()>=90&&examResult.getErState3()==1){
+                            resultData = ResultData.error(-1,"该学员的科目三已经考试通过，不能重复录入成绩");
+                        }else{
+                            if (erScore >= 90) {
+                                int num = examResultMapper.updateStudentExanState(examSujectId, erId, erState);
+                                int num1 = examResultMapper.updateStudentScore(erId, erScore, examSujectId);
+                                if (num > 0 && num1 > 0) {
+                                    resultData = ResultData.error(0, "您已成功录入该学员的科目三成绩,该学员已通过考试");
+                                }
+                            } else {
+                                int num1 = examResultMapper.updateStudentScore(erId, erScore, examSujectId);
+                                resultData = ResultData.error(0, "您已成功录入该学员的科目三成绩,该学员未通过考试");
                             }
-                        } else {
-                            int num1 = examResultMapper.updateStudentScore(erId, erScore, examSujectId);
-                            resultData = ResultData.error(0, "您已成功录入该学员的科目三成绩,该学员未通过考试");
                         }
+                    } else {
+                        resultData = ResultData.error(-1, "该学员的科目二考试未通过，不能录入科目三成绩");
                     }
-                } else {
-                    resultData = ResultData.error(-1, "该学员的科目二考试未通过，不能录入科目三成绩");
                 }
                 break;
             case 4:
-                if (examResult.getErScore3() > 90) {
-                    if (examResult.getErScore4() >= 90 && examResult.getErState4() == 1) {
-                        resultData = ResultData.error(-1, "该学员的科目四已经考试通过，不能重复录入成绩");
-                    } else {
-                        if (erScore >= 90) {
-                            int num = examResultMapper.updateStudentExanState(examSujectId, erId, erState);
-                            int num1 = examResultMapper.updateStudentScore(erId, erScore, examSujectId);
-                            if (num > 0 && num1 > 0) {
-                                resultData = ResultData.error(0, "您已成功录入该学员的科目四成绩,该学员已通过考试");
-                            }
+                if(erScore>100){
+                    resultData = ResultData.error(-1, "成绩输入不合法，请重新输入");
+                }else{
+                    if (examResult.getErScore3() > 90) {
+                        if (examResult.getErScore4() >= 90 && examResult.getErState4() == 1) {
+                            resultData = ResultData.error(-1, "该学员的科目四已经考试通过，不能重复录入成绩");
                         } else {
-                            int num1 = examResultMapper.updateStudentScore(erId, erScore, examSujectId);
-                            resultData = ResultData.error(0, "您已成功录入该学员的科目四成绩,该学员未通过考试");
+                            if (erScore >= 90) {
+                                int num = examResultMapper.updateStudentExanState(examSujectId, erId, erState);
+                                int num1 = examResultMapper.updateStudentScore(erId, erScore, examSujectId);
+                                if (num > 0 && num1 > 0) {
+                                    resultData = ResultData.error(0, "您已成功录入该学员的科目四成绩,该学员已通过考试");
+                                }
+                            } else {
+                                int num1 = examResultMapper.updateStudentScore(erId, erScore, examSujectId);
+                                resultData = ResultData.error(0, "您已成功录入该学员的科目四成绩,该学员未通过考试");
+                            }
                         }
+                    } else {
+                        resultData = ResultData.error(-1, "该学员的科目三考试未通过，不能录入科目四成绩");
                     }
-                } else {
-                    resultData = ResultData.error(-1, "该学员的科目三考试未通过，不能录入科目四成绩");
                 }
                 break;
 
         }
         return resultData;
     }
+
+    @Override
+    /*
+     *@Description:学员获取
+     *@Author:李浪_191019
+     *@Param:[student]
+     *@return:com.lsjbc.vdtts.pojo.vo.ResultData
+     *@Date:2020/6/18 22:35
+     **/
+    public ResultData StudentRecordDate(Student student) {
+        ResultData resultData = ResultData.success();
+        ExamResult examResult = new ExamResult();
+        ExamSimulateRecord examSimulateRecord = new ExamSimulateRecord();
+        examResult.setErStudentId(student.getSId());
+        examSimulateRecord.setEsrStudentId(student.getSId());
+        System.out.println(examResult);
+        resultData.put("examResult",examResultMapper.getRecord(examResult));
+        for(int i = 1;i <= 3;i++){//回滚获取考试情况
+            examSimulateRecord.setEsrLevel(i);
+            try {
+                resultData.put("esr"+i,examSimulateRecordMapper.getExamSimulate(examSimulateRecord));
+            }catch (Exception e){}
+        }
+        return resultData;
+    }
+
 }

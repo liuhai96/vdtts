@@ -63,12 +63,31 @@
         select * from tb_teacher where t_school_id = #{tSchoolId}
     </select>
 
+<!--    修改是否允许学员报名-->
     <update id="updateTeacherApplyState" parameterType="int">
-        update tb_teacher set t_teach = 'false' where t_id = #{tId}
+        update tb_teacher
+        <set>
+            <if test="tTeach=='true'">
+              t_teach = 'false'
+            </if>
+            <if test="tTeach=='false'">
+                t_teach = 'true'
+            </if>
+        </set>
+        where t_id = #{tId}
     </update>
 
     <update id="updateTeacherAccountLockState" parameterType="int">
-        update tb_teacher set t_lock = 'false' where t_id = #{tId}
+        update tb_teacher
+        <set>
+            <if test="tLock =='true'">
+                t_lock = 'false'
+            </if>
+            <if test="tLock=='false'">
+                t_lock = 'true'
+            </if>
+        </set>
+         where t_id = #{tId}
     </update>
 
 
@@ -89,6 +108,9 @@
             <if test="e.tLock!=null and e.tLock!=''"> and t_lock = #{e.tLock}</if>
             <if test="e.tTeach!=null and e.tTeach!=''"> and t_teach = #{e.tTeach}</if>
         </where>
+    </select>
+    <select id="fteacher" resultType="com.lsjbc.vdtts.entity.Teacher">
+         select t_school_id from tb_teacher where t_id= #{tTeacherId}
     </select>
 
     <!--李浪写 通用修改-->

@@ -39,7 +39,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">学员分数</label>
         <div class="layui-input-inline" id="teacherAccount">
-            <input type="text"  name="erScore" required  lay-verify="required" placeholder="请输入学员分数" autocomplete="off" class="layui-input">
+            <input type="text"  name="erScore" required  lay-verify="required|number" placeholder="请输入学员分数" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
@@ -72,7 +72,7 @@
         var table = layui.table;
       var $table = table.render({
             elem: '#test'
-            ,url:'/examResultController/selectStudentExamList'
+            ,url:'<%=path%>/examResultController/selectStudentExamList'
             ,toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
             ,defaultToolbar: ['filter', 'exports', 'print', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
                 title: '提示'
@@ -87,11 +87,8 @@
                 ,{title:'学生姓名',templet: '<div>{{d.student.sName}}</div>'}
                 ,{title:'性别',templet: '<div>{{d.student.sSex}}</div>'}
                 ,{field:'erScore1', title:'科目一考试分数',sort: true}
-                ,{field:'erTime2', title:'科目二考试学时',sort: true}
                 ,{field:'erScore2', title:'科目二考试分数',sort: true}
-                ,{field:'erTime3', title:'科目三考试学时',sort: true}
                 ,{field:'erScore3', title:'科目三考试分数',sort: true}
-                ,{field:'erTime4', title:'科目四考试学时',sort: true}
                 ,{field:'erScore4', title:'科目四考试分数',sort: true}
                 ,{field:'tName', title:'所属教练',sort: true}
                 ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:150}
@@ -133,7 +130,6 @@
             var erId = data.erId;
             layer.alert(erId);
             var teacherId = data.student.sTeacherId;
-            //console.log(obj)
          if(obj.event === 'edit'){
                 $("#studentName").html(data.student.sName);
                 var index = layer.open({
@@ -146,14 +142,14 @@
                         layer.close(index);
                     }
                 });
-                layui.use('form', function(){
-                    var form = layui.form;
+                layui.use(['form','layer'], function(){
+                    var form = layui.form,layer = layui.layer;
                     form.on('submit(demo1)', function(data){
                         examSujectId = $("#examSelect").val();
                         erScore = $("input[name='erScore']").val();
                         $.ajax({
                             type: 'POST',
-                            url: '/examResultController/enterResults',
+                            url: '<%=path%>/examResultController/enterResults',
                             dataType: 'JSON',
                             data: {
                                 sId:sId,
@@ -166,8 +162,13 @@
                                     layer.msg(remsg.msg);
                                     layer.close(index);
                                     $table.reload();
+                                    $('#scheduleExam')[0].reset();//重置表单
+                                    form.render();
                                 }else{
                                     layer.msg(remsg.msg);
+                                    layer.close(index);
+                                    $('#scheduleExam')[0].reset();//重置表单
+                                    form.render();
                                 }
                             }
                         });

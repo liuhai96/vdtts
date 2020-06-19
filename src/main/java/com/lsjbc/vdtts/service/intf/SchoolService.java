@@ -92,6 +92,7 @@ public interface SchoolService {
 
     public List<School> selectStudentCount();
 
+    ResultData updateSchoolPwd(HttpServletRequest request);
     ResultData updateSchoolBasicInfo(School school);
 
 

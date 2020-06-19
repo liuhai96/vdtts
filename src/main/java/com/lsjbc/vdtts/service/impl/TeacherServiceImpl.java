@@ -12,6 +12,7 @@ import com.lsjbc.vdtts.dao.mapper.StudentMapper;
 import com.lsjbc.vdtts.dao.mapper.TeacherMapper;
 import com.lsjbc.vdtts.entity.Account;
 import com.lsjbc.vdtts.entity.School;
+import com.lsjbc.vdtts.entity.Student;
 import com.lsjbc.vdtts.entity.Teacher;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.pojo.vo.ResultData;
@@ -165,7 +166,7 @@ public class TeacherServiceImpl implements TeacherService {
         return layuiTableData;
     }
 
-    @Override
+
     /*
      *@Description:修改教练基本信息
      *@Author:刘海
@@ -173,6 +174,7 @@ public class TeacherServiceImpl implements TeacherService {
      *@return:com.lsjbc.vdtts.pojo.vo.LayuiTableData
      *@Date:2020/6/9 15:26
      **/
+    @Override
     public LayuiTableData updateTeacherInfo(Teacher teacher) {
         LayuiTableData layuiTableData = new LayuiTableData();
         int num = teacherMapper.updateTeacherInfo(teacher);
@@ -182,7 +184,7 @@ public class TeacherServiceImpl implements TeacherService {
         return layuiTableData;
     }
 
-    @Override
+
     /*
      *@Description:
      *@Author:刘海
@@ -190,15 +192,16 @@ public class TeacherServiceImpl implements TeacherService {
      *@return:com.lsjbc.vdtts.pojo.vo.LayuiTableData
      *@Date:2020/6/9 15:27
      **/
-
-    public LayuiTableData findTeacher(int tSchoolId) {
+    @Override
+    public LayuiTableData findTeacher(HttpServletRequest request) {
         LayuiTableData layuiTableData = new LayuiTableData();
-        ArrayList<Teacher> teacherList = teacherMapper.findTeacher(tSchoolId);
+        School school = (School) request.getSession().getAttribute("school");
+        ArrayList<Teacher> teacherList = teacherMapper.findTeacher(school.getSId());
         layuiTableData.setData(teacherList);
         return layuiTableData;
     }
 
-    @Override
+
     /*
      *@Description:
      *@Author:刘海
@@ -206,9 +209,10 @@ public class TeacherServiceImpl implements TeacherService {
      *@return:com.lsjbc.vdtts.pojo.vo.LayuiTableData
      *@Date:2020/6/9 21:39
      **/
-    public LayuiTableData updateTeacherApplyState(int tId) {
+    @Override
+    public LayuiTableData updateTeacherApplyState(String tTeach,int tId) {
         LayuiTableData layuiTableData = new LayuiTableData();
-        int num = teacherMapper.updateTeacherApplyState(tId);
+        int num = teacherMapper.updateTeacherApplyState(tTeach,tId);
         if(num>0){
             layuiTableData.setCode(1);
         }else{
@@ -217,7 +221,7 @@ public class TeacherServiceImpl implements TeacherService {
         return layuiTableData;
     }
 
-    @Override
+
     /*
      *@Description:
      *@Author:刘海
@@ -225,9 +229,10 @@ public class TeacherServiceImpl implements TeacherService {
      *@return:com.lsjbc.vdtts.pojo.vo.LayuiTableData
      *@Date:2020/6/9 22:25
      **/
-    public LayuiTableData updateTeacherAccountLockState(int tId) {
+    @Override
+    public LayuiTableData updateTeacherAccountLockState(String tLock,int tId) {
         LayuiTableData layuiTableData = new LayuiTableData();
-        int num = teacherMapper.updateTeacherAccountLockState(tId);
+        int num = teacherMapper.updateTeacherAccountLockState(tLock,tId);
         if(num>0){
             layuiTableData.setCode(1);
         }else{
@@ -293,9 +298,6 @@ public class TeacherServiceImpl implements TeacherService {
             detail.setSchoolName(schoolDao.getById(item.getTSchoolId()).getSName());
             detail.setStudentCount(studentDao.getStudentCountByTeacherId(item.getTId()));
 
-            //生成跳转路径，必须
-            detail.generateInfoUrl();
-
             details.getResult().add(detail);
         });
 
@@ -327,5 +329,33 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public Teacher zjhGetObjectByTeacherId(Integer id) {
         return teacherDao.getById(id);
+    }
+
+    //教练查询身份证
+    @Override
+    public ResultData checksSfz(Student student, HttpServletRequest request)
+    {
+        System.out.println("setSSfz1=" + student);
+        ResultData resultData = null;
+        System.out.println("setSSfz=" + student);
+        Integer  tTeacherId = Integer.parseInt(request.getParameter("teacherId"));
+        student= studentMapper.insSfz(student);
+        System.out.println("setSSfz=" + student+"asdasd"+tTeacherId);
+        if (student != null)
+        { //查询
+//
+            if (student.getSTeacherId() == null)
+            {
+                Teacher teacher=teacherMapper.fteacher(tTeacherId);
+                int num =studentMapper.updateStudentTecaherId(tTeacherId,teacher.getTSchoolId(),student);
+                resultData = ResultData.error(1, "报名教练成功");
+            } else
+            {
+                resultData = ResultData.error(2, "该学员已报名其他教练");
+            }
+        } else {
+                resultData = ResultData.error(3, "未该有此学员信息请先去注册");
+        }
+        return resultData;
     }
 }

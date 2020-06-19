@@ -1,8 +1,11 @@
 package com.lsjbc.vdtts.service.intf;
 
+import com.lsjbc.vdtts.entity.Student;
 import com.lsjbc.vdtts.pojo.vo.ExamTimeNew;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.pojo.vo.ResultData;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @ClassName: ExamTimeService
@@ -20,7 +23,7 @@ public interface ExamTimeService {
      *@return:
      *@Date:2020/6/15 18:54
      **/
-    LayuiTableData findStudentExamNotes(String page,String limit,Integer studentId);
+    LayuiTableData findStudentExamNotes(String page,String limit, HttpServletRequest request );
 
     /**
      * 更新学员的学时

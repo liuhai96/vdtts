@@ -23,9 +23,9 @@ public interface TeacherMapper extends CustomBaseMapper<Teacher> {
 
     public ArrayList<Teacher> findTeacher(@Param("tSchoolId") int tSchoolId);
 
-    public int updateTeacherApplyState(int tId);
+    public int updateTeacherApplyState(@Param("tTeach") String tTeach, @Param("tId")int tId);
 
-    public int updateTeacherAccountLockState(int tId);
+    public int updateTeacherAccountLockState(@Param("tLock") String tLock, @Param("tId")int tId);
 
     /*
      *@Description:
@@ -37,7 +37,8 @@ public interface TeacherMapper extends CustomBaseMapper<Teacher> {
     public int teacherlistcount(@Param("e") Teacher teacher);
     public List<Teacher> teacherlist(@Param("e") Teacher teacher, @Param("start") int start, @Param("pageSize") int pageSize);
     public Teacher findAccount(@Param("e")Account account);//李浪 登录用的查找
-
+    //教练归属驾校查找
+    public Teacher fteacher(@Param("tTeacherId")Integer  tTeacherId);
     /*
      *@Description:
      *@Author:周永哲
@@ -50,4 +51,5 @@ public interface TeacherMapper extends CustomBaseMapper<Teacher> {
     public int teacherUpdate(@Param("e")Teacher teacher);//教练修改统一方法
 
     List<Teacher> homePageShow(@Param("e")Teacher teacher,Integer page,Integer  pageSize);
+
 }
