@@ -70,4 +70,7 @@ public class ExamAnswer {
     @Column(name = "`ea_right`")
     private String eaRight;
 
+    @Column(name = "`ea_level`")
+    private Integer eaLevel;
+
 }

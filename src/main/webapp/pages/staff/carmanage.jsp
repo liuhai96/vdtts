@@ -101,6 +101,7 @@
                 <i class="layui-icon">&#xe615;</i>
             </button>
         </div>
+        <button class="layui-btn layui-btn-sm" lay-event="aaaa">添加题目</button>
 </script>
 
 <script type="text/html" id="barDemo">
@@ -203,6 +204,21 @@
                     });
                     $("input[name='inputname']").val(inputname);
                     break;
+                    case "aaaa":
+                        $.ajax({
+                            type: 'POST',
+                            url: '<%=path%>/examQuestionController/examQuestion',
+                            success: function (msg) {
+                                if (msg.code==1){
+                                    layer.msg("添加教练车成功");
+                                    $table.reload();
+                                }
+                                layer.close(index);
+                                $('#addCar')[0].reset();//重置表单
+                                form.render();
+                            }
+                        });
+                        break;
             };
         });
 
