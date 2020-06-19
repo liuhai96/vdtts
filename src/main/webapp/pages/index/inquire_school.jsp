@@ -387,16 +387,8 @@
 								,schoolId:schoolId
 							},
 							success: function (remsg) {
-								if (remsg.code == 1) {
-									layer.msg(remsg.msg);
-									layer.close(index);
-								} else if (remsg.code == 2) {
-									layer.msg(remsg.msg);
-									layer.close(index);
-								} else {
-									layer.msg(remsg.msg);
-									layer.close(index);
-								}
+								console.log(remsg);
+								layer.close(index);
 							}
 						})
 					}

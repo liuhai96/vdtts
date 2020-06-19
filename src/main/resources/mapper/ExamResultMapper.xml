@@ -97,5 +97,11 @@
     <insert id="insertStudent" parameterType="int">
         insert into tb_exam_result(er_student_id) values (#{erStudentId})
     </insert>
-
+    <select id="getRecord" resultType="com.lsjbc.vdtts.entity.ExamResult">
+        select * from tb_exam_result
+        <where> 1=1
+            <if test="erStudentId != null and erStudentId != ''"> and er_student_id = #{erStudentId}</if>
+            <if test="erId != null and erId != ''"> and er_id = #{erId}</if>
+        </where>
+    </select>
 </mapper>

@@ -82,7 +82,7 @@
     function Logout(){//注销登录方法
         var $ = layui.jquery;
         if (confirm("你真的要注销登录吗？")>0){
-            window.location.href = $("#path").val()+"/transfer?logo=logout";
+            window.location.href = $("#path").val()+"/transfer?logo=exit";
         }
     }
     layui.use(['pearAdmin', 'jquery', 'layer', 'pearTab', 'pearNotice'], function() {

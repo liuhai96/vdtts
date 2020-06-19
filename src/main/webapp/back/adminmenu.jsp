@@ -2,6 +2,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     String path = request.getContextPath();
+    if(request.getSession().getAttribute("admin")==null){
+        response.sendRedirect("/back/adminlogin.jsp");
+    }
 %>
 <head>
     <meta charset="utf-8">
@@ -133,8 +136,24 @@
                     , btnAlign: 'c' //按钮居中
                     , shade: 0 //不显示遮罩
                     , yes: function () {
-                        // layer.msg('账号退出成功，即将跳转到登录界面');
-                        location.href = 'adminlogin.jsp'
+                        // alert('账号退出成功，即将跳转到登录界面');
+                        // location.href = 'adminlogin.jsp'
+                        $.ajax({
+                            url: "/adminControl/logout",
+                            type: "POST",
+                            dataType: "text",
+                            data:{
+                                logout: 'logout'
+                            },
+                            success: function (msg) {
+                                if (msg.trim() == "success") {
+                                    alert('账号退出成功，即将跳转到登录界面');
+                                    location.href = 'adminlogin.jsp'
+                                } else {
+                                    alert("账号退出失败！")
+                                }
+                            }
+                        });
                     }
                     , cancel: function () {
                         layer.closeAll();
@@ -179,7 +198,7 @@
                             success: function (msg) {
                                 if (msg.trim() == "success") {
                                     // layer.alert("密码修改成功");
-                                    layer.confirm('密码修改成功!', {
+                                    layer.confirm('密码修改成功!即将跳转到登录界面', {
                                         btn: ['确定'] //可以无限个按钮
                                         ,btn1: function(index, layero){
                                             layer.close(index)

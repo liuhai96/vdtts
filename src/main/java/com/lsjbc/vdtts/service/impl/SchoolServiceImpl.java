@@ -1,5 +1,7 @@
 package com.lsjbc.vdtts.service.impl;
 
+
+
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.lsjbc.vdtts.constant.EvaluateType;
@@ -218,29 +220,27 @@ public class SchoolServiceImpl implements SchoolService
 		System.out.println("setSSfz1=" + student);
 		ResultData resultData = null;
 		System.out.println("setSSfz=" + student);
-		student= studentMapper.insSfz(student);
-		Integer  schoolId = Integer.parseInt(request.getParameter("schoolId"));
-		System.out.println("setSSfzwqeeeeeeeeeeee=" + schoolId);
+		student = studentMapper.insSfz(student);
+		Integer sSchoolId = Integer.parseInt(request.getParameter("schoolId"));
+		System.out.println("setSSfzwqeeeeeeeeeeee=" + sSchoolId);
 		System.out.println("setSSfz2=" + student);
 		if (student != null)
 		{ //查询
 
 			if (student.getSSchoolId() == null)
 			{
-				int num =studentMapper.inschool(student,schoolId);
-				resultData = ResultData.error(1, "报名成功");
-			} else
-			{
-				resultData = ResultData.error(2, "该学员已报名其他驾校");
-			}
-		} else
-		{
-			resultData = ResultData.error(3, "未该有此学员信息请先去注册");
+					resultData = ResultData.error(1, "该学员已经报名成功");
+				} else
+				{
+					resultData = ResultData.error(2, "该学员已报名其他驾校");
+				}
 
+
+		}else{
+			resultData = ResultData.error(3, "未该有此学员信息请先去注册");
 		}
 		return resultData;
 	}
-
 
     @Override//驾驶入驻
     public ResultData schoolToProduct(School school, String id){
@@ -378,6 +378,12 @@ public class SchoolServiceImpl implements SchoolService
 			resultData = ResultData.error(-1,"新密码与重复输入密码不同");
 		}
 		return resultData;
+	}
+
+	@Override
+	public List<School> selectStudentCount() {
+		List<School> selectStudentCount = schoolMapper.selectStudentCount();
+		return selectStudentCount;
 	}
 
 	@Override

@@ -26,7 +26,7 @@
     <body>
         <div>
             <input hidden="hidden" value="<%=path%>" id="path">
-            <div style="margin: 0 15% 0 15%">
+            <div style="margin: 0 10% 0 10%">
                 <div style="margin-bottom: 5px;">
 
                     <!-- 示例-970 -->
@@ -48,7 +48,6 @@
                     </thead>
                 </table>
                 <script type="text/html" id="barDemo">
-<%--                    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>--%>
                     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
                     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
                 </script>

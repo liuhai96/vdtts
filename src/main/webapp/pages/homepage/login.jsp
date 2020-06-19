@@ -51,7 +51,7 @@
                            placeholder="请输入你的账号" class="layui-input" style="text-align:
                                 center;background-color: #f3fdff;height: 100%">
                 </div>
-                <label id="idNotify" style="color:#ff0a29;text-align: left;"></label><br><br>
+                <label id="idNotify" style="color:#ff0a29;text-align: left;margin: 0 0 0 18%"></label><br><br>
                 <div class="inputdiv" style="width: 60%;margin: 0 0 0 18%">
                     <i class="layui-icon layui-icon-password"></i>
                     <input type="password" name="aPassword"
@@ -60,9 +60,9 @@
                     <i class="layui-icon layui-icon-face-surprised" id="viewN"
                        onmousedown="PassView(true)" onmouseup="PassView(false)"></i>
                 </div>
-                <label id="passNotify" style="color:#ff0a29;text-align: left;"></label><br><br>
+                <label id="passNotify" style="color:#ff0a29;text-align: left;margin: 0 0 0 18%;"></label><br><br>
                 <li>
-                    <div style="width: 80%;margin: 0 0 0 18%">
+                    <div style="width: 300px;margin: 0 0 0 18%">
                         <input type="text" value="" placeholder="验证码" class="input-val sradd photokey" style="height: 35px;width: 25%;">
                         <canvas id="canvas" class="" style="height: 35px;background-color: ghostwhite; margin: 0 0 0 10%;width: 65%"></canvas>
                     </div><br>

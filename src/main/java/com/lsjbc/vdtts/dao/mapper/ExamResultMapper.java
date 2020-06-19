@@ -24,4 +24,5 @@ public interface ExamResultMapper extends CustomBaseMapper<ExamResult> {
     public int updateStudentScore(@Param("erId") Integer erId,@Param("erScore") Integer erScore,@Param("examSujectId") Integer examSujectId);
     int insertStudent(Integer erStudentId);
     //结束
+    ExamResult getRecord(ExamResult examResult);//操作学员成绩   //李浪写
 }

@@ -35,6 +35,7 @@
 
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-xs" lay-event="delete">删除教练车</a>
+    <a class="layui-btn layui-btn-xs" lay-event="update">教练车信息修改</a>
 </script>
 
 <script>
@@ -66,15 +67,16 @@
             ,cols: [[ //表头
                 {type: 'checkbox', fixed: 'left'}
                 ,{field: 'cId', title: '序号', width:80, sort: true, fixed: 'left', }
-                ,{field: 'cLogo', title: '车辆品牌', width:110}
-                ,{field: 'cModel', title: '型号', width:80, sort: true, totalRow: true}
-                ,{field: 'cColor', title: '颜色', width: 80}
-                ,{field: 'cNumber', title: '车牌号码', width: 100}
-                ,{field: 'schoolName', title: '所属驾校', width: 120}
+                ,{field: 'cLogo', title: '车辆品牌', width:130}
+                ,{field: 'cModel', title: '型号', width:100, sort: true, totalRow: true}
+                ,{field: 'cColor', title: '颜色', width: 100}
+                ,{field: 'cNumber', title: '车牌号码', width: 120}
+                ,{field: 'schoolName', title: '所属驾校', width: 150}
                 ,{field: 'tName', title: '所属教练', width: 110}
                 // ,{field: 'sRegTime', title: '注册时间', width:90 }
                 ,{field: 'cSchoolId', title: '驾校id', width:10, hide:'true'}
-                ,{fixed: 'right', title: '管理操作',width: 100, align:'center', toolbar: '#barDemo'}
+                ,{fixed: 'right', title: '管理操作',width: 220, align:'center', toolbar: '#barDemo'}
+                ,{fixed: 'right', title: '备注', align:'center'}
             ]]
         });
 

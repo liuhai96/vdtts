@@ -1,11 +1,15 @@
 package com.lsjbc.vdtts.service.impl;
 
 import com.lsjbc.vdtts.dao.mapper.ExamResultMapper;
+import com.lsjbc.vdtts.dao.mapper.ExamSimulateRecordMapper;
 import com.lsjbc.vdtts.entity.ExamResult;
+import com.lsjbc.vdtts.entity.ExamSimulateRecord;
 import com.lsjbc.vdtts.entity.School;
+import com.lsjbc.vdtts.entity.Student;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.pojo.vo.ResultData;
 import com.lsjbc.vdtts.service.intf.ExamResultService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -22,6 +26,8 @@ public class ExamResultServiceImpl implements ExamResultService {
 
     @Resource
     private ExamResultMapper examResultMapper;
+    @Resource
+    private ExamSimulateRecordMapper examSimulateRecordMapper;
 
     @Override
     public LayuiTableData selectStudentExamList(String page, String limit, String sName, HttpServletRequest request) {
@@ -268,4 +274,30 @@ public class ExamResultServiceImpl implements ExamResultService {
         }
         return resultData;
     }
+
+    @Override
+    /*
+     *@Description:学员获取
+     *@Author:李浪_191019
+     *@Param:[student]
+     *@return:com.lsjbc.vdtts.pojo.vo.ResultData
+     *@Date:2020/6/18 22:35
+     **/
+    public ResultData StudentRecordDate(Student student) {
+        ResultData resultData = ResultData.success();
+        ExamResult examResult = new ExamResult();
+        ExamSimulateRecord examSimulateRecord = new ExamSimulateRecord();
+        examResult.setErStudentId(student.getSId());
+        examSimulateRecord.setEsrStudentId(student.getSId());
+        System.out.println(examResult);
+        resultData.put("examResult",examResultMapper.getRecord(examResult));
+//        for(int i = 1;i <= 3;i++){//回滚获取考试情况
+//            examSimulateRecord.setEsrLevel(i);
+//            try {
+//                resultData.put("esr"+i,examSimulateRecordMapper.getExamSimulate(examSimulateRecord));
+//            }catch (Exception e){}
+//        }
+        return resultData;
+    }
+
 }

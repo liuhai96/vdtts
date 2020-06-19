@@ -1,10 +1,12 @@
 package com.lsjbc.vdtts.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.lsjbc.vdtts.entity.Student;
 import com.lsjbc.vdtts.service.intf.ExamResultService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -51,5 +53,24 @@ public class ExamResultController {
     @RequestMapping(value = "/enterResults")
     public Object enterResults(String erId,String sId,String examSujectId,String erScore){
         return JSON.toJSONString(examResultService.enterResults(Integer.parseInt(erId),Integer.parseInt(sId),Integer.parseInt(examSujectId),Integer.parseInt(erScore)));
+    }
+
+    @RequestMapping(value = "/getStudentResult")
+    /*
+     *@Description:获取登录学生的成绩
+     *@Author:李浪_191019
+     *@Param:[student]
+     *@return:org.springframework.web.servlet.ModelAndView
+     *@Date:2020/6/18 22:04
+     **/
+    public ModelAndView getStudentResult(Student student,String logo){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("data",examResultService.StudentRecordDate(student));
+        if(logo.equals("result"))
+            modelAndView.setViewName("/pages/student/student-record");
+        else if(logo.equals("period")){
+            modelAndView.setViewName("/pages/student/student-period");
+        }
+        return modelAndView;
     }
 }
