@@ -1,5 +1,6 @@
 package com.lsjbc.vdtts.service.intf;
 
+import com.lsjbc.vdtts.entity.Student;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.pojo.vo.ResultData;
 
@@ -16,4 +17,5 @@ public interface ExamResultService {
     public LayuiTableData selectStudentExamList(String page, String limit, String sName, HttpServletRequest request);
     public ResultData arringeExam(int erId,int erStudentId,int examSujectId,int teacherId);
     public ResultData enterResults(int erId,int studentId,int examSujectId,int erScore);
+    public ResultData StudentRecordDate(Student student);//学员成数据  李浪
 }
