@@ -114,4 +114,11 @@
     <insert id="updateSchool" parameterType="com.lsjbc.vdtts.entity.School">
         update tb_school set s_name =#{sName}, s_address=#{sAddress}, s_phone=#{sPhone}, s_recruit=#{sRecruit}, s_lock=#{sLock} where s_id =#{sId}
     </insert>
+    <!--  周永哲，驾校信息修改-->
+    <select id="selectStudentCount" resultType="com.lsjbc.vdtts.entity.School">
+     select tsl.s_name ,count(tst.s_id) student_count from tb_school tsl,tb_student tst
+     where tsl.s_id=tst.s_school_id group by tsl.s_name
+    </select>
+
+
 </mapper>

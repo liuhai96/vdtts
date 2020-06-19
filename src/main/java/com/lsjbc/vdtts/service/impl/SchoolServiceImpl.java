@@ -350,6 +350,12 @@ public class SchoolServiceImpl implements SchoolService
 	}
 
 	@Override
+	public List<School> selectStudentCount() {
+		List<School> selectStudentCount = schoolMapper.selectStudentCount();
+		return selectStudentCount;
+	}
+
+	@Override
 	public ResultData updateSchoolBasicInfo(School school) {
 		 ResultData resultData = null;
 		 int num = schoolMapper.updateSchoolBasicInfo(school);

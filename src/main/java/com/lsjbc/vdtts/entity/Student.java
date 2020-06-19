@@ -133,5 +133,24 @@ public class Student {
 	@Transient
 	private String teacherName;
 
-
+	/**
+	 *学员在考科目1人数
+	 */
+	@Transient
+	private Integer state1;
+	/**
+	 *学员在考科目2人数
+	 */
+	@Transient
+	private Integer state2;
+	/**
+	 *学员在考科目3人数
+	 */
+	@Transient
+	private Integer state3;
+	/**
+	 *学员在考科目4人数
+	 */
+	@Transient
+	private Integer state4;
 }

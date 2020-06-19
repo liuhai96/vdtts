@@ -1,6 +1,7 @@
 package com.lsjbc.vdtts.service.intf;
 
 import com.lsjbc.vdtts.entity.Account;
+import com.lsjbc.vdtts.entity.School;
 import com.lsjbc.vdtts.entity.Student;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.pojo.vo.ResultData;
@@ -25,6 +26,10 @@ public interface StudentService {
     public int insertstudent(Student student);
     public int updatestudent(Student student);
     public int deletestudent(Student student);
+    public Integer studentExamCount1();
+    public Integer studentExamCount2();
+    public Integer studentExamCount3();
+    public Integer studentExamCount4();
 
     /*
      *@Description:

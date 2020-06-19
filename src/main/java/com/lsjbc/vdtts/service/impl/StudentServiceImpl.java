@@ -96,6 +96,25 @@ public class StudentServiceImpl implements StudentService {
 		return deletestudent;
 	}
 
+	@Override
+	public Integer studentExamCount1() {
+		return studentMapper.studentExamCount1();
+	}
+
+	@Override
+	public Integer studentExamCount2() {
+		return studentMapper.studentExamCount2();
+	}
+
+	@Override
+	public Integer studentExamCount3() {
+		return studentMapper.studentExamCount3();
+	}
+
+	@Override
+	public Integer studentExamCount4() {
+		return studentMapper.studentExamCount4();
+	}
 
 
 	/*

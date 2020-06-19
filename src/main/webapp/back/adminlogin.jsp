@@ -47,17 +47,6 @@
 			margin-top: 30px;
 			margin-left: 10px;
 		}
-
-		/*.layui-input {*/
-		/*	box-sizing: border-box;*/
-		/*	border: solid 1px #ddd;*/
-		/*	width: 100%;*/
-		/*	-webkit-transition: all .2s linear 0s;*/
-		/*	-moz-transition: all .2s linear 0s;*/
-		/*	-o-transition: all .2s linear 0s;*/
-		/*	transition: all .2s linear 0s;*/
-		/*}*/
-
 		.layui-btn {
 			background: #12b5b0;
 			height: 40px;

@@ -90,6 +90,7 @@ public interface SchoolService {
     public int insertSchoolAccount(Account account);
     public int updateSchool(School school);
 
+    public List<School> selectStudentCount();
 
     ResultData updateSchoolBasicInfo(School school);
 

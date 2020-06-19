@@ -48,6 +48,19 @@
         delete from tb_student where s_id =#{sId}
     </delete>
 
+    <select id="studentExamCount1" resultType="java.lang.Integer">
+     select count(ter.er_student_id) state1 from tb_exam_result ter where er_state1 ='2'
+    </select>
+    <select id="studentExamCount2" resultType="java.lang.Integer">
+     select count(ter.er_student_id) state2 from tb_exam_result ter where er_state2 ='2'
+    </select>
+    <select id="studentExamCount3" resultType="java.lang.Integer">
+     select count(ter.er_student_id) state3 from tb_exam_result ter where er_state3 ='2'
+    </select>
+    <select id="studentExamCount4" resultType="java.lang.Integer">
+     select count(ter.er_student_id) state4 from tb_exam_result ter where er_state4 ='2'
+    </select>
+
 
 <!--  陈竑霖-->
 <!--表单-->
