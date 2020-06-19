@@ -19,6 +19,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <script src="https://www.layuicdn.com/layui/layui.js"></script>
     <link href="https://www.layuicdn.com/layui/css/layui.css" rel="stylesheet" type="text/css"/>
+    <link href="<%=path+"/driving-in_files/main.css"%>" rel="stylesheet" type="text/css">
     <script src="<%=path+"/static/custom_tool.js"%>"></script>
 </head>
     <body>
@@ -27,37 +28,63 @@
         <input hidden="hidden" value="${aId}" id="aId">
         <div style="text-align: center;">
             <br> <br> <br>
-            <div class="layui-form-item" id="oldPass">
-                <div class="layui-inline">
-                    <label class="layui-form-label">原密码:</label>
-                    <div class="layui-input-inline">
-                        <input type="password" class="layui-input " value="" onfocusout="verifyPass()">
+            <div class="cooperate-form">
+                <div class="form">
+                    <div style="padding-left: 630px">
+                    <div class="form-group radio-form" id="test10" onclick="" type="button" style="padding: auto">
+                        <%--                        <label skip="true" >修改头像<i>*</i></label>--%>
+                        <div class="user-type-conatiner layui-upload" style="height: 15%;width: 15% ;">
+                            <div class="user-type active layui-upload-list" ref="radioWrap" data-index="0"
+                                 style="height:150px ;width: 200px; margin: auto;border: 0px solid black;">
+                                <b skip="true">修改头像</b>
+                                <img src="" style="height: 100%;width: 100%" class="layui-upload-img" id="demo10"  property="" alt="修改头像">
+                                <p id="demoText10"></p>
+                            </div>
+                        </div>
                     </div>
+                    </div>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <div class="layui-form-item" id="oldPass">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">原密码:</label>
+                            <div class="layui-input-inline">
+                                <input type="password" class="layui-input " value="" onfocusout="verifyPass()">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item" id="newPass">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">设置密码:</label>
+                            <div class="layui-input-inline">
+                                <input type="password" class="layui-input" value="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item" id="newPass2">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">确认密码:</label>
+                            <div class="layui-input-inline">
+                                <input type="password" class="layui-input" value="">
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="layui-btn layui-btn-warm" id="toPass" onclick="changePassword()">修改</button>
+                    <button type="button" hidden class="" id="not" onclick="passNot()">取消</button>
                 </div>
             </div>
-            <div class="layui-form-item" id="newPass">
-                <div class="layui-inline">
-                    <label class="layui-form-label">设置密码:</label>
-                    <div class="layui-input-inline">
-                        <input type="password" class="layui-input" value="">
-                    </div>
-                </div>
-            </div>
-            <div class="layui-form-item" id="newPass2">
-                <div class="layui-inline">
-                    <label class="layui-form-label">确认密码:</label>
-                    <div class="layui-input-inline">
-                        <input type="password" class="layui-input" value="">
-                    </div>
-                </div>
-            </div>
-            <button type="button" class="layui-btn layui-btn-warm" id="toPass" onclick="changePassword()">修改</button>
-            <button type="button" hidden class="" id="not" onclick="passNot()">取消</button>
         </div>
     </div>
     <script>
         let verify = -1;
         let passTypes = true;
+        let sPic = "";//修改头像
+        Layui_uploadImage("#test10",$("#path").val()+'/upImage',$('#demo10'),function (mag) {
+        sPic = mag.fPath;},$('#demoText10'));//修改头像
         function verifyPass(){//旧密码验证
             AjaxTransfer($("#path").val()+"/verifyAdmin","aId="+$("#aId").val()+
                 "&aPassword="+ $("#oldPass input").val(),function (mag) {
@@ -108,6 +135,7 @@
             }
             passTypes = !passTypes;
         }
+
     </script>
     </body>
 </html>

@@ -104,6 +104,7 @@
 	<a href="javascript:void(0)" title="返回上一页" class="sina" onclick="history.go(-1);"></a>
 	<a href="javascript:void(0)" title="刷新" class="tencent" onclick="history.go(0);"></a>
 </div>
+<DIV class="main">
 <DIV class="del-1">
 	<DIV class="del-lun">
 	</DIV>
@@ -385,16 +386,8 @@
 								,schoolId:schoolId
 							},
 							success: function (remsg) {
-								if (remsg.code == 1) {
-									layer.msg(remsg.msg);
-									layer.close(index);
-								} else if (remsg.code == 2) {
-									layer.msg(remsg.msg);
-									layer.close(index);
-								} else {
-									layer.msg(remsg.msg);
-									layer.close(index);
-								}
+								console.log(remsg);
+								layer.close(index);
 							}
 						})
 					}
