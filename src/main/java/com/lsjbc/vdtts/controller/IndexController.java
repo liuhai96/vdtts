@@ -169,6 +169,8 @@ public class IndexController {
             return "/pages/index/student_login";
         }
 
+        map.put("studentId",student.getSId());
+
         return "/pages/student/home";
     }
 
