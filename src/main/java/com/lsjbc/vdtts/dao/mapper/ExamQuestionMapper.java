@@ -1,7 +1,10 @@
 package com.lsjbc.vdtts.dao.mapper;
 
-import com.lsjbc.vdtts.utils.mopper.CustomBaseMapper;
 import com.lsjbc.vdtts.entity.ExamQuestion;
+import com.lsjbc.vdtts.utils.mopper.CustomBaseMapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * @ClassName: ExamQuestionMapper
@@ -11,4 +14,6 @@ import com.lsjbc.vdtts.entity.ExamQuestion;
  */
 
 public interface ExamQuestionMapper extends CustomBaseMapper<ExamQuestion> {
+   int insertExamQuestion(@Param("examQuestionList") List examQuestionList);
+
 }

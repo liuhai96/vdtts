@@ -72,6 +72,7 @@ public class IndexController {
     @GetMapping("index")
     public String index2(Map<String, Object> map) {
 
+        map.put("schoolList",schoolService.getFiveMostPowerfulSchool());
         map.put("noticeList", noticeService.getIndexPageNotice());
         map.put("lawList", noticeService.getIndexPageLaw());
         map.put("linkList", linkServive.getFooterFriendLink());

@@ -31,7 +31,7 @@
 	<link rel="stylesheet" href="<%=path+"/css/pages/index/inquireSchDetails.css"%>">
 </HEAD>
 <BODY style="background: rgb(250, 251, 253);">
-
+<div class="menu">
 <input type="hidden" id="schoolId" value="${sid}">
 
 <div class="login-inf">
@@ -41,7 +41,7 @@
 		</div>
 		<div class="inf-login">
 			<c:if test="${sessionScope.student == null }">
-                <<a target="_blank" href="<%=path+"/back/adminlogin.jsp"%>">管理登录</a> |
+                <a target="_blank" href="<%=path+"/back/adminlogin.jsp"%>">管理登录</a> |
                 <a target="_blank" href="<%=path+"/transfer?logo=institutionLogin"%>">机构登录</a> |
                 <a href="<%=path+"/student"%>">学员登录</a> |
                 <a target="_blank" href="<%=path+"/transfer?logo=schoolIn"%>">驾校入驻</a>
@@ -104,7 +104,7 @@
 	<a href="javascript:void(0)" title="返回上一页" class="sina" onclick="history.go(-1);"></a>
 	<a href="javascript:void(0)" title="刷新" class="tencent" onclick="history.go(0);"></a>
 </div>
-<DIV class="main">
+	<div class="main">
 <DIV class="del-1">
 	<DIV class="del-lun">
 	</DIV>
@@ -267,6 +267,7 @@
 		</li>
 	</ul>
 </DIV>
+</div>
 <script src="https://www.layuicdn.com/layui/layui.js"></script>
 <script src="<%=path+"/js/pages/index/jquery.min.js"%>"></script>
 <SCRIPT src="<%=path+"/js/pages/index/inquireSchDetails.js"%>"></SCRIPT>

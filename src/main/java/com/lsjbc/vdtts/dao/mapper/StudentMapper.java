@@ -70,5 +70,4 @@ public interface StudentMapper extends CustomBaseMapper<Student> {
     int updateStudentTeacherId(@Param("sTeacherId") Integer sTeacherId,@Param("sId") Integer sId);
     Student findTeacher(Integer sId);
 
-
 }
