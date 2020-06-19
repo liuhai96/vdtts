@@ -67,9 +67,9 @@ public class ExamResultController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("data",examResultService.StudentRecordDate(student));
         if(logo.equals("result"))
-            modelAndView.setViewName("/pages/index/student-record");
+            modelAndView.setViewName("/pages/student/student-record");
         else if(logo.equals("period")){
-            modelAndView.setViewName("/pages/index/student-period");
+            modelAndView.setViewName("/pages/student/student-period");
         }
         return modelAndView;
     }

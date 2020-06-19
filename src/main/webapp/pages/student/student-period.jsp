@@ -32,21 +32,27 @@
 <body>
 <div>
     <div style="text-align: center;width: 80%;margin: 2% 10% 0 10%">
-        <table width="100%" border="1" cellpadding="1" cellspacing="1">
-            <tr>
-                <c:forEach items="<%=head2%>" begin="0" step="1" end="10" var="h">
-                    <td style="font-size: 20px;text-align: center;">${h}</td>
-                </c:forEach>
-            </tr>
-            <tr>
-                <td style="text-align: center;">
-                    <%=CustomTimeUtils.turnSecondsToString(examResult.getErTime2())%>
-                </td>
-                <td style="text-align: center;">
-                    <%=CustomTimeUtils.turnSecondsToString(examResult.getErTime3())%>
-                </td>
-            </tr>
-        </table>
+        <div class="layui-form">
+            <table class="layui-table">
+                <thead>
+                <tr>
+                    <c:forEach items="<%=head2%>" begin="0" step="1" end="10" var="h">
+                        <th style="font-size: 20px;text-align: center;">${h}</th>
+                    </c:forEach>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td style="text-align: center;">
+                        <%=CustomTimeUtils.turnSecondsToString(examResult.getErTime2())%>
+                    </td>
+                    <td style="text-align: center;">
+                        <%=CustomTimeUtils.turnSecondsToString(examResult.getErTime3())%>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 </body>
