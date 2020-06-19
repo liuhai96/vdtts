@@ -52,7 +52,7 @@
                                 center;background-color: #f3fdff;height: 100%">
                 </div>
                 <label id="idNotify" style="color:#ff0a29;text-align: left;margin: 0 0 0 18%"></label><br><br>
-                <div class="inputdiv" style="width: 300px;margin: 0 0 0 18%">
+                <div class="inputdiv" style="width: 60%;margin: 0 0 0 18%">
                     <i class="layui-icon layui-icon-password"></i>
                     <input type="password" name="aPassword"
                            placeholder="请输入你的密码" class="layui-input" style="text-align:
