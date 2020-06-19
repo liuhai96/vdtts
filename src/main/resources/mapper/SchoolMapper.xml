@@ -50,8 +50,6 @@
     <update id="unbindlogon" parameterType="com.lsjbc.vdtts.entity.School">
         update tb_school set  s_lock='true' where s_id = #{sId}
     </update>
-
-
 <!--    刘海-->
     <select id="findSchoolInfo" resultType="com.lsjbc.vdtts.entity.School" parameterType="int">
         select sh.*,ac.* from tb_school sh left join tb_account ac on sh.s_account_id = ac.a_id where sh.s_id = #{sId}
