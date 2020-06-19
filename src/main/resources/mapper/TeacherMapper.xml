@@ -109,6 +109,9 @@
             <if test="e.tTeach!=null and e.tTeach!=''"> and t_teach = #{e.tTeach}</if>
         </where>
     </select>
+    <select id="fteacher" resultType="com.lsjbc.vdtts.entity.Teacher">
+         select t_school_id from tb_teacher where t_id= #{tTeacherId}
+    </select>
 
     <!--李浪写 通用修改-->
     <update id="teacherUpdate" parameterType="com.lsjbc.vdtts.entity.Teacher">

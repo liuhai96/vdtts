@@ -7,6 +7,7 @@ import com.lsjbc.vdtts.dao.StudentDao;
 import com.lsjbc.vdtts.dao.mapper.ExamTimeMapper;
 import com.lsjbc.vdtts.entity.Car;
 import com.lsjbc.vdtts.entity.ExamTime;
+import com.lsjbc.vdtts.entity.Student;
 import com.lsjbc.vdtts.pojo.vo.ExamTimeNew;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.pojo.vo.ResultData;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,12 +57,13 @@ public class ExamTimeServiceImpl implements ExamTimeService {
      *@Date:2020/6/15 18:35
      **/
     @Override
-    public LayuiTableData findStudentExamNotes(String page,String limit,Integer etStudentId) {
+    public LayuiTableData findStudentExamNotes(String page, String limit, HttpServletRequest request ) {
         LayuiTableData layuiTableData = new LayuiTableData();
+        Student student = (Student) request.getSession().getAttribute("student");
         int pageSize = Integer.parseInt(limit);
         int start = (Integer.parseInt(page)-1)*pageSize;//计算从数据库第几条开始查
-        ArrayList<ExamTime> examTimeArrayList = examTimeMapper.findStudentExamNotes(etStudentId,start,pageSize);
-        int count = examTimeMapper.findStudentExamNotesCount(etStudentId);
+        ArrayList<ExamTime> examTimeArrayList = examTimeMapper.findStudentExamNotes(student.getSId(),start,pageSize);
+        int count = examTimeMapper.findStudentExamNotesCount(student.getSId());
         layuiTableData.setCount(count);
         layuiTableData.setData(examTimeArrayList);
         return layuiTableData;

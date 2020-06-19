@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -76,5 +77,39 @@ public class AccountController {
     @ResponseBody
     public ResultData updateSchoolPwd(String oldPwd,String newPwd,String repeatPwd,HttpServletRequest request){
         return accountService.updateSchoolPwd(oldPwd,newPwd,repeatPwd,request);
+    }
+
+    @RequestMapping(value = "/transfer")
+    /*
+     *@Description: 主要用于界面中转
+     *@Author:李浪_191019
+     *@Param:[logo]
+     *@return:org.springframework.web.servlet.ModelAndView
+     *@Date:2020/6/18 14:40
+     **/
+    public ModelAndView Transfer(String logo,HttpServletRequest request){
+        String goal;//去的目的地
+        ModelAndView modelAndView = new ModelAndView();
+        switch (logo){
+            case"institutionIndex"://去机构首页
+                goal = "/pages/backhomepage/index";
+                break;
+            case "schoolIn"://驾校入驻
+                goal = "/pages/homepage/driving-in/driving-in";
+                break;
+            case "logout"://注销登录
+                request.getSession().invalidate();
+            case"institutionLogin"://去机构登录页
+                goal = "/pages/index/institution";
+                break;
+
+            case "exit"://退出
+                request.getSession().invalidate();
+            default ://回系统首页
+                goal = "/pages/index/index";
+                break;
+        }
+        modelAndView.setViewName(goal);
+        return modelAndView;
     }
 }

@@ -11,6 +11,7 @@ import com.lsjbc.vdtts.utils.CustomTimeUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -71,6 +72,7 @@ public class IndexController {
     @GetMapping("index")
     public String index2(Map<String, Object> map) {
 
+        map.put("schoolList",schoolService.getFiveMostPowerfulSchool());
         map.put("noticeList", noticeService.getIndexPageNotice());
         map.put("lawList", noticeService.getIndexPageLaw());
         map.put("linkList", linkServive.getFooterFriendLink());
@@ -101,51 +103,6 @@ public class IndexController {
         }
 
         return "/pages/index/publicity";
-    }
-
-    /**
-     * 访问信息中心
-     *
-     * @param map  ModelAndView中的属性键值对
-     * @param type 要访问的是教练还是驾校
-     * @param name 访问的名字
-     * @return 页面
-     */
-    @GetMapping("inquire")
-    public String inquire(Map<String, Object> map, String type, String name) {
-        if (type != null) {
-            map.put("type", type);
-            map.put(type.equalsIgnoreCase(EvaluateType.TYPE_SCHOOL) ? "schoolName" : "teacherName", name);
-        }
-        map.put("linkList", linkServive.getFooterFriendLink());
-        return "/pages/index/inquire";
-    }
-
-    /**
-     * 跳转到教练的详细信息界面
-     *
-     * @param map          ModelAndView中的属性键值对
-     * @param teacherId    教练ID
-     * @param score        评分
-     * @param studentCount 学员人数
-     * @param school       驾校名称
-     * @return 页面
-     */
-    @GetMapping("inquire/teacher/{id}/{score}/{count}/{school}")
-    public String inquireTeacher(Map<String, Object> map, @PathVariable("id") Integer teacherId, @PathVariable("score") Double score, @PathVariable("count") Integer studentCount, @PathVariable("school") String school) {
-        Teacher teacher = teacherService.zjhGetObjectByTeacherId(teacherId);
-
-        map.put("tid", teacher.getTId());
-        map.put("name", teacher.getTName());
-        map.put("id", CustomStringUtils.encryptionIdCardNumber(teacher.getTSfz()));
-        map.put("sex", teacher.getTSex());
-        map.put("age", CustomTimeUtils.getTimeSubTime(teacher.getTBirthday()));
-        map.put("count", studentCount);
-        map.put("school", school);
-        map.put("score", score);
-
-        map.put("linkList", linkServive.getFooterFriendLink());
-        return "/pages/index/inquire_teacher";
     }
 
     /**
@@ -212,6 +169,8 @@ public class IndexController {
             map.put("zjh_msg", "如需访问主页，请先登录");
             return "/pages/index/student_login";
         }
+
+        map.put("studentId",student.getSId());
 
         return "/pages/student/home";
     }
@@ -360,6 +319,51 @@ public class IndexController {
     }
 
     /**
+     * 访问信息中心
+     *
+     * @param map  ModelAndView中的属性键值对
+     * @param type 要访问的是教练还是驾校
+     * @param name 访问的名字
+     * @return 页面
+     */
+    @PostMapping("inquire")
+    public String inquire(Map<String, Object> map, String type, String name) {
+        if (type != null) {
+            map.put("type", type);
+            map.put(type.equalsIgnoreCase(EvaluateType.TYPE_SCHOOL) ? "schoolName" : "teacherName", name);
+        }
+        map.put("linkList", linkServive.getFooterFriendLink());
+        return "/pages/index/inquire";
+    }
+
+    /**
+     * 跳转到教练的详细信息界面
+     *
+     * @param map          ModelAndView中的属性键值对
+     * @param teacherId    教练ID
+     * @param score        评分
+     * @param studentCount 学员人数
+     * @param school       驾校名称
+     * @return 页面
+     */
+    @PostMapping("teacher")
+    public String inquireTeacher(Map<String, Object> map, Integer teacherId, Double score, Integer studentCount, String school) {
+        Teacher teacher = teacherService.zjhGetObjectByTeacherId(teacherId);
+
+        map.put("tid", teacher.getTId());
+        map.put("name", teacher.getTName());
+        map.put("id", CustomStringUtils.encryptionIdCardNumber(teacher.getTSfz()));
+        map.put("sex", teacher.getTSex());
+        map.put("age", CustomTimeUtils.getTimeSubTime(teacher.getTBirthday()));
+        map.put("count", studentCount);
+        map.put("school", school);
+        map.put("score", score);
+
+        map.put("linkList", linkServive.getFooterFriendLink());
+        return "/pages/index/inquire_teacher";
+    }
+
+    /**
      * 跳转到驾校的详细信息界面
      *
      * @param map          ModelAndView中的属性键值对
@@ -370,8 +374,8 @@ public class IndexController {
      * @param carcount     车数
      * @return 页面
      */
-    @GetMapping("inquire/school/{id}/{score}/{studentcount}/{teachercount}/{carcount}")
-    public String inquireSchool(Map<String, Object> map, @PathVariable("id") Integer schoolid, @PathVariable("score") Double score, @PathVariable("studentcount") Integer studentCount, @PathVariable("teachercount") String teachercount, @PathVariable("carcount") String carcount) {
+    @PostMapping("school")
+    public String inquireSchool(Map<String, Object> map, Integer schoolid, Double score, Integer studentCount, String teachercount, String carcount) {
         School school = schoolService.getSchoolBySchoolId(schoolid);
 
         map.put("sid", school.getSId());

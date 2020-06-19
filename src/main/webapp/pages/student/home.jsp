@@ -79,6 +79,7 @@
                     class="swiper-pagination-switch swiper-visible-switch swiper-active-switch"></span><span
                     class="swiper-pagination-switch"></span></div>
         </div>
+
         <div class="banner_process">
             <ul>
                 <h3>学车流程</h3>
@@ -134,7 +135,6 @@
         </div>
     </div>
 
-
     <div class="commonhead_line" style="border-top: 1px solid #00C356;"></div>
 </div>
 
@@ -144,8 +144,18 @@
 <br>
 
 <div class="commonhead_line" style="border-top: 1px solid #00C356;"></div>
-
-
+<div class="video-page" border="0">
+    <div style="height: auto" class="video-main">
+        <p>位置：我的成绩</p>
+        <iframe  style="width: 100%;border:0" src="<%=path%>/examResultController/getStudentResult?sId=${studentId}&logo=result"></iframe>
+    </div>
+</div>
+<div class="video-page" border="0">
+    <div style="height: auto" class="video-main" border="0">
+        <p>位置：我的学时</p>
+        <iframe style="width: 100%;border:0" src="<%=path%>/examResultController/getStudentResult?sId=${studentId}&logo=period"></iframe>
+    </div>
+</div>
 <div class="video-page">
     <div class="video-main">
         <p>位置：模拟考试</p>

@@ -134,6 +134,7 @@ public class  School {
 	@Column(name = "`s_registery_fee`")
     private Integer sRegisteryFee;
 
+
 	@Column(name = "`s_identity_id`")
 	private Integer sIdentityId;
 
@@ -149,4 +150,10 @@ public class  School {
 	 */
 	@Transient
 	private String aPassword;
+
+	/**
+	 * 学生人数
+	 */
+	@Transient
+	private Integer studentCount;
 }

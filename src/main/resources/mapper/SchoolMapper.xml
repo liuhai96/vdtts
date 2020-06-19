@@ -50,15 +50,6 @@
     <update id="unbindlogon" parameterType="com.lsjbc.vdtts.entity.School">
         update tb_school set  s_lock='true' where s_id = #{sId}
     </update>
-
-<!--    &lt;!&ndash;    sfz&ndash;&gt;-->
-<!--    <update id="apply" parameterType="com.lsjbc.vdtts.entity.School">-->
-<!--        select s_sfz from tb_student-->
-<!--        <where>-->
-<!--            <if></if>-->
-<!--        </where>-->
-<!--    </update>-->
-
 <!--    刘海-->
     <select id="findSchoolInfo" resultType="com.lsjbc.vdtts.entity.School" parameterType="int">
         select sh.*,ac.* from tb_school sh left join tb_account ac on sh.s_account_id = ac.a_id where sh.s_id = #{sId}
@@ -127,4 +118,11 @@
     <update id="updateSchoolPwd">
         update tb_account set a_password = #{aPassword} where a_id=#{aId}
     </update>
+    <!--  周永哲，驾校信息修改-->
+    <select id="selectStudentCount" resultType="com.lsjbc.vdtts.entity.School">
+     select tsl.s_name ,count(tst.s_id) student_count from tb_school tsl,tb_student tst
+     where tsl.s_id=tst.s_school_id group by tsl.s_name
+    </select>
+
+
 </mapper>

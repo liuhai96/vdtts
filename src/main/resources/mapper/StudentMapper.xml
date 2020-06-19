@@ -48,11 +48,24 @@
         delete from tb_student where s_id =#{sId}
     </delete>
 
+    <select id="studentExamCount1" resultType="java.lang.Integer">
+     select count(ter.er_student_id) state1 from tb_exam_result ter where er_state1 ='2'
+    </select>
+    <select id="studentExamCount2" resultType="java.lang.Integer">
+     select count(ter.er_student_id) state2 from tb_exam_result ter where er_state2 ='2'
+    </select>
+    <select id="studentExamCount3" resultType="java.lang.Integer">
+     select count(ter.er_student_id) state3 from tb_exam_result ter where er_state3 ='2'
+    </select>
+    <select id="studentExamCount4" resultType="java.lang.Integer">
+     select count(ter.er_student_id) state4 from tb_exam_result ter where er_state4 ='2'
+    </select>
+
 
 <!--  陈竑霖-->
 <!--表单-->
     <select id="selectList" resultType="com.lsjbc.vdtts.entity.Student">
-         select stu.s_id,sch.s_name schoolName,stu.s_sfz,stu.s_name,stu.s_sex,stu.s_birthday,stu.s_reg_time,stu.s_license_time,tea.t_name teacherName
+         select stu.s_id,stu.s_phone,sch.s_name schoolName,stu.s_sfz,stu.s_name,stu.s_sex,stu.s_birthday,stu.s_reg_time,stu.s_license_time,tea.t_name teacherName
          from tb_student stu,tb_school sch,tb_teacher tea where stu.s_school_id=sch.s_id and stu.s_teacher_id =tea.t_id
             <if test="e.sName!=null and e.sName!=''"> and stu.s_name like concat('%',#{e.sName},'%')</if>
             <if test="e.sSex!=null and e.sSex!=''"> and stu.s_sex = #{e.sSex}</if>
@@ -75,12 +88,16 @@
         select * from tb_student where s_sfz = #{sSfz} and s_name = #{sName}
     </select><!-- 查身份证 -->
 
-    <select id="findsfz" resultType="com.lsjbc.vdtts.entity.Student">
-        select * from tb_student where s_sfz = #{sSfz}
-    </select>
+<!--    <select id="findsfz" resultType="com.lsjbc.vdtts.entity.Student">-->
+<!--        select * from tb_student where s_sfz = #{sSfz}-->
+<!--    </select>-->
 
     <update id="inschool" parameterType="com.lsjbc.vdtts.entity.Student" >
-        update tb_student set s_school_id = 2 where s_sfz = #{sSfz}
+        update tb_student set s_school_id = #{sSchoolId} where s_sfz = #{e.sSfz}
+    </update>
+
+    <update id="updateStudentTecaherId" parameterType="com.lsjbc.vdtts.entity.Teacher">
+     update tb_student set s_teacher_id = #{sTeacherId},s_school_id = #{sSchoolId} where s_id = #{e.sId}
     </update>
 
     <insert id="addStudentMessage" parameterType="com.lsjbc.vdtts.entity.Student" keyProperty="sId" useGeneratedKeys="true">

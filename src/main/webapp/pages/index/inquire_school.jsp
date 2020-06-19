@@ -31,7 +31,7 @@
 	<link rel="stylesheet" href="<%=path+"/css/pages/index/inquireSchDetails.css"%>">
 </HEAD>
 <BODY style="background: rgb(250, 251, 253);">
-
+<div class="menu">
 <input type="hidden" id="schoolId" value="${sid}">
 
 <div class="login-inf">
@@ -42,9 +42,9 @@
 		<div class="inf-login">
 			<c:if test="${sessionScope.student == null }">
                 <a target="_blank" href="<%=path+"/back/adminlogin.jsp"%>">管理登录</a> |
-                <a target="_blank" href="<%=path+"/pages/homepage/login.jsp"%>">机构登录</a> |
-                <a href="<%=path+"/student"%>">学员登录</a>
-                <a target="_blank" href="<%=path+"/pages/homepage/driving-in/driving-in.jsp"%>">驾校入驻</a>
+                <a target="_blank" href="<%=path+"/transfer?logo=institutionLogin"%>">机构登录</a> |
+                <a href="<%=path+"/student"%>">学员登录</a> |
+                <a target="_blank" href="<%=path+"/transfer?logo=schoolIn"%>">驾校入驻</a>
 			</c:if>
 			<c:if test="${sessionScope.student != null }">
 				<a href="<%=path+"/student"%>" id="studentName">欢迎您！ 学员: ${sessionScope.student.SName}</a>
@@ -61,7 +61,7 @@
 			<p class="top-title-p1">机动车驾驶员计时培训系统</p>
 			<p class="top-title-p2">Timing training system for motor vehicle drivers</p>
 		</div>
-		<form id="searchSchoolOrTeacher" action="<%=path+"inquire"%>" class="top-search">
+		<form id="searchSchoolOrTeacher" action="<%=path+"inquire"%>" method="post" class="top-search">
 			<select name="type">
 				<option value="school">驾培机构</option>
 				<option value="teacher">教练员</option>
@@ -86,9 +86,11 @@
 				<img src="<%=path+"/image/pages/index/menu_publicity1.png"%>">
 				<a href="<%=path+"/publicity/notice/1/-1"%>">公开公示</a>
 			</li>
-			<li id="menu-title-three" class="layui-this menu-title-bg">
-				<img src="<%=path+"/image/pages/index/menu_inquire1.png"%>">
-				<a href="<%=path+"/inquire"%>">信息查询</a></li>
+			<li id="menu-title-three" style="display: block;cursor:hand;">
+				<form id="jumpToInquire" action="<%=path+"inquire"%>" method="post">
+					<img src="<%=path+"/image/pages/index/menu_inquire1.png"%>">
+					<a onclick="document:jumpToInquire.submit()">信息查询</a>
+				</form>
 			</li>
 			<li id="menu-title-six">
 				<img src="<%=path+"/image/pages/index/menu_student1.png"%>">
@@ -102,11 +104,12 @@
 	<a href="javascript:void(0)" title="返回上一页" class="sina" onclick="history.go(-1);"></a>
 	<a href="javascript:void(0)" title="刷新" class="tencent" onclick="history.go(0);"></a>
 </div>
+	<div class="main">
 <DIV class="del-1">
 	<DIV class="del-lun">
 	</DIV>
 	<DIV style="float: left">
-		<IMG style="height: 260px; width: 900px;" src="<%=path%>/static/layui/images/photo/06.png">
+		<IMG style="height: 260px; width: 700px;" src="<%=path%>/static/layui/images/photo/06.png">
 	</DIV>
 	<DIV class="del-schinf">
 		<P class="del-p"><span>${name}</span><IMG src="<%=path%>/image/pages/index/tower.png"></P>
@@ -126,10 +129,10 @@
 			</p>
 
 			<p><b>地址：</b>
-				<span id="address">${address}</span>
-				<b style="margin-left: 182px;">学员总人数：</b>
-				<span>${studencount}</span>人
-			</p>
+				<span id="address">${address}</span></p>
+			<p>
+				<b>学员总人数：</b>
+				<span>${studencount}</span>人</p>
 			<hr>
 			<p>
 				<b style="float: left;">综合星级：</b>
@@ -264,6 +267,7 @@
 		</li>
 	</ul>
 </DIV>
+</div>
 <script src="https://www.layuicdn.com/layui/layui.js"></script>
 <script src="<%=path+"/js/pages/index/jquery.min.js"%>"></script>
 <SCRIPT src="<%=path+"/js/pages/index/inquireSchDetails.js"%>"></SCRIPT>
@@ -279,7 +283,7 @@
 		var laytpl = layui.laytpl
 				, $ = layui.$
 				, flow = layui.flow
-				, layer = layui.layer;
+			    , layer = layui.layer;
 
 
 		function showStar() {
@@ -373,7 +377,6 @@
 						let sName = $("#sName").val();
 						let schoolId = $("#schoolId").val();
 						let sSfz = $("#sSfz").val();
-						let sSfz2 = $("#path").val() + '/SchoolControl/insSfz';
 						$.ajax({
 							type: 'get',
 							url: '/SchoolControl/insSfz',
@@ -381,18 +384,11 @@
 							data: {
 								sName: sName
 								, sSfz: sSfz
+								,schoolId:schoolId
 							},
 							success: function (remsg) {
-								if (remsg.code == 1) {
-									layer.msg(remsg.msg);
-									layer.close(index);
-								} else if (remsg.code == 2) {
-									layer.msg(remsg.msg);
-									layer.close(index);
-								} else {
-									layer.msg(remsg.msg);
-									layer.close(index);
-								}
+								console.log(remsg);
+								layer.close(index);
 							}
 						})
 					}

@@ -34,9 +34,9 @@
         <div class="inf-login">
             <c:if test="${sessionScope.student == null }">
                 <a target="_blank" href="<%=path+"/back/adminlogin.jsp"%>">管理登录</a> |
-                <a target="_blank" href="<%=path+"/pages/homepage/login.jsp"%>">机构登录</a> |
+                <a target="_blank" href="<%=path+"/transfer?logo=institutionLogin"%>">机构登录</a> |
                 <a href="<%=path+"/student"%>">学员登录</a>
-                <a target="_blank" href="<%=path+"/pages/homepage/driving-in/driving-in.jsp"%>">驾校入驻</a>
+                <a target="_blank" href="<%=path+"/transfer?logo=schoolIn"%>">驾校入驻</a>
             </c:if>
             <c:if test="${sessionScope.student != null }">
                 <a href="<%=path+"/student"%>" id="studentName">欢迎您！ 学员: ${sessionScope.student.SName}</a>
@@ -53,12 +53,12 @@
             <p class="top-title-p1">机动车驾驶员计时培训系统</p>
             <p class="top-title-p2">Timing training system for motor vehicle drivers</p>
         </div>
-        <form id="searchSchoolOrTeacher" action="<%=path+"inquire"%>" class="top-search">
+        <form id="searchSchoolOrTeacher" action="<%=path+"inquire"%>" method="post" class="top-search">
             <select name="type">
                 <option value="school">驾培机构</option>
                 <option value="teacher">教练员</option>
             </select>
-            <input type="text" name="name">
+            <input id="searchSchool" type="text" name="name">
             <label>
                 <a style="cursor: pointer;" onclick="document:searchSchoolOrTeacher.submit()">
                     <img src="<%=path + "/image/pages/index/search.png"%>">搜索
@@ -78,9 +78,12 @@
                 <img src="<%=path+"/image/pages/index/menu_publicity1.png"%>">
                 <a href="<%=path+"/publicity/notice/1/-1"%>">公开公示</a>
             </li>
-            <li id="menu-title-three">
-                <img src="<%=path+"/image/pages/index/menu_inquire1.png"%>">
-                <a href="<%=path+"/inquire"%>">信息查询</a></li>
+            <li id="menu-title-three" style="display: block;cursor:hand;">
+                <form id="jumpToInquire" action="<%=path+"inquire"%>" method="post">
+                    <img src="<%=path+"/image/pages/index/menu_inquire1.png"%>">
+                    <a onclick="document:jumpToInquire.submit()">信息查询</a>
+                </form>
+            </li>
             </li>
             <li id="menu-title-six">
                 <img src="<%=path+"/image/pages/index/menu_student1.png"%>">
@@ -96,19 +99,43 @@
 </div>
 <div class="main">
     <div class="content">
-        <div class="layui-carousel" id="homeBox" lay-anim="" lay-indicator="inside"
-             style="width: 380px; height: 280px;">
-            <div carousel-item="" id="homeTopFile">
-                <div class="layui-this">
-                    <img src="<%=path+"/image/pages/index/{2}_46407.jpg"%>" onclick="publicNotice('1','976');"
-                         style="width: 380px;height: 280px;cursor:pointer"><a class="carousel-title"
-                                                                              title="省运管局举办全省重点道路运输企业主要负责人安全管理培训">省运管局举办全省重点道路运输企业主要负责人安全管理...</a>
+        <div class="layui-carousel" id="homeBox" lay-anim="" lay-indicator="inside" style="width: 380px; height: 280px;">
+            <div id="industryTop" class="main table-inf-list" style="margin-bottom: 25px">
+                <blockquote class="layui-elem-quote" style="width: 345px;">
+                    <img src="<%=path+"/image/pages/index/square.png"%>">
+                    <span>行业信息排名</span>
+                </blockquote>
+                <div class="inf-list list-style">
+                    <blockquote class="layui-elem-quote bg-red-img" style="width: 345px;">
+                        <img src="<%=path+"/image/pages/index/car.png"%>">驾校资源排名
+                        <span id="vehUpdateTime"><img src="<%=path+"/image/pages/index/date1.png"%>">2020年6月11日</span>
+                    </blockquote>
+                    <table class="layui-table" lay-size="sm" lay-skin="line" style="width: 377px;">
+                        <thead>
+                            <tr>
+                                <th>排名</th>
+                                <th>驾培机构名称</th>
+                                <th>教练车(辆)</th>
+                            </tr>
+                        </thead>
+                        <tbody class="title-center" id="vehInfoOrder">
+                            <c:forEach items="${schoolList}" varStatus="item" var="school">
+                                <tr>
+                                    <td>
+                                        <c:if test="${item.index == 0}">
+                                            <img src="<%=path+"/image/pages/index/first.png"%>">
+                                        </c:if>
+                                        <c:if test="${item.index == 1 || item.index == 2}">
+                                            <img src="<%=path+"/image/pages/index/second.png"%>">
+                                        </c:if>
+                                    </td>
+                                    <td title="${school.name}" class="searchSchool">${school.name}</td>
+                                    <td>${school.count}</td>
+                                </tr>
+                            </c:forEach>
+                        </tbody>
+                    </table>
                 </div>
-            </div>
-            <div class="layui-carousel-ind">
-                <ul>
-                    <li class="layui-this"></li>
-                </ul>
             </div>
         </div>
         <div class="layui-tab layui-tab-brief main-tab" lay-filter="docDemoTabBrief">
@@ -190,262 +217,7 @@
 
         <img src="<%=path+"/image/pages/index/home_logo2.jpg"%>" class="home-banner">
     </div>
-    <div id="industryTop" class="main table-inf-list" style="margin-bottom: 25px">
-        <blockquote class="layui-elem-quote">
-            <img src="<%=path+"/image/pages/index/square.png"%>">
-            <span>行业信息排名</span>
-        </blockquote>
-        <div class="inf-list list-style">
-            <blockquote class="layui-elem-quote bg-red-img">
-                <img src="<%=path+"/image/pages/index/car.png"%>">驾校资源排名
-                <span id="vehUpdateTime"><img src="<%=path+"/image/pages/index/date1.png"%>">2020年6月11日</span>
-            </blockquote>
-            <table class="layui-table" lay-size="sm" lay-skin="line">
-                <colgroup>
-                </colgroup>
-                <thead>
-                <tr>
-                    <th>排名</th>
-                    <th>驾培机构名称</th>
-                    <th>地区</th>
-                    <th>教练车(辆)</th>
-                </tr>
-                </thead>
-                <tbody class="title-center" id="vehInfoOrder">
-                <tr>
-                    <td><img src="<%=path+"/image/pages/index/first.png"%>"></td>
-                    <td title="蓝天驾校">蓝天驾校</td>
-                    <td title="东湖区">东湖区</td>
-                    <td>350</td>
-                </tr>
-                <tr>
-                    <td><img src="<%=path+"/image/pages/index/second.png"%>"></td>
-                    <td title="蓝盾驾校">蓝盾驾校</td>
-                    <td title="安源区">安源区</td>
-                    <td>224</td>
-                </tr>
-                <tr>
-                    <td><img src="<%=path+"/image/pages/index/second.png"%>"></td>
-                    <td title="瑞金世通驾校">瑞金世通驾...</td>
-                    <td title="瑞金市">瑞金市</td>
-                    <td>193</td>
-                </tr>
-                <tr>
-                    <td>4</td>
-                    <td title="蓝天昌北">蓝天昌北</td>
-                    <td title="新建县">新建县</td>
-                    <td>173</td>
-                </tr>
-                <tr>
-                    <td>5</td>
-                    <td title="航大驾校">航大驾校</td>
-                    <td title="新建县">新建县</td>
-                    <td>167</td>
-                </tr>
-                <tr>
-                    <td>6</td>
-                    <td title="白云总校">白云总校</td>
-                    <td title="东湖区">东湖区</td>
-                    <td>153</td>
-                </tr>
-                <tr>
-                    <td>7</td>
-                    <td title="亿安达驾校">亿安达驾校...</td>
-                    <td title="青山湖区">青山湖区</td>
-                    <td>142</td>
-                </tr>
-                <tr>
-                    <td>8</td>
-                    <td title="昌南驾校">昌南驾校</td>
-                    <td title="昌江区">昌江区</td>
-                    <td>140</td>
-                </tr>
-                <tr>
-                    <td>9</td>
-                    <td title="宜春泰极驾校">宜春泰极驾...</td>
-                    <td title="袁州区">袁州区</td>
-                    <td>139</td>
-                </tr>
-                <tr>
-                    <td>10</td>
-                    <td title="南昌金盾驾校">南昌金盾驾...</td>
-                    <td title="东湖区">东湖区</td>
-                    <td>133</td>
-                </tr>
-                <tr>
-                    <td colspan="4"><a href="http://47.96.140.98:20034/industryList#type=1">更多&gt;&gt;</a></td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="inf-list list-style">
-            <blockquote class="layui-elem-quote bg-dark-blue-img">
-                <img src="<%=path+"/image/pages/index/people.png"%>">年新增学员排名
-                <span id="yearAddStuUpdateTime"><img src="<%=path+"/image/pages/index/date1.png"%>">2020年6月11日</span>
-            </blockquote>
-            <table class="layui-table" lay-size="sm" lay-skin="line">
-                <colgroup>
-                </colgroup>
-                <thead>
-                <tr>
-                    <th>排名</th>
-                    <th>驾培机构名称</th>
-                    <th>地区</th>
-                    <th>年新增学员(人)</th>
-                </tr>
-                </thead>
-                <tbody class="title-center" id="yearAddStuOrder">
-                <tr>
-                    <td><img src="<%=path+"/image/pages/index/first.png"%>"></td>
-                    <td title="蓝天驾校">蓝天驾校</td>
-                    <td title="东湖区">东湖区</td>
-                    <td>3755</td>
-                </tr>
-                <tr>
-                    <td><img src="<%=path+"/image/pages/index/second.png"%>"></td>
-                    <td title="天一驾校">天一驾校</td>
-                    <td title="安源区">安源区</td>
-                    <td>3645</td>
-                </tr>
-                <tr>
-                    <td><img src="<%=path+"/image/pages/index/second.png"%>"></td>
-                    <td title="亿安达驾校">亿安达驾校...</td>
-                    <td title="青山湖区">青山湖区</td>
-                    <td>3326</td>
-                </tr>
-                <tr>
-                    <td>4</td>
-                    <td title="成功驾校">成功驾校</td>
-                    <td title="乐平市">乐平市</td>
-                    <td>3324</td>
-                </tr>
-                <tr>
-                    <td>5</td>
-                    <td title="瑞金世通驾校">瑞金世通驾...</td>
-                    <td title="瑞金市">瑞金市</td>
-                    <td>2656</td>
-                </tr>
-                <tr>
-                    <td>6</td>
-                    <td title="赣洪驾校">赣洪驾校</td>
-                    <td title="进贤县">进贤县</td>
-                    <td>2551</td>
-                </tr>
-                <tr>
-                    <td>7</td>
-                    <td title="国力驾校">国力驾校</td>
-                    <td title="南昌县">南昌县</td>
-                    <td>2523</td>
-                </tr>
-                <tr>
-                    <td>8</td>
-                    <td title="现代驾校">现代驾校</td>
-                    <td title="安远县">安远县</td>
-                    <td>2477</td>
-                </tr>
-                <tr>
-                    <td>9</td>
-                    <td title="蓝盾驾校">蓝盾驾校</td>
-                    <td title="安源区">安源区</td>
-                    <td>2469</td>
-                </tr>
-                <tr>
-                    <td>10</td>
-                    <td title="众安驾校">众安驾校</td>
-                    <td title="浮梁县">浮梁县</td>
-                    <td>2262</td>
-                </tr>
-                <tr>
-                    <td colspan="4"><a href="http://47.96.140.98:20034/industryList#type=2">更多&gt;&gt;</a></td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="inf-list">
-            <blockquote class="layui-elem-quote bg-blue-img">
-                <img src="<%=path+"/image/pages/index/people.png"%>">今日新增学员排名
-                <span id="dayAddStuUpdateTime"><img src="<%=path+"/image/pages/index/date1.png"%>">2020年6月11日</span>
-            </blockquote>
-            <table class="layui-table" lay-size="sm" lay-skin="line">
-                <colgroup>
-                </colgroup>
-                <thead>
-                <tr>
-                    <th>排名</th>
-                    <th>驾培机构名称</th>
-                    <th>地区</th>
-                    <th>今日新增学员(人)</th>
-                </tr>
-                </thead>
-                <tbody class="title-center" id="dayAddStuOrder">
-                <tr>
-                    <td><img src="<%=path+"/image/pages/index/first.png"%>"></td>
-                    <td title="成功驾校">成功驾校</td>
-                    <td title="乐平市">乐平市</td>
-                    <td>13</td>
-                </tr>
-                <tr>
-                    <td><img src="<%=path+"/image/pages/index/second.png"%>"></td>
-                    <td title="天一驾校">天一驾校</td>
-                    <td title="安源区">安源区</td>
-                    <td>9</td>
-                </tr>
-                <tr>
-                    <td><img src="<%=path+"/image/pages/index/second.png"%>"></td>
-                    <td title="福祥驾校">福祥驾校</td>
-                    <td title="庐山市">庐山市</td>
-                    <td>9</td>
-                </tr>
-                <tr>
-                    <td>4</td>
-                    <td title="萍乡民扬驾校">萍乡民扬驾...</td>
-                    <td title="湘东区">湘东区</td>
-                    <td>7</td>
-                </tr>
-                <tr>
-                    <td>5</td>
-                    <td title="余江县瑶池驾校">余江县瑶池...</td>
-                    <td title="余江县">余江县</td>
-                    <td>7</td>
-                </tr>
-                <tr>
-                    <td>6</td>
-                    <td title="江西江科驾校">江西江科驾...</td>
-                    <td title="进贤县">进贤县</td>
-                    <td>6</td>
-                </tr>
-                <tr>
-                    <td>7</td>
-                    <td title="国力驾校">国力驾校</td>
-                    <td title="南昌县">南昌县</td>
-                    <td>6</td>
-                </tr>
-                <tr>
-                    <td>8</td>
-                        <td title="亿安达驾校">亿安达驾校...</td>
-                        <td title="青山湖区">青山湖区</td>
-                        <td>6</td>
-                    </tr>
-                    <tr>
-                        <td>9</td>
-                        <td title="宜春泰极驾校">宜春泰极驾...</td>
-                        <td title="袁州区">袁州区</td>
-                        <td>6</td>
-                    </tr>
-                    <tr>
-                        <td>10</td>
-                        <td title="运销驾校">运销驾校</td>
-                        <td title="南城县">南城县</td>
-                        <td>5</td>
-                    </tr>
-                    <tr>
-                        <td colspan="4"><a href="http://47.96.140.98:20034/industryList#type=3">更多&gt;&gt;</a></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
+</div>
 
     <div class="footer">
         <div class="footer-box">
@@ -485,6 +257,18 @@
 
 
 <script src="<%=path+"/js/pages/index/index.js"%>"></script>
+
+<script>
+layui.use(['form'], function () {
+    let $ = layui.$;
+
+    $("td[class*='searchSchool']").on("click",function(event){
+        $("#searchSchool").val($(this).html());
+        $("select[name$='select']").val("school");
+        $("#searchSchoolOrTeacher").submit();
+    });
+});
+</script>
 
 </body>
 </html>

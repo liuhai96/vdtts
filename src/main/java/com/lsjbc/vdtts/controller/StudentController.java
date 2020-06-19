@@ -2,6 +2,7 @@ package com.lsjbc.vdtts.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.lsjbc.vdtts.entity.Account;
+import com.lsjbc.vdtts.entity.School;
 import com.lsjbc.vdtts.entity.Student;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.pojo.vo.ResultData;
@@ -16,7 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/studentController")
@@ -126,6 +129,18 @@ public class StudentController {
             System.out.println("学员删除失败");
             return res;
         }
+    }
+
+    @RequestMapping(value = "/studentExamCount")//查询各科考试人数
+    public Student studentExamCount(HttpServletRequest request, HttpServletResponse response){
+        Student student =Student.builder()
+                        .state1(studentService.studentExamCount1())
+                        .state2(studentService.studentExamCount2())
+                        .state3(studentService.studentExamCount3())
+                        .state4(studentService.studentExamCount4())
+                        .build();
+        System.err.println(student);
+        return student;
     }
 
     @RequestMapping(value = "/studentRegister")

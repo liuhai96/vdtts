@@ -1,15 +1,20 @@
 package com.lsjbc.vdtts.service.impl;
 
+
+
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.lsjbc.vdtts.constant.EvaluateType;
 import com.lsjbc.vdtts.dao.*;
+import com.lsjbc.vdtts.dao.mapper.CarMapper;
 import com.lsjbc.vdtts.dao.mapper.SchoolMapper;
 import com.lsjbc.vdtts.dao.mapper.StudentMapper;
 import com.lsjbc.vdtts.entity.Account;
 import com.lsjbc.vdtts.entity.School;
 import com.lsjbc.vdtts.entity.Student;
+import com.lsjbc.vdtts.pojo.dto.CarCount;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
+import com.lsjbc.vdtts.pojo.vo.PowerSchool;
 import com.lsjbc.vdtts.pojo.vo.ResultData;
 import com.lsjbc.vdtts.pojo.vo.SchoolDetail;
 import com.lsjbc.vdtts.service.intf.SchoolService;
@@ -20,6 +25,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @SuppressWarnings("all")
 @Service(SchoolServiceImpl.NAME)
@@ -42,6 +48,9 @@ public class SchoolServiceImpl implements SchoolService
 
 	@Resource(name = CarDao.NAME)
 	private CarDao carDao;
+
+	@Resource
+	private CarMapper carMapper;
 
 	@Resource(name = StudentDao.NAME)
 	private StudentDao studentDao;
@@ -204,37 +213,36 @@ public class SchoolServiceImpl implements SchoolService
 		return schoolDao.getById(id);
 	}
 
-	//查询身份证
+	//驾校查询身份证
 	@Override
 	public ResultData insSfz(Student student, HttpServletRequest request)
 	{
 		System.out.println("setSSfz1=" + student);
 		ResultData resultData = null;
 		System.out.println("setSSfz=" + student);
-		student= studentMapper.insSfz(student);
+		student = studentMapper.insSfz(student);
+		Integer sSchoolId = Integer.parseInt(request.getParameter("schoolId"));
+		System.out.println("setSSfzwqeeeeeeeeeeee=" + sSchoolId);
 		System.out.println("setSSfz2=" + student);
 		if (student != null)
 		{ //查询
-//			student = studentMapper.findsfz(student);
+
 			if (student.getSSchoolId() == null)
 			{
+					resultData = ResultData.error(1, "该学员已经报名成功");
+				} else
+				{
+					resultData = ResultData.error(2, "该学员已报名其他驾校");
+				}
 
-				int num =studentMapper.inschool(student);
-				resultData = ResultData.error(1, "报名成功");
-			} else
-			{
-				resultData = ResultData.error(2, "该学员已报名其他驾校");
-			}
-		} else
-		{
+
+		}else{
 			resultData = ResultData.error(3, "未该有此学员信息请先去注册");
-
 		}
 		return resultData;
 	}
 
-
-    @Override
+    @Override//驾驶入驻
     public ResultData schoolToProduct(School school, String id){
         ResultData resultData = ResultData.success();
         if(schoolMapper.addSchool(school) > 0){
@@ -300,8 +308,6 @@ public class SchoolServiceImpl implements SchoolService
 			detail.setTeacherCount(teacherDao.getCountBySchoolId(schoolId));
 			detail.setStudentCount(studentDao.getStudentCountBySchoolId(schoolId));
 			details.getResult().add(detail);
-			//生成跳转路径，必须
-			detail.generateInfoUrl();
 		});
 
 		return details;
@@ -375,6 +381,12 @@ public class SchoolServiceImpl implements SchoolService
 	}
 
 	@Override
+	public List<School> selectStudentCount() {
+		List<School> selectStudentCount = schoolMapper.selectStudentCount();
+		return selectStudentCount;
+	}
+
+	@Override
 	public ResultData updateSchoolBasicInfo(School school) {
 		 ResultData resultData = null;
 		 int num = schoolMapper.updateSchoolBasicInfo(school);
@@ -384,5 +396,24 @@ public class SchoolServiceImpl implements SchoolService
 			 resultData = ResultData.error(-1,"未找到改驾校信息");
 		 }
 		 return resultData;
+	}
+
+	/**
+	 * 获取5个最有实力的驾校
+	 *
+	 * @return
+	 * @author JX181114 --- 郑建辉
+	 */
+	@Override
+	public List<PowerSchool> getFiveMostPowerfulSchool() {
+
+		List<CarCount> carCounts = carMapper.getFiveMostPowerfulSchool();
+
+		List<PowerSchool> schoolList = carCounts.stream().map(item->{
+			School school = schoolDao.getById(item.getSchoolId());
+			return PowerSchool.builder().name(school.getSName()).count(item.getCount()).build();
+		}).collect(Collectors.toList());
+
+		return schoolList;
 	}
 }

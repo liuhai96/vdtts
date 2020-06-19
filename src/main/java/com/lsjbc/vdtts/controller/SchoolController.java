@@ -99,6 +99,11 @@ public class SchoolController {
 		return res;
 	}
 
+	@RequestMapping(value = "/studentCount")
+	public List<School> studentCount(HttpServletRequest request,HttpServletResponse response){
+		return schoolService.selectStudentCount();
+	}
+
 	@RequestMapping(value = "/findSchoolList",produces = {"application/json;charset=UTF-8"})
 	@ResponseBody
 	public Object findSchoolList(HttpServletRequest request, HttpServletResponse response){

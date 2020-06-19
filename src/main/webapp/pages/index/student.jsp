@@ -33,9 +33,9 @@
         <div class="inf-login" id="studentName">
             <c:if test="${sessionScope.student == null }">
                 <a target="_blank" href="<%=path+"/back/adminlogin.jsp"%>">管理登录</a> |
-                <a target="_blank" href="<%=path+"/pages/homepage/login.jsp"%>">机构登录</a> |
-                <a href="<%=path+"/student"%>">学员登录</a>
-                <a target="_blank" href="<%=path+"/pages/homepage/driving-in/driving-in.jsp"%>">驾校入驻</a>
+                <a target="_blank" href="<%=path+"/transfer?logo=institutionLogin"%>">机构登录</a> |
+                <a href="<%=path+"/student"%>">学员登录</a> |
+                <a target="_blank" href="<%=path+"/transfer?logo=schoolIn"%>">驾校入驻</a>
             </c:if>
             <c:if test="${sessionScope.student != null }">
                 <a href="<%=path+"/student"%>">欢迎您！ 学员: ${sessionScope.student.SName}</a>
@@ -52,7 +52,7 @@
             <p class="top-title-p1">机动车驾驶员计时培训系统</p>
             <p class="top-title-p2">Timing training system for motor vehicle drivers</p>
         </div>
-        <form id="searchSchoolOrTeacher" action="<%=path+"inquire"%>" class="top-search">
+        <form id="searchSchoolOrTeacher" action="<%=path+"inquire"%>" method="post" class="top-search">
             <select name="type">
                 <option value="school">驾培机构</option>
                 <option value="teacher">教练员</option>
@@ -77,9 +77,11 @@
                 <img src="<%=path+"/image/pages/index/menu_publicity1.png"%>">
                 <a href="<%=path+"/publicity/notice/1/-1"%>">公开公示</a>
             </li>
-            <li id="menu-title-three">
-                <img src="<%=path+"/image/pages/index/menu_inquire1.png"%>">
-                <a href="<%=path+"/inquire"%>">信息查询</a></li>
+            <li id="menu-title-three" style="display: block;cursor:hand;">
+                <form id="jumpToInquire" action="<%=path+"inquire"%>" method="post">
+                    <img src="<%=path+"/image/pages/index/menu_inquire1.png"%>">
+                    <a onclick="document:jumpToInquire.submit()">信息查询</a>
+                </form>
             </li>
             <li id="menu-title-six" class="layui-this menu-title-bg">
                 <img src="<%=path+"/image/pages/index/menu_student1.png"%>">

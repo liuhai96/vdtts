@@ -19,11 +19,16 @@
 </head>
 <body class="layui-layout-body pear-admin">
 <!-- 布局框架 -->
+<input hidden id="path" value="<%=path%>">
 <div class="layui-layout layui-layout-admin">
     <div class="layui-header">
         <ul class="layui-nav layui-layout-left">
-            <li class="collaspe layui-nav-item layui-hide-xs"><a href="#" class="layui-icon layui-icon-shrink-right"></a></li>
-            <li class="refresh layui-nav-item"><a href="#" class="layui-icon layui-icon-refresh-1"></a></li>
+            <li class="collaspe layui-nav-item layui-hide-xs">
+                <a href="#" class="layui-icon layui-icon-shrink-right"></a>
+            </li>
+            <li class="refresh layui-nav-item">
+                <a href="#" class="layui-icon layui-icon-refresh-1"></a>
+            </li>
         </ul>
         <div id="control" class="layui-layout-control"></div>
         <ul class="layui-nav layui-layout-right">
@@ -36,7 +41,7 @@
                     <dd><a href="javascript:;" class="pearson">个人信息</a></dd>
                     <dd><a href="javascript:;">安全配置</a></dd>
                     <dd><a href="javascript:;">打开百度</a></dd>
-                    <dd><a href="javascript:;">注销登陆</a></dd>
+                    <dd><a href="javascript:;" onclick="Logout()">注销登陆</a></dd>
                 </dl>
             </li>
             <li class="setting layui-nav-item"><a href="#" class="layui-icon layui-icon-more-vertical"></a></li>
@@ -74,6 +79,12 @@
 
 <script src="<%=path%>/static/preadmin/component/layui/layui.js"></script>
 <script>
+    function Logout(){//注销登录方法
+        var $ = layui.jquery;
+        if (confirm("你真的要注销登录吗？")>0){
+            window.location.href = $("#path").val()+"/transfer?logo=exit";
+        }
+    }
     layui.use(['pearAdmin', 'jquery', 'layer', 'pearTab', 'pearNotice'], function() {
         var pearAdmin = layui.pearAdmin;
         var $ = layui.jquery;

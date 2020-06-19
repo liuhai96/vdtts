@@ -42,12 +42,18 @@ public interface StudentMapper extends CustomBaseMapper<Student> {
 
     int addStudentMessage(Student student);
 
+    public Integer studentExamCount1();
+    public Integer studentExamCount2();
+    public Integer studentExamCount3();
+    public Integer studentExamCount4();
+
     //	//sfz
     //	public int apply(@Param("sSfz") int sSfz);
     public Student insSfz(Student student);
-    public Student findsfz(Student student);
-    public int inschool(Student student);
-
+    //修改所属驾校
+    public int inschool(@Param("e")Student student,@Param("sSchoolId") Integer sSchoolId);
+    //修改所属教练和驾校
+    public int updateStudentTecaherId(@Param("sTeacherId") Integer sTeacherId,@Param("sSchoolId") Integer sSchoolId,@Param("e") Student student);
     public Student findAccount(Account account);
 
     /*
@@ -63,6 +69,5 @@ public interface StudentMapper extends CustomBaseMapper<Student> {
     int updateApplyState(Integer sId);
     int updateStudentTeacherId(@Param("sTeacherId") Integer sTeacherId,@Param("sId") Integer sId);
     Student findTeacher(Integer sId);
-
 
 }

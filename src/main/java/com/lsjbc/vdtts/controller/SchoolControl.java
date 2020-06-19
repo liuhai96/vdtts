@@ -105,13 +105,6 @@ public class SchoolControl {
 		LayuiTableData layuiTableData =schoolService.unbindlogon(sId);
 		return layuiTableData;
 	}
-//	//身份证查询
-//	@RequestMapping(value = "/apply",produces = {"application/json;charset=UTF-8"})
-//	@ResponseBody
-//	public  LayuiTableData apply(int sSfz){
-//		LayuiTableData layuiTableData =schoolService.apply(sSfz);
-//		return layuiTableData;
-//	}
 
  /*
   *@Description:身份查询
@@ -199,7 +192,7 @@ public class SchoolControl {
 
     @RequestMapping(value = "/drivingIn")
     /*
-     *@Description:
+     *@Description:驾校入驻
      *@Author:李浪_191019
      *@Param:[file]
      *@return:java.lang.Object
@@ -213,7 +206,7 @@ public class SchoolControl {
 
         if(school.getSRegisteryFee() < 10) school.setSRegisteryFee(4000);
         school.setSVerification("0");
-        school.setSRegTime(tool.getDate("yyyy/MM/dd HH:mm:ss"));
+        school.setSRegTime(tool.getDate("yyyy/MM/dd"));
         accountService.addAccountData(account);//加入登录账号
         school.setSAccountId(account.getAId());
         if(school.getSBusinessPic() == null) school.setSBusinessPic("/image/sch.jpg");
