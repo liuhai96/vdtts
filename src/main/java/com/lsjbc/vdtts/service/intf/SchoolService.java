@@ -4,6 +4,7 @@ import com.github.pagehelper.Page;
 import com.lsjbc.vdtts.entity.Account;
 import com.lsjbc.vdtts.entity.School;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
+import com.lsjbc.vdtts.pojo.vo.PowerSchool;
 import com.lsjbc.vdtts.pojo.vo.ResultData;
 import com.lsjbc.vdtts.pojo.vo.SchoolDetail;
 import org.apache.ibatis.annotations.Param;
@@ -93,6 +94,14 @@ public interface SchoolService {
 
     ResultData updateSchoolPwd(HttpServletRequest request);
     ResultData updateSchoolBasicInfo(School school);
+
+    /**
+     * 获取5个最有实力的驾校
+     *
+     * @return
+     * @author JX181114 --- 郑建辉
+     */
+    List<PowerSchool> getFiveMostPowerfulSchool();
 
 
 }

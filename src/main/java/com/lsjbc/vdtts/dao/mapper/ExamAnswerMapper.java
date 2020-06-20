@@ -12,4 +12,5 @@ import com.lsjbc.vdtts.entity.ExamAnswer;
 
 
 public interface ExamAnswerMapper extends CustomBaseMapper<ExamAnswer> {
+
 }

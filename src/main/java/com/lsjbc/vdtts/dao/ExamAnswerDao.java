@@ -88,7 +88,11 @@ public class ExamAnswerDao extends BaseRedisClient implements BaseDao<ExamAnswer
      */
     @Override
     public Integer add(ExamAnswer object) {
-        return null;
+        return mapper.insertSelective(object);
+    }
+
+    public Integer addAll(List<ExamAnswer> answers){
+        return mapper.insertList(answers);
     }
 
     /**
@@ -225,5 +229,12 @@ public class ExamAnswerDao extends BaseRedisClient implements BaseDao<ExamAnswer
             log.error(e.getMessage());
         }
         return result;
+    }
+
+    public void deleteAll(Integer level){
+        Example example = new Example(ExamAnswer.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("eaLevel",level);
+        mapper.deleteByExample(example);
     }
 }
