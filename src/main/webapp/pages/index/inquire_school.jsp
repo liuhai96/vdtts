@@ -12,13 +12,12 @@
 	String path = request.getContextPath();
 	String today = new Tool().getDate("yyyy年MM月dd日");
 %>
-<!doctype html>
+<!DOCTYPE HTML>
 <input hidden="hidden" value="<%=path%>" id="path">
 <HEAD>
-	<%--	<META content="IE=11.0000" http-equiv="X-UA-Compatible">--%>
+	<META content="IE=11.0000" http-equiv="X-UA-Compatible">
 	<META charset="utf-8">
-	<META name="viewport"
-		  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<META name="viewport"  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<TITLE>驾培机构详情</TITLE>
 
 	<link rel="stylesheet" href="https://www.layuicdn.com/layui-v2.5.6/css/layui.css" media="all">
@@ -30,8 +29,43 @@
 	<link rel="stylesheet" href="<%=path+"/css/pages/index/starScore.css"%>">
 	<link rel="stylesheet" href="<%=path+"/css/pages/index/inquireSchDetails.css"%>">
 </HEAD>
-<BODY style="background: rgb(250, 251, 253);">
+<%--<BODY style="background: rgb(250, 251, 253);">--%>
+<%--<!DOCTYPE HTML>--%>
+<%--&lt;%&ndash;<!DOCTYPE html PUBLIC "" "">&ndash;%&gt;--%>
+<%--<input hidden="hidden" value="<%=path%>" id="path">--%>
+<%--<HEAD>--%>
+<%--	<META content="IE=11.0000" http-equiv="X-UA-Compatible">--%>
+<%--	<META charset="utf-8">--%>
+<%--	<META name="viewport"  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">--%>
+<%--	<TITLE>驾培机构详情</TITLE>--%>
+<%--	<LINK href="http://47.96.140.98:20034/static/img/logo_favicon.ico" rel="shortcut icon" type="image/x-icon">--%>
+<%--	&lt;%&ndash;	<SCRIPT type="text/javascript">&ndash;%&gt;--%>
+<%--	&lt;%&ndash;		var path = "http://47.96.140.98:20034";&ndash;%&gt;--%>
+<%--	&lt;%&ndash;	</SCRIPT>&ndash;%&gt;--%>
+<%--	<link rel="stylesheet" href="https://www.layuicdn.com/layui-v2.5.6/css/layui.css" media="all">--%>
+<%--	<link rel="stylesheet" href="<%=path+"/css/pages/index/common.css"%>">--%>
+<%--	<link rel="stylesheet" href="<%=path%>/static/layui/css/layui.css" media="all">--%>
 
+
+<%--	<link rel="stylesheet" href="<%=path+"/css/pages/index/inquire_tablelist.css"%>">--%>
+<%--	<link rel="stylesheet" href="<%=path+"/css/pages/index/starScore.css"%>">--%>
+<%--	<link rel="stylesheet" href="<%=path+"/css/pages/index/inquireSchDetails.css"%>">--%>
+<%--</HEAD>--%>
+<%--<META name="GENERATOR" content="MSHTML 11.00.9600.19572"></HEAD>--%>
+<%--<SCRIPT>--%>
+<%--	var _hmt = _hmt || [];--%>
+<%--	(function() {--%>
+<%--		var hm = document.createElement("script");--%>
+<%--		hm.src = "https://hm.baidu.com/hm.js?22f0ca35d25f96268f9512c85774f0dc";--%>
+<%--		var s = document.getElementsByTagName("script")[0];--%>
+<%--		s.parentNode.insertBefore(hm, s);--%>
+<%--	})();--%>
+<%--</SCRIPT>--%>
+<%--<SCRIPT>--%>
+<%--	var sch ={"ability":"","address":"江西省南昌市新建区长堎工业园工业四路第八区块","branchnumber":0,"briefintroduct":"","business":"***","busiscope":"C1,C2","busistatus":"1","checktime":1563783658000,"checkuser":"ncygzj","classroom":28810.97,"coachnumber":32,"coacount":94,"contact":"***","createtime":1563777183000,"creditcode":"***","dayaddstucount":2,"dayendstucount":0,"dcode":"360122","describe":"","district":"360122","grasupvnum":1,"inscode":"3322210509142226","ischeck":0,"isvalid":1,"lat":0,"legal":"***","level":3,"licetime":1563206400000,"licnum":"***","lng":0,"name":"南昌南动驾驶员培训有限公司","notice":1,"ordnum":0,"organiz":"360109","organizName":"新建县公路运输管理所","organiztype":0,"phone":"18970044567","photo":0,"platnum":"A0032","position":"","postcode":"360109","pracoachnum":0,"praticefield":28810.97,"pubnumber":"","pubnumfile":"","safmngnum":1,"schphone":"","serprinum":"","service":"","shortname":"南动驾校","star":5.00,"stuCom":"","stuEva":"","taxregcer":"","thclassroom":80.0,"thcoachnum":0,"thumbnailid":0,"tracarnum":32,"updatetime":1563777183000,"vuecount":70,"yearaddstucount":1456,"yearendstucount":0};--%>
+<%--	var fileList = [];--%>
+<%--</SCRIPT>--%>
+<BODY style="background: rgb(250, 251, 253);">
 <input type="hidden" id="schoolId" value="${sid}">
 
 <div class="login-inf">
@@ -41,10 +75,10 @@
 		</div>
 		<div class="inf-login">
 			<c:if test="${sessionScope.student == null }">
-                <<a target="_blank" href="<%=path+"/back/adminlogin.jsp"%>">管理登录</a> |
-                <a target="_blank" href="<%=path+"/transfer?logo=institutionLogin"%>">机构登录</a> |
-                <a href="<%=path+"/student"%>">学员登录</a> |
-                <a target="_blank" href="<%=path+"/transfer?logo=schoolIn"%>">驾校入驻</a>
+				<<a target="_blank" href="<%=path+"/back/adminlogin.jsp"%>">管理登录</a> |
+				<a target="_blank" href="<%=path+"/transfer?logo=institutionLogin"%>">机构登录</a> |
+				<a href="<%=path+"/student"%>">学员登录</a> |
+				<a target="_blank" href="<%=path+"/transfer?logo=schoolIn"%>">驾校入驻</a>
 			</c:if>
 			<c:if test="${sessionScope.student != null }">
 				<a href="<%=path+"/student"%>" id="studentName">欢迎您！ 学员: ${sessionScope.student.SName}</a>
@@ -105,118 +139,119 @@
 	<a href="javascript:void(0)" title="刷新" class="tencent" onclick="history.go(0);"></a>
 </div>
 <DIV class="main">
-<DIV class="del-1">
-	<DIV class="del-lun">
-	</DIV>
-	<DIV style="float: left">
-		<IMG style="height: 260px; width: 700px;" src="<%=path%>/static/layui/images/photo/06.png">
-	</DIV>
-	<DIV class="del-schinf">
-		<P class="del-p"><span>${name}</span><IMG src="<%=path%>/image/pages/index/tower.png"></P>
-		<DIV class="del-inf">
-			<p>
-				<b>全国统一信用代码：</b>
-				<span>${sbusinessId}</span>
-				<b style="margin-left: 40px;">经营许可日期：</b>
-				<span>${time}</span>
-			</p>
-
-			<p><b>教练员人数：</b>
-				<span>${teachercount}</span>人
-			</p>
-			<p><b>教练车台数：</b>
-				<span>${carcount}</span>台
-			</p>
-
-			<p><b>地址：</b>
-				<span id="address">${address}</span></p>
-			<p>
-				<b>学员总人数：</b>
-				<span>${studencount}</span>人</p>
-			<hr>
-			<p>
-				<b style="float: left;">综合星级：</b>
-			</p>
-			<div style="margin-top: 7px;">
-				<div class="atar_Show">
-					<p class="atar_Show scoreStar" tip="${score}"></p>
-				</div>
-				<span style="font-size: 17px;color: #65B0F1;">${score}</span>
-			</div>
-			<div class="site-demo-button" id="layerDemo" style="margin-bottom: 0; text-align: center">
-				<button data-method="notice" class="layui-btn">学生报名</button>
-			</div>
+	<DIV class="del-1">
+		<DIV class="del-lun">
 		</DIV>
-		<p></p>
-	</div>
-</DIV>
-<DIV class="table-list">
-	<UL class="blist clearfix">
-		<LI class="active">驾培机构简介</LI>
-		<LI>驾培机构风采</LI>
-		<LI>学员评价</LI>
-		<LI>联系方式</LI>
-	</UL>
-	<UL class="blsit-list blsit-list1">
-		<LI class="del-lis1">
-			<P class="p-title">驾培机构简介</P>
-			<HR>
+		<DIV style="float: left">
+			<IMG style="height: 260px; width: 700px;" src="<%=path%>/static/layui/images/photo/06.png">
+		</DIV>
+		<DIV class="del-schinf">
+			<P class="del-p"><span>${name}</span><IMG src="<%=path%>/image/pages/index/tower.png"></P>
+			<DIV class="del-inf">
+				<p>
+					<b>全国统一信用代码：</b>
+					<span>${sbusinessId}</span>
+					<b style="margin-left: 40px;">经营许可日期：</b>
+					<span>${time}</span>
+				</p>
 
-			<P class="p-cont">暂无简介!</P></LI>
-		<LI class="del-lis2">
-			<P class="p-title">驾培机构风采</P>
-			<HR>
+				<p><b>教练员人数：</b>
+					<span>${teachercount}</span>人
+				</p>
+				<p><b>教练车台数：</b>
+					<span>${carcount}</span>台
+				</p>
 
-			<DIV class="del-sch-view"><IMG id="trainingImgFile" style="width: 450px; height: 253px;"
-										   src="<%=path%>/image/pages/index/school1.jpg">
-				<P class="img-title">训练场地相册</P>
-				<P style="line-height: 40px; margin-left: 15px;"><IMG
-						src="<%=path%>/image/pages/index/photos.png"><SPAN
-						id="trainingCount" style="margin: 0px 15px;">共0张</SPAN>
-					<IMG style="width: 14px;" src="<%=path%>/image/pages/index/inq.png">
-					<SPAN style="margin: 0px 10px; color: rgb(39, 68, 114); cursor: pointer;"
-						  onclick="showPhotos(4);">查看相册 </SPAN>
-					<IMG src="<%=path%>/image/pages/index/arrows1.png"></P></DIV>
+				<p><b>地址：</b>
+					<span id="address">${address}</span></p>
+				<p>
+					<b>学员总人数：</b>
+					<span>${studencount}</span>人</p>
+				<hr>
+				<p>
+					<b style="float: left;">综合星级：</b>
+				</p>
+				<div style="margin-top: 7px;">
+					<div class="atar_Show">
+						<p class="atar_Show scoreStar" tip="${score}"></p>
+					</div>
+					<span style="font-size: 17px;color: #65B0F1;">${score}</span>
+				</div>
+				<div class="site-demo-button" id="layerDemo" style="margin-bottom: 0; text-align: center">
+					<button data-method="notice" class="layui-btn">学生报名</button>
+				</div>
+			</DIV>
+			<p></p>
+		</div>
+	</DIV>
 
-			<DIV class="del-sch-view">
-				<IMG id="teachToolImgFile" style="width: 450px; height: 253px;"
-					 src="<%=path%>/image/pages/index/school1.jpg">
-				<P class="img-title">教具设施相册</P>
-				<P style="line-height: 40px; margin-left: 15px;"><IMG
-						src="<%=path%>/image/pages/index/photos.png"><SPAN
-						id="teachToolCount" style="margin: 0px 15px;">共0张</SPAN>
-					<IMG style="width: 14px;" src="<%=path%>/image/pages/index/inq.png">
-					<SPAN style="margin: 0px 10px; color: rgb(39, 68, 114); cursor: pointer;"
-						  onclick="showPhotos(5);">查看相册 </SPAN>
-					<IMG src="<%=path%>/image/pages/index/arrows1.png"></P></DIV>
+	<DIV class="table-list">
+		<UL class="blist clearfix">
+			<LI class="active">驾培机构简介</LI>
+			<LI>驾培机构风采</LI>
+			<LI>学员评价</LI>
+			<LI>联系方式</LI>
+		</UL>
+		<UL class="blsit-list blsit-list1">
+			<LI class="del-lis1">
+				<P class="p-title">驾培机构简介</P>
+				<HR>
+
+				<P class="p-cont">暂无简介!</P></LI>
+			<LI class="del-lis2">
+				<P class="p-title">驾培机构风采</P>
+				<HR>
+
+				<DIV class="del-sch-view"><IMG id="trainingImgFile" style="width: 450px; height: 253px;"
+				                               src="<%=path%>/image/pages/index/school1.jpg">
+					<P class="img-title">训练场地相册</P>
+					<P style="line-height: 40px; margin-left: 15px;"><IMG
+							src="<%=path%>/image/pages/index/photos.png"><SPAN
+							id="trainingCount" style="margin: 0px 15px;">共0张</SPAN>
+						<IMG style="width: 14px;" src="<%=path%>/image/pages/index/inq.png">
+						<SPAN style="margin: 0px 10px; color: rgb(39, 68, 114); cursor: pointer;"
+						      onclick="showPhotos(4);">查看相册 </SPAN>
+						<IMG src="<%=path%>/image/pages/index/arrows1.png"></P></DIV>
+
+				<DIV class="del-sch-view">
+					<IMG id="teachToolImgFile" style="width: 450px; height: 253px;"
+					     src="<%=path%>/image/pages/index/school1.jpg">
+					<P class="img-title">教具设施相册</P>
+					<P style="line-height: 40px; margin-left: 15px;"><IMG
+							src="<%=path%>/image/pages/index/photos.png"><SPAN
+							id="teachToolCount" style="margin: 0px 15px;">共0张</SPAN>
+						<IMG style="width: 14px;" src="<%=path%>/image/pages/index/inq.png">
+						<SPAN style="margin: 0px 10px; color: rgb(39, 68, 114); cursor: pointer;"
+						      onclick="showPhotos(5);">查看相册 </SPAN>
+						<IMG src="<%=path%>/image/pages/index/arrows1.png"></P></DIV>
 
 
-			<DIV class="del-sch-view"><IMG id="trainSceneryImgFile" style="width: 450px; height: 253px;"
-										   src="<%=path%>/image/pages/index/school1.jpg">
-				<P class="img-title">培训实景相册</P>
-				<P style="line-height: 40px; margin-left: 15px;"><IMG
-						src="<%=path%>/image/pages/index/photos.png"><SPAN
-						id="trainSceneryCount" style="margin: 0px 15px;">共0张</SPAN>
-					<IMG style="width: 14px;" src="<%=path%>/image/pages/index/inq.png">
-					<SPAN style="margin: 0px 10px; color: rgb(39, 68, 114); cursor: pointer;"
-						  onclick="showPhotos(6);">查看相册 </SPAN>
-					<IMG src="<%=path%>/image/pages/index/arrows1.png"></P></DIV>
+				<DIV class="del-sch-view"><IMG id="trainSceneryImgFile" style="width: 450px; height: 253px;"
+				                               src="<%=path%>/image/pages/index/school1.jpg">
+					<P class="img-title">培训实景相册</P>
+					<P style="line-height: 40px; margin-left: 15px;"><IMG
+							src="<%=path%>/image/pages/index/photos.png"><SPAN
+							id="trainSceneryCount" style="margin: 0px 15px;">共0张</SPAN>
+						<IMG style="width: 14px;" src="<%=path%>/image/pages/index/inq.png">
+						<SPAN style="margin: 0px 10px; color: rgb(39, 68, 114); cursor: pointer;"
+						      onclick="showPhotos(6);">查看相册 </SPAN>
+						<IMG src="<%=path%>/image/pages/index/arrows1.png"></P></DIV>
 
 
-			<DIV class="del-sch-view">
-				<IMG id="schStyleImgFile" style="width: 450px; height: 253px;"
-					 src="<%=path%>/image/pages/index/school1.jpg">
-				<P class="img-title">校园风貌相册</P>
-				<P style="line-height: 40px; margin-left: 15px;"><IMG
-						src="<%=path%>/image/pages/index/photos.png">
-					<SPAN id="schStyleCount" style="margin: 0px 15px;">共0张</SPAN>
-					<IMG style="width: 14px;" src="<%=path%>/image/pages/index/inq.png">
-					<SPAN style="margin: 0px 10px; color: rgb(39, 68, 114); cursor: pointer;" onclick="showPhotos(7);">查看相册 </SPAN>
-					<IMG src="<%=path%>/image/pages/index/arrows1.png"></P></DIV>
-		</LI>
+				<DIV class="del-sch-view">
+					<IMG id="schStyleImgFile" style="width: 450px; height: 253px;"
+					     src="<%=path%>/image/pages/index/school1.jpg">
+					<P class="img-title">校园风貌相册</P>
+					<P style="line-height: 40px; margin-left: 15px;"><IMG
+							src="<%=path%>/image/pages/index/photos.png">
+						<SPAN id="schStyleCount" style="margin: 0px 15px;">共0张</SPAN>
+						<IMG style="width: 14px;" src="<%=path%>/image/pages/index/inq.png">
+						<SPAN style="margin: 0px 10px; color: rgb(39, 68, 114); cursor: pointer;" onclick="showPhotos(7);">查看相册 </SPAN>
+						<IMG src="<%=path%>/image/pages/index/arrows1.png"></P></DIV>
+			</LI>
 
-		<LI class="del-lis5">
-			<div class="coach-stu-evaluate">
+			<LI class="del-lis5">
+				<div class="coach-stu-evaluate">
         <textarea class="p-title" title="评价模板" id="evaluate_tpl" style="display:none;">
             {{# layui.each(d.data, function(index, item){ }}
             <div>
@@ -232,31 +267,32 @@
             <hr>
             {{# }); }}
         </textarea>
-				<p>学员评价</p>
-				<hr>
-				<div id="evaluateDiv">
+					<p>学员评价</p>
+					<hr>
+					<div id="evaluateDiv">
+					</div>
 				</div>
-			</div>
-		</LI>
-		<LI class="del-lis6">
-			<DIV style="margin: 10px 0px 0px 10px; float: left;">
-				<P style="color: rgb(90, 134, 205); padding-left: 10px; font-size: 18px;"><IMG
-						style="width: 20px; margin-right: 10px;" src="<%=path%>/image/pages/index/phone.png">联系方式
-				</P>
-				<P style="line-height: 40px; margin-left: 10px;">报名咨询电话：<SPAN id="schphone"
-																			  style="color: rgb(90, 134, 205);">12580</SPAN>
-				</P>
-				<P style="line-height: 40px; margin-left: 10px;">投诉举报电话：<SPAN id="schcomphone"
-																			  style="color: rgb(90, 134, 205);">12580</SPAN>
-				</P>
-				<P style="line-height: 40px; margin-left: 10px;">微信公众号： <SPAN id="pubnumber"></SPAN></P></DIV>
-			<DIV style="margin-left: 400px; float: left;">
-				<IMG id="pubnumfile"><IMG src="<%=path%>/image/pages/index/code2.jpg">
-			</DIV>
-		</LI>
-	</UL>
+			</LI>
+			<LI class="del-lis6">
+				<DIV style="margin: 10px 0px 0px 10px; float: left;">
+					<P style="color: rgb(90, 134, 205); padding-left: 10px; font-size: 18px;"><IMG
+							style="width: 20px; margin-right: 10px;" src="<%=path%>/image/pages/index/phone.png">联系方式
+					</P>
+					<P style="line-height: 40px; margin-left: 10px;">报名咨询电话：<SPAN id="schphone"
+					                                                              style="color: rgb(90, 134, 205);">12580</SPAN>
+					</P>
+					<P style="line-height: 40px; margin-left: 10px;">投诉举报电话：<SPAN id="schcomphone"
+					                                                              style="color: rgb(90, 134, 205);">12580</SPAN>
+					</P>
+					<P style="line-height: 40px; margin-left: 10px;">微信公众号： <SPAN id="pubnumber"></SPAN></P></DIV>
+				<DIV style="margin-left: 400px; float: left;">
+					<IMG id="pubnumfile"><IMG src="<%=path%>/image/pages/index/code2.jpg">
+				</DIV>
+			</LI>
+		</UL>
+	</DIV>
 </DIV>
-</DIV>
+
 <DIV class="footer-inf">
 	<ul style="text-align: center;display: table;">
 		<li style="margin: 0 60px 0 0px;">
@@ -275,14 +311,14 @@
 <script src="<%=path+"/js/pages/index/auto_area.js"%>"></script>
 <script src="<%=path+"/js/pages/index/common.js"%>"></script>
 <script src="<%=path+"/js/pages/index/commonpage.js"%>"></script>
-
+<SCRIPT src="AS_files/jquery.min.js"></SCRIPT>
 
 <script>
 	layui.use(['laytpl', 'layer', 'flow'], function () {
 		var laytpl = layui.laytpl
-				, $ = layui.$
-				, flow = layui.flow
-			    , layer = layui.layer;
+			, $ = layui.$
+			, flow = layui.flow
+			, layer = layui.layer;
 
 
 		function showStar() {
@@ -354,7 +390,7 @@
 				layer.open({
 					type: 1
 					,
-					title: false
+					title: '学员报名'
 					,
 					closeBtn: false
 					,
@@ -369,25 +405,27 @@
 					btnAlign: 'c'
 					,
 					moveType: 1
-					,
-					content: '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">欢迎报名宏鑫驾校！<br>姓名<br><input type="text" name="sName" id="sName" placeholder="请输入姓名" class="layui-input" ><br>身份证<br><input type="text" name="sSfz" id="sSfz" placeholder="请输入身份证" class="layui-input" > </div>'
+					// ,
+					// content: '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">欢迎报名宏鑫驾校！<br>姓名<br><input type="text" name="sName" id="sName" placeholder="请输入姓名" class="layui-input" ><br>身份证<br><input type="text" name="sSfz" id="sSfz" placeholder="请输入身份证" class="layui-input" > </div>'
 					,
 					yes: function (index, layero) {
-						let sName = $("#sName").val();
+						// let sName = $("#sName").val();
 						let schoolId = $("#schoolId").val();
-						let sSfz = $("#sSfz").val();
+						// let sSfz = $("#sSfz").val();
 						$.ajax({
 							type: 'get',
 							url: '/SchoolControl/insSfz',
 							dataType: 'JSON',
 							data: {
-								sName: sName
-								, sSfz: sSfz
-								,schoolId:schoolId
+								// sName: sName
+								// , sSfz: sSfz,
+								schoolId:schoolId
 							},
 							success: function (remsg) {
 								console.log(remsg);
+								alert(remsg.msg);
 								layer.close(index);
+								// layer.remsg(remsg);
 							}
 						})
 					}
@@ -397,10 +435,5 @@
 	})
 </script>
 
-
 </BODY>
 </HTML>
-
-
-
-

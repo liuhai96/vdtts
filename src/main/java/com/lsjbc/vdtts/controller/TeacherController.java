@@ -187,8 +187,8 @@ public class TeacherController {
 
     @RequestMapping(value = "/checksSfz")
     @ResponseBody
-    public ResultData checksSfz(HttpServletRequest request, HttpServletResponse response, Student student){
+    public ResultData checksSfz(HttpServletRequest request, HttpServletResponse response){
         response.setContentType("text/html;charset=utf-8");
-        return teacherService.checksSfz(student,request);
+        return teacherService.checksSfz(request);
     }
 }
