@@ -55,7 +55,7 @@ public class IndexController {
     private StudentService studentService;
 
 
-//陈竑霖
+    //陈竑霖
     @Resource(name = SchoolServiceImpl.NAME)
     private SchoolService schoolService;
 
@@ -78,7 +78,7 @@ public class IndexController {
     @GetMapping("index")
     public String index2(Map<String, Object> map) {
 
-        map.put("schoolList",schoolService.getFiveMostPowerfulSchool());
+        map.put("schoolList", schoolService.getFiveMostPowerfulSchool());
         map.put("noticeList", noticeService.getIndexPageNotice());
         map.put("lawList", noticeService.getIndexPageLaw());
         map.put("linkList", linkServive.getFooterFriendLink());
@@ -176,7 +176,7 @@ public class IndexController {
             return "/pages/index/student_login";
         }
 
-        map.put("studentId",student.getSId());
+        map.put("studentId", student.getSId());
 
         return "/pages/student/home";
     }
@@ -400,21 +400,35 @@ public class IndexController {
 
     /**
      * 跳转到注册页
+     *
      * @return
      */
     @GetMapping("/student/register")
-    public String studentRegister(){
+    public String studentRegister() {
         return "/pages/index/register";
     }
 
     /**
+     * 跳转到智能客服页
+     *
+     * @return
+     */
+    @GetMapping("/robot")
+    public String robot() {
+        return "/robot/robot";
+    }
+
+    /**
      * 用户进行注册操作
+     *
      * @param register 注册信息
-     * @param map ModelAndView中的属性键值对
+     * @param map      ModelAndView中的属性键值对
      * @return 页面
      */
     @PostMapping("/student/register")
-    public String StudentRegister(StudentRegister register, Map<String,Object> map){
+    public String StudentRegister(StudentRegister register, Map<String, Object> map) {
         return studentService.studentRegister(register, map);
-    };
+    }
+
+    ;
 }

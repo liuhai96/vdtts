@@ -26,6 +26,7 @@
     <link rel="stylesheet" href="<%=path+"/css/pages/index/home_main.css"%>">
 </head>
 <body>
+
 <div class="login-inf">
     <div class="inf-box">
         <div class="inf-time">
