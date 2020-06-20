@@ -25,6 +25,8 @@
 
     <link rel="stylesheet" href="<%=path+"/css/pages/index/style.css"%>">
 </head>
+<body>
+<input type="hidden" id="zjh_msg" value="${zjh_msg}">
 <div class="login-inf">
     <div class="inf-box">
         <div class="inf-time">
@@ -132,5 +134,17 @@
 <script src="https://www.layuicdn.com/layui/layui.js"></script>
 <script src="<%=path+"/js/pages/index/common.js"%>"></script>
 <script src="<%=path+"/js/pages/index/commonpage.js"%>"></script>
+<script>
+    layui.use(['layer'],function () {
+        let $ = layui.$;
+        let layer = layui.layer;
+
+        let msg = $("#zjh_msg").val();
+        if(msg.length>0){
+            layer.msg(msg);
+        }
+
+    });
+</script>
 </body>
 </html>

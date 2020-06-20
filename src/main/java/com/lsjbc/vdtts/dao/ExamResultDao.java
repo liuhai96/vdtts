@@ -138,7 +138,7 @@ public class ExamResultDao implements BaseDao<ExamResult> {
      */
     @Override
     public Integer add(ExamResult object) {
-        return null;
+        return mapper.insertSelective(object);
     }
 
     /**

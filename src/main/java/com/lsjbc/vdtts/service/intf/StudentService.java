@@ -5,11 +5,13 @@ import com.lsjbc.vdtts.entity.School;
 import com.lsjbc.vdtts.entity.Student;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.pojo.vo.ResultData;
+import com.lsjbc.vdtts.pojo.vo.StudentRegister;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public interface StudentService {
@@ -21,14 +23,23 @@ public interface StudentService {
      *@Date:2020/6/8
      **/
     public List<Student> selectAllInfo(@Param("student") Student student, @Param("page") int page, @Param("limit") int limit);
+
     public int selectStudentCount(@Param("student") Student student);
+
     public int resetPwd(String studentId);
+
     public int insertstudent(Student student);
+
     public int updatestudent(Student student);
+
     public int deletestudent(Student student);
+
     public Integer studentExamCount1();
+
     public Integer studentExamCount2();
+
     public Integer studentExamCount3();
+
     public Integer studentExamCount4();
 
     /*
@@ -38,7 +49,7 @@ public interface StudentService {
      *@return:
      *@Date:2020/6/8 1591600767377
      **/
-	public LayuiTableData selectList(Student student, int page, int pageSize);
+    public LayuiTableData selectList(Student student, int page, int pageSize);
 
 
     public int registerStudent(Student student);
@@ -65,5 +76,15 @@ public interface StudentService {
      * @return 结果集合
      */
     ResultData studentLogin(Account account, HttpServletRequest request);
+
+    /**
+     * 学员注册流程
+     *
+     * @param register 注册提供的信息对象
+     * @param map      ModelAndView中的属性键值对
+     * @return 跳转的路径
+     * @author JX181114 --- 郑建辉
+     */
+    String studentRegister(StudentRegister register, Map<String, Object> map);
 
 }

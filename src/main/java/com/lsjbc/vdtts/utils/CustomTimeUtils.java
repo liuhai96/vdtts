@@ -14,6 +14,25 @@ import java.util.Date;
 public class CustomTimeUtils {
 
     /**
+     * 从身份证中获取出生日期
+     *
+     * @param sfz 身份证号
+     * @return 出生日期
+     * @author JX181114 --- 郑建辉
+     */
+    public static String getTimeFromSFZ(String sfz) {
+        StringBuilder sb = new StringBuilder("");
+
+        sb.append(sfz.substring(6, 10));
+        sb.append("/");
+        sb.append(sfz.substring(10, 12));
+        sb.append("/");
+        sb.append(sfz.substring(12, 14));
+
+        return sb.toString();
+    }
+
+    /**
      * 计算两个年份之间的差值
      * 传入格式：年-......
      *

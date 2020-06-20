@@ -2,14 +2,18 @@ package com.lsjbc.vdtts.service.impl;
 
 import com.lsjbc.vdtts.constant.AccountType;
 import com.lsjbc.vdtts.dao.AccountDao;
+import com.lsjbc.vdtts.dao.ExamResultDao;
 import com.lsjbc.vdtts.dao.StudentDao;
 import com.lsjbc.vdtts.dao.mapper.ExamResultMapper;
 import com.lsjbc.vdtts.dao.mapper.StudentMapper;
 import com.lsjbc.vdtts.entity.Account;
+import com.lsjbc.vdtts.entity.ExamResult;
 import com.lsjbc.vdtts.entity.School;
 import com.lsjbc.vdtts.entity.Student;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.pojo.vo.ResultData;
+import com.lsjbc.vdtts.pojo.vo.StudentRegister;
+import com.lsjbc.vdtts.service.intf.LinkService;
 import com.lsjbc.vdtts.service.intf.StudentService;
 import com.lsjbc.vdtts.utils.Tool;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +22,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 @SuppressWarnings("all")
 @Service(StudentServiceImpl.NAME)
@@ -35,6 +40,12 @@ public class StudentServiceImpl implements StudentService {
 
 	@Resource(name = AccountDao.NAME)
 	private AccountDao accountDao;
+
+	@Resource(name = ExamResultDao.NAME)
+	private ExamResultDao examResultDao;
+
+	@Resource(name = LinkServiceImpl.NAME)
+	private LinkService linkServive;
 
 	/**
 	 * student 里面所有的属性将会作为查询条件
@@ -249,5 +260,42 @@ public class StudentServiceImpl implements StudentService {
 		ResultData resultData = ResultData.success("登录成功", "url", "student/main");
 		resultData.put("username", student.getSName());
 		return resultData;
+	}
+
+	/**
+	 * 学员注册流程
+	 *
+	 * @param register 注册提供的信息对象
+	 * @param map      ModelAndView中的属性键值对
+	 * @return 跳转的路径
+	 * @author JX181114 --- 郑建辉
+	 */
+	@Override
+	public String studentRegister(StudentRegister register, Map<String, Object> map) {
+		//更具提供的信息生成Account对象
+		Account token = register.generateAccount();
+
+		//开始尝试性的向数据库中插入数据，如果插入成功，返回1
+		Integer row = accountDao.insertIfNotExist(token);
+
+		if(row==0){
+			register.putInfoAndMsgToMap(map,"该账号已被注册");
+			return "/pages/index/register";
+		}
+
+		//根据提供的信息和账号ID来生成学生对象
+		Student student = register.generateStudent(token.getAId());
+
+		Integer row2 = studentDao.add(student);
+
+		if(row2==1){
+			examResultDao.add(ExamResult.builder().erStudentId(student.getSId()).build());
+		}
+
+		map.put("zjh_msg","注册成功");
+		map.put("iframeUrl", "/student/login");
+		map.put("linkList", linkServive.getFooterFriendLink());
+
+		return "/pages/index/student";
 	}
 }

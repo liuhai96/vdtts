@@ -52,6 +52,8 @@
                 <span class="error error7"></span>
             </li>
 
+            <li><a id="registerLink" href="JavaScript:;">没有账号？立马去注册一个</a></li>
+
         </ul>
         <div class="sub space">
             <button class="" id="dd" type="submit">登录</button>
@@ -74,6 +76,13 @@
         if (msg.length > 0) {
             layer.msg(msg, {icon: 0});
         }
+
+        let path = window.document.location.href.substring(0, (window.document.location.href).indexOf(window.document.location.pathname));
+
+        $("#registerLink").on("click",function (event) {
+           top.location.href=path+"/student/register";
+        });
+
     });
 </script>
 </body>

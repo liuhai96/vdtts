@@ -107,7 +107,7 @@ public class StudentDao implements BaseDao<Student> {
      */
     @Override
     public Integer add(Student object) {
-        return null;
+        return mapper.insertSelective(object);
     }
 
     /**
