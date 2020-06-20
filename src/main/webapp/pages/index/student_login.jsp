@@ -24,9 +24,9 @@
 <p style="font-family: newword;color: #274472;font-size: 26px;text-align: center;height: 80px; margin-left: -230px;line-height: 110px;">
     欢迎登录驾驶培训公共服务平台！</p>
 <div class="main-box">
-    <form action="<%=path+"/api/login/student"%>" method="post">
+    <form action="<%=path+"/api/login/student"%>" method="post" style="width: 100%">
         <p style="">学员登录</p>
-        <ul class="reg-box">
+        <ul id="accountLogin" class="reg-box" style="display: block;">
             <li>
                 <label style="letter-spacing: 3px;">学员账号：</label>
                 <input name="aAccount" type="text" value="yw76CiYS8F"
@@ -51,16 +51,19 @@
                 <span id="vk" class="add phoKey"></span>
                 <span class="error error7"></span>
             </li>
-
             <li><a id="registerLink" href="JavaScript:;">没有账号？立马去注册一个</a></li>
-
         </ul>
-        <div class="sub space">
+        <div id="faceLogin" class="reg-box" style="display: none;">人脸登录</div>
+        <div class="sub space" style="margin-right: 50px;">
             <button class="" id="dd" type="submit">登录</button>
             <br>
             <br>
             <br>
             <button class="" id="cc" onclick="resetMsg();" style="display: block;" type="button">重置</button>
+            <br>
+            <br>
+            <a id="useAccount" href="JavaScript:;" style="float: right;display: none;">使用账号登录</a>
+            <a id="useFace" href="JavaScript:;" style="float: right;display: block;">使用人脸登录</a>
         </div>
     </form>
 </div>
@@ -76,6 +79,22 @@
         if (msg.length > 0) {
             layer.msg(msg, {icon: 0});
         }
+
+        $("#useAccount").on("click",function (event) {
+            $("#faceLogin").attr("style","display:none;");
+            $("#accountLogin").attr("style","display:block;");
+            $("#useAccount").attr("style","display:none;float: right;");
+            $("#useFace").attr("style","display:block;float: right;");
+            inputByHand = false;
+        });
+
+        $("#useFace").on("click",function (event) {
+            $("#faceLogin").attr("style","display:block;");
+            $("#accountLogin").attr("style","display:none;");
+            $("#useAccount").attr("style","display:block;float: right;");
+            $("#useFace").attr("style","display:none;float: right;");
+            inputByHand = true;
+        });
 
         let path = window.document.location.href.substring(0, (window.document.location.href).indexOf(window.document.location.pathname));
 

@@ -1975,12 +1975,12 @@
                     <div>
                         <button type="submit" class="layui-btn register-submit" lay-submit="" lay-filter="demo1">立即提交</button>
                     </div>
-                    <div>
-                        <button type="button" id="showPhoto" style="display: block;">切换为身份证上传</button>
-                        <button type="button" id="showHand" style="display: none;">切换为手动输入</button>
+                    <div style="float: left;">
+                        <a href="JavaScript:;" id="showPhoto" style="display: block;">切换为身份证上传</a>
+                        <a href="JavaScript:;" id="showHand" style="display: none;">切换为手动输入</a>
                     </div>
 
-                    <a href="<%=path+"/student"%>">已有账号?直接登录</a>
+                    <a style="float: right;margin-bottom: 15px;" href="<%=path+"/student"%>">已有账号?直接登录</a>
                 </form>
             </div>
         </div>
