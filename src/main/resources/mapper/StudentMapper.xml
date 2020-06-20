@@ -84,9 +84,9 @@
             <if test="e.sLicenseTime!=null and e.sLicenseTime!=''"> and s_license_time like concat('%',#{e.sLicenseTime},'%')</if>
         </where>
     </select>
-    <select id="insSfz" parameterType="com.lsjbc.vdtts.entity.Student" resultType="com.lsjbc.vdtts.entity.Student">
-        select * from tb_student where s_sfz = #{sSfz} and s_name = #{sName}
-    </select><!-- 查身份证 -->
+<!--    <select id="insSfz" parameterType="com.lsjbc.vdtts.entity.Student" resultType="com.lsjbc.vdtts.entity.Student">-->
+<!--        select * from tb_student where s_sfz = #{sSfz} and s_name = #{sName}-->
+<!--    </select>&lt;!&ndash; 查身份证 &ndash;&gt;-->
 
 <!--    <select id="findsfz" resultType="com.lsjbc.vdtts.entity.Student">-->
 <!--        select * from tb_student where s_sfz = #{sSfz}-->

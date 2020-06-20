@@ -147,13 +147,13 @@
 <div class="video-page" border="0">
     <div style="height: auto" class="video-main">
         <p>位置：我的成绩</p>
-        <iframe  style="width: 100%;border:0" src="<%=path%>/examResultController/getStudentResult?sId=${studentId}&logo=result"></iframe>
+        <iframe  style="width: 100%;border:0" src="<%=path%>/examResultController/getStudentResult?sId=${sessionScope.student.getSId()}&logo=result"></iframe>
     </div>
 </div>
 <div class="video-page" border="0">
     <div style="height: auto" class="video-main" border="0">
         <p>位置：我的学时</p>
-        <iframe style="width: 100%;border:0" src="<%=path%>/examResultController/getStudentResult?sId=${studentId}&logo=period"></iframe>
+        <iframe style="width: 100%;border:0" src="<%=path%>/examResultController/getStudentResult?sId=${sessionScope.student.getSId()}&logo=period"></iframe>
     </div>
 </div>
 <div class="video-page">
@@ -173,7 +173,7 @@
                         <a id="test"
                            style="float: left;text-align: center;width: 100%;height: 150px;margin-top: -45px;"
                            class="lx-link"
-                           href="">
+                           href="<%=path%>">
                             <span class="topicIcon topic_mnks"></span>
                             <p>模拟考试</p>
                             <p class="topicDes">模拟在线真实考试</p>

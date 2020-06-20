@@ -482,11 +482,13 @@
             //显示答题按钮
             $("#answerBtn").html(answerBtnString);
 
+            console.log(newQuestion.eqPic);
+
             //更新题目的图片
-            if (newQuestion.eqPic != "null") {
+            if (newQuestion.eqPic != "") {
                 $("#layer-photos").html("<img id='questionPic' class='zjh_exam_question_pic' src='" + newQuestion.eqPic + "' layer-src='" + newQuestion.eqPic + "' />");
             } else {
-                $("#layer-photos").html("");
+                $("#layer-photos").empty();
             }
 
             //图片放大
