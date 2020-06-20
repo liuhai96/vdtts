@@ -241,6 +241,16 @@ public class TeacherServiceImpl implements TeacherService {
         return layuiTableData;
     }
 
+    @Override
+    public ResultData updateTeacherLimit(Teacher teacher) {
+        ResultData resultData = null;
+       int num = teacherMapper.updateByPrimaryKeySelective(teacher);
+       if(num>0){
+           resultData = ResultData.success(1,"修改本月限制人数成功");
+       }
+        return resultData;
+    }
+
     /*
      *@Description:
      *@Author:周永哲
@@ -333,17 +343,38 @@ public class TeacherServiceImpl implements TeacherService {
 
     //教练查询身份证
     @Override
-    public ResultData checksSfz(Student student, HttpServletRequest request)
+//    public ResultData checksSfz(Student student, HttpServletRequest request)
+//    {
+//        System.out.println("setSSfz1=" + student);
+//        ResultData resultData = null;
+//        System.out.println("setSSfz=" + student);
+//        Integer  tTeacherId = Integer.parseInt(request.getParameter("teacherId"));
+//        student= studentMapper.insSfz(student);
+//        System.out.println("setSSfz=" + student+"asdasd"+tTeacherId);
+//        if (student != null)
+//        { //查询
+////
+//            if (student.getSTeacherId() == null)
+//            {
+//                Teacher teacher=teacherMapper.fteacher(tTeacherId);
+//                int num =studentMapper.updateStudentTecaherId(tTeacherId,teacher.getTSchoolId(),student);
+//                resultData = ResultData.error(1, "报名教练成功");
+//            } else
+//            {
+//                resultData = ResultData.error(2, "该学员已报名其他教练");
+//            }
+//        } else {
+//                resultData = ResultData.error(3, "未该有此学员信息请先去注册");
+//        }
+//        return resultData;
+//    }
+    public ResultData checksSfz( HttpServletRequest request)
     {
-        System.out.println("setSSfz1=" + student);
-        ResultData resultData = null;
-        System.out.println("setSSfz=" + student);
+        ResultData resultData=null;
         Integer  tTeacherId = Integer.parseInt(request.getParameter("teacherId"));
-        student= studentMapper.insSfz(student);
-        System.out.println("setSSfz=" + student+"asdasd"+tTeacherId);
+        Student student =(Student) request.getSession().getAttribute("student");
         if (student != null)
         { //查询
-//
             if (student.getSTeacherId() == null)
             {
                 Teacher teacher=teacherMapper.fteacher(tTeacherId);
@@ -351,10 +382,10 @@ public class TeacherServiceImpl implements TeacherService {
                 resultData = ResultData.error(1, "报名教练成功");
             } else
             {
-                resultData = ResultData.error(2, "该学员已报名其他教练");
+                resultData = ResultData.error(2, "该学员已报名教练,不能再报名");
             }
         } else {
-                resultData = ResultData.error(3, "未该有此学员信息请先去注册");
+            resultData = ResultData.error(3, "未该有此学员信息请先去注册");
         }
         return resultData;
     }

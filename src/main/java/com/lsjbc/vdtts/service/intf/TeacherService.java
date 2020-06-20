@@ -2,7 +2,6 @@ package com.lsjbc.vdtts.service.intf;
 
 import com.github.pagehelper.Page;
 import com.lsjbc.vdtts.entity.Account;
-import com.lsjbc.vdtts.entity.Student;
 import com.lsjbc.vdtts.entity.Teacher;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.pojo.vo.ResultData;
@@ -27,6 +26,8 @@ public interface TeacherService {
 
     LayuiTableData updateTeacherAccountLockState(String tTeach, int tId);
 
+    ResultData updateTeacherLimit(Teacher teacher);
+
     /*
      *@Description:
      *@Author:陈竑霖
@@ -36,7 +37,7 @@ public interface TeacherService {
      **/
     LayuiTableData teacherList(Teacher teacher, int page, int pageSize);
     //教练查询身份证
-    public ResultData checksSfz(Student student, HttpServletRequest request);
+    public ResultData checksSfz (HttpServletRequest request);
     /*
      *@Description:
      *@Author:周永哲

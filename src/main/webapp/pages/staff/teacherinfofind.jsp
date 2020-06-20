@@ -40,6 +40,7 @@
 
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="update">限制</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
 
@@ -114,6 +115,27 @@
         <label class="layui-form-label">电话</label>
         <div class="layui-input-inline">
             <input type="text" name="tPhone" required  lay-verify="required" placeholder="请输入电话" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo2">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
+
+<form id="updateTeacherLimit" style="display: none" class="layui-form">
+    <div class="layui-form-item" style="display:none" >
+        <label class="layui-form-label" >教练Id</label>
+        <div class="layui-input-inline">
+            <input id="teacherId1" type="text" name="tId" required  lay-verify="required" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">本月毕业人数</label>
+        <div class="layui-input-inline">
+            <input type="text" name="tLimit" required  lay-verify="required" placeholder="请输入限制人数" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
@@ -288,6 +310,40 @@
                                 $("input[name='tPhone']").val();
                                 $("input[name='tLimit']").val();
                                 $('#updateTeacher')[0].reset();//重置表单
+                                form.render();
+                            }
+                        });
+                        return false;
+                    });
+                });
+            }else if (obj.event === 'update'){
+                $("#teacherId").val(data.tId);
+                var index1 = layer.open({
+                    type: 1,
+                    area:["400","300px"],
+                    skin: 'layui-layer-rim',
+                    shadeClose: true,//点击其他地方关闭
+                    content:$("#updateTeacher"),
+                    cancel:function (index) {
+                        layer.close(index);
+                    }
+                });
+                layui.use(['form','layer'], function(){
+                    var form = layui.form;
+                    var layer = layui.layer;
+                    form.on('submit(demo2)', function(data){
+                        $.ajax({
+                            type: 'POST',
+                            url: '<%=path%>/teacherController/updateTeacherLimit',
+                            dataType:'JSON',
+                            data: data.field,
+                            success: function (msg) {
+                                if (msg.code==1){
+                                    layer.alert("修改教练基本信息成功");
+                                    $table.reload();
+                                }
+                                layer.close(index1);
+                                $('#updateTeacherLimit')[0].reset();//重置表单
                                 form.render();
                             }
                         });

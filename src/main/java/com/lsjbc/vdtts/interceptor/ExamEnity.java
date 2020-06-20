@@ -40,7 +40,7 @@ public class ExamEnity {
                 bExamAnswer.setEaRight("true");
                 break;
             case "3":
-                cExamAnswer.setEaRight("tru e");
+                cExamAnswer.setEaRight("true");
                 break;
             case "4":
                 dExamAnswer.setEaRight("true");

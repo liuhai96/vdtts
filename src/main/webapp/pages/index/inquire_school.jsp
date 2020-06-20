@@ -31,7 +31,7 @@
 	<link rel="stylesheet" href="<%=path+"/css/pages/index/inquireSchDetails.css"%>">
 </HEAD>
 <BODY style="background: rgb(250, 251, 253);">
-<div class="menu">
+
 <input type="hidden" id="schoolId" value="${sid}">
 
 <div class="login-inf">
@@ -41,7 +41,7 @@
 		</div>
 		<div class="inf-login">
 			<c:if test="${sessionScope.student == null }">
-                <a target="_blank" href="<%=path+"/back/adminlogin.jsp"%>">管理登录</a> |
+                <<a target="_blank" href="<%=path+"/back/adminlogin.jsp"%>">管理登录</a> |
                 <a target="_blank" href="<%=path+"/transfer?logo=institutionLogin"%>">机构登录</a> |
                 <a href="<%=path+"/student"%>">学员登录</a> |
                 <a target="_blank" href="<%=path+"/transfer?logo=schoolIn"%>">驾校入驻</a>
@@ -104,7 +104,7 @@
 	<a href="javascript:void(0)" title="返回上一页" class="sina" onclick="history.go(-1);"></a>
 	<a href="javascript:void(0)" title="刷新" class="tencent" onclick="history.go(0);"></a>
 </div>
-	<div class="main">
+<DIV class="main">
 <DIV class="del-1">
 	<DIV class="del-lun">
 	</DIV>
@@ -267,7 +267,6 @@
 		</li>
 	</ul>
 </DIV>
-</div>
 <script src="https://www.layuicdn.com/layui/layui.js"></script>
 <script src="<%=path+"/js/pages/index/jquery.min.js"%>"></script>
 <SCRIPT src="<%=path+"/js/pages/index/inquireSchDetails.js"%>"></SCRIPT>
@@ -370,24 +369,25 @@
 					btnAlign: 'c'
 					,
 					moveType: 1
-					,
-					content: '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">欢迎报名宏鑫驾校！<br>姓名<br><input type="text" name="sName" id="sName" placeholder="请输入姓名" class="layui-input" ><br>身份证<br><input type="text" name="sSfz" id="sSfz" placeholder="请输入身份证" class="layui-input" > </div>'
+					// ,
+					// content: '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">欢迎报名宏鑫驾校！<br>姓名<br><input type="text" name="sName" id="sName" placeholder="请输入姓名" class="layui-input" ><br>身份证<br><input type="text" name="sSfz" id="sSfz" placeholder="请输入身份证" class="layui-input" > </div>'
 					,
 					yes: function (index, layero) {
-						let sName = $("#sName").val();
+						// let sName = $("#sName").val();
 						let schoolId = $("#schoolId").val();
-						let sSfz = $("#sSfz").val();
+						// let sSfz = $("#sSfz").val();
 						$.ajax({
 							type: 'get',
 							url: '/SchoolControl/insSfz',
 							dataType: 'JSON',
 							data: {
-								sName: sName
-								, sSfz: sSfz
-								,schoolId:schoolId
+								// sName: sName
+								// , sSfz: sSfz,
+								schoolId:schoolId
 							},
 							success: function (remsg) {
 								console.log(remsg);
+								alert(remsg.msg);
 								layer.close(index);
 							}
 						})

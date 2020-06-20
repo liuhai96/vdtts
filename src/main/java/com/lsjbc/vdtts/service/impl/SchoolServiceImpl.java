@@ -215,24 +215,21 @@ public class SchoolServiceImpl implements SchoolService
 
 	//驾校查询身份证
 	@Override
-	public ResultData insSfz(Student student, HttpServletRequest request)
+	public ResultData insSfz( HttpServletRequest request)
 	{
-		System.out.println("setSSfz1=" + student);
 		ResultData resultData = null;
-		System.out.println("setSSfz=" + student);
-		student = studentMapper.insSfz(student);
 		Integer sSchoolId = Integer.parseInt(request.getParameter("schoolId"));
-		System.out.println("setSSfzwqeeeeeeeeeeee=" + sSchoolId);
-		System.out.println("setSSfz2=" + student);
+		Student student =(Student) request.getSession().getAttribute("student");
 		if (student != null)
 		{ //查询
 
 			if (student.getSSchoolId() == null)
 			{
+				int num =studentMapper.inschool(student,sSchoolId);
 					resultData = ResultData.error(1, "该学员已经报名成功");
 				} else
 				{
-					resultData = ResultData.error(2, "该学员已报名其他驾校");
+					resultData = ResultData.error(2, "该学员已报名驾校，不能再报名");
 				}
 
 

@@ -266,4 +266,9 @@ public class ExamQuestionDao extends BaseRedisClient implements BaseDao<ExamQues
         criteria.andEqualTo("eqLevel",level);
         mapper.deleteByExample(example);
     }
+
+
+    public Integer addAll(List<ExamQuestion> examQuestiones){
+        return mapper.insertList(examQuestiones);
+    }
 }

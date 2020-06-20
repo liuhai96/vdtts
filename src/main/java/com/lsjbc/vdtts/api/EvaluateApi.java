@@ -50,9 +50,9 @@ public class EvaluateApi {
     @GetMapping("school/{id}")
     public LayuiFlowData<Evaluate> getSchoolEvaluatePageById(@PathVariable("id") Integer id, Integer page, HttpServletRequest request) {
 
-        if(id<0){
-            School school= (School) request.getSession().getAttribute("school");
-            id=school.getSId();
+        if (id < 0) {
+            School school = (School) request.getSession().getAttribute("school");
+            id = school.getSId();
         }
 
         return getEvaluatePageById(id, EvaluateType.TYPE_SCHOOL, page);
@@ -88,6 +88,7 @@ public class EvaluateApi {
 
         flowData.setPages(pageInfo.getPages());
         flowData.setData(pageInfo.getResult());
+
 
         return flowData;
     }
