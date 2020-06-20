@@ -35,6 +35,21 @@ public class ExamQuestionServiceImpl implements ExamQuestionService {
         examQuestionDao.deleteAll(Integer.parseInt(level));
         examAnswerDao.deleteAll(Integer.parseInt(level));
         ResultData resultData = null;
+        // todo 考虑分片
+//        List<ExamQuestion> examQuestionList = examEnitityList.stream().map(examEnity -> {
+//            return ExamQuestion.builder()
+//                    .eqPic(examEnity.getUrl())
+//                    .eqQuestion(examEnity.getQuestion())
+//                    .eqLevel(Integer.parseInt(level))
+//                    .build();
+//        }).collect(Collectors.toList());
+//        examQuestionDao.addAll(examQuestionList);
+//        List<ExamAnswer> examAnswerList = examQuestionList.stream().flatMap(e -> {
+//            ExamEnity enity = examEnitityList.stream().filter(q -> StringUtils.equals(e.getEqQuestion(), q.getQuestion())
+//                    && StringUtils.equals(e.getEqPic(), q.getUrl())).collect(Collectors.toList()).get(0);
+//            return enity.generateAnswer(e.getEqId()).stream();
+//        }).collect(Collectors.toList());
+//        examAnswerDao.addAll(examAnswerList);
         for(int i=0;i<examEnitityList.size();i++) {
             ExamEnity examEnity = examEnitityList.get(i);
 
@@ -60,7 +75,7 @@ public class ExamQuestionServiceImpl implements ExamQuestionService {
 
     @Override
     public PageInfo findExamQuestion(PageDTO pageDTO) {
-        PageHelper.startPage(pageDTO.getPage(),pageDTO.getLimit(),true);
+        PageHelper.startPage(pageDTO.getPage(), pageDTO.getLimit(), true);
         return new PageInfo<>(examQuestionMapper.selectAll());
     }
 

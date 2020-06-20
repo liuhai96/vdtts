@@ -2,7 +2,10 @@ package com.lsjbc.vdtts.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.lsjbc.vdtts.aop.Log;
 import com.lsjbc.vdtts.entity.Car;
+import com.lsjbc.vdtts.enums.OperateType;
+import com.lsjbc.vdtts.enums.ResourceType;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.service.intf.CarService;
 import com.lsjbc.vdtts.service.intf.SchoolService;
@@ -32,11 +35,12 @@ public class CarControl {
      *@Date:2020/6/8 23:22
      **/
     @RequestMapping(value = "/findCarList")
-    public String findCarList(String page,String limit,String cNumber,HttpServletRequest request){
+    @Log(operateType = OperateType.QUERY, resourceType = ResourceType.CAR)
+    public String findCarList(String page, String limit, String cNumber, HttpServletRequest request) {
 
 //        String tSchoolId = request.getParameter("tShoolId");//接收前端保存的驾校id
 
-        return JSON.toJSONString(carService.findCarManageList(page,limit,cNumber,request),SerializerFeature.DisableCircularReferenceDetect);
+        return JSON.toJSONString(carService.findCarManageList(page, limit, cNumber, request), SerializerFeature.DisableCircularReferenceDetect);
     }
 
 
@@ -48,7 +52,7 @@ public class CarControl {
      *@Date:2020/6/9 19:49
      **/
     @RequestMapping(value = "/updateCarInfo")
-    public String updateCarInfo(Car car){
+    public String updateCarInfo(Car car) {
         return JSON.toJSONString(carService.updateCarInfo(car));
     }
 
@@ -60,25 +64,27 @@ public class CarControl {
      *@Date:2020/6/9 20:48
      **/
     @RequestMapping(value = "/deleteCar")
-    public  String deleteCar(int cId,HttpServletRequest request){
-        return JSON.toJSONString(carService.deleteCar(cId,request));
+    @Log(operateType = OperateType.DELETE, resourceType = ResourceType.CAR, detail = "#cId")
+    public String deleteCar(int cId, HttpServletRequest request) {
+        return JSON.toJSONString(carService.deleteCar(cId, request));
     }
 
     @RequestMapping(value = "/addCar")
-    public Object addCar(Car car,HttpServletRequest request){
-        return JSON.toJSONString(carService.addCar(car,request));
+    public Object addCar(Car car, HttpServletRequest request) {
+        return JSON.toJSONString(carService.addCar(car, request));
     }
-/*
- *@Description:
- *@Author:陈竑霖
- *@Param:
- *@return:
- *@Date:2020/6/9 1591683706914
- **/
+
+    /*
+     *@Description:
+     *@Author:陈竑霖
+     *@Param:
+     *@return:
+     *@Date:2020/6/9 1591683706914
+     **/
 //车辆表
-    @RequestMapping(value = "/carList",produces = {"application/json;charset=UTF-8"})
+    @RequestMapping(value = "/carList", produces = {"application/json;charset=UTF-8"})
     @ResponseBody
-    public String carList(HttpServletRequest request, HttpServletResponse response,Car car) {
+    public String carList(HttpServletRequest request, HttpServletResponse response, Car car) {
         String pageStr = request.getParameter("page");//页码
         String pageSizeStr = request.getParameter("limit");//每页记录数
         String draw = request.getParameter("draw");//重绘次数 和前台对应
@@ -96,13 +102,13 @@ public class CarControl {
      **/
     @RequestMapping(value = "/selectCarInfo")//初始化教练车信息表
     public String selectCarInfo(HttpServletRequest request, HttpServletResponse response,
-                                   @RequestParam(value = "page") String page , @RequestParam(value = "limit") String limit,
-                                   Car car) {
-        int page2 = (Integer.valueOf(page)-1)*Integer.valueOf(limit);
-        System.out.println(" ---carpage="+page2);
+                                @RequestParam(value = "page") String page, @RequestParam(value = "limit") String limit,
+                                Car car) {
+        int page2 = (Integer.valueOf(page) - 1) * Integer.valueOf(limit);
+        System.out.println(" ---carpage=" + page2);
         List<Car> list = carService.selectAllInfo(car, page2, Integer.valueOf(limit));
         int count = carService.selectCarCount(car);
-        System.out.println("教练车信息初始化操作--- list="+list+" count ="+count);
+        System.out.println("教练车信息初始化操作--- list=" + list + " count =" + count);
         LayuiTableData layuiData = new LayuiTableData();
         layuiData.setCode(0);
         layuiData.setData(list);

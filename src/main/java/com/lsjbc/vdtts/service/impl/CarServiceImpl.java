@@ -25,7 +25,6 @@ public class CarServiceImpl implements CarService {
     @Resource
     private CarMapper carMapper;
 
-    @Override
     /*
      *@Description:查询教练车
      *@Author:刘海
@@ -33,6 +32,7 @@ public class CarServiceImpl implements CarService {
      *@return:com.lsjbc.vdtts.pojo.vo.LayuiTableData
      *@Date:2020/6/9 14:35
      **/
+    @Override
     public LayuiTableData findCarManageList(String page, String limit,String cNumber, HttpServletRequest request) {
         LayuiTableData layuiTableData = new LayuiTableData();
         System.out.println("page"+page);

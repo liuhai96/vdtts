@@ -27,6 +27,8 @@ public interface TeacherService {
 
     LayuiTableData updateTeacherAccountLockState(String tTeach, int tId);
 
+    ResultData updateTeacherLimit(Teacher teacher);
+
     /*
      *@Description:
      *@Author:陈竑霖

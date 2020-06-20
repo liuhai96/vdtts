@@ -241,6 +241,16 @@ public class TeacherServiceImpl implements TeacherService {
         return layuiTableData;
     }
 
+    @Override
+    public ResultData updateTeacherLimit(Teacher teacher) {
+        ResultData resultData = null;
+       int num = teacherMapper.updateByPrimaryKeySelective(teacher);
+       if(num>0){
+           resultData = ResultData.success(1,"修改本月限制人数成功");
+       }
+        return resultData;
+    }
+
     /*
      *@Description:
      *@Author:周永哲

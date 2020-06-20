@@ -86,6 +86,11 @@ public class TeacherController {
         LayuiTableData layuiTableData = teacherService.updateTeacherInfo(teacher);
         return JSON.toJSONString(layuiTableData);
     }
+
+    public ResultData updateTeacherLimit(Teacher teacher){
+        return teacherService.updateTeacherLimit(teacher);
+    }
+
     /*
      *@Description:
      *@Author:陈竑霖
