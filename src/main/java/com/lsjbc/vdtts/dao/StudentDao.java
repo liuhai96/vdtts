@@ -120,7 +120,7 @@ public class StudentDao implements BaseDao<Student> {
      * @return 受影响条数
      */
     @Override
-    public Student updateById(Student object) {
+    public Integer updateById(Student object) {
         return null;
     }
 

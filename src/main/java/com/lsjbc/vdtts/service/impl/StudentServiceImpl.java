@@ -266,6 +266,8 @@ public class StudentServiceImpl implements StudentService {
 		return resultData;
 	}
 
+
+
 	/**
 	 * 学员注册流程
 	 *
@@ -278,9 +280,7 @@ public class StudentServiceImpl implements StudentService {
 	@Override
 	public String studentRegister(StudentRegister register, Map<String, Object> map, HttpServletRequest request) {
 
-		/**
-		 * 开始检测验证码有效性
-		 */
+		//开始检测验证码有效性
 		String checkVcResult = sms.checkRegisterVC(request,register.getPhone(),register.getCode(),false);
 
 		//如果验证不通过，返回前端
@@ -319,5 +319,43 @@ public class StudentServiceImpl implements StudentService {
 		map.put("linkList", linkServive.getFooterFriendLink());
 
 		return "/pages/index/student";
+	}
+
+	/**
+	 * 学员修改手机号流程
+	 *
+	 * @param request Request域
+	 * @param phone   要修改的新手机号
+	 * @param code    验证码
+	 * @return 修改结果
+	 * @author JX181114 --- 郑建辉
+	 */
+	@Override
+	public ResultData studentUpdatePhone(HttpServletRequest request, String phone, String code) {
+
+		Student student = (Student) request.getSession().getAttribute("student");
+
+		//先把新手机号和旧手机号做判断，如果两者相同，直接返回
+		if(phone.equals(student.getSPhone())){
+			//清除session中的数据
+			request.getSession().removeAttribute(SMS.PHONE);
+			request.getSession().removeAttribute(SMS.VC_TYPE_UPDATE);
+			return ResultData.success("修改成功");
+		}
+
+		//开始验证短信验证码
+		String checkVcResult = sms.checkUpdateVC(request,phone,code,false);
+
+		//如果验证不通过，将结果返回前端
+		if(!"验证通过".equals(checkVcResult)){
+			return ResultData.warning(checkVcResult);
+		}
+
+		//清除session中的数据
+		request.getSession().removeAttribute(SMS.PHONE);
+		request.getSession().removeAttribute(SMS.VC_TYPE_UPDATE);
+
+
+		return null;
 	}
 }

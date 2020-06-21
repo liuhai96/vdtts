@@ -23,21 +23,32 @@ public class SMSApi {
     @Resource(name = SMS.NAME)
     private SMS sms;
 
+    /**
+     * 获取登录时使用的验证码
+     *
+     * @param phone   手机号
+     * @param request request域
+     */
     @GetMapping("register")
-    public void register(String phone, HttpServletRequest request){
-
+    public void register(String phone, HttpServletRequest request) {
         //模拟验证码登录
-        request.getSession().setAttribute("phone",phone);
-        request.getSession().setAttribute("r_vc","000000");
+        request.getSession().setAttribute("phone", phone);
+        request.getSession().setAttribute("r_vc", "000000");
 //        sms.registerVC(phone, request);
     }
 
+    /**
+     * 获取修改手机号时使用的验证码
+     *
+     * @param phone   手机号
+     * @param request request域
+     */
     @GetMapping("update")
-    public void update(String phone, HttpServletRequest request){
-        sms.updateVC(phone, request);
-
-        System.out.println(request.getSession().getAttribute("phone"));
-        System.out.println(request.getSession().getAttribute("u_vc"));
+    public void update(String phone, HttpServletRequest request) {
+        //模拟验证码修改
+        request.getSession().setAttribute("phone", phone);
+        request.getSession().setAttribute("r_vc", "000000");
+//        sms.updateVC(phone, request);
     }
 
 }

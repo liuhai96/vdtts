@@ -60,7 +60,7 @@ public class ExamTimeDao implements BaseDao<ExamTime> {
      * @return 受影响条数
      */
     @Override
-    public ExamTime updateById(ExamTime object) {
+    public Integer updateById(ExamTime object) {
         return null;
     }
 

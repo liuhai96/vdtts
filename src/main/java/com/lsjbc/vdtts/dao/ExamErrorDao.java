@@ -89,7 +89,7 @@ public class ExamErrorDao implements BaseDao<ExamError> {
      * @return 受影响条数
      */
     @Override
-    public ExamError updateById(ExamError object) {
+    public Integer updateById(ExamError object) {
         return null;
     }
 

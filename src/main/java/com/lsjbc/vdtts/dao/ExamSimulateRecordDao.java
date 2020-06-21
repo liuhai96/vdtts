@@ -86,7 +86,7 @@ public class ExamSimulateRecordDao implements BaseDao<ExamSimulateRecord> {
      * @return 受影响条数
      */
     @Override
-    public ExamSimulateRecord updateById(ExamSimulateRecord object) {
+    public Integer updateById(ExamSimulateRecord object) {
         return null;
     }
 

@@ -38,7 +38,7 @@ public interface BaseDao<T> {
      * @param object 对象
      * @return 受影响条数
      */
-    T updateById(T object);
+    Integer updateById(T object);
 
     /**
      * 根据主键来删除记录

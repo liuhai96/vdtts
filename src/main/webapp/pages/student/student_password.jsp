@@ -74,7 +74,7 @@
                             </div>
                         </div>
                     </div>
-                    <button type="button" class="layui-btn layui-btn-warm" id="toPass" onclick="changePassword()">修改</button>
+                    <button type="button" class="layui-btn layui-btn-warm" id="toPass" onclick="changePassword()">修改密码</button>
                     <button type="button" hidden class="" id="not" onclick="passNot()">取消</button>
                 </div>
             </div>
@@ -136,7 +136,6 @@
             }
             passTypes = !passTypes;
         }
-
     </script>
     </body>
 </html>

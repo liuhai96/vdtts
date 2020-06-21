@@ -88,4 +88,15 @@ public interface StudentService {
      */
     String studentRegister(StudentRegister register, Map<String, Object> map, HttpServletRequest request);
 
+    /**
+     * 学员修改手机号流程
+     *
+     * @param request Request域
+     * @param phone 要修改的新手机号
+     * @param code 验证码
+     * @return 修改结果
+     * @author JX181114 --- 郑建辉
+     */
+    ResultData studentUpdatePhone(HttpServletRequest request,String phone,String code);
+
 }
