@@ -121,7 +121,7 @@ public class StudentDao implements BaseDao<Student> {
      */
     @Override
     public Integer updateById(Student object) {
-        return null;
+        return mapper.updateByPrimaryKeySelective(object);
     }
 
     /**

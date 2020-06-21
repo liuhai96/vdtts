@@ -355,7 +355,13 @@ public class StudentServiceImpl implements StudentService {
 		request.getSession().removeAttribute(SMS.PHONE);
 		request.getSession().removeAttribute(SMS.VC_TYPE_UPDATE);
 
+		//更新数据库中的数据,如果更新成功，修改session中的数据
+		if(studentDao.updateById(Student.builder().sId(student.getSId()).sPhone(phone).build())>=1){
+			student.setSPhone(phone);
+			request.getSession().setAttribute("student",student);
+			return ResultData.success("修改成功");
+		}
 
-		return null;
+		return ResultData.warning("修改失败，请重试");
 	}
 }

@@ -1,5 +1,6 @@
 package com.lsjbc.vdtts.api;
 
+import com.lsjbc.vdtts.pojo.vo.ResultData;
 import com.lsjbc.vdtts.service.impl.StudentServiceImpl;
 import com.lsjbc.vdtts.service.intf.StudentService;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -26,12 +27,14 @@ public class StudentApi {
 
     /**
      * 修改密码
+     *
      * @param request Request域
-     * @param phone 新的手机号
-     * @param code 验证码
+     * @param phone   新的手机号
+     * @param code    验证码
+     * @return 操作结果
      */
     @PutMapping("phone")
-    public void updatePhone(HttpServletRequest request,String phone,String code){
-
+    public ResultData updatePhone(HttpServletRequest request, String phone, String code) {
+        return studentService.studentUpdatePhone(request, phone, code);
     }
 }
