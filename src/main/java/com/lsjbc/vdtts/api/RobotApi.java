@@ -1,7 +1,6 @@
 package com.lsjbc.vdtts.api;
 
-import com.lsjbc.vdtts.service.impl.RobotServiceImpl;
-import com.lsjbc.vdtts.service.intf.RobotService;
+import com.lsjbc.vdtts.pojo.bo.turing.Robot;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,8 +19,8 @@ import javax.annotation.Resource;
 @RequestMapping("api/robot")
 public class RobotApi {
 
-    @Resource(name = RobotServiceImpl.NAME)
-    private RobotService robotService;
+    @Resource(name = Robot.NAME)
+    private Robot robot;
 
     /**
      *
@@ -30,6 +29,6 @@ public class RobotApi {
      */
     @PostMapping("talk")
     public String talk(String content){
-        return robotService.talkToRobot(content);
+        return robot.talkToRobot(content);
     }
 }

@@ -48,6 +48,11 @@ public class StudentRegister {
      */
     private String phone;
 
+    /**
+     * 验证码
+     */
+    private String code;
+
     Tool tool = new Tool();
 
     /**

@@ -1,5 +1,7 @@
 package com.lsjbc.vdtts.utils;
 
+import java.util.Random;
+
 /**
  * @ClassName: CustomStringUtils
  * @Description: 字符串工具类
@@ -26,6 +28,30 @@ public class CustomStringUtils {
 
             return sb.toString();
         }
+    }
+
+    /**
+     * 生成一个固定长度的随机字符串
+     *
+     * @param index 长度
+     * @return 随机字符串
+     * @author JX181114 --- 郑建辉
+     */
+    public static String generatingVerificationCode(int index){
+
+        //源字符串
+        String sourceStr="1234567890";
+
+        //生成的字符串
+        StringBuffer code=new StringBuffer();
+
+        Random random=new Random();
+
+        for(int i=0;i<index;i++){
+            code.append(sourceStr.charAt(random.nextInt(sourceStr.length())));
+        }
+
+        return code.toString();
     }
 
 }

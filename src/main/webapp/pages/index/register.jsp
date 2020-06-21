@@ -1917,14 +1917,14 @@
                         <div class="layui-form-item" style="margin-left: -25px;">
                             <label class="layui-form-label">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名</label>
                             <div class="layui-input-inline">
-                                <input value="${username}" type="text" style="width: 285px" name="username" lay-verify="name" placeholder="请输入姓名" autocomplete="off" class="layui-input">
+                                <input value="${username}" type="text" style="width: 285px" name="username" lay-verify="required|name" placeholder="请输入姓名" autocomplete="off" class="layui-input">
                             </div>
                         </div>
 
                         <div class="layui-form-item" style="margin-left: -25px;">
                             <label class="layui-form-label">身份证号码</label>
                             <div class="layui-input-inline">
-                                <input value="${sfz}" type="text" style="width: 285px" name="sfz" lay-verify="id" placeholder="请输入身份证号码" autocomplete="off" class="layui-input">
+                                <input value="${sfz}" type="text" style="width: 285px" name="sfz" lay-verify="required|id" placeholder="请输入身份证号码" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                     </div>
@@ -1932,37 +1932,37 @@
                     <div class="layui-form-item" style="margin-left: -28px;">
                         <label class="layui-form-label" style="margin-top: 0px;">账&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号</label>
                         <div class="layui-input-block">
-                            <input value="${account}" type="text" style="width: 285px" lay-verify="account" name="account" placeholder="请输入账号" autocomplete="off" class="layui-input">
+                            <input value="${account}" type="text" style="width: 285px" lay-verify="required|account" name="account" placeholder="请输入账号" autocomplete="off" class="layui-input">
                         </div>
                     </div>
 
                     <div class="layui-form-item" style="margin-left: -28px;">
                         <label class="layui-form-label" style="margin-top: 0px;">输&nbsp;入&nbsp;密&nbsp;码</label>
                         <div class="layui-input-block">
-                            <input value="${password}" type="password" id="firstPassword" style="width: 285px" lay-verify="firstPwd" name="password" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                            <input value="${password}" type="password" id="firstPassword" style="width: 285px" lay-verify="required|firstPwd" name="password" placeholder="请输入密码" autocomplete="off" class="layui-input">
                         </div>
                     </div>
 
                     <div class="layui-form-item" style="margin-left: -28px;">
                         <label class="layui-form-label" style="margin-top: 0px;">确&nbsp;认&nbsp;密&nbsp;码</label>
                         <div class="layui-input-block">
-                            <input value="${password}" type="password" style="width: 285px" lay-verify="secondPwd" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                            <input value="${password}" type="password" style="width: 285px" lay-verify="required|secondPwd" placeholder="请输入密码" autocomplete="off" class="layui-input">
                         </div>
                     </div>
 
                     <div class="div-wrap" margin-top: -5px;>
                         <input type="text" name="mobile1" style="display: none">
                         <!--解决浏览器自动填充-->
-                        <input value="${phone}" type="text" name="phone" class="register-phone" maxlength="11" autocomplete="off"
+                        <input value="${phone}" type="text" lay-verify="required|phone" id="phone" name="phone" class="register-phone" maxlength="11" autocomplete="off"
                                placeholder="请输入手机号">
                         <p class="iconfont icon-jinggao">
                         </p>
                         <i></i>
                     </div>
                     <div class="code-block div-wrap">
-                        <input type="text" name="indexccode" class="register-code" maxlength="4" autocomplete="off"
+                        <input type="text" name="code" lay-verify="required" class="register-code" maxlength="6" autocomplete="off"
                                placeholder="请输入验证码">
-                        <span class="register-code-btn" data-send="true">获取验证码</span>
+                        <input id="codeBtn" class="register-code-btn" data-send="true" type="button" value="获取验证码">
                         <p class="iconfont icon-jinggao">
                         </p>
                         <i></i>
@@ -1991,12 +1991,18 @@
 </div>
 
 <script src="https://www.layuicdn.com/layui/layui.js"></script>
+<script type="text/javascript" src=<%=path+"/js/pages/index/jquery.min.js"%>></script>
+<script type="text/javascript" src=<%=path+"/js/pages/index/jquery.cookie.js"%>></script>
+<script type="text/javascript" src=<%=path+"/js/pages/index/60sCountdown.js"%>></script>
 <script>
     layui.use(['form', 'laydate','layer'],function () {
         let $ = layui.$;
         let form = layui.form;
         let layer = layui.layer;
         let laydate = layui.laydate;
+
+        let path = window.document.location.href.substring(0, (window.document.location.href).indexOf(window.document.location.pathname));
+
 
         let msg = $("#zjh_msg").val();
         if(msg.length>0){
@@ -2069,6 +2075,26 @@
                 }
             }
         });
+
+        $(document).on('click',"#codeBtn",function(){
+            if(checkPhone()){
+                $.cookie("total",5);
+                timekeeping();
+                $.get(path + "/api/sms/register/", { phone: $("#phone").val()});
+                alert("模拟验证码为：000000     6个零")
+            }
+        })
+
+        function checkPhone() {
+            let PhoneStr=$("#phone").val().trim();
+
+            if(!/^((13[0-9])|(14[0-9])|(15[0-9])|(17[0-9])|(18[0-9]))\d{8}$/.test(PhoneStr)){
+                layer.msg("电话号码格式不正确,请重试");
+                return false;
+            }else{
+                return true;
+            }
+        }
     });
 </script>
 

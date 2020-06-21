@@ -82,9 +82,10 @@ public interface StudentService {
      *
      * @param register 注册提供的信息对象
      * @param map      ModelAndView中的属性键值对
+     * @param request  Request域
      * @return 跳转的路径
      * @author JX181114 --- 郑建辉
      */
-    String studentRegister(StudentRegister register, Map<String, Object> map);
+    String studentRegister(StudentRegister register, Map<String, Object> map, HttpServletRequest request);
 
 }

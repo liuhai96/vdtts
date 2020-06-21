@@ -10,6 +10,7 @@ import com.lsjbc.vdtts.entity.Account;
 import com.lsjbc.vdtts.entity.ExamResult;
 import com.lsjbc.vdtts.entity.School;
 import com.lsjbc.vdtts.entity.Student;
+import com.lsjbc.vdtts.pojo.bo.aliai.SMS;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.pojo.vo.ResultData;
 import com.lsjbc.vdtts.pojo.vo.StudentRegister;
@@ -46,6 +47,9 @@ public class StudentServiceImpl implements StudentService {
 
 	@Resource(name = LinkServiceImpl.NAME)
 	private LinkService linkServive;
+
+	@Resource(name = SMS.NAME)
+	private SMS sms;
 
 	/**
 	 * student 里面所有的属性将会作为查询条件
@@ -267,21 +271,39 @@ public class StudentServiceImpl implements StudentService {
 	 *
 	 * @param register 注册提供的信息对象
 	 * @param map      ModelAndView中的属性键值对
+	 * @param request  Request域
 	 * @return 跳转的路径
 	 * @author JX181114 --- 郑建辉
 	 */
 	@Override
-	public String studentRegister(StudentRegister register, Map<String, Object> map) {
+	public String studentRegister(StudentRegister register, Map<String, Object> map, HttpServletRequest request) {
+
+		/**
+		 * 开始检测验证码有效性
+		 */
+		String checkVcResult = sms.checkRegisterVC(request,register.getPhone(),register.getCode(),false);
+
+		//如果验证不通过，返回前端
+		if(!"验证通过".equals(checkVcResult)){
+			register.putInfoAndMsgToMap(map,checkVcResult);
+			return "/pages/index/register";
+		}
+
 		//更具提供的信息生成Account对象
 		Account token = register.generateAccount();
 
 		//开始尝试性的向数据库中插入数据，如果插入成功，返回1
 		Integer row = accountDao.insertIfNotExist(token);
 
+		//如果插入失败，返回到前端
 		if(row==0){
 			register.putInfoAndMsgToMap(map,"该账号已被注册");
 			return "/pages/index/register";
 		}
+
+		//清除session中的数据
+		request.getSession().removeAttribute(SMS.PHONE);
+		request.getSession().removeAttribute(SMS.VC_TYPE_REGISTER);
 
 		//根据提供的信息和账号ID来生成学生对象
 		Student student = register.generateStudent(token.getAId());

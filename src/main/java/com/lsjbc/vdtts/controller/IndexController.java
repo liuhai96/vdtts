@@ -3,6 +3,7 @@ package com.lsjbc.vdtts.controller;
 import com.lsjbc.vdtts.constant.EvaluateType;
 import com.lsjbc.vdtts.dao.ExamResultDao;
 import com.lsjbc.vdtts.entity.*;
+import com.lsjbc.vdtts.pojo.bo.aliai.SMS;
 import com.lsjbc.vdtts.pojo.dto.QuestionBank;
 import com.lsjbc.vdtts.pojo.vo.StudentRegister;
 import com.lsjbc.vdtts.service.impl.*;
@@ -423,11 +424,12 @@ public class IndexController {
      *
      * @param register 注册信息
      * @param map      ModelAndView中的属性键值对
+     * @param request  Request域
      * @return 页面
      */
     @PostMapping("/student/register")
-    public String StudentRegister(StudentRegister register, Map<String, Object> map) {
-        return studentService.studentRegister(register, map);
+    public String StudentRegister(StudentRegister register, Map<String, Object> map, HttpServletRequest request) {
+        return studentService.studentRegister(register, map, request);
     }
 
     ;

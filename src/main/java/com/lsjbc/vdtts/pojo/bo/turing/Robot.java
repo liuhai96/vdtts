@@ -1,9 +1,8 @@
-package com.lsjbc.vdtts.service.impl;
+package com.lsjbc.vdtts.pojo.bo.turing;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.lsjbc.vdtts.service.intf.RobotService;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,18 +15,18 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @ClassName: RobotServiceImpl
- * @Description: 智能机器人Service层实现类
- * @Datetime: 2020/6/21   1:08
+ * @ClassName: Robot
+ * @Description:
+ * @Datetime: 2020/6/21   22:06
  * @Author: JX181114 - 郑建辉
  */
-@Service(RobotServiceImpl.NAME)
-public class RobotServiceImpl implements RobotService {
+@Component(Robot.NAME)
+public class Robot {
 
     /**
      * Bean名
      */
-    public static final String NAME = "RobotService";
+    public static final String NAME = "Robot";
 
     /**
      * 图灵机器人撕咬
@@ -51,7 +50,6 @@ public class RobotServiceImpl implements RobotService {
      * @return 机器人对你说的话
      * @author JX181114 --- 郑建辉
      */
-    @Override
     public String talkToRobot(String str) {
         try {
             //将发送的消息转换为特定格式的Json字符串
@@ -119,7 +117,7 @@ public class RobotServiceImpl implements RobotService {
         BufferedReader in = null;
 
         try {
-            URL realUrl = new URL(url);
+            java.net.URL realUrl = new URL(url);
             //打开url连接
             URLConnection urlCon = realUrl.openConnection();
             HttpURLConnection httpUrlConnection = (HttpURLConnection) urlCon;
