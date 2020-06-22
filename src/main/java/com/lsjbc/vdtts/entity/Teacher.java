@@ -131,6 +131,11 @@ public class Teacher {
 	private String tLimit;
 
 	/**
+	 * 教练头像
+	 */
+	@Column(name = "`t_pic`")
+	private String tPic;
+	/**
 	 * 教练所属的驾校名
 	 */
 	@Transient
