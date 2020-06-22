@@ -25,7 +25,6 @@ layui.use('layim', function(layim){
         ,avatar: path+"/robot/images/avatar.gif"
         ,id: 1111111
     });
-    layim.setChatMin();
 
     layim.on('sendMessage', function(data) {
         let To = data.to;
