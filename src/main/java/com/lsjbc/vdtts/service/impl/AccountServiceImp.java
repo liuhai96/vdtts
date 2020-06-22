@@ -1,6 +1,5 @@
 package com.lsjbc.vdtts.service.impl;
 
-import com.alibaba.fastjson.JSON;
 import com.lsjbc.vdtts.dao.StudentDao;
 import com.lsjbc.vdtts.dao.TransManageDao;
 import com.lsjbc.vdtts.dao.mapper.*;
@@ -112,6 +111,8 @@ public class AccountServiceImp implements AccountService {
                         nextJsp = "transfer?logo=institutionLogin";
                     }else{
                         request.getSession().setAttribute("school", school);
+                        request.getSession().setAttribute("account",account.getAAccount());
+                        request.getSession().setAttribute("name",school.getSName());
                         resultData.setMsg("登录成功!");
                         nextJsp = "transfer?logo=institutionIndex";//前端jsp地址
                     }
@@ -124,6 +125,8 @@ public class AccountServiceImp implements AccountService {
                         nextJsp = "transfer?logo=institutionLogin";
                     }else{
                         request.getSession().setAttribute("teacher", teacher);
+                        request.getSession().setAttribute("account",account.getAAccount());
+                        request.getSession().setAttribute("name",teacher.getSName());
                         //教练评价
                         Evaluate evaluate = new Evaluate();
                         evaluate.setEToId(teacher.getTId());
@@ -136,6 +139,8 @@ public class AccountServiceImp implements AccountService {
                     TransManage transManage = transManageDao.findTransManage(account);
                     if(transManage!=null){
                         request.getSession().setAttribute("manage",transManage);
+                        request.getSession().setAttribute("account",account.getAAccount());
+                        request.getSession().setAttribute("name",transManage.getTmName());
                         resultData.setMsg("登录成功");
                         nextJsp = "transfer?logo=institutionIndex";//前端jsp地址
                     }else{

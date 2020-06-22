@@ -30,7 +30,7 @@ public class TransManageDao implements BaseDao<TransManage> {
     }
 
     @Override
-    public TransManage updateById(TransManage object) {
+    public Integer updateById(TransManage object) {
         return null;
     }
 

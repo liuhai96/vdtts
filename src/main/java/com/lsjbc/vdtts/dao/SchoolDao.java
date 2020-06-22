@@ -49,7 +49,7 @@ public class SchoolDao implements BaseDao<School> {
      * @return 受影响条数
      */
     @Override
-    public School updateById(School object) {
+    public Integer updateById(School object) {
         return null;
     }
 

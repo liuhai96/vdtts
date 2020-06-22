@@ -25,7 +25,6 @@
     <div>
         <input hidden="hidden" value="<%=path%>" id="path">
         <input hidden="hidden" value="${aId}" id="aId">
-        <input hidden="hidden" value="${teacher.TPhone}" id="tPhone">
         <div style="text-align: center;">
             <br> <br> <br>
             <div class="layui-form-item" id="oldPass">

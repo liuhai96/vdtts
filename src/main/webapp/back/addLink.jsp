@@ -46,15 +46,22 @@
                         <input type="text" value="" name="lkUrl" lay-verify="title" placeholder="请输入跳转路径" class="layui-input">
                     </div>
                 </div>
-                <div class="form-group radio-form layui-form-item" id="test1" onclick="" type="button" style="width: 50%;">
-                    <label skip="true" class="layui-form-label">链接图标</label>
-                    <div class="user-type-conatiner layui-upload" style="background-color: coral;">
-                        <div class="user-type active layui-upload-list" ref="radioWrap" data-index="0"
-                             style="width: 60%">
-                            <img src="" class="layui-upload-img" id="demo1"
-                                 property="" alt="点击此区域选择">
-                            <p id="demoText"></p>
-                        </div>
+<%--                <div class="form-group radio-form layui-form-item" id="test1" onclick="" type="button" style="width: 50%;">--%>
+<%--                    <label skip="true" class="layui-form-label">链接图标</label>--%>
+<%--                    <div class="user-type-conatiner layui-upload" style="background-color: coral;">--%>
+<%--                        <div class="user-type active layui-upload-list" ref="radioWrap" data-index="0"--%>
+<%--                             style="width: 60%">--%>
+<%--                            <img src="" class="layui-upload-img" id="demo1"--%>
+<%--                                 property="" alt="点击此区域选择">--%>
+<%--                            <p id="demoText"></p>--%>
+<%--                        </div>--%>
+<%--                    </div>--%>
+<%--                </div>--%>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">图标路径</label>
+                    <div class="layui-input-block">
+                        <input type="text" value="" name="lkPic" lay-verify="title"
+                               placeholder="请输入该链接的图标路径" class="layui-input">
                     </div>
                 </div>
                 <div style="text-align: center;">
@@ -66,14 +73,15 @@
     <script>
         let path = $("#path").val();
         let lkPic = "";
-        Layui_uploadImage("#test1",path+'/upImage',$('#demo1'),function (mag) {
-            lkPic = mag.fPath;//将上传的路径修改到显示框架里
-            },$('#demoText'));//上传图片
+        // Layui_uploadImage("#test1",path+'/upImage',$('#demo1'),function (mag) {
+        //     lkPic = mag.fPath;//将上传的路径修改到显示框架里
+        //     },$('#demoText'));//上传图片
         function Present() {
             let isOut = false;
             let data = "";
             let lkUrl = $("input[name='lkUrl']").val();
             let lkName = $("input[name='lkName']").val();
+            let lkPic = $("input[name='lkPic']").val();
             if (lkName == ""){alert("链接标签不能为空！");return;}
             else {data += "lkName="+lkName;isOut = true;}
             if (lkUrl == ""){alert("链接路径不能为空！");return;}

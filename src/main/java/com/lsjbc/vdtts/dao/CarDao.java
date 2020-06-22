@@ -91,7 +91,7 @@ public class CarDao implements BaseDao<Car> {
      * @return 受影响条数
      */
     @Override
-    public Car updateById(Car object) {
+    public Integer updateById(Car object) {
         return null;
     }
 

@@ -4,8 +4,8 @@ import com.github.pagehelper.Page;
 import com.lsjbc.vdtts.entity.Account;
 import com.lsjbc.vdtts.entity.ExamParam;
 import com.lsjbc.vdtts.entity.School;
-import com.lsjbc.vdtts.entity.Student;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
+import com.lsjbc.vdtts.pojo.vo.PowerSchool;
 import com.lsjbc.vdtts.pojo.vo.ResultData;
 import com.lsjbc.vdtts.pojo.vo.SchoolDetail;
 import org.apache.ibatis.annotations.Param;
@@ -43,7 +43,7 @@ public interface SchoolService {
 	//修改解禁登录
 	public LayuiTableData unbindlogon(int sId);
     //查询身份证
-    public ResultData insSfz(Student student, HttpServletRequest request);
+    public ResultData insSfz( HttpServletRequest request);
     //根据主键获取驾校信息
     School getSchoolBySchoolId(Integer id);
 
@@ -102,6 +102,14 @@ public interface SchoolService {
 
     ResultData updateSchoolPwd(HttpServletRequest request);
     ResultData updateSchoolBasicInfo(School school);
+
+    /**
+     * 获取5个最有实力的驾校
+     *
+     * @return
+     * @author JX181114 --- 郑建辉
+     */
+    List<PowerSchool> getFiveMostPowerfulSchool();
 
 
 }

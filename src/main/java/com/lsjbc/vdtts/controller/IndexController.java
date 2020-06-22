@@ -3,11 +3,15 @@ package com.lsjbc.vdtts.controller;
 import com.lsjbc.vdtts.constant.EvaluateType;
 import com.lsjbc.vdtts.dao.ExamResultDao;
 import com.lsjbc.vdtts.entity.*;
+import com.lsjbc.vdtts.pojo.bo.aliai.SMS;
 import com.lsjbc.vdtts.pojo.dto.QuestionBank;
+import com.lsjbc.vdtts.pojo.vo.StudentRegister;
 import com.lsjbc.vdtts.service.impl.*;
 import com.lsjbc.vdtts.service.intf.*;
 import com.lsjbc.vdtts.utils.CustomStringUtils;
 import com.lsjbc.vdtts.utils.CustomTimeUtils;
+import jdk.nashorn.internal.objects.annotations.Getter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -48,8 +52,11 @@ public class IndexController {
     @Resource(name = ExamErrorServiceImpl.NAME)
     private ExamErrorService examErrorService;
 
+    @Resource(name = StudentServiceImpl.NAME)
+    private StudentService studentService;
 
-//陈竑霖
+
+    //陈竑霖
     @Resource(name = SchoolServiceImpl.NAME)
     private SchoolService schoolService;
 
@@ -72,6 +79,7 @@ public class IndexController {
     @GetMapping("index")
     public String index2(Map<String, Object> map) {
 
+        map.put("schoolList", schoolService.getFiveMostPowerfulSchool());
         map.put("noticeList", noticeService.getIndexPageNotice());
         map.put("lawList", noticeService.getIndexPageLaw());
         map.put("linkList", linkServive.getFooterFriendLink());
@@ -169,7 +177,7 @@ public class IndexController {
             return "/pages/index/student_login";
         }
 
-        map.put("studentId",student.getSId());
+        map.put("studentId", student.getSId());
 
         return "/pages/student/home";
     }
@@ -390,4 +398,39 @@ public class IndexController {
         map.put("linkList", linkServive.getFooterFriendLink());
         return "/pages/index/inquire_school";
     }
+
+    /**
+     * 跳转到注册页
+     *
+     * @return
+     */
+    @GetMapping("/student/register")
+    public String studentRegister() {
+        return "/pages/index/register";
+    }
+
+    /**
+     * 跳转到智能客服页
+     *
+     * @return
+     */
+    @GetMapping("/robot")
+    public String robot() {
+        return "/robot/robot";
+    }
+
+    /**
+     * 用户进行注册操作
+     *
+     * @param register 注册信息
+     * @param map      ModelAndView中的属性键值对
+     * @param request  Request域
+     * @return 页面
+     */
+    @PostMapping("/student/register")
+    public String StudentRegister(StudentRegister register, Map<String, Object> map, HttpServletRequest request) {
+        return studentService.studentRegister(register, map, request);
+    }
+
+    ;
 }

@@ -84,7 +84,7 @@
             <ul>
                 <h3>学车流程</h3>
                 <li class="km1li">
-                    <a href="http://mnks.jxedt.com/" target="_blank"
+                    <a href="#course1" target="_blank"
                        onclick="clickLog('from=JXEDT_HOME_XCLC_KM1')">
                         <div class="km1"></div>
                         <div>
@@ -96,7 +96,7 @@
                     </a>
                 </li>
                 <li class="km2li">
-                    <a href="http://tv.jxedt.com/?kemuType=kemu2" target="_blank"
+                    <a href="#jinxuan" target="_blank"
                        onclick="clickLog('from=JXEDT_HOME_XCLC_KM2')">
                         <div class="km2"></div>
                         <div>
@@ -108,7 +108,7 @@
                     </a>
                 </li>
                 <li class="km3li">
-                    <a href="http://tv.jxedt.com/?kemuType=kemu3" target="_blank"
+                    <a href="#jinxuan" target="_blank"
                        onclick="clickLog('from=JXEDT_HOME_XCLC_KM3')">
                         <div class="km3"></div>
                         <div>
@@ -120,7 +120,7 @@
                     </a>
                 </li>
                 <li class="km4li">
-                    <a href="http://mnks.jxedt.com/" target="_blank"
+                    <a href="#course4" target="_blank"
                        onclick="clickLog('from=JXEDT_HOME_XCLC_KM4')">
                         <div class="km4"></div>
                         <div>
@@ -147,13 +147,13 @@
 <div class="video-page" border="0">
     <div style="height: auto" class="video-main">
         <p>位置：我的成绩</p>
-        <iframe  style="width: 100%;border:0" src="<%=path%>/examResultController/getStudentResult?sId=${studentId}&logo=result"></iframe>
+        <iframe  style="width: 100%;border:0" src="<%=path%>/examResultController/getStudentResult?sId=${sessionScope.student.getSId()}&logo=result"></iframe>
     </div>
 </div>
 <div class="video-page" border="0">
     <div style="height: auto" class="video-main" border="0">
         <p>位置：我的学时</p>
-        <iframe style="width: 100%;border:0" src="<%=path%>/examResultController/getStudentResult?sId=${studentId}&logo=period"></iframe>
+        <iframe style="width: 100%;border:0" src="<%=path%>/examResultController/getStudentResult?sId=${sessionScope.student.getSId()}&logo=period"></iframe>
     </div>
 </div>
 <div class="video-page">
@@ -173,7 +173,7 @@
                         <a id="test"
                            style="float: left;text-align: center;width: 100%;height: 150px;margin-top: -45px;"
                            class="lx-link"
-                           href="">
+                           href="<%=path%>">
                             <span class="topicIcon topic_mnks"></span>
                             <p>模拟考试</p>
                             <p class="topicDes">模拟在线真实考试</p>
@@ -218,7 +218,7 @@
         <!-- 学车视频左侧 -->
         <div class="video-left">
 
-            <div class="video-left-bottom" id="jinxuan">
+            <div class="video-left-bottom" id="jinxuan" >
                 <ul class="car-video">
                     <li level="2">
                         <a class="active" href="javascript:void(0);">科目二</a>

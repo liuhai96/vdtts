@@ -78,7 +78,7 @@
                 <img src="<%=path+"/image/pages/index/menu_publicity1.png"%>">
                 <a href="<%=path+"/publicity/notice/1/-1"%>">公开公示</a>
             </li>
-            <li id="menu-title-three" style="display: block;cursor:hand;">
+            <li id="menu-title-three" class="layui-this menu-title-bg" style="display: block;cursor:hand;">
                 <form id="jumpToInquire" action="<%=path+"inquire"%>" method="post">
                     <img src="<%=path+"/image/pages/index/menu_inquire1.png"%>">
                     <a onclick="document:jumpToInquire.submit()">信息查询</a>
@@ -277,29 +277,30 @@
 				    ,
 				    offset: ['100px', '300px']
                     ,
-				    content: '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">' +
-                            '欢迎报名该教练！' +
-                            '<br>姓名<br><input type="text" name="sName" id="sName" placeholder="请输入姓名" class="layui-input" >' +
-                            '<br>身份证<br><input type="text" name="sSfz" id="sSfz" placeholder="请输入身份证" class="layui-input" > ' +
-                            '</div>'
-				    ,
+		// 		    // content: '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">' +
+        //             //         '欢迎报名该教练！' +
+        //             //         '<br>姓名<br><input type="text" name="sName" id="sName" placeholder="请输入姓名" class="layui-input" >' +
+        //             //         '<br>身份证<br><input type="text" name="sSfz" id="sSfz" placeholder="请输入身份证" class="layui-input" > ' +
+        //             //         '</div>'
+		// 		    // ,
 				    yes: function (index, layer) {
-                        let sName = $("#sName").val();
+                        // let sName = $("#sName").val();
                         let teacherId = $("#teacherId").html();
-                        let sSfz = $("#sSfz").val();
+                        // let sSfz = $("#sSfz").val();
                         $.ajax({
                             type: 'get',
                             url: '/teacherController/checksSfz',
                             dataType: 'JSON',
                             data: {
-                                sName: sName
-                                , sSfz: sSfz
-                                ,teacherId:teacherId
+                            //     sName: sName
+                            //     , sSfz: sSfz
+                            //     ,
+                                    teacherId:teacherId
                             },
                             success: function (remsg) {
                                 console.log(remsg);
                                 alert(remsg.msg);
-                                layer.close(index);
+	                            layer.close(index);
                             }
                         })
                     }

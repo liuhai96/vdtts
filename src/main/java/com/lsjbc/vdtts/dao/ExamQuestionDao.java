@@ -101,7 +101,7 @@ public class ExamQuestionDao extends BaseRedisClient implements BaseDao<ExamQues
      */
     @Override
     public Integer add(ExamQuestion object) {
-        return null;
+        return mapper.insertSelective(object);
     }
 
     /**
@@ -114,7 +114,7 @@ public class ExamQuestionDao extends BaseRedisClient implements BaseDao<ExamQues
      * @return 受影响条数
      */
     @Override
-    public ExamQuestion updateById(ExamQuestion object) {
+    public Integer updateById(ExamQuestion object) {
         return null;
     }
 
@@ -257,5 +257,18 @@ public class ExamQuestionDao extends BaseRedisClient implements BaseDao<ExamQues
             log.error(e.getMessage());
         }
         return result;
+    }
+
+    public void deleteAll(Integer level){
+        del("exam:question:course"+level+":all");
+        Example example = new Example(ExamQuestion.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("eqLevel",level);
+        mapper.deleteByExample(example);
+    }
+
+
+    public Integer addAll(List<ExamQuestion> examQuestiones){
+        return mapper.insertList(examQuestiones);
     }
 }

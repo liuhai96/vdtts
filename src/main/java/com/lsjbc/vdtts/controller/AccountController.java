@@ -40,10 +40,10 @@ public class AccountController {
      *@return:com.lsjbc.vdtts.pojo.vo.ResultData
      *@Date:2020/6/13 23:36
      **/
-    public ResultData UserLogin(HttpServletRequest request, HttpServletResponse response, Account account){
+    public ResultData UserLogin(HttpServletRequest request, HttpServletResponse response, Account account) {
         response.setContentType("text/html;charset=utf-8");
         System.out.println(JSON.toJSONString(account));
-        return accountService.UserLogin(account,request);
+        return accountService.UserLogin(account, request);
     }
 
     @RequestMapping(value = "/verifyAdmin")
@@ -55,13 +55,14 @@ public class AccountController {
      *@return:java.lang.String
      *@Date:2020/6/13 23:35
      **/
-    public String VerifyAdmin(Account account){
+    public String VerifyAdmin(Account account) {
         account.setAPassword(new Tool().createMd5(account.getAPassword()));
         return JSON.toJSONString(accountService.verifyPass(account));
     }
+
     @RequestMapping(value = "/changePassword")
     @ResponseBody
-    public String changePassword(Account account){
+    public String changePassword(Account account) {
         account.setAPassword(new Tool().createMd5(account.getAPassword()));
         return JSON.toJSONString(accountService.updatePass(account));
     }
@@ -75,8 +76,8 @@ public class AccountController {
      **/
     @RequestMapping(value = "/updateSchoolPwd")
     @ResponseBody
-    public ResultData updateSchoolPwd(String oldPwd,String newPwd,String repeatPwd,HttpServletRequest request){
-        return accountService.updateSchoolPwd(oldPwd,newPwd,repeatPwd,request);
+    public ResultData updateSchoolPwd(String oldPwd, String newPwd, String repeatPwd, HttpServletRequest request) {
+        return accountService.updateSchoolPwd(oldPwd, newPwd, repeatPwd, request);
     }
 
     @RequestMapping(value = "/transfer")
@@ -87,11 +88,11 @@ public class AccountController {
      *@return:org.springframework.web.servlet.ModelAndView
      *@Date:2020/6/18 14:40
      **/
-    public ModelAndView Transfer(String logo,HttpServletRequest request){
+    public ModelAndView Transfer(String logo, HttpServletRequest request) {
         String goal;//去的目的地
         ModelAndView modelAndView = new ModelAndView();
-        switch (logo){
-            case"institutionIndex"://去机构首页
+        switch (logo) {
+            case "institutionIndex"://去机构首页
                 goal = "/pages/backhomepage/index";
                 break;
             case "schoolIn"://驾校入驻
@@ -99,12 +100,12 @@ public class AccountController {
                 break;
             case "logout"://注销登录
                 request.getSession().invalidate();
-            case"institutionLogin"://去机构登录页
+            case "institutionLogin"://去机构登录页
                 goal = "/pages/index/institution";
                 break;
             case "exit"://退出
                 request.getSession().invalidate();
-            default ://回系统首页
+            default://回系统首页
                 goal = "/pages/index/index";
                 break;
         }

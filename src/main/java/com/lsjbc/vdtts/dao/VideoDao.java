@@ -77,7 +77,7 @@ public class VideoDao implements BaseDao<Video> {
      * @return 受影响条数
      */
     @Override
-    public Video updateById(Video object) {
+    public Integer updateById(Video object) {
         return null;
     }
 

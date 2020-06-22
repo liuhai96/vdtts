@@ -63,13 +63,13 @@ public class ExamResultController {
      *@return:org.springframework.web.servlet.ModelAndView
      *@Date:2020/6/18 22:04
      **/
-    public ModelAndView getStudentResult(Student student,String logo){
+    public ModelAndView getStudentResult(Student student,String logo,HttpServletRequest request){
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("data",examResultService.StudentRecordDate(student));
         if(logo.equals("result"))
-            modelAndView.setViewName("/pages/index/student-record");
+            modelAndView.setViewName("/pages/student/student-record");
         else if(logo.equals("period")){
-            modelAndView.setViewName("/pages/index/student-period");
+            modelAndView.setViewName("/pages/student/student-period");
         }
         return modelAndView;
     }

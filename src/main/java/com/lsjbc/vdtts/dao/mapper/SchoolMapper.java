@@ -58,7 +58,7 @@ public interface SchoolMapper extends CustomBaseMapper<School> {
 	School findAccount(Integer sAccountId);
 
 	/*
-	 *@Description:
+	 *@Description:查学校表
 	 *@Author:陈竑霖
 	 *@Param:
 	 *@return:
@@ -66,7 +66,6 @@ public interface SchoolMapper extends CustomBaseMapper<School> {
 	 **/
 	public int schoolcount(@Param("e") School school);
 	public List<School> schoolList(@Param("e") School school, @Param("start") int start, @Param("pageSize") int pageSize);
-
 	/*
 	 *@Description:
 	 *@Author:周永哲
