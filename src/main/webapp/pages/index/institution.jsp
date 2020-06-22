@@ -83,9 +83,13 @@
                     <a onclick="document:jumpToInquire.submit()">信息查询</a>
                 </form>
             </li>
-            <li id="menu-title-six" class="layui-this menu-title-bg">
-                <img src="<%=path+"/image/pages/index/menu_student1.png"%>">
+            <li id="menu-title-six">
+                <img src="<%=path+"/image/pages/index/menu_service1.png"%>">
                 <a href="<%=path+"/student"%>">学教专区</a>
+            </li>
+            <li id="menu-title-seven">
+                <img src="<%=path+"/image/pages/index/menu_student1.png"%>">
+                <a target="_blank" href="<%=path+"/robot"%>">智能客服</a>
             </li>
         </ul>
     </div>
