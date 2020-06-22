@@ -151,7 +151,7 @@ public class ExamResultDao implements BaseDao<ExamResult> {
      * @return 受影响条数
      */
     @Override
-    public ExamResult updateById(ExamResult object) {
+    public Integer updateById(ExamResult object) {
         return null;
     }
 

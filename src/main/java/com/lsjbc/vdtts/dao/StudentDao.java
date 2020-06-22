@@ -120,8 +120,8 @@ public class StudentDao implements BaseDao<Student> {
      * @return 受影响条数
      */
     @Override
-    public Student updateById(Student object) {
-        return null;
+    public Integer updateById(Student object) {
+        return mapper.updateByPrimaryKeySelective(object);
     }
 
     /**

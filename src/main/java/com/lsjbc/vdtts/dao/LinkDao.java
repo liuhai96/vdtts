@@ -70,7 +70,7 @@ public class LinkDao implements BaseDao<Link> {
      * @return 受影响条数
      */
     @Override
-    public Link updateById(Link object) {
+    public Integer updateById(Link object) {
         return null;
     }
 

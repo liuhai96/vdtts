@@ -103,7 +103,7 @@ public class TeacherDao implements BaseDao<Teacher> {
      * @return 受影响条数
      */
     @Override
-    public Teacher updateById(Teacher object) {
+    public Integer updateById(Teacher object) {
         return null;
     }
 

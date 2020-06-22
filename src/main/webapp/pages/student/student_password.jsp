@@ -13,7 +13,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Title</title>
+    <title>修改信息</title>
     <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -49,6 +49,7 @@
                     <br>
                     <br>
                     <br>
+                    <br>
                     <div class="layui-form-item" id="oldPass">
                         <div class="layui-inline">
                             <label class="layui-form-label">原密码:</label>
@@ -73,13 +74,103 @@
                             </div>
                         </div>
                     </div>
-                    <button type="button" class="layui-btn layui-btn-warm" id="toPass" onclick="changePassword()">修改</button>
+                    <button type="button" class="layui-btn layui-btn-warm" id="toPass" onclick="changePassword()">修改密码</button>
                     <button type="button" hidden class="" id="not" onclick="passNot()">取消</button>
+
+
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">新手机号码:</label>
+                            <div class="layui-input-inline">
+                                <input id="phone" type="text" class="layui-input">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">验证码:</label>
+                            <div class="layui-input-inline">
+                                <input id="code" type="text" class="layui-input">
+                            </div>
+                        </div>
+                    </div>
+
+
+                    </div>
+                    <input id="codeBtn" class="layui-btn layui-btn-warm" data-send="true" type="button" value="获取验证码">
+                    <button type="button" class="layui-btn layui-btn-warm" id="updatePhone">修改手机号</button>
+
+
+
                 </div>
+
+
             </div>
         </div>
     </div>
+
+    <script type="text/javascript" src=<%=path+"/js/pages/index/jquery.min.js"%>></script>
+    <script type="text/javascript" src=<%=path+"/js/pages/index/jquery.cookie.js"%>></script>
+    <script type="text/javascript" src=<%=path+"/js/pages/index/60sCountdown.js"%>></script>
     <script>
+
+
+        let path = window.document.location.href.substring(0, (window.document.location.href).indexOf(window.document.location.pathname));
+
+        $(document).on('click',"#codeBtn",function(){
+            if(checkPhone()){
+                $.cookie("total",5);
+                timekeeping();
+                $.get(path + "/api/sms/update/", {
+                    phone: $("#phone").val()
+                },function (res) {
+                    layui.use('layer',function () {
+                        let layer = layui.layer;
+
+                        if(res.code!=0){
+                            layer.msg(res.msg);
+                        }
+
+
+                    })
+                });
+                alert("模拟验证码为：000000     6个零")
+            }
+        });
+
+        $(document).on("click","#updatePhone",function () {
+            if($("#code").val().length==6){
+                $.post(path + "/api/student/phone/", {
+                    phone: $("#phone").val()
+                    , code: $("#code").val()
+                    , _method: "put"
+                },function (res) {
+                    alert(res.msg);
+                });
+            }else{
+                alert("验证码不符合规范");
+            }
+        });
+
+        function checkPhone() {
+            let PhoneStr=$("#phone").val().trim();
+
+            if(!/^((13[0-9])|(14[0-9])|(15[0-9])|(17[0-9])|(18[0-9]))\d{8}$/.test(PhoneStr)){
+                layer.msg("电话号码格式不正确,请重试");
+                return false;
+            }else{
+                return true;
+            }
+        }
+
+
+
         let verify = -1;
         let passTypes = true;
         let sPic = "";//修改头像
@@ -135,7 +226,6 @@
             }
             passTypes = !passTypes;
         }
-
     </script>
     </body>
 </html>

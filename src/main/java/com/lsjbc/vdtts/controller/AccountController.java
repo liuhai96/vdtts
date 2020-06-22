@@ -103,6 +103,9 @@ public class AccountController {
             case "institutionLogin"://去机构登录页
                 goal = "/pages/index/institution";
                 break;
+            case "alterpass"://去机构登录页
+                goal = "/pages/student/student_password";
+                break;
             case "exit"://退出
                 request.getSession().invalidate();
             default://回系统首页

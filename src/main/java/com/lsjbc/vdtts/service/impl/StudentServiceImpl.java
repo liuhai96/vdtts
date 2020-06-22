@@ -12,6 +12,7 @@ import com.lsjbc.vdtts.entity.Account;
 import com.lsjbc.vdtts.entity.ExamResult;
 import com.lsjbc.vdtts.entity.School;
 import com.lsjbc.vdtts.entity.Student;
+import com.lsjbc.vdtts.pojo.bo.aliai.SMS;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.pojo.vo.ResultData;
 import com.lsjbc.vdtts.pojo.vo.StudentRegister;
@@ -25,7 +26,6 @@ import com.lsjbc.vdtts.utils.baidu.baiduTools.face.TFaceMethod;
 import org.apache.http.HttpRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -54,6 +54,9 @@ public class StudentServiceImpl implements StudentService {
 
 	@Resource(name = LinkServiceImpl.NAME)
 	private LinkService linkServive;
+
+	@Resource(name = SMS.NAME)
+	private SMS sms;
 
 	/**
 	 * student 里面所有的属性将会作为查询条件
@@ -264,32 +267,51 @@ public class StudentServiceImpl implements StudentService {
 		Student student = studentDao.getStudentByAccountId(token.getAId());
 
 		request.getSession().setAttribute("student", student);
+		request.getSession().setAttribute("account", token);
 
 		ResultData resultData = ResultData.success("登录成功", "url", "student/main");
 		resultData.put("username", student.getSName());
 		return resultData;
 	}
 
+
+
 	/**
 	 * 学员注册流程
 	 *
 	 * @param register 注册提供的信息对象
 	 * @param map      ModelAndView中的属性键值对
+	 * @param request  Request域
 	 * @return 跳转的路径
 	 * @author JX181114 --- 郑建辉
 	 */
 	@Override
-	public String studentRegister(StudentRegister register, Map<String, Object> map) {
+	public String studentRegister(StudentRegister register, Map<String, Object> map, HttpServletRequest request) {
+
+		//开始检测验证码有效性
+		String checkVcResult = sms.checkRegisterVC(request,register.getPhone(),register.getCode(),false);
+
+		//如果验证不通过，返回前端
+		if(!"验证通过".equals(checkVcResult)){
+			register.putInfoAndMsgToMap(map,checkVcResult);
+			return "/pages/index/register";
+		}
+
 		//更具提供的信息生成Account对象
 		Account token = register.generateAccount();
 
 		//开始尝试性的向数据库中插入数据，如果插入成功，返回1
 		Integer row = accountDao.insertIfNotExist(token);
 
+		//如果插入失败，返回到前端
 		if(row==0){
 			register.putInfoAndMsgToMap(map,"该账号已被注册");
 			return "/pages/index/register";
 		}
+
+		//清除session中的数据
+		request.getSession().removeAttribute(SMS.PHONE);
+		request.getSession().removeAttribute(SMS.VC_TYPE_REGISTER);
 
 		//根据提供的信息和账号ID来生成学生对象
 		Student student = register.generateStudent(token.getAId());
@@ -384,4 +406,48 @@ public class StudentServiceImpl implements StudentService {
         }
 	    return resultData;
     }
+
+	/**
+	 * 学员修改手机号流程
+	 *
+	 * @param request Request域
+	 * @param phone   要修改的新手机号
+	 * @param code    验证码
+	 * @return 修改结果
+	 * @author JX181114 --- 郑建辉
+	 */
+	@Override
+	public ResultData studentUpdatePhone(HttpServletRequest request, String phone, String code) {
+
+		Student student = (Student) request.getSession().getAttribute("student");
+
+		//先把新手机号和旧手机号做判断，如果两者相同，直接返回
+		if(phone.equals(student.getSPhone())){
+			//清除session中的数据
+			request.getSession().removeAttribute(SMS.PHONE);
+			request.getSession().removeAttribute(SMS.VC_TYPE_UPDATE);
+			return ResultData.success("修改成功");
+		}
+
+		//开始验证短信验证码
+		String checkVcResult = sms.checkUpdateVC(request,phone,code,false);
+
+		//如果验证不通过，将结果返回前端
+		if(!"验证通过".equals(checkVcResult)){
+			return ResultData.warning(checkVcResult);
+		}
+
+		//清除session中的数据
+		request.getSession().removeAttribute(SMS.PHONE);
+		request.getSession().removeAttribute(SMS.VC_TYPE_UPDATE);
+
+		//更新数据库中的数据,如果更新成功，修改session中的数据
+		if(studentDao.updateById(Student.builder().sId(student.getSId()).sPhone(phone).build())>=1){
+			student.setSPhone(phone);
+			request.getSession().setAttribute("student",student);
+			return ResultData.success("修改成功");
+		}
+
+		return ResultData.warning("修改失败，请重试");
+	}
 }

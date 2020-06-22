@@ -24,17 +24,33 @@ public class ExamErrorDao implements BaseDao<ExamError> {
     private ExamErrorMapper mapper;
 
     /**
+     * 根据等级删除来删除错题记录
+     *
+     * @param level 科目等级
+     * @return 受影响条数
+     * @author JX181114 --- 郑建辉
+     */
+    public Integer deleteByLevel(Integer level) {
+        Example example = new Example(ExamError.class);
+        Example.Criteria criteria = example.createCriteria();
+
+        criteria.andEqualTo("eeLevel", level);
+        return mapper.deleteByExample(example);
+    }
+
+    /**
      * 根据学员来查询错题
      *
      * @param studentId 学员ID
      * @return 错题集合
      * @author JX181114 --- 郑建辉
      */
-    public List<ExamError> getByStudentId(Integer studentId) {
+    public List<ExamError> getByStudentId(Integer studentId, Integer level) {
         Example example = new Example(ExamError.class);
         Example.Criteria criteria = example.createCriteria();
 
         criteria.andEqualTo("eeStudentId", studentId);
+        criteria.andEqualTo("eeLevel", level);
         return mapper.selectByExample(example);
     }
 
@@ -47,7 +63,7 @@ public class ExamErrorDao implements BaseDao<ExamError> {
      */
     public Integer add(List<ExamError> list) {
 
-        if(list==null||list.size()==0){
+        if (list == null || list.size() == 0) {
             return 0;
         }
 
@@ -89,7 +105,7 @@ public class ExamErrorDao implements BaseDao<ExamError> {
      * @return 受影响条数
      */
     @Override
-    public ExamError updateById(ExamError object) {
+    public Integer updateById(ExamError object) {
         return null;
     }
 

@@ -49,6 +49,13 @@
             <scope>runtime</scope>
         </dependency>
 
+        <!--阿里短信接口-->
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>aliyun-java-sdk-core</artifactId>
+            <version>4.1.0</version>
+        </dependency>
+
         <!--Druid连接池-->
         <dependency>
             <groupId>com.alibaba</groupId>

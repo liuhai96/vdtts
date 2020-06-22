@@ -47,21 +47,17 @@ public class ExamErrorServiceImpl implements ExamErrorService {
     @Override
     public List<ExamQuestionWithEeId> getErrorQuestionByStudentId(Integer level, Integer studentId) {
         //根据ID查询出所有的错题ID
-        List<ExamError> errorQuestion = examErrorDao.getByStudentId(studentId);
+        List<ExamError> errorQuestion = examErrorDao.getByStudentId(studentId,level);
 
         List<ExamQuestionWithEeId> questionList = new ArrayList<>();
 
         for (Integer index = 0; index < errorQuestion.size(); index++) {
             ExamQuestion question = examQuestionDao.getById(errorQuestion.get(index).getEeQuestionId());
 
-            System.out.println(question);
+            //根据错题ID查询出错题答案
+            question.setAnswers(examAnswerDao.getByQuestionId(errorQuestion.get(index).getEeQuestionId()));
 
-            if (question.getEqLevel().equals(level)) {
-                //根据错题ID查询出错题答案
-                question.setAnswers(examAnswerDao.getByQuestionId(errorQuestion.get(index).getEeQuestionId()));
-
-                questionList.add(new ExamQuestionWithEeId(errorQuestion.get(index), question));
-            }
+            questionList.add(new ExamQuestionWithEeId(errorQuestion.get(index), question));
         }
 
         return questionList;
