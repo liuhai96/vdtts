@@ -38,8 +38,8 @@
                 <a target="_blank" href="<%=path+"/transfer?logo=schoolIn"%>">驾校入驻</a>
             </c:if>
             <c:if test="${sessionScope.student != null }">
-                <a href="<%=path+"/student"%>">欢迎您！ 学员: ${sessionScope.student.SName}</a>
-                &nbsp;&nbsp;&nbsp;
+                <a href="<%=path+"/student"%>" id="studentName">欢迎您！ 学员: ${sessionScope.student.SName}</a>
+                <a href="<%=path+"/transfer?logo=alterpass"%>">修改信息</a>
                 <a href="<%=path+"/logout/student"%>">退出</a>
             </c:if>
         </div>

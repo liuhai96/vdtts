@@ -1,7 +1,15 @@
 package com.lsjbc.vdtts.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.lsjbc.vdtts.dao.AccountDao;
+import com.lsjbc.vdtts.dao.CarDao;
+import com.lsjbc.vdtts.dao.ExamParamDao;
+import com.lsjbc.vdtts.dao.SchoolDao;
 import com.lsjbc.vdtts.entity.Account;
+import com.lsjbc.vdtts.entity.Car;
+import com.lsjbc.vdtts.entity.ExamParam;
 import com.lsjbc.vdtts.entity.School;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.service.intf.SchoolService;
@@ -11,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -21,7 +30,14 @@ import java.util.List;
 public class SchoolController {
 	@Autowired
 	private SchoolService schoolService;
-
+	@Resource
+	private ExamParamDao examParamDao;
+	@Resource
+	SchoolDao schoolDao;
+	@Resource
+	AccountDao accountDao;
+	@Resource
+	CarDao carDao;
 	/*
 	 *@Description:
 	 *@Author:周永哲
@@ -38,6 +54,8 @@ public class SchoolController {
 		List<School> list= schoolService.selectAllInfo(school,page2,Integer.valueOf(limit));
 		int count =schoolService.selectSchoolCount(school);
 		System.out.println("驾校信息初始化操作--- list="+list+" count ="+count);
+//		HttpSession session =request.getSession();
+//		session.setAttribute("schoolinfo",list);
 		LayuiTableData layuiData = new LayuiTableData();
 		layuiData.setCode(0);
 		layuiData.setData(list);
@@ -74,17 +92,18 @@ public class SchoolController {
 	 *@return:
 	 *@Date:2020/6/10 15860799877
 	 **/
-	@RequestMapping(value = "insertSchool")
-	public  String insertSchool (HttpServletRequest request, HttpServletResponse response,
-							  @RequestParam(value = "school") School school, @RequestParam(value = "account") Account account){
+	@RequestMapping(value = "insertSchool")//添加驾校
+	public  String insertSchool (HttpServletRequest request, HttpServletResponse response,School school, Account account){
 		System.out.println(" 添加驾校school list="+school.toString());
 		System.out.println(" 添加驾校account="+account.getAAccount()+" pwd="+account.getAPassword());
-		int a = schoolService.insertSchoolAccount(account);
+//		int a = schoolService.insertSchoolAccount(account);
+		int a = accountDao.add(account);
 		String res = "";
 		if(a>0){
 			System.out.println("成功添加驾校账号，此 a_id="+account.getAId());
 			school.setSAccountId(account.getAId());
-			int i = schoolService.insertSchool(school);
+//			int i = schoolService.insertSchool(school);
+			int i = schoolDao.add(school);
 			if(i>0){
 				res="success";
 				System.out.println("添加驾校成功");
@@ -98,11 +117,53 @@ public class SchoolController {
 		}
 		return res;
 	}
-
-	@RequestMapping(value = "/studentCount")
+	/*
+	 *@Description:
+	 *@Author:周永哲
+	 *@Param:
+	 *@return:
+	 *@Date:2020/6/18 15860799877
+	 **/
+	@RequestMapping(value = "/studentCount")//学员统计
 	public List<School> studentCount(HttpServletRequest request,HttpServletResponse response){
 		return schoolService.selectStudentCount();
 	}
+
+	/*
+	 *@Description:
+	 *@Author:周永哲
+	 *@Param:
+	 *@return:
+	 *@Date:2020/6/19 15860799877
+	 **/
+	@RequestMapping(value = "/selectParamInfo")//初始化参数信息表
+	public LayuiTableData selectParamInfo(HttpServletRequest request, HttpServletResponse response,int page ,int limit,ExamParam examParam) {
+//		System.out.println("examlist"+examParam.toString());
+		Page<ExamParam> pageinfo = PageHelper.startPage(page,limit,true);
+		examParamDao.selectParamInfo(examParam.getPmKey());
+		LayuiTableData layuiData = new LayuiTableData();
+		layuiData.setCode(0);
+		layuiData.setData(pageinfo.getResult());
+		layuiData.setCount(pageinfo.getTotal());
+		return layuiData;
+	}
+
+	@RequestMapping(value = "/updateParam")//参数信息修改
+	public String updateParam(HttpServletRequest request, HttpServletResponse response, ExamParam examParam) {
+		System.out.println(" examParam:"+examParam.toString());
+		int i = examParamDao.updateById(examParam);
+//		int i=schoolService.updateSchool(examParam);
+		String res = "";
+		if(i>0){
+			System.out.println("修改驾校信息成功");
+			return "success";
+		}else {
+			System.out.println("修改驾校信息失败");
+			return "failed";
+		}
+	}
+
+
 
 	@RequestMapping(value = "/findSchoolList",produces = {"application/json;charset=UTF-8"})
 	@ResponseBody

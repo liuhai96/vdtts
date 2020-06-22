@@ -2,12 +2,14 @@ package com.lsjbc.vdtts.service.intf;
 
 import com.github.pagehelper.Page;
 import com.lsjbc.vdtts.entity.Account;
+import com.lsjbc.vdtts.entity.ExamParam;
 import com.lsjbc.vdtts.entity.School;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.pojo.vo.PowerSchool;
 import com.lsjbc.vdtts.pojo.vo.ResultData;
 import com.lsjbc.vdtts.pojo.vo.SchoolDetail;
 import org.apache.ibatis.annotations.Param;
+
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -91,6 +93,12 @@ public interface SchoolService {
     public int updateSchool(School school);
 
     public List<School> selectStudentCount();
+
+    public List<ExamParam> selectParamInfo(@Param("examParam") ExamParam examParam, @Param("page") int page, @Param("limit") int limit);
+
+
+
+
 
     ResultData updateSchoolPwd(HttpServletRequest request);
     ResultData updateSchoolBasicInfo(School school);

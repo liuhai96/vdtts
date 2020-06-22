@@ -76,6 +76,9 @@
                 // ,{field: 'aId', title: '账号id', width:10, hide:'true'}
                 ,{fixed: 'right', title: '管理操作',width: 175, align:'center', toolbar: '#barDemo'}
             ]]
+            ,page: {limit: 5,//指定每页显示的条数
+            limits: [5, 10, 15, 20,
+                25, 30, 35, 40, 45, 50],},//每页条数的选择项
         });
 
         //监听头工具栏事件

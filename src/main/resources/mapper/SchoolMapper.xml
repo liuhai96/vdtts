@@ -123,6 +123,16 @@
      select tsl.s_name ,count(tst.s_id) student_count from tb_school tsl,tb_student tst
      where tsl.s_id=tst.s_school_id group by tsl.s_name
     </select>
+    <!--  周永哲，参数信息查询-->
+    <select id="selectParamInfo" parameterType="com.lsjbc.vdtts.entity.ExamParam" resultType="com.lsjbc.vdtts.entity.ExamParam">
+        select * from tb_param
+        <where>
+            <if test="examParam.pmKey!=null and examParam.pmKey!=''">
+                and pm_key like CONCAT('%', #{examParam.pmKey} ,'%')
+            </if>
+        </where>
+        limit #{page},#{limit}
+    </select>
 
 
 </mapper>
