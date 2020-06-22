@@ -182,3 +182,40 @@ function randomColor() {//得到随机的颜色值
 }//验证码颜色
 //验证码部分完
 
+
+// //人脸识别操作js样例
+// var layer;
+// var form;
+// var table;
+// var laydate;
+//
+// layui.use(['layer','upload'], function () {
+//     var $ = layui.$;
+//     layer = layui.layer;
+//     upload=layui.upload;
+//
+//
+//     $("#openCamera").on("click",function () {
+//         var clock2=setInterval(function () {
+//             $('#image').faceDetection({
+//                 complete: function (faces) {
+//                     if (faces.length == 0) { //说明没有检测到人脸
+//                         console.log("无人脸");
+//                     } else {
+//                         console.log("识别到人脸");
+//                         // $("#faceImg").val($('#image').attr("src"));
+//                         // $("#userInCameraForm").submit();
+//
+//                         AjaxTransfer($("#path").val()+"/addFace","base64="+$('#image').attr("src"),
+//                             function (mag) {
+//
+//                             });
+//                     }
+//                 },
+//                 error: function (code, message) {
+//                     console.log("complete回调函数出错");
+//                 }
+//             });
+//         }, 60);
+//     });
+// });
