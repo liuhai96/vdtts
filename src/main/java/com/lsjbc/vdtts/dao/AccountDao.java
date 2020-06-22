@@ -2,6 +2,7 @@ package com.lsjbc.vdtts.dao;
 
 import com.lsjbc.vdtts.dao.mapper.AccountMapper;
 import com.lsjbc.vdtts.entity.Account;
+import com.lsjbc.vdtts.entity.School;
 import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.entity.Example;
 
@@ -71,6 +72,15 @@ public class AccountDao{
         criteria.andEqualTo("aAccount", account);
 
         return  (Account) mapper.selectOneByExample(example);
+    }
+
+    /**
+     * 永哲
+     * @param account
+     * @return
+     */
+    public Integer add(Account account) {//添加账号
+        return mapper.addAccount(account);
     }
 
 }
