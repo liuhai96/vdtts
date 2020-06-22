@@ -7,12 +7,14 @@ import com.lsjbc.vdtts.dao.*;
 import com.lsjbc.vdtts.dao.mapper.SchoolMapper;
 import com.lsjbc.vdtts.dao.mapper.StudentMapper;
 import com.lsjbc.vdtts.entity.Account;
+import com.lsjbc.vdtts.entity.ExamParam;
 import com.lsjbc.vdtts.entity.School;
 import com.lsjbc.vdtts.entity.Student;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.pojo.vo.ResultData;
 import com.lsjbc.vdtts.pojo.vo.SchoolDetail;
 import com.lsjbc.vdtts.service.intf.SchoolService;
+import com.lsjbc.vdtts.utils.Tool;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -377,6 +379,13 @@ public class SchoolServiceImpl implements SchoolService
 		List<School> selectStudentCount = schoolMapper.selectStudentCount();
 		return selectStudentCount;
 	}
+
+	@Override
+	public List<ExamParam> selectParamInfo(ExamParam examParam, int page, int limit) {
+		List<ExamParam> selectParamInfo = schoolMapper.selectParamInfo(examParam,page,limit);
+		return selectParamInfo;
+	}
+
 
 	@Override
 	public ResultData updateSchoolBasicInfo(School school) {

@@ -17,7 +17,6 @@ import java.util.List;
  */
 @Repository(SchoolDao.NAME)
 public class SchoolDao implements BaseDao<School> {
-
     /**
      * Bean名
      */
@@ -37,7 +36,7 @@ public class SchoolDao implements BaseDao<School> {
      */
     @Override
     public Integer add(School object) {
-        return null;
+        return mapper.addSchool(object);
     }
 
     /**
