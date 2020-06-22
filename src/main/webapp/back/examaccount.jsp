@@ -28,7 +28,7 @@
 </head>
 <body>
 <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM --><!-- 柱状图bar -->
-<div id="echarts_bar" style="width: 1200px;height:630px;margin-left: 100px"></div>
+<div id="echarts_bar" style="width: 1200px;height:630px;margin-top: 30px"></div>
 
 <script type="text/javascript">
     // 基于准备好的dom，初始化echarts实例
@@ -62,11 +62,11 @@
                      dataset: {
                          source: [
                              ['score', '学员数量', '科目'],
-                             [89.3, msg.state1, '科目一'],
-                             [57.1, msg.state2, '科目二'],
-                             [74.4, msg.state3, '科目三'],
-                             [10.1, msg.state4, '科目四'],
-                             [10.1, msg.state4+msg.state2+msg.state3+msg.state1, '考试总人数'],
+                             [89.3, msg.state1, '科目一考试人数'],
+                             [57.1, msg.state2, '科目二考试人数'],
+                             [74.4, msg.state3, '科目三考试人数'],
+                             [10.1, msg.state4, '科目四考试人数'],
+                             [10.1, msg.state4+msg.state2+msg.state3+msg.state1, '科目考试总人数'],
                 ]
                      },
                      grid: {containLabel: true},

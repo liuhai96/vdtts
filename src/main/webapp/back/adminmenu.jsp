@@ -197,8 +197,9 @@
                             data: data.field,
                             success: function (msg) {
                                 if (msg.trim() == "success") {
-                                    // layer.alert("密码修改成功");
-                                    layer.confirm('密码修改成功!即将跳转到登录界面', {
+                                    // layer.alert("密码修改成功，!即将跳转到登录界面");
+                                    // location.href = 'adminlogin.jsp';
+                                    layer.confirm('密码修改成功!返回登录界面', {
                                         btn: ['确定'] //可以无限个按钮
                                         ,btn1: function(index, layero){
                                             layer.close(index)

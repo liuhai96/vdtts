@@ -25,6 +25,8 @@
 
     <link rel="stylesheet" href="<%=path+"/css/pages/index/style.css"%>">
 </head>
+<body>
+<input type="hidden" id="zjh_msg" value="${zjh_msg}">
 <div class="login-inf">
     <div class="inf-box">
         <div class="inf-time">
@@ -38,8 +40,8 @@
                 <a target="_blank" href="<%=path+"/transfer?logo=schoolIn"%>">驾校入驻</a>
             </c:if>
             <c:if test="${sessionScope.student != null }">
-                <a href="<%=path+"/student"%>">欢迎您！ 学员: ${sessionScope.student.SName}</a>
-                &nbsp;&nbsp;&nbsp;
+                <a href="<%=path+"/student"%>" id="studentName">欢迎您！ 学员: ${sessionScope.student.SName}</a>
+                <a href="<%=path+"/transfer?logo=alterpass"%>">修改信息</a>
                 <a href="<%=path+"/logout/student"%>">退出</a>
             </c:if>
         </div>
@@ -84,8 +86,12 @@
                 </form>
             </li>
             <li id="menu-title-six" class="layui-this menu-title-bg">
-                <img src="<%=path+"/image/pages/index/menu_student1.png"%>">
+                <img src="<%=path+"/image/pages/index/menu_service1.png"%>">
                 <a href="<%=path+"/student"%>">学教专区</a>
+            </li>
+            <li id="menu-title-seven">
+                <img src="<%=path+"/image/pages/index/menu_student1.png"%>">
+                <a target="_blank" href="<%=path+"/robot"%>">智能客服</a>
             </li>
         </ul>
     </div>
@@ -132,5 +138,17 @@
 <script src="https://www.layuicdn.com/layui/layui.js"></script>
 <script src="<%=path+"/js/pages/index/common.js"%>"></script>
 <script src="<%=path+"/js/pages/index/commonpage.js"%>"></script>
+<script>
+    layui.use(['layer'],function () {
+        let $ = layui.$;
+        let layer = layui.layer;
+
+        let msg = $("#zjh_msg").val();
+        if(msg.length>0){
+            layer.msg(msg);
+        }
+
+    });
+</script>
 </body>
 </html>

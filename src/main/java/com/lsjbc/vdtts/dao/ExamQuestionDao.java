@@ -114,7 +114,7 @@ public class ExamQuestionDao extends BaseRedisClient implements BaseDao<ExamQues
      * @return 受影响条数
      */
     @Override
-    public ExamQuestion updateById(ExamQuestion object) {
+    public Integer updateById(ExamQuestion object) {
         return null;
     }
 
@@ -260,6 +260,7 @@ public class ExamQuestionDao extends BaseRedisClient implements BaseDao<ExamQues
     }
 
     public void deleteAll(Integer level){
+        del("exam:question:course"+level+":all");
         Example example = new Example(ExamQuestion.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("eqLevel",level);

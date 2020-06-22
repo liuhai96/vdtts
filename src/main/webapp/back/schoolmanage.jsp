@@ -76,6 +76,9 @@
                 ,{field: 'sAccountId', title: '账号id', width:10, hide:'true'}
                 ,{fixed: 'right', title: '管理操作',width: 175, align:'center', toolbar: '#barDemo'}
             ]]
+                ,page: {limit: 5,//指定每页显示的条数
+                    limits: [5, 10, 15, 20,
+                        25, 30, 35, 40, 45, 50],},//每页条数的选择项
         });
 
         //监听头工具栏事件
@@ -119,7 +122,7 @@
             };
         });
 
-        layui.use(['layer', 'form'], function () {
+        layui.use(['layer', 'form','jquery'], function () {
             var layer = layui.layer
                 , form = layui.form;
             var $ = layui.jquery;
@@ -153,6 +156,7 @@
         //监听行工具事件
         table.on('tool(demo)', function(obj){ //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
             var data = obj.data //获得当前行数据
+            // alert("data ="+JSON.stringify(data));
             var schoolId = data.sId
             var layEvent = obj.event; //获得 lay-event 对应的值
             if(layEvent === 'detail'){
@@ -161,6 +165,12 @@
 
             else if(layEvent === 'updateinfo'){ //修改信息
                  $("input[name='sId']").val(schoolId);
+                 $("#sName").val(data.sName);
+                 $("#sAddress").val(data.sAddress);
+                 $("#sPhone").val(data.sPhone);
+                 // $("input[name=sRecruit][value=true]").attr("checked", data.sRecruit == true ? true : false);
+                 // $("input[name=sRecruit][value=false]").attr("checked", data.sRecruit == false ? true : false);
+                 // layer.alert(JSON.stringify(data));
                 updateinfo = layer.open({
                     type: 1
                     ,title:"驾校信息修改"
@@ -181,14 +191,6 @@
                     var $ = layui.jquery;
                     form.on('submit(formDemo2)', function (data) {//修改驾校信息
                         alert(JSON.stringify(data.field)+"schoolid="+schoolId);
-                        // var updatedata={
-                        //     sName:data.field.sName,
-                        //     sAddress:data.field.sAddress,
-                        //     sId: schoolId,
-                        //     sPhone:data.field.sPhone,
-                        //     sRecruit:data.field.sRecruit,
-                        //     sLock:data.field.sLock,
-                        // }
                         $.ajax({
                             url: "/schoolController/updateSchool",
                             type: "POST",
@@ -210,10 +212,11 @@
 
             }
             else if(layEvent === 'addcar'){       //添加教练车
-                var data ={
-                    schoolId: schoolId,
-                    dealtype: "addcar"
-                }
+                // var data ={
+                //     schoolId: schoolId,
+                //     dealtype: "addcar"
+                // }
+                $("#schoolId").val(data.sId);
                 // layer.alert('schoolId='+schoolId);
                 // layer.alert('data='+JSON.stringify(data));
                     addcar = layer.open({
@@ -235,27 +238,25 @@
         });
 
 
-
-
-        layui.use(['layer', 'form'], function () {
+        layui.use(['layer', 'form','jquery'], function () {
             var layer = layui.layer
                 , form = layui.form;
             var $ = layui.jquery;
             form.on('submit(formDemo1)', function (data) {//添加教练车
                 // alert(JSON.stringify(data.field));
-                var data={
-                    cLogo:cLogo,
-                    cModel:cModel,
-                    sId: schoolId,
-                    cColor:cColor,
-                    cNumber:cNumber,
-                }
+                // var data={
+                //     cLogo:cLogo,
+                //     cModel:cModel,
+                //     sId: schoolId,
+                //     cColor:cColor,
+                //     cNumber:cNumber,
+                // }
                 alert("data="+JSON.stringify(data));
                     $.ajax({
                         url: "/carControl/insertCar",
                         type: "POST",
                         dataType: "text",
-                        data: data,
+                        data: data.field,
                         success: function (msg) {
                             if (msg.trim() == "success") {
                                 alert("教练车添加成功！");
@@ -291,7 +292,7 @@
         <div class="layui-form-item" style="margin-top: 10px">
             <label class="layui-form-label">驾校名称：</label>
             <div class="layui-input-inline">
-                <input type="text" name="sName" placeholder="" autocomplete="off" class="layui-input" lay-verify="required">
+                <input type="text" name="sName"  autocomplete="off" class="layui-input" lay-verify="required">
             </div>
         </div>
         <div class="layui-form-item">
@@ -333,8 +334,8 @@
         </div>
         <div class="layui-form-item">
             <div class="layui-input-block">
-                <input type="hidden" name="dealtype" value="addstudent" placeholder="" autocomplete="off" class="layui-input"
-                       lay-verify="required">
+<%--                <input type="hidden" name="dealtype" value="addstudent" placeholder="" autocomplete="off" class="layui-input"--%>
+<%--                       lay-verify="required">--%>
                 <button class="layui-btn layui-btn-primary" lay-submit lay-filter="formDemo">添加</button>
                 <button type="button" id="cancle2"class="layui-btn layui-btn-primary" style="margin-right: 60px">取消</button>
             </div>
@@ -348,7 +349,7 @@
             <label class="layui-form-label">汽车品牌：</label>
             <div class="layui-input-inline">
                 <select name="cLogo" lay-filter="aihao">
-                    <option value=""></option>
+<%--                    <option value=""></option>--%>
                     <option value="奔驰">奔驰</option>
                     <option value="科尼塞克" selected="">科尼塞克</option>
                     <option value="奥迪">奥迪</option>
@@ -362,7 +363,7 @@
             <label class="layui-form-label">车型：</label>
             <div class="layui-input-inline">
                 <select name="cModel" lay-filter="aihao">
-                    <option value=""></option>
+<%--                    <option value=""></option>--%>
                     <option value="轿车">轿车</option>
                     <option value="SUV" selected="">SUV</option>
                     <option value="MPV">MPV</option>
@@ -376,7 +377,7 @@
             <label class="layui-form-label">颜色：</label>
             <div class="layui-input-inline">
                 <select name="cColor" lay-filter="aihao">
-                    <option value=""></option>
+<%--                    <option value=""></option>--%>
                     <option value="白色">白色</option>
                     <option value="红色" selected="">红色</option>
                     <option value="蓝色">蓝色</option>
@@ -389,14 +390,13 @@
         <div class="layui-form-item">
             <label class="layui-form-label">车牌号码：</label>
             <div class="layui-input-inline">
-                <input type="text" name="cNumber" placeholder="" autocomplete="off" class="layui-input"
-                       lay-verify="required">
+                <input type="text" name="cNumber" value="闽D88888" placeholder="" autocomplete="off" class="layui-input"lay-verify="required">
             </div>
         </div>
 
         <div class="layui-form-item">
             <div class="layui-input-block">
-                <input type="hidden" name="sId" value="schoolId" autocomplete="off" class="layui-input"lay-verify="required">
+                <input type="hidden" name="cSchoolId" id="schoolId"  autocomplete="off" class="layui-input">
                 <button class="layui-btn layui-btn-primary" lay-submit lay-filter="formDemo1">确认</button>
                 <button type="button" id="cancle3"class="layui-btn layui-btn-primary" style="margin-right: 60px">取消</button>
             </div>
@@ -409,26 +409,26 @@
         <div class="layui-form-item" style="margin-top: 10px">
             <label class="layui-form-label">驾校名称：</label>
             <div class="layui-input-inline">
-                <input type="text" name="sName" placeholder="" autocomplete="off" class="layui-input" lay-verify="required">
+                <input type="text" name="sName" id="sName" autocomplete="off" class="layui-input" lay-verify="required">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">驾校地址：</label>
             <div class="layui-input-inline">
-                <input type="text" name="sAddress" placeholder="" autocomplete="off" class="layui-input"  lay-verify="required">
+                <input type="text" name="sAddress" id="sAddress" autocomplete="off" class="layui-input"  lay-verify="required">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">联系电话：</label>
             <div class="layui-input-inline">
-                <input type="text" name="sPhone" placeholder="" autocomplete="off" class="layui-input"  lay-verify="required">
+                <input type="text" name="sPhone" id="sPhone" autocomplete="off" class="layui-input"  lay-verify="required">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">允许招生：</label>
             <div class="layui-input-block">
-                <input type="radio" name="sRecruit" value="true" title="允许" checked="">
-                <input type="radio" name="sRecruit" value="false" title="禁止">
+                <input type="radio" name="sRecruit" id="sRecruit1" value="true" title="允许"checked="" >
+                <input type="radio" name="sRecruit" id="sRecruit2" value="false" title="禁止">
             </div>
         </div>
         <div class="layui-form-item">
@@ -440,7 +440,7 @@
         </div>
         <div class="layui-form-item">
             <div class="layui-input-block">
-                <input type="hidden" name="sId" value="${schoolId}"  class="layui-input" >
+                <input type="hidden" name="sId" value="${schoolId}"  class="layui-input">
                 <button class="layui-btn layui-btn-primary" lay-submit lay-filter="formDemo2">确认修改</button>
                 <button type="button" id="cancle"class="layui-btn layui-btn-primary" style="margin-right: 60px">取消</button>
             </div>

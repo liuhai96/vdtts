@@ -78,7 +78,7 @@ public class CarDao implements BaseDao<Car> {
      */
     @Override
     public Integer add(Car object) {
-        return null;
+        return mapper.addCar(object);
     }
 
     /**
@@ -91,7 +91,7 @@ public class CarDao implements BaseDao<Car> {
      * @return 受影响条数
      */
     @Override
-    public Car updateById(Car object) {
+    public Integer updateById(Car object) {
         return null;
     }
 

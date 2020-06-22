@@ -138,7 +138,7 @@ public class ExamResultDao implements BaseDao<ExamResult> {
      */
     @Override
     public Integer add(ExamResult object) {
-        return null;
+        return mapper.insertSelective(object);
     }
 
     /**
@@ -151,7 +151,7 @@ public class ExamResultDao implements BaseDao<ExamResult> {
      * @return 受影响条数
      */
     @Override
-    public ExamResult updateById(ExamResult object) {
+    public Integer updateById(ExamResult object) {
         return null;
     }
 

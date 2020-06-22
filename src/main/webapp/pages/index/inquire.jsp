@@ -41,7 +41,7 @@
             </c:if>
             <c:if test="${sessionScope.student != null }">
                 <a href="<%=path+"/student"%>" id="studentName">欢迎您！ 学员: ${sessionScope.student.SName}</a>
-                &nbsp;&nbsp;&nbsp;
+                <a href="<%=path+"/transfer?logo=alterpass"%>">修改信息</a>
                 <a href="<%=path+"/logout/student"%>">退出</a>
             </c:if>
         </div>
@@ -79,15 +79,19 @@
                 <img src="<%=path+"/image/pages/index/menu_publicity1.png"%>">
                 <a href="<%=path+"/publicity/notice/1/-1"%>">公开公示</a>
             </li>
-            <li id="menu-title-three" style="display: block;cursor:hand;">
+            <li id="menu-title-three" class="layui-this menu-title-bg" style="display: block;cursor:hand;">
                 <form id="jumpToInquire" action="<%=path+"inquire"%>" method="post">
                     <img src="<%=path+"/image/pages/index/menu_inquire1.png"%>">
                     <a onclick="document:jumpToInquire.submit()">信息查询</a>
                 </form>
             </li>
             <li id="menu-title-six">
-                <img src="<%=path+"/image/pages/index/menu_student1.png"%>">
+                <img src="<%=path+"/image/pages/index/menu_service1.png"%>">
                 <a href="<%=path+"/student"%>">学教专区</a>
+            </li>
+            <li id="menu-title-seven">
+                <img src="<%=path+"/image/pages/index/menu_student1.png"%>">
+                <a target="_blank" href="<%=path+"/robot"%>">智能客服</a>
             </li>
         </ul>
     </div>

@@ -105,7 +105,7 @@ public class ExamAnswerDao extends BaseRedisClient implements BaseDao<ExamAnswer
      * @return 受影响条数
      */
     @Override
-    public ExamAnswer updateById(ExamAnswer object) {
+    public Integer updateById(ExamAnswer object) {
         return null;
     }
 

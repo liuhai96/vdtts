@@ -9,8 +9,10 @@ import com.lsjbc.vdtts.entity.ExamAnswer;
 import com.lsjbc.vdtts.entity.ExamQuestion;
 import com.lsjbc.vdtts.interceptor.ExamEnity;
 import com.lsjbc.vdtts.pojo.dto.PageDTO;
+import com.lsjbc.vdtts.pojo.dto.QuestionBank;
 import com.lsjbc.vdtts.pojo.vo.ResultData;
 import com.lsjbc.vdtts.service.intf.ExamQuestionService;
+import com.lsjbc.vdtts.service.intf.ExamTestService;
 import com.lsjbc.vdtts.utils.GetExamQuestion;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +30,12 @@ public class ExamQuestionServiceImpl implements ExamQuestionService {
 
     @Resource(name = ExamAnswerDao.NAME)
     private ExamAnswerDao examAnswerDao;
+
+    @Resource(name = QuestionBank.NAME)
+    private QuestionBank questionBank;
+
+    @Resource(name = ExamTestServiceImpl.NAME)
+    private ExamTestService examTestService;
 
     @Override
     public ResultData insertExamQuestion(String level) {
@@ -70,6 +78,10 @@ public class ExamQuestionServiceImpl implements ExamQuestionService {
                 resultData = ResultData.success(1,"题库更新成功");
             }
         }
+
+
+        //重新生成对应科目的考卷
+        questionBank.setBank1(examTestService.generateText(Integer.parseInt(level)));
         return resultData;
     }
 

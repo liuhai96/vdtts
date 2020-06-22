@@ -78,7 +78,7 @@ public class NoticeDao implements BaseDao<Notice> {
      * @return 受影响条数
      */
     @Override
-    public Notice updateById(Notice object) {
+    public Integer updateById(Notice object) {
         return null;
     }
 

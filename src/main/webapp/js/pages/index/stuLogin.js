@@ -125,7 +125,9 @@ function submit($, params) {
             window.location.href = baseUrl + "/" + res.data.url;
             let newString = "";
             newString += "<a href='" + baseUrl + "/student'>欢迎您！ 学员: " + res.data.username + "</a>";
-            newString += "&nbsp;&nbsp;&nbsp;"
+            newString += "&nbsp;&nbsp;&nbsp;";
+            newString += "<a href='"+baseUrl+"/transfer?logo=alterpass'>修改信息</a>";
+            newString += "&nbsp;&nbsp;&nbsp;";
             newString += "<a href='" + baseUrl + "/logout/student'>退出</a>";
             $("#studentName", window.parent.document).html(newString);
         } else {

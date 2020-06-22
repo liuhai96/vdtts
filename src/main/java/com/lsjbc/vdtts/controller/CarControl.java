@@ -3,6 +3,7 @@ package com.lsjbc.vdtts.controller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.lsjbc.vdtts.aop.Log;
+import com.lsjbc.vdtts.dao.CarDao;
 import com.lsjbc.vdtts.entity.Car;
 import com.lsjbc.vdtts.enums.OperateType;
 import com.lsjbc.vdtts.enums.ResourceType;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -26,7 +28,8 @@ public class CarControl {
     private CarService carService;
     @Autowired
     private SchoolService schoolService;
-
+    @Resource
+    CarDao carDao;
     /*
      *@Description:查询驾校内教练车辆基本信息
      *@Author:刘海
@@ -114,6 +117,19 @@ public class CarControl {
         layuiData.setData(list);
         layuiData.setCount(count);
         return JSON.toJSONString(layuiData);
+    }
+
+    @RequestMapping(value = "/insertCar")//添加教练车
+    public  String insertCar (HttpServletRequest request, HttpServletResponse response, Car car){
+        System.out.println(" 添加教练车 car="+car.toString());
+        int i = carDao.add(car);
+        if(i>0){
+            System.out.println("添加驾校成功");
+            return "success";
+        }else {
+            System.out.println("添加驾校失败");
+            return "failed";
+        }
     }
 
 }

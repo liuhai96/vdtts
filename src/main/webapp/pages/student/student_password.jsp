@@ -13,7 +13,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Title</title>
+    <title>修改信息</title>
     <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -49,6 +49,7 @@
                     <br>
                     <br>
                     <br>
+                    <br>
                     <div class="layui-form-item" id="oldPass">
                         <div class="layui-inline">
                             <label class="layui-form-label">原密码:</label>
@@ -73,7 +74,7 @@
                             </div>
                         </div>
                     </div>
-                    <button type="button" class="layui-btn layui-btn-warm" id="toPass" onclick="changePassword()">修改</button>
+                    <button type="button" class="layui-btn layui-btn-warm" id="toPass" onclick="changePassword()">修改密码</button>
                     <button type="button" hidden class="" id="not" onclick="passNot()">取消</button>
                 </div>
             </div>
@@ -135,7 +136,6 @@
             }
             passTypes = !passTypes;
         }
-
     </script>
     </body>
 </html>

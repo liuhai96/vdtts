@@ -120,7 +120,7 @@ public class EvaluateDao implements BaseDao<Evaluate> {
      * @return 受影响条数
      */
     @Override
-    public Evaluate updateById(Evaluate object) {
+    public Integer updateById(Evaluate object) {
         return null;
     }
 
