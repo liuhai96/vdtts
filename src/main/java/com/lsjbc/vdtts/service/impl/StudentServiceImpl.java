@@ -260,6 +260,7 @@ public class StudentServiceImpl implements StudentService {
 		Student student = studentDao.getStudentByAccountId(token.getAId());
 
 		request.getSession().setAttribute("student", student);
+		request.getSession().setAttribute("account", token);
 
 		ResultData resultData = ResultData.success("登录成功", "url", "student/main");
 		resultData.put("username", student.getSName());
