@@ -70,6 +70,7 @@ public class CarControl {
     }
 
     @RequestMapping(value = "/addCar")
+    @Log(operateType = OperateType.ADD, resourceType = ResourceType.CAR, detail = "#cId")
     public Object addCar(Car car, HttpServletRequest request) {
         return JSON.toJSONString(carService.addCar(car, request));
     }
@@ -101,8 +102,7 @@ public class CarControl {
      *@Date:2020/6/10 15860799877
      **/
     @RequestMapping(value = "/selectCarInfo")//初始化教练车信息表
-    public String selectCarInfo(HttpServletRequest request, HttpServletResponse response,
-                                @RequestParam(value = "page") String page, @RequestParam(value = "limit") String limit,
+    public String selectCarInfo(HttpServletRequest request, HttpServletResponse response,@RequestParam(value = "page") String page, @RequestParam(value = "limit") String limit,
                                 Car car) {
         int page2 = (Integer.valueOf(page) - 1) * Integer.valueOf(limit);
         System.out.println(" ---carpage=" + page2);

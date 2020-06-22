@@ -78,7 +78,6 @@
                 ,{field:'sSfz', title:'身份证号'}
                 ,{field:'teacherName', title:'身份证号'}
                 ,{field:'sApplyState', title:'报名审核状态'}
-                // ,{title:'所属教练',templet: '<div>{{d.teacher.tName}}</div>'}
                 ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:150}
             ]]
             ,page: {limit: 5,//指定每页显示的条数

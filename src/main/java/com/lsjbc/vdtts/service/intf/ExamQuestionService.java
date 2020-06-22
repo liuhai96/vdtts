@@ -8,4 +8,6 @@ public interface ExamQuestionService {
     ResultData insertExamQuestion(String level);
 
     PageInfo findExamQuestion(PageDTO pageDTO);
+
+    ResultData findAnswer(String questionId);
 }

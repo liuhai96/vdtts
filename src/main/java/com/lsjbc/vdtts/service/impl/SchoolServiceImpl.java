@@ -386,7 +386,7 @@ public class SchoolServiceImpl implements SchoolService
 	@Override
 	public ResultData updateSchoolBasicInfo(School school) {
 		 ResultData resultData = null;
-		 int num = schoolMapper.updateSchoolBasicInfo(school);
+		 int num = schoolMapper.updateByPrimaryKeySelective(school);
 		 if(num>0){
 		 	resultData = ResultData.success(1,"修改驾校基本信息成功");
 		 }else {

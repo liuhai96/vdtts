@@ -65,13 +65,24 @@
             <input type="text" name="sBusinessId"  autocomplete="off" class="layui-input" disabled="disabled">
         </div>
     </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">图片地址</label>
+        <div class="layui-input-block">
+            <input type="text" name="sPicUrl"  autocomplete="off" class="layui-input" disabled="disabled">
+        </div>
+    </div>
+
     <div class="layui-form-item">
         <div class="layui-input-block">
             <button class="layui-btn" lay-submit lay-filter="formDemo">修改驾校信息</button>
         </div>
     </div>
-</form>
 
+</form>
+<div class="site-demo-button" id="layerDemo" style="margin-bottom: 0;">
+    <button data-method="offset" data-type="auto" class="layui-btn layui-btn-normal">居中弹出</button>
+</div>
 
 <form class="layui-form" action="" id="updateSchoolInfo" style="display:none">
     <div class="layui-form-item">
@@ -93,12 +104,26 @@
         </div>
     </div>
     <div class="layui-form-item">
+        <label class="layui-form-label">图片地址</label>
+        <div class="layui-input-block">
+            <input type="text" name="sImageUrl"  autocomplete="off" class="layui-input" disabled="disabled">
+        </div>
+    </div>
+    <div class="layui-upload">
+        <button type="button" class="layui-btn" id="test1">上传图片</button>
+        <div class="layui-upload-list">
+            <img class="layui-upload-img" id="demo1">
+            <p id="demoText"></p>
+        </div>
+    </div>
+    <div class="layui-form-item">
         <div class="layui-form-item">
             <div class="layui-input-block">
                 <button class="layui-btn" lay-submit lay-filter="update">立即提交</button>
             </div>
         </div>
     </div>
+
 </form>
 <script>
     layui.use('table',function() {
@@ -115,6 +140,7 @@
                 $("input[name='schoolAddress']").val(remsg.data['school'].saddress);
                 $("input[name='sBusinessId']").val(remsg.data['school'].sbusinessid);
                 $("input[name='schoolId']").val(remsg.data['school'].sid);
+                $("input[name='sPicUrl']").val(remsg.data['school'].simageUrl);
             },
             error:function () {
                 layer.alert("网络错误，请联系运营商");
@@ -122,17 +148,18 @@
         });
     });
 
-    layui.use(['form','layer'], function(){
+    layui.use(['form','layer','upload'], function(){
         var form = layui.form;
         var $ = layui.jquery;
-        var layer = layui.layer;
+        var layer = layui.layer,upload=layui.upload;
         var index1="";
+        var sImageUrl = "";
         form.on('submit(formDemo)', function(data){
             $("input[name='sId']").val($("input[name='schoolId']").val())
 
             index1 = layer.open({
                 type: 1,
-                area:["400","300px"],
+                area:["800","600px"],
                 skin: 'layui-layer-rim',
                 shadeClose: true,//点击其他地方关闭
                 content:$("#updateSchoolInfo"),
@@ -142,6 +169,36 @@
             });
             return false;
         });
+
+        var uploadInst = upload.render({
+            elem: '#test1'
+            , url: '<%=path%>/upImage' //改成您自己的上传接口
+            , before: function (obj) {
+                //预读本地文件示例，不支持ie8
+                obj.preview(function (index, file, result) {
+                    $('#demo1').attr('src', result); //图片链接（base64）
+                });
+            }
+            , done: function (res) {
+                //如果上传失败
+                if (res.code > 0) {
+                    return layer.msg('上传失败');
+                }else{
+                    sImageUrl = res.fPath;
+                    $("input[name='sImageUrl']").val(sImageUrl)
+                }
+                //上传成功
+            }
+            , error: function () {
+                //演示失败状态，并实现重传
+                var demoText = $('#demoText');
+                demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+                demoText.find('.demo-reload').on('click', function () {
+                    uploadInst.upload();
+                });
+            }
+        });
+
         form.on('submit(update)', function(data){
             form.render();
           var index = layer.confirm('您确定修改驾校的基本信息？',{
@@ -175,6 +232,37 @@
             });
             return false;
         });
+
+
+        //触发事件
+        var active = {
+        offset: function(othis){
+            var surl = $("input[name='sPicUrl']").val();
+            var type = othis.data('type')
+                ,text = othis.text();
+            layer.open({
+                type: 1
+                ,offset: 'auto' //具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
+                ,id: 'layerDemo'+type //防止重复弹出
+                ,content: "<div  style=\"padding: 20px 100px;\"><img src="+<%=path%>surl+"></div>"
+                ,btn: '关闭全部'
+                ,btnAlign: 'c' //按钮居中
+                ,shade: 2 //不显示遮罩
+                ,shadeClose: true
+                ,yes: function(){
+                    layer.closeAll();
+                }
+            });
+        }
+    };
+
+        $('#layerDemo .layui-btn').on('click', function(){
+            var othis = $(this), method = othis.data('method');
+            active[method] ? active[method].call(this, othis) : '';
+        });
+
+
+
     });
 
 </script>

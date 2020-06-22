@@ -80,5 +80,14 @@ public class ExamQuestionServiceImpl implements ExamQuestionService {
     }
 
 
+    @Override
+    public ResultData findAnswer(String questionId){
+        ResultData resultData = null;
+        List answerList = examAnswerDao.getByQuestionId(Integer.parseInt(questionId));
+        resultData = ResultData.success("查询成功","answerList",answerList);
+        return resultData;
+    }
+
+
 }
 

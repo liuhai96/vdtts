@@ -108,7 +108,13 @@
 
 <!--    刘海-->
     <update id="updateSchoolBasicInfo" parameterType="com.lsjbc.vdtts.entity.School">
-        update tb_school set s_address = #{sAddress},s_phone = #{sPhone} where s_id = #{sId}
+        update tb_school
+        <set>
+        <if test="school.sImageUrl==null||school.sImageUrl==''">
+         s_address = #{sAddress},s_phone = #{sPhone} where s_id = #{sId}
+        </if>
+
+    </set>
     </update>
 
     <select id="findSchoolPwd" parameterType="int" resultType="java.lang.String">
