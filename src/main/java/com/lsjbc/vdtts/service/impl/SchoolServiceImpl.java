@@ -4,6 +4,7 @@ package com.lsjbc.vdtts.service.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.lsjbc.vdtts.constant.EvaluateType;
 import com.lsjbc.vdtts.dao.*;
 import com.lsjbc.vdtts.dao.mapper.CarMapper;
@@ -14,6 +15,7 @@ import com.lsjbc.vdtts.entity.ExamParam;
 import com.lsjbc.vdtts.entity.School;
 import com.lsjbc.vdtts.entity.Student;
 import com.lsjbc.vdtts.pojo.dto.CarCount;
+import com.lsjbc.vdtts.pojo.dto.PageDTO;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.pojo.vo.PowerSchool;
 import com.lsjbc.vdtts.pojo.vo.ResultData;
@@ -420,5 +422,19 @@ public class SchoolServiceImpl implements SchoolService
 		}).collect(Collectors.toList());
 
 		return schoolList;
+	}
+
+
+	/*
+	 *@Description:微信小程序查看驾校
+	 *@Author:刘海
+	 *@Param:
+	 *@return:
+	 *@Date:2020/6/22 21:17
+	 **/
+	@Override
+	public PageInfo findSchool(PageDTO pageDTO) {
+		PageHelper.startPage(pageDTO.getPage(), pageDTO.getLimit(), true);
+		return new PageInfo<>(schoolMapper.selectAll());
 	}
 }

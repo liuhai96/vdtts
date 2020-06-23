@@ -1,15 +1,13 @@
 package com.lsjbc.vdtts.service.impl;
 
+import com.lsjbc.vdtts.constant.CustomTime;
+import com.lsjbc.vdtts.dao.ExamParamDao;
 import com.lsjbc.vdtts.dao.mapper.ExamResultMapper;
 import com.lsjbc.vdtts.dao.mapper.ExamSimulateRecordMapper;
-import com.lsjbc.vdtts.entity.ExamResult;
-import com.lsjbc.vdtts.entity.ExamSimulateRecord;
-import com.lsjbc.vdtts.entity.School;
-import com.lsjbc.vdtts.entity.Student;
+import com.lsjbc.vdtts.entity.*;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.pojo.vo.ResultData;
 import com.lsjbc.vdtts.service.intf.ExamResultService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -28,6 +26,8 @@ public class ExamResultServiceImpl implements ExamResultService {
     private ExamResultMapper examResultMapper;
     @Resource
     private ExamSimulateRecordMapper examSimulateRecordMapper;
+    @Resource
+    private ExamParamDao examParamDao;
 
     @Override
     public LayuiTableData selectStudentExamList(String page, String limit, String sName, HttpServletRequest request) {
@@ -80,18 +80,19 @@ public class ExamResultServiceImpl implements ExamResultService {
                         if(num>0){
                             resultData = ResultData.success(0,"您已成功为该学员安排科目一考试");
                         }
-
                     }
                 }
                 break;
             case 2:
+                ExamParam examParam = examParamDao.selectTime("科目二学时");
+                Long towTime = examResult.getErTime2()* CustomTime.SECOND_OF_HOUR;
                 if(examResult.getErState2()==2){
                     resultData = ResultData.error(-1,"该学员的科目二或正在考试中");
                 }else if(examResult.getErState2()==1){
                     resultData = ResultData.error(-1,"该学员的科目二已通过");
                 }else{
                     if(examResult.getErState1()==1){
-                        if(examResult.getErTime2()>280){
+                        if(towTime>Integer.parseInt(examParam.getPmValue())){
                             count = examResultMapper.findSubjectExamCount(teacherId,examSujectId);
                             if(count>=5){
                                 resultData = ResultData.error(-1,"该科目考试人数已满请重新选择考试科目");
@@ -111,13 +112,15 @@ public class ExamResultServiceImpl implements ExamResultService {
 
                 break;
             case 3:
+                ExamParam examParam2 = examParamDao.selectTime("科目三学时");
+                Long threeTime = examResult.getErTime3()* CustomTime.SECOND_OF_HOUR;
                 if(examResult.getErState3()==2){
                     resultData = ResultData.error(-1,"该学员的科目三正在考试中");
                 }else if(examResult.getErState3()==1){
                     resultData = ResultData.error(-1,"该学员的科目三已通过");
                 }else{
                     if(examResult.getErState2()==1){
-                        if(examResult.getErTime3()>280){
+                        if(threeTime>Integer.parseInt(examParam2.getPmValue())){
                             count = examResultMapper.findSubjectExamCount(teacherId,examSujectId);
                             if(count>=5){
                                 resultData = ResultData.error(-1,"该科目考试人数已满请重新选择考试科目");
