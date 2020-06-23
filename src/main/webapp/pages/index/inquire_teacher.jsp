@@ -281,12 +281,12 @@
 				    ,
 				    offset: ['100px', '300px']
                     ,
-		// 		    // content: '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">' +
+                    content: '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">确认报名该教练？ </div>'
         //             //         '欢迎报名该教练！' +
         //             //         '<br>姓名<br><input type="text" name="sName" id="sName" placeholder="请输入姓名" class="layui-input" >' +
         //             //         '<br>身份证<br><input type="text" name="sSfz" id="sSfz" placeholder="请输入身份证" class="layui-input" > ' +
         //             //         '</div>'
-		// 		    // ,
+				    ,
 				    yes: function (index, layer) {
                         // let sName = $("#sName").val();
                         let teacherId = $("#teacherId").html();

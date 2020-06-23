@@ -1,15 +1,16 @@
 package com.lsjbc.vdtts.service.intf;
 
 import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 import com.lsjbc.vdtts.entity.Account;
 import com.lsjbc.vdtts.entity.ExamParam;
 import com.lsjbc.vdtts.entity.School;
+import com.lsjbc.vdtts.pojo.dto.PageDTO;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.pojo.vo.PowerSchool;
 import com.lsjbc.vdtts.pojo.vo.ResultData;
 import com.lsjbc.vdtts.pojo.vo.SchoolDetail;
 import org.apache.ibatis.annotations.Param;
-
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -111,5 +112,15 @@ public interface SchoolService {
      */
     List<PowerSchool> getFiveMostPowerfulSchool();
 
+
+    /*
+     *@Description:微信小程序用
+     *@Author:刘海
+     *@Param:
+     *@return:
+     *@Date:2020/6/22 21:14
+     **/
+
+    PageInfo findSchool(PageDTO pageDTO);
 
 }

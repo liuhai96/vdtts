@@ -24,13 +24,13 @@ import java.util.List;
 @RequestMapping("/teacherController")
 public class TeacherController {
 
- /*
-  *@Description：将查询的数据返回前端界面展示
-  *@Author:刘海
-  *@Param:[request, response]
-  *@return:java.lang.String
-  *@Date:2020/6/7 11:56
-  **/
+    /*
+     *@Description：将查询的数据返回前端界面展示
+     *@Author:刘海
+     *@Param:[request, response]
+     *@return:java.lang.String
+     *@Date:2020/6/7 11:56
+     **/
 
     @Autowired
     private TeacherService teacherService;
@@ -38,22 +38,22 @@ public class TeacherController {
     private StudentService studentService;
 
     @RequestMapping(value = "/findTeacherList")
-    public String findTeacherList(String page,String limit,String tName,HttpServletRequest request){
-       LayuiTableData layuiTableData = teacherService.findTeacherList(page,limit,tName,request);
-       return JSON.toJSONString(layuiTableData, SerializerFeature.DisableCircularReferenceDetect);
+    public String findTeacherList(String page, String limit, String tName, HttpServletRequest request) {
+        LayuiTableData layuiTableData = teacherService.findTeacherList(page, limit, tName, request);
+        return JSON.toJSONString(layuiTableData, SerializerFeature.DisableCircularReferenceDetect);
     }
 
 
- /*
-  *@Description:添加教练基本信息
-  *@Author:刘海
-  *@Param:Teacher teacher  Account teacherAccount
-  *@return:
-  *@Date:2020/6/7 23:09
-  **/
-   @RequestMapping(value = "/addTeacher")
-    public String addTeacher(Teacher teacher,Account teacherAccount,HttpServletRequest request){
-        LayuiTableData LayuiTableData = teacherService.addTeacher(teacher,teacherAccount,request);
+    /*
+     *@Description:添加教练基本信息
+     *@Author:刘海
+     *@Param:Teacher teacher  Account teacherAccount
+     *@return:
+     *@Date:2020/6/7 23:09
+     **/
+    @RequestMapping(value = "/addTeacher")
+    public String addTeacher(Teacher teacher, Account teacherAccount, HttpServletRequest request) {
+        LayuiTableData LayuiTableData = teacherService.addTeacher(teacher, teacherAccount, request);
         return JSON.toJSONString(LayuiTableData);
     }
 
@@ -66,28 +66,35 @@ public class TeacherController {
      *@Date:2020/6/8 16:21
      **/
     @RequestMapping(value = "/deleteTeacher")
-    public String deleteTeacher(String tId,HttpServletRequest request){
-        System.out.println("tId"+tId);
-        LayuiTableData layuiTableData = teacherService.deleteTeacher(Integer.parseInt(tId),request);
-       return JSON.toJSONString(layuiTableData);
+    public String deleteTeacher(String tId, HttpServletRequest request) {
+        System.out.println("tId" + tId);
+        LayuiTableData layuiTableData = teacherService.deleteTeacher(Integer.parseInt(tId), request);
+        return JSON.toJSONString(layuiTableData);
     }
 
 
-
-     @RequestMapping(value = "/updateTeacherInfo")
-     /*
-      *@Description:修改教练的基本信息
-      *@Author:刘海
-      *@Param:[teacher]
-      *@return:java.lang.String
-      *@Date:2020/6/8 21:49
-      **/
-    public String updateTeacherInfo(Teacher teacher){
+    @RequestMapping(value = "/updateTeacherInfo")
+    /*
+     *@Description:修改教练的基本信息
+     *@Author:刘海
+     *@Param:[teacher]
+     *@return:java.lang.String
+     *@Date:2020/6/8 21:49
+     **/
+    public String updateTeacherInfo(Teacher teacher) {
         LayuiTableData layuiTableData = teacherService.updateTeacherInfo(teacher);
         return JSON.toJSONString(layuiTableData);
     }
 
-    public ResultData updateTeacherLimit(Teacher teacher){
+    /*
+     *@Description:修改教练本月毕业人数
+     *@Author:刘海
+     *@Param:
+     *@return:
+     *@Date:2020/6/21 20:37
+     **/
+    @RequestMapping(value = "/updateTeacherLimit")
+    public ResultData updateTeacherLimit(Teacher teacher) {
         return teacherService.updateTeacherLimit(teacher);
     }
 
@@ -99,9 +106,9 @@ public class TeacherController {
      *@Date:2020/6/8 1591607352442
      **/
     //教练表查看
-    @RequestMapping(value = "/teacherList",produces = {"application/json;charset=UTF-8"})
+    @RequestMapping(value = "/teacherList", produces = {"application/json;charset=UTF-8"})
     @ResponseBody
-    public String teacherList(HttpServletRequest request, HttpServletResponse response,Teacher teacher) {
+    public String teacherList(HttpServletRequest request, HttpServletResponse response, Teacher teacher) {
         String pageStr = request.getParameter("page");//页码
         String pageSizeStr = request.getParameter("limit");//每页记录数
         String draw = request.getParameter("draw");//重绘次数 和前台对应
@@ -110,34 +117,35 @@ public class TeacherController {
         return JSON.toJSONString(layuiTableData);
     }
 
-   @RequestMapping(value = "/findTeacher")
-    public String findTeacher(HttpServletRequest request){
+    @RequestMapping(value = "/findTeacher")
+    public String findTeacher(HttpServletRequest request) {
         return JSON.toJSONString(teacherService.findTeacher(request));
     }
 
     @RequestMapping(value = "/updateTeacherApplyState")
-    public Object updateTeacherApplyState(String tId, String tTeach){
-        return  JSON.toJSONString(teacherService.updateTeacherApplyState(tTeach,Integer.parseInt(tId)));
+    public Object updateTeacherApplyState(String tId, String tTeach) {
+        return JSON.toJSONString(teacherService.updateTeacherApplyState(tTeach, Integer.parseInt(tId)));
     }
 
     @RequestMapping(value = "/updateTeacherAccountLockState")
-   public Object updateTeacherAccountLockState(String tLock,String tId){
-        return  JSON.toJSONString(teacherService.updateTeacherAccountLockState(tLock,Integer.parseInt(tId)));
+    public Object updateTeacherAccountLockState(String tLock, String tId) {
+        return JSON.toJSONString(teacherService.updateTeacherAccountLockState(tLock, Integer.parseInt(tId)));
     }
+
     @RequestMapping(value = "/teacherInit")
-    public ModelAndView TeacherInit(){
+    public ModelAndView TeacherInit() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("/pages/teacher/teacher");
         return modelAndView;
     }
+
     @RequestMapping(value = "/stuTableData")//教练查找学生信息
-    public String StuTabelData(int page,int limit,Student student,HttpServletRequest request){
-        LayuiTableData layuiTableData = studentService.selectList(student,page,limit);
-        if(student.getSName() == null ||student.getSName().equals(""))
+    public String StuTabelData(int page, int limit, Student student, HttpServletRequest request) {
+        LayuiTableData layuiTableData = studentService.selectList(student, page, limit);
+        if (student.getSName() == null || student.getSName().equals(""))
             request.getSession().setAttribute("studentCount", layuiTableData.getCount());
         return JSON.toJSONString(layuiTableData);
     }
-
 
 
     /*
@@ -149,13 +157,13 @@ public class TeacherController {
      **/
     @RequestMapping(value = "/selectTeacherInfo")//初始化教练信息表
     public String selectTeacherInfo(HttpServletRequest request, HttpServletResponse response,
-                                @RequestParam(value = "page") String page , @RequestParam(value = "limit") String limit,
-                                Teacher teacher) {
-        int page2 = (Integer.valueOf(page)-1)*Integer.valueOf(limit);
-        System.out.println(" ---carpage="+page2);
-        List<Teacher> list= teacherService.selectAllInfo(teacher,page2,Integer.valueOf(limit));
-        int count =teacherService.selectTeacherCount(teacher);
-        System.out.println("教练信息初始化操作--- list="+list+" count ="+count);
+                                    @RequestParam(value = "page") String page, @RequestParam(value = "limit") String limit,
+                                    Teacher teacher) {
+        int page2 = (Integer.valueOf(page) - 1) * Integer.valueOf(limit);
+        System.out.println(" ---carpage=" + page2);
+        List<Teacher> list = teacherService.selectAllInfo(teacher, page2, Integer.valueOf(limit));
+        int count = teacherService.selectTeacherCount(teacher);
+        System.out.println("教练信息初始化操作--- list=" + list + " count =" + count);
         LayuiTableData layuiData = new LayuiTableData();
         layuiData.setCode(0);
         layuiData.setData(list);
@@ -172,7 +180,7 @@ public class TeacherController {
      *@Date:2020/6/13 16:28
      **/
     @ResponseBody
-    public String UpdatePhone(Teacher teacher){
+    public String UpdatePhone(Teacher teacher) {
         return JSON.toJSONString(teacherService.UpdatePhone(teacher));
     }
 
@@ -185,14 +193,14 @@ public class TeacherController {
      *@Date:2020/6/15 1:48
      **/
     @ResponseBody
-    public String ShowTeacher(Teacher teacher,@RequestParam(value = "page") int page , @RequestParam(value = "limit") int limit){
-        return JSON.toJSONString(teacherService.HomePageShow(teacher,page,limit));
+    public String ShowTeacher(Teacher teacher, @RequestParam(value = "page") int page, @RequestParam(value = "limit") int limit) {
+        return JSON.toJSONString(teacherService.HomePageShow(teacher, page, limit));
     }
 
 
     @RequestMapping(value = "/checksSfz")
     @ResponseBody
-    public ResultData checksSfz(HttpServletRequest request, HttpServletResponse response){
+    public ResultData checksSfz(HttpServletRequest request, HttpServletResponse response) {
         response.setContentType("text/html;charset=utf-8");
         return teacherService.checksSfz(request);
     }
