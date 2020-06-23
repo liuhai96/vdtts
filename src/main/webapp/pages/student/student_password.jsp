@@ -29,7 +29,13 @@
 
 	<link rel="stylesheet" href="<%=path+"/css/pages/index/style.css"%>">
 	<link rel="stylesheet" href="<%=path+"/css/pages/index/home_main.css"%>">
-
+<style>
+	body{
+		background:url("../../static/layui/images/photo/08.png");
+		background-size: 100% 90%;
+		background-repeat:no-repeat;
+	}
+</style>
 </head>
     <body>
     <div class="login-inf">
@@ -111,7 +117,6 @@
                 <div class="form">
                     <div style="padding-left: 500px">
                     <div class="form-group radio-form" id="test10" onclick="" type="button" style="padding: auto">
-                        <%--                        <label skip="true" >修改头像<i>*</i></label>--%>
                         <div class="user-type-conatiner layui-upload" style="height: 15%;width: 15% ;">
                             <div class="user-type active layui-upload-list" ref="radioWrap" data-index="0"
                                  style="height:150px ;width: 200px; margin: auto;border: 0px solid black;">
@@ -155,8 +160,6 @@
                     </div>
                     <button type="button" class="layui-btn layui-btn-warm" id="toPass" onclick="changePassword()">修改密码</button>
                     <button type="button" hidden class="" id="not" onclick="passNot()">取消</button>
-
-
                     <br>
                     <br>
                     <br>
@@ -186,10 +189,7 @@
                     <button type="button" class="layui-btn layui-btn-warm" id="updatePhone">修改手机号</button>
 
 
-
                 </div>
-
-
             </div>
         </div>
     </div>
@@ -201,21 +201,21 @@
             </div>
         </div>
     </div>
-<%--    <div class="footer">--%>
-<%--	    <div class="footer-box">--%>
-<%--		    <p class="footer-p" style="text-align: center;">友情链接</p>--%>
-<%--		    <div class="footer-friend">--%>
-<%--			    <c:forEach items="${linkList}" varStatus="item" var="link">--%>
-<%--				    <c:if test="${item.index % 5 == 0}">--%>
-<%--					    <br><br>--%>
-<%--				    </c:if>--%>
-<%--				    <a target="_blank" href="${link.lkUrl}">--%>
-<%--					    <img class="footer-img" src='<%=path%>${link.lkPic}'>--%>
-<%--				    </a>--%>
-<%--			    </c:forEach>--%>
-<%--		    </div>--%>
-<%--	    </div>--%>
-<%--    </div>--%>
+    <div class="footer">
+	    <div class="footer-box">
+		    <p class="footer-p" style="text-align: center;">友情链接</p>
+		    <div class="footer-friend">
+			    <c:forEach items="${linkList}" varStatus="item" var="link">
+				    <c:if test="${item.index % 5 == 0}">
+					    <br><br>
+				    </c:if>
+				    <a target="_blank" href="${link.lkUrl}">
+					    <img class="footer-img" src='<%=path%>${link.lkPic}'>
+				    </a>
+			    </c:forEach>
+		    </div>
+	    </div>
+    </div>
     <div class="footer-inf">
 	    <ul style="text-align: center;display: table;">
 		    <li style="margin: 0 60px 0 0px;">
@@ -244,8 +244,6 @@
                         if(res.code!=0){
                             layer.msg(res.msg);
                         }
-
-
                     })
                 });
                 alert("模拟验证码为：000000     6个零")
@@ -276,8 +274,6 @@
                 return true;
             }
         }
-
-
 
         let verify = -1;
         let passTypes = true;

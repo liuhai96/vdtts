@@ -1905,13 +1905,9 @@
             <div class="register-form jx-register-form">
                 <form class="layui-form" action="<%=path+"/student/register"%>" autocomplete="off" id="registerfrom" method="post">
                     <h4>学员注册</h4>
-<%--                    <div id="idPhoto" style="display: none;">--%>
-                        <div class="layui-col-md4 layui-col-sm6">
+                    <div id="idPhoto" style="display: none;">
                             <div class="alone-version-desc layui-text">
-                                <h2>身份证识别入场</h2>
-                                <p>
-                                    <span class="alone-badge">识别率高</span>
-                                </p>
+	                            上传身份信息
                                 <div class="methodContent">
                                     <ul>
                                         <li>请上传身份证上<strong style="color: #FF5722;">带有人脸的那一面</strong></li>
@@ -1922,12 +1918,6 @@
                                     <button id="uploadCard" type="button" class="layui-btn" style="position: relative;" >开始上传身份证照片</button>
                                 </div>
                             </div>
-                        </div>
-<%--                        上传身份信息--%>
-<%--                        <br>--%>
-<%--                        上传身份证信息后，将身份证和姓名保存到表单中--%>
-<%--                        <br>--%>
-<%--                        别的不要动--%>
                     </div>
                     <div id="idHand" style="display: block;">
 
@@ -2030,19 +2020,6 @@
 
         let inputByHand = true;
 
-                $(function() {
-                    //添加窗口尺寸改变响应监听
-                    $(window).resize(resizeCanvas);
-                    //页面加载后先设置一下canvas大小
-                    resizeCanvas();
-                });
-
-        //窗口尺寸改变响应（修改canvas大小）
-        function resizeCanvas() {
-            $("#myCanvas").attr("width", $("#cameraDiv").width());
-            $("#myCanvas").attr("height", $("#cameraDiv").height());
-        };
-
         $("#showPhoto").on("click",function (event) {
             $("#idHand").attr("style","display:none;");
             $("#idPhoto").attr("style","display:block;");
@@ -2125,6 +2102,20 @@
                 return true;
             }
         }
+
+        // //身份证
+		//     $(function() {
+		// 	    //添加窗口尺寸改变响应监听
+		// 	    $(window).resize(resizeCanvas);
+		// 	    //页面加载后先设置一下canvas大小
+		// 	    resizeCanvas();
+		//     });
+	    //
+	    // //窗口尺寸改变响应（修改canvas大小）
+	    // function resizeCanvas() {
+		//     $("#myCanvas").attr("width", $("#cameraDiv").width());
+		//     $("#myCanvas").attr("height", $("#cameraDiv").height());
+	    // };
     });
 </script>
 
