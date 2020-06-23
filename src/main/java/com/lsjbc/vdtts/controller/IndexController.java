@@ -3,15 +3,12 @@ package com.lsjbc.vdtts.controller;
 import com.lsjbc.vdtts.constant.EvaluateType;
 import com.lsjbc.vdtts.dao.ExamResultDao;
 import com.lsjbc.vdtts.entity.*;
-import com.lsjbc.vdtts.pojo.bo.aliai.SMS;
 import com.lsjbc.vdtts.pojo.dto.QuestionBank;
 import com.lsjbc.vdtts.pojo.vo.StudentRegister;
 import com.lsjbc.vdtts.service.impl.*;
 import com.lsjbc.vdtts.service.intf.*;
 import com.lsjbc.vdtts.utils.CustomStringUtils;
 import com.lsjbc.vdtts.utils.CustomTimeUtils;
-import jdk.nashorn.internal.objects.annotations.Getter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -386,6 +383,7 @@ public class IndexController {
         School school = schoolService.getSchoolBySchoolId(schoolid);
 
         map.put("sid", school.getSId());
+        map.put("sRegisteryFee", school.getSRegisteryFee());
         map.put("sbusinessId", school.getSBusinessId());
         map.put("time", school.getSRegTime());
         map.put("teachercount", teachercount);

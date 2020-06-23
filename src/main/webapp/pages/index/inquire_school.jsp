@@ -113,7 +113,7 @@
 	<DIV class="del-lun">
 	</DIV>
 	<DIV style="float: left">
-		<IMG style="height: 260px; width: 700px;" src="<%=path%>/static/layui/images/photo/06.png">
+		<IMG style="height: 300px; width: 700px;" src="<%=path%>/static/layui/images/photo/06.png">
 	</DIV>
 	<DIV class="del-schinf">
 		<P class="del-p"><span>${name}</span><IMG src="<%=path%>/image/pages/index/tower.png"></P>
@@ -121,10 +121,15 @@
 			<p>
 				<b>全国统一信用代码：</b>
 				<span>${sbusinessId}</span>
-				<b style="margin-left: 40px;">经营许可日期：</b>
+			</p>
+			<p>
+				<b>经营许可日期：</b>
 				<span>${time}</span>
 			</p>
-
+			<p>
+				<b>报名费：</b>
+				<span>${sRegisteryFee}</span>
+			</p>
 			<p><b>教练员人数：</b>
 				<span>${teachercount}</span>人
 			</p>

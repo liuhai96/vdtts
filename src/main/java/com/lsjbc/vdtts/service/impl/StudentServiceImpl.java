@@ -359,7 +359,12 @@ public class StudentServiceImpl implements StudentService {
                 if (map.size() > 0) {
                     System.out.println("加入人脸识别成功");
                     resultData.setMsg("加入人脸识别成功");
-                    resultData.setCode(list.size()+1);//人脸张数
+                    if(map.size()==20) {
+                        resultData.setCode(list.size());
+                    } else{
+                        resultData.setCode(list.size()+1);//人脸张数
+                    }
+
                 } else {
                     System.out.println("加入人脸识别失败");
                     resultData.setMsg("加入人脸识别失败");
@@ -398,6 +403,7 @@ public class StudentServiceImpl implements StudentService {
             account.setAId(student.getSAccountId());
             account = accountMapper.selectAccount(account);
             request.getSession().setAttribute("account",account);
+            request.getSession().setAttribute("aId",account.getAId());
             resultData.setMsg("登录成功");
         } catch (Exception e){
             e.printStackTrace();

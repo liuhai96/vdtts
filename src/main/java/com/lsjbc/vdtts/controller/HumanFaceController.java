@@ -31,8 +31,8 @@ public class HumanFaceController {
     public ModelAndView AddFace(String base64, int sId){
         ModelAndView modelAndView = new ModelAndView();
         ResultData resultData = studentService.AddFace(base64,sId);
-        modelAndView.addObject("result", resultData);
-        modelAndView.setViewName("/");
+        modelAndView.addObject("result2", resultData);
+        modelAndView.setViewName("/pages/student/add-student-face");
         return modelAndView;
     }
 
@@ -41,7 +41,7 @@ public class HumanFaceController {
     private SearchFace searchFace;
     @RequestMapping(value = "/lookFace")
     /*
-     *@Description:
+     *@Description://人脸识别登录
      *@Author:李浪_191019
      *@Param:[base64]
      *@return:java.lang.String

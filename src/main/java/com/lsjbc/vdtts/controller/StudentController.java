@@ -246,8 +246,11 @@ public class StudentController {
         ModelAndView modelAndView = new ModelAndView();
         String nextJsp;
         switch (logo){
-            case "face" :
+            case "face" ://人脸登录中转
                 nextJsp = "/pages/student/human-face";
+            break;
+            case"addFace"://人脸录入中转
+                nextJsp = "/pages/student/add-student-face";
                 break;
             default :
                 nextJsp = "";
