@@ -47,8 +47,6 @@ public interface StudentMapper extends CustomBaseMapper<Student> {
     public Integer studentExamCount3();
     public Integer studentExamCount4();
 
-    //	//sfz
-//    public Student insSfz(Student student);
     //修改所属驾校
     public int inschool(@Param("e")Student student,@Param("sSchoolId") Integer sSchoolId);
     //修改所属教练和驾校

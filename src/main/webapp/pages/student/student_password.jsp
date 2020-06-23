@@ -187,8 +187,6 @@
                     </div>
                     <input id="codeBtn" class="layui-btn layui-btn-warm" data-send="true" type="button" value="获取验证码">
                     <button type="button" class="layui-btn layui-btn-warm" id="updatePhone">修改手机号</button>
-
-
                 </div>
             </div>
         </div>

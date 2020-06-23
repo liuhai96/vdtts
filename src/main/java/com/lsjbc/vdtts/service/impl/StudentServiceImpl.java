@@ -23,9 +23,9 @@ import com.lsjbc.vdtts.utils.Tool;
 import com.lsjbc.vdtts.utils.baidu.baiduTools.face.ManageFace;
 import com.lsjbc.vdtts.utils.baidu.baiduTools.face.SearchFace;
 import com.lsjbc.vdtts.utils.baidu.baiduTools.face.TFaceMethod;
-import org.apache.http.HttpRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
