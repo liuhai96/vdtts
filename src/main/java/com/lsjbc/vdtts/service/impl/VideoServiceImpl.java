@@ -31,6 +31,7 @@ public class VideoServiceImpl implements VideoService {
      *
      * @param level 特定科目
      * @return 教学视频集合
+     * @author JX181114 --- 郑建辉
      */
     @Override
     public List<Video> getVideoByLevel(Integer level) {
@@ -42,6 +43,7 @@ public class VideoServiceImpl implements VideoService {
      *
      * @param id 主键
      * @return 记录
+     * @author JX181114 --- 郑建辉
      */
     @Override
     public Video getVideoById(Integer id) {

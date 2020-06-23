@@ -96,7 +96,7 @@
 
         video.addEventListener('pause', function () { //暂停开始执行的函数
             console.log("暂停播放");
-            clearInterval(countDown);
+            submitTime();
         });
 
         video.addEventListener('ended', function () { //结束
