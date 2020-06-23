@@ -387,8 +387,22 @@
 							},
 							success: function (remsg) {
 								console.log(remsg);
+								alert("即将跳转到支付界面");
 								alert(remsg.msg);
-								layer.close(index);
+								// alert("即将跳转到支付界面");
+								//跳转支付界面
+								location.href =path+'/aliPayController/pay'
+								//驾校id 驾校name 学员id 学员姓名 学费金额
+								alert("schoolId="+schoolId+" schoolName="+schoolName+" studentId="+studentId+" studentName="+studentName+)
+								$.ajax({
+									type:'get',
+									url:'/aliPayController/pay',
+									data:{
+										schoolId:schoolId,
+										schoolName:Name,
+									}
+								})
+								// layer.close(index);
 							}
 						})
 					}

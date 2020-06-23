@@ -172,7 +172,7 @@
         <div class="layui-form-item" style="margin-top: 10px">
             <label class="layui-form-label">科目名称：</label>
             <div class="layui-input-inline">
-                <input type="text" name="pmKey" id="pmKey" autocomplete="off" class="layui-input" lay-verify="required">
+                <input type="text" name="pmKey" id="pmKey" autocomplete="off" disabled class="layui-input" lay-verify="required">
             </div>
         </div>
         <div class="layui-form-item">
