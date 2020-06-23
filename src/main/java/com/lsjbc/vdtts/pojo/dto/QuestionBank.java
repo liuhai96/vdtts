@@ -67,6 +67,20 @@ public class QuestionBank {
     }
 
     /**
+     * 重置题库
+     *
+     * @param level 科目等级
+     * @author JX181114 --- 郑建辉
+     */
+    public void resetBank(Integer level) {
+        if (level == 1) {
+            bank1 = service.generateText(1);
+        } else {
+            bank4 = service.generateText(4);
+        }
+    }
+
+    /**
      * 判断是否拥有线程试卷
      *
      * @param level 科目等级

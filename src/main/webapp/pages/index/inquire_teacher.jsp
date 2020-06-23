@@ -40,7 +40,7 @@
             </c:if>
             <c:if test="${sessionScope.student != null }">
                 <a href="<%=path+"/student"%>" id="studentName">欢迎您！ 学员: ${sessionScope.student.SName}</a>
-                &nbsp;&nbsp;&nbsp;
+                <a href="<%=path+"/transfer?logo=alterpass"%>">修改信息</a>
                 <a href="<%=path+"/logout/student"%>">退出</a>
             </c:if>
         </div>
@@ -85,8 +85,12 @@
                 </form>
             </li>
             <li id="menu-title-six">
-                <img src="<%=path+"/image/pages/index/menu_student1.png"%>">
+                <img src="<%=path+"/image/pages/index/menu_service1.png"%>">
                 <a href="<%=path+"/student"%>">学教专区</a>
+            </li>
+            <li id="menu-title-seven">
+                <img src="<%=path+"/image/pages/index/menu_student1.png"%>">
+                <a target="_blank" href="<%=path+"/robot"%>">智能客服</a>
             </li>
         </ul>
     </div>
@@ -277,12 +281,12 @@
 				    ,
 				    offset: ['100px', '300px']
                     ,
-		// 		    // content: '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">' +
+                    content: '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">确认报名该教练？ </div>'
         //             //         '欢迎报名该教练！' +
         //             //         '<br>姓名<br><input type="text" name="sName" id="sName" placeholder="请输入姓名" class="layui-input" >' +
         //             //         '<br>身份证<br><input type="text" name="sSfz" id="sSfz" placeholder="请输入身份证" class="layui-input" > ' +
         //             //         '</div>'
-		// 		    // ,
+				    ,
 				    yes: function (index, layer) {
                         // let sName = $("#sName").val();
                         let teacherId = $("#teacherId").html();

@@ -48,7 +48,7 @@
 			</c:if>
 			<c:if test="${sessionScope.student != null }">
 				<a href="<%=path+"/student"%>" id="studentName">欢迎您！ 学员: ${sessionScope.student.SName}</a>
-				&nbsp;&nbsp;&nbsp;
+				<a href="<%=path+"/transfer?logo=alterpass"%>">修改信息</a>
 				<a href="<%=path+"/logout/student"%>">退出</a>
 			</c:if>
 		</div>
@@ -93,8 +93,12 @@
 				</form>
 			</li>
 			<li id="menu-title-six">
-				<img src="<%=path+"/image/pages/index/menu_student1.png"%>">
+				<img src="<%=path+"/image/pages/index/menu_service1.png"%>">
 				<a href="<%=path+"/student"%>">学教专区</a>
+			</li>
+			<li id="menu-title-seven">
+				<img src="<%=path+"/image/pages/index/menu_student1.png"%>">
+				<a target="_blank" href="<%=path+"/robot"%>">智能客服</a>
 			</li>
 		</ul>
 	</div>
@@ -354,7 +358,7 @@
 				layer.open({
 					type: 1
 					,
-					title: false
+					title:'学员报名'
 					,
 					closeBtn: false
 					,
@@ -369,8 +373,8 @@
 					btnAlign: 'c'
 					,
 					moveType: 1
-					// ,
-					// content: '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">欢迎报名宏鑫驾校！<br>姓名<br><input type="text" name="sName" id="sName" placeholder="请输入姓名" class="layui-input" ><br>身份证<br><input type="text" name="sSfz" id="sSfz" placeholder="请输入身份证" class="layui-input" > </div>'
+					,
+					content: '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">确认报名该驾校? </div>'
 					,
 					yes: function (index, layero) {
 						// let sName = $("#sName").val();
