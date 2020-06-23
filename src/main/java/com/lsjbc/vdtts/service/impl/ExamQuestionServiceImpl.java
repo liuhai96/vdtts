@@ -3,6 +3,7 @@ package com.lsjbc.vdtts.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.lsjbc.vdtts.dao.ExamAnswerDao;
+import com.lsjbc.vdtts.dao.ExamErrorDao;
 import com.lsjbc.vdtts.dao.ExamQuestionDao;
 import com.lsjbc.vdtts.dao.mapper.ExamQuestionMapper;
 import com.lsjbc.vdtts.entity.ExamAnswer;
@@ -31,6 +32,9 @@ public class ExamQuestionServiceImpl implements ExamQuestionService {
     @Resource(name = ExamAnswerDao.NAME)
     private ExamAnswerDao examAnswerDao;
 
+    @Resource(name = ExamErrorDao.NAME)
+    private ExamErrorDao examErrorDao;
+
     @Resource(name = QuestionBank.NAME)
     private QuestionBank questionBank;
 
@@ -42,6 +46,7 @@ public class ExamQuestionServiceImpl implements ExamQuestionService {
         List<ExamEnity> examEnitityList = GetExamQuestion.getRequest1(level);
         examQuestionDao.deleteAll(Integer.parseInt(level));
         examAnswerDao.deleteAll(Integer.parseInt(level));
+        examErrorDao.deleteByLevel(Integer.parseInt(level));
         ResultData resultData = null;
         // todo 考虑分片
 //        List<ExamQuestion> examQuestionList = examEnitityList.stream().map(examEnity -> {
@@ -79,9 +84,10 @@ public class ExamQuestionServiceImpl implements ExamQuestionService {
             }
         }
 
-
         //重新生成对应科目的考卷
-        questionBank.setBank1(examTestService.generateText(Integer.parseInt(level)));
+        questionBank.resetBank(Integer.parseInt(level));
+
+        
         return resultData;
     }
 

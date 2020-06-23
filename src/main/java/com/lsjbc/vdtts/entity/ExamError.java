@@ -62,4 +62,10 @@ public class ExamError
 	 */
 	@Column(name = "`ee_question_id`")
 	private Integer eeQuestionId;
+
+	/**
+	 *错题ID
+	 */
+	@Column(name = "`ee_level`")
+	private Integer eeLevel;
 }

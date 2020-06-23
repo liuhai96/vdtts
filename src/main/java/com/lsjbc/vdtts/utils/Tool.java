@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
 
@@ -95,5 +96,15 @@ public class Tool {
                 return true;
         }
         return false;
+    }
+    /**
+     * @Description 获取当前时间的毫秒值  时间搓
+     * @Author  ZhengJianHui
+     * @Date   2019/9/6 14:58
+     * @Param  []
+     * @Return      java.lang.String
+     */
+    public String getCurrentMillisecond(){
+        return String.valueOf(Calendar.getInstance().getTimeInMillis());
     }
 }
