@@ -225,6 +225,11 @@
         </dependency>
 <!--        身份证识别-->
         <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.15</version>
+        </dependency>
+        <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
             <version>4.2.1</version>
@@ -250,7 +255,18 @@
             <version>4.5</version>
             <scope>test</scope>
         </dependency>
-
+        <!--百度云SDK-->
+        <!--
+        java-sdk-4.11.3.jar
+        json-20160810.jar
+        slf4j-api-1.7.25.jar
+        slf4j-simple-1.7.25.jar
+        -->
+        <dependency>
+            <groupId>com.baidu.aip</groupId>
+            <artifactId>java-sdk</artifactId>
+            <version>4.11.3</version>
+        </dependency>
     </dependencies>
 
     <build>

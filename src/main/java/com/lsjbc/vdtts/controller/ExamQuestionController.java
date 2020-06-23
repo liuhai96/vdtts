@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("examQuestionController")
 public class ExamQuestionController {
 
-@Autowired
+    @Autowired
     ExamQuestionService examQuestionService;
     @RequestMapping(value = "/examQuestion")
     public ResultData examQuestion(String level) {

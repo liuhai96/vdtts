@@ -70,6 +70,9 @@ public class ExamAnswer {
     @Column(name = "`ea_right`")
     private String eaRight;
 
+    /**
+     * 答案所属的科目等级
+     */
     @Column(name = "`ea_level`")
     private Integer eaLevel;
 

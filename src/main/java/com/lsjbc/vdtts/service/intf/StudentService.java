@@ -6,6 +6,7 @@ import com.lsjbc.vdtts.entity.Student;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.pojo.vo.ResultData;
 import com.lsjbc.vdtts.pojo.vo.StudentRegister;
+import org.apache.http.HttpRequest;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
@@ -99,4 +100,7 @@ public interface StudentService {
      */
     ResultData studentUpdatePhone(HttpServletRequest request,String phone,String code);
 
+    ResultData AddFace(String base64, int sId);//学生加脸  李浪
+
+    ResultData FaceLogin(HttpServletRequest request, String base64);//刷脸登录 李浪
 }

@@ -1906,11 +1906,18 @@
                 <form class="layui-form" action="<%=path+"/student/register"%>" autocomplete="off" id="registerfrom" method="post">
                     <h4>学员注册</h4>
                     <div id="idPhoto" style="display: none;">
-                        上传身份信息
-                        <br>
-                        上传身份证信息后，将身份证和姓名保存到表单中
-                        <br>
-                        别的不要动
+                            <div class="alone-version-desc layui-text">
+	                            上传身份信息
+                                <div class="methodContent">
+                                    <ul>
+                                        <li>请上传身份证上<strong style="color: #FF5722;">带有人脸的那一面</strong></li>
+                                        <li>仅支持<strong style="color: #FF5722;">png,jpg,jpeg,bmp</strong>文件</li>
+                                    </ul>
+                                </div>
+                                <div class="alone-buy layui-btn-container">
+                                    <button id="uploadCard" type="button" class="layui-btn" style="position: relative;" >开始上传身份证照片</button>
+                                </div>
+                            </div>
                     </div>
                     <div id="idHand" style="display: block;">
 
@@ -2095,6 +2102,20 @@
                 return true;
             }
         }
+
+        // //身份证
+		//     $(function() {
+		// 	    //添加窗口尺寸改变响应监听
+		// 	    $(window).resize(resizeCanvas);
+		// 	    //页面加载后先设置一下canvas大小
+		// 	    resizeCanvas();
+		//     });
+	    //
+	    // //窗口尺寸改变响应（修改canvas大小）
+	    // function resizeCanvas() {
+		//     $("#myCanvas").attr("width", $("#cameraDiv").width());
+		//     $("#myCanvas").attr("height", $("#cameraDiv").height());
+	    // };
     });
 </script>
 
