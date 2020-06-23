@@ -29,6 +29,17 @@
             <div style="text-align: center;">
                 <br><br><br>
                 <div>
+                    <div class="layui-form-item" >
+                        <div class="layui-inline" id="test1">
+                            <div class="layui-input-inline">
+                                <img src="${teacher.TPic}" id="demo1" height="200px" width="200px">
+                            </div>
+                            <input hidden id="tPic" value="${teacher.TPic}" >
+                        </div>
+                        <p id="demoText"></p>
+                    </div>
+
+
                     <div class="layui-form-item">
                         <div class="layui-inline">
                             <label class="layui-form-label">姓名：</label>
@@ -99,6 +110,9 @@
             </div>
         </div>
         <script>
+            let tPic = $("#tPic").val();
+            Layui_uploadImage("#test1",$("#path").val()+'/upImage',$('#demo1'),function (mag) {
+            tPic = mag.fPath;},$('#demoText'));
             let vary = false;
             let oldPhone;
             function keys() {//修改手机号码及取消修改
@@ -124,9 +138,9 @@
                     let phone = $("#phone");
                     if (phone.val().length < 3 || phone.val().length > 15) {alert("联系方式长度为3~15");return;}
                     else if (!number.test(phone.val())) {alert("联系方式为纯数字");return;}
-                    if ($("#tPhone").val() == phone.val()) {alert("你并未更改信息，不用提交");return;}
+                    if ($("#tPhone").val() == phone.val() && $("#tPic").val() == tPic) {alert("你并未更改信息，不用提交");return;}
                     AjaxTransfer($("#path").val()+"/teacherController/updatePhone",
-                        "tPhone="+phone.val()+"&tAccountId="+$("#aId").val(),function (mag) {
+                        "tPhone="+phone.val()+"&tAccountId="+$("#aId").val()+"&tPic="+tPic,function (mag) {
                             if (confirm(mag.msg+"是否重新登录")){
                                 skipAbsolute("/transfer?logo=logout");//跳出iframe到指定位置
                             }

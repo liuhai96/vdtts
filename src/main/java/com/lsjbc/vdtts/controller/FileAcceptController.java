@@ -2,6 +2,7 @@ package com.lsjbc.vdtts.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.lsjbc.vdtts.pojo.vo.FileAccept;
+import com.lsjbc.vdtts.utils.Tool;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,6 +37,8 @@ public class FileAcceptController {
         if (imgFile.isEmpty()) fileAccept.setFProResult("上传失败");
         // 拿到文件名
         String filename = imgFile.getOriginalFilename();
+        filename = filename.substring(filename.lastIndexOf(".") + 1);
+        filename = new Tool().getCurrentMillisecond()+"."+filename;
         fileAccept.setFName(filename);//返回对象的名称赋值
         // 存放上传图片的文件夹
         File fileDir = fileAccept.getImgDirFile(request.getSession().
