@@ -1906,21 +1906,21 @@
                 <form class="layui-form" action="<%=path+"/student/register"%>" autocomplete="off" id="registerfrom" method="post">
                     <h4>学员注册</h4>
                     <div id="idPhoto" style="display: none;">
-                            <div class="alone-version-desc layui-text">
-	                            上传身份信息
-                                <div class="methodContent">
-                                    <ul>
-                                        <li>请上传身份证上<strong style="color: #FF5722;">带有人脸的那一面</strong></li>
-                                        <li>仅支持<strong style="color: #FF5722;">png,jpg,jpeg,bmp</strong>文件</li>
-                                    </ul>
-                                </div>
-                                <div class="alone-buy layui-btn-container">
-                                    <button id="uploadCard" type="button" class="layui-btn" style="position: relative;" >开始上传身份证照片</button>
+                        <div class="form-group radio-form" id="test10" onclick="" type="button" style="padding-left: 70px" >
+                            <div class="user-type-conatiner layui-upload" style="height: 15%;width: 15% ;">
+                                <div class="user-type active layui-upload-list" ref="radioWrap" data-index="0"
+                                     style="height:150px ;width: 200px; margin: auto;border: 0px solid black;">
+                                    <b skip="true">上传身份证</b>
+                                    <img src="" style="height: 100%;width: 100%" class="layui-upload-img" id="demo10"  property="" alt="点击上传身份证">
+                                    <p id="demoText10"></p>
                                 </div>
                             </div>
+                        </div>
                     </div>
+                    <br/>
+<%--                    <br/>--%>
+<%--                    <br/>--%>
                     <div id="idHand" style="display: block;">
-
                         <div class="layui-form-item" style="margin-left: -25px;">
                             <label class="layui-form-label">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名</label>
                             <div class="layui-input-inline">
@@ -2036,6 +2036,10 @@
             inputByHand = true;
         });
 
+        let sSfz = "";//上传身份证
+        Layui_uploadImage("#test10",$("#path").val()+'/upImage',$('#demo10'),function (mag) {
+            sSfz = mag.fPath;},$('#demoText10'));//上传身份证
+
         form.verify({
             name:function (value) {
                 if(inputByHand){
@@ -2102,20 +2106,6 @@
                 return true;
             }
         }
-
-        // //身份证
-		//     $(function() {
-		// 	    //添加窗口尺寸改变响应监听
-		// 	    $(window).resize(resizeCanvas);
-		// 	    //页面加载后先设置一下canvas大小
-		// 	    resizeCanvas();
-		//     });
-	    //
-	    // //窗口尺寸改变响应（修改canvas大小）
-	    // function resizeCanvas() {
-		//     $("#myCanvas").attr("width", $("#cameraDiv").width());
-		//     $("#myCanvas").attr("height", $("#cameraDiv").height());
-	    // };
     });
 </script>
 

@@ -113,14 +113,14 @@
 	<DIV class="del-lun">
 	</DIV>
 	<DIV style="float: left">
-		<IMG style="height: 280px; width: 700px;" src="<%=path%>/static/layui/images/photo/06.png">
+		<IMG style="height: 300px; width: 700px;" src="<%=path%>/static/layui/images/photo/06.png">
 	</DIV>
 	<DIV class="del-schinf">
 		<P class="del-p"><span>${name}</span><IMG src="<%=path%>/image/pages/index/tower.png"></P>
 		<DIV class="del-inf">
 			<p>
 				<b>全国统一信用代码：</b>
-				<span>${sid}</span>
+				<span>${sbusinessId}</span>
 			</p>
 			<p>
 				<b>经营许可日期：</b>
