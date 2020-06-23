@@ -145,7 +145,7 @@
                                 skipAbsolute("/transfer?logo=logout");//跳出iframe到指定位置
                             }
                         },function () {
-                            alert("图片名称仅为为字母或数字");
+                            alert("图片名称仅为字母或数字");
                         });
                 }
                 keys();
