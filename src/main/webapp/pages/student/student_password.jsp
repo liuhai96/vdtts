@@ -108,11 +108,16 @@
 	    <a href="javascript:void(0)" title="返回上一页" class="sina" onclick="history.go(-1);"></a>
 	    <a href="javascript:void(0)" title="刷新" class="tencent" onclick="history.go(0);"></a>
     </div>
+    <div border="0">
+        <button href="javascript:void(0)" onclick="AddFace()" class="layui-btn">人脸录入</button>
+        <iframe src="<%=path+"/studentController/studentTransfer?logo=addFace"%>"
+                id="addFace" height="0" width="0"></iframe>
+    </div>
     <div class="main">
         <input hidden="hidden" value="<%=path%>" id="path">
-        <input hidden="hidden" value="${aId}" id="aId">
+        <input hidden="hidden" value="${aId}" id="aId"><br>
         <div style="text-align: center;">
-            <br> <br> <br>
+            <br> <br>
             <div class="cooperate-form">
                 <div class="form">
                     <div style="padding-left: 500px">
@@ -225,7 +230,18 @@
 	    </ul>
     </div>
     <script>
-
+        let isAdd = true;
+        function AddFace() {//人脸录入方法启闭开关
+            let addFace = $("#addFace");
+            if (isAdd){
+                addFace.attr("height","60%");
+                addFace.attr("width","100%");
+            } else{
+                addFace.attr("height","0");
+                addFace.attr("width","0");
+            }
+            isAdd = !isAdd;
+        }
 
         let path = window.document.location.href.substring(0, (window.document.location.href).indexOf(window.document.location.pathname));
 
