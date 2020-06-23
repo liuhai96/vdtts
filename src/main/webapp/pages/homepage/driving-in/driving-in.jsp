@@ -9,8 +9,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
     String schoolName = "机动车驾驶员计时培训系统";//名称
-    int aId = 0;
-    try{ aId = Integer.valueOf(request.getSession().getAttribute("aId").toString());} catch (Exception e){}
     String path = request.getContextPath();
     Cookie[] cookies = request.getCookies();
     for (Cookie cookie:cookies){
@@ -26,7 +24,7 @@
     <link href="https://www.layuicdn.com/layui/css/layui.css" rel="stylesheet" type="text/css"/>
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no,user-scalable=no">
     <title>机动车驾驶员计时培训系统·企业版 入驻</title>
-    <link href="driving-in_files/main.css" rel="stylesheet" type="text/css">
+    <link href="<%=path+"/pages/homepage/driving-in/driving-in_files/main.css"%>" rel="stylesheet" type="text/css">
     <script src="<%=path+"/static/custom_tool.js"%>"></script>
 </head>
     <body>
