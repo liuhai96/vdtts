@@ -144,8 +144,6 @@
                             if (confirm(mag.msg+"是否重新登录")){
                                 skipAbsolute("/transfer?logo=logout");//跳出iframe到指定位置
                             }
-                        },function () {
-                            alert("图片名称仅为字母或数字");
                         });
                 }
                 keys();
