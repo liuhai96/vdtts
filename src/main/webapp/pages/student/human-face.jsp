@@ -29,8 +29,14 @@
 </head>
 <body style="text-align: center;">
 <input hidden="hidden" value="<%=path%>" id="path">
-    <br><br>
-    <label style="font-size: 20px;color: coral">人脸识别</label><br>
+    <div style="text-align: start">
+        &nbsp;&nbsp;<a onclick="history.go(-1)" style="font-size: 20px" href="javascript:void(0);">返回</a>
+        <div class="alone-buy layui-btn-container" style="text-align: center;">
+            <button id="openCamera" type="button" class="layui-btn" style="position: relative;" >开启摄像头</button>
+            <button type="button" class="layui-btn" onclick="skipPage('')">关闭摄像头</button>
+        </div>
+    </div>
+    <label style="font-size: 20px;color: coral">人脸识别登录</label><br>
     <div style="display: none;">
         <div id="videoDiv" style="">
             <video id="video" ></video>
@@ -38,18 +44,14 @@
         <img id="image">
         <form id="userInCameraForm" action="<%=path+"/lookFace"%>" method="post">
             <input id="faceImg" type="hidden" name="base64">
-            <input hidden name="sId" value="5">
+<%--            <input hidden name="sId" value="5">--%>
         </form>
     </div>
     <div class="layui-main alone-items">
         <div class="methodContent">
-            <div id="cameraDiv" style="margin: 0 auto;">
-                <canvas id="myCanvas" style="display: block;margin: 0 auto;background-color: black" width="500px" height=350px"></canvas>
+            <div id="cameraDiv">
+                <canvas id="myCanvas" style="display: block;margin: auto;background-color: black" width="500px" height=350px"></canvas>
             </div>
-        </div>
-        <br><br>
-        <div class="alone-buy layui-btn-container" style="text-align: center;">
-            <button id="openCamera" type="button" class="layui-btn" style="position: relative;" >开启摄像头</button>
         </div>
     </div>
     <script type="text/javascript">
@@ -80,7 +82,7 @@
                             console.log("complete回调函数出错");
                         }
                     });
-                }, 60);
+                }, 5);
             });
         });
     </script>

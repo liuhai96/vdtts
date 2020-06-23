@@ -1,26 +1,14 @@
 package com.lsjbc.vdtts.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.lsjbc.vdtts.pojo.vo.ResultData;
 import com.lsjbc.vdtts.service.impl.StudentServiceImpl;
-import com.lsjbc.vdtts.utils.FileTools;
-import com.lsjbc.vdtts.utils.Tool;
-import com.lsjbc.vdtts.utils.baidu.baiduTools.face.ManageFace;
 import com.lsjbc.vdtts.utils.baidu.baiduTools.face.SearchFace;
-import com.lsjbc.vdtts.utils.baidu.baiduTools.face.TFaceMethod;
-import org.apache.http.HttpRequest;
-import org.apache.http.HttpResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
-import java.util.List;
-import java.util.Map;
 
 /**人脸识别控制层
  * @author LiLang9725
@@ -59,19 +47,17 @@ public class HumanFaceController {
      *@return:java.lang.String
      *@Date:2020/6/22 21:57
      **/
-    public ModelAndView lookAtTheFace(String base64, HttpServletRequest request){
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("result",studentService.FaceLogin(request,base64));
+    public String lookAtTheFace(String base64, HttpServletRequest request){
+        request.getSession().setAttribute("result",studentService.FaceLogin(request,base64));
         try {
-            if (request.getSession().getAttribute("aId").toString().equals("0")){
-                modelAndView.setViewName("/pages/index/index");
+            if (request.getSession().getAttribute("account").toString() != null){
+                return  "redirect:/student/main"; //redirect:重定向到index的后台
             } else {
-                modelAndView.setViewName("/pages/index/student");
+                return  "/pages/index/student_login"; //redirect:重定向到学生登录的后台
             }
         } catch (Exception e){
-            modelAndView.setViewName("/pages/index/student");
+            return  "/pages/index/student_login";//redirect:重定向到学生登录的后台
         }
-        return modelAndView;
     }
 
 }

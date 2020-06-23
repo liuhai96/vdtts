@@ -56,6 +56,11 @@ public class ExamTestServiceImpl implements ExamTestService {
      * @author JX181114 --- 郑建辉
      */
     private Map<Integer, List<ExamQuestion>> generateOneTest(List<ExamQuestion> list) {
+
+        list.forEach(item->{
+            item.setAnswers(examAnswerDao.getByQuestionId(item.getEqId()));
+        });
+
         Map<Integer, List<ExamQuestion>> map = new HashMap<>(1);
         map.put(0, list);
         return map;
@@ -88,7 +93,7 @@ public class ExamTestServiceImpl implements ExamTestService {
         //生成空考卷
         Map<Integer, List<ExamQuestion>> map = new HashMap<>(examCount);
         for (int i = 0; i < examCount; i++) {
-            map.put(i, new ArrayList<ExamQuestion>(ExamText.NUMBER_OF_QUESTIONS_ON_A_TEST));
+            map.put(i, new ArrayList<>(ExamText.NUMBER_OF_QUESTIONS_ON_A_TEST));
         }
 
         //生成随机数获取对象
