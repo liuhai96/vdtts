@@ -25,12 +25,12 @@ public class ExamEnity {
     private String url;
 
 
-    public List<ExamAnswer> generateAnswer(Integer questionId){
+    public List<ExamAnswer> generateAnswer(Integer questionId,String level){
 
-        ExamAnswer aExamAnswer = ExamAnswer.builder().eaAnswer(item1).eaQuestionId(questionId).eaRight("false").build();
-        ExamAnswer bExamAnswer = ExamAnswer.builder().eaAnswer(item2).eaQuestionId(questionId).eaRight("false").build();
-        ExamAnswer cExamAnswer = ExamAnswer.builder().eaAnswer(item3).eaQuestionId(questionId).eaRight("false").build();
-        ExamAnswer dExamAnswer = ExamAnswer.builder().eaAnswer(item4).eaQuestionId(questionId).eaRight("false").build();
+        ExamAnswer aExamAnswer = ExamAnswer.builder().eaAnswer(item1).eaQuestionId(questionId).eaRight("false").eaLevel(Integer.parseInt(level)).build();
+        ExamAnswer bExamAnswer = ExamAnswer.builder().eaAnswer(item2).eaQuestionId(questionId).eaRight("false").eaLevel(Integer.parseInt(level)).build();
+        ExamAnswer cExamAnswer = ExamAnswer.builder().eaAnswer(item3).eaQuestionId(questionId).eaRight("false").eaLevel(Integer.parseInt(level)).build();
+        ExamAnswer dExamAnswer = ExamAnswer.builder().eaAnswer(item4).eaQuestionId(questionId).eaRight("false").eaLevel(Integer.parseInt(level)).build();
 
         switch (answer){
             case "1":

@@ -2,6 +2,7 @@ package com.lsjbc.vdtts.aop;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.lsjbc.vdtts.buffer.Buffer;
 import com.lsjbc.vdtts.entity.TbLog;
 import com.lsjbc.vdtts.enums.OperateType;
 import com.lsjbc.vdtts.enums.ResourceType;
@@ -47,7 +48,7 @@ public class LogAop {
         logger.info("操作日志-触发切面方法，参数:{}", Arrays.toString(args));
         try {
             TbLog operationLog = buildOperationLog(joinPoint);
-//            SpringContextHolder.getBean(Buffer.class).put(JSON.toJSONString(operationLog));
+            SpringContextHolder.getBean(Buffer.class).put(JSON.toJSONString(operationLog));
         } catch (Throwable e) {
             logger.warn("操作日志-异常", e);
         }

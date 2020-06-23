@@ -13,6 +13,7 @@ import com.lsjbc.vdtts.service.intf.StudentService;
 import com.lsjbc.vdtts.utils.Tool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -238,5 +239,21 @@ public class StudentController {
     @RequestMapping(value = "/updateStudentTeacherId")
     public ResultData updateStudentTeacherId(String sTeacherId,String sId){
         return studentService.updateStudentTeacherId(Integer.parseInt(sTeacherId),Integer.parseInt(sId));
+    }
+
+    @RequestMapping(value = "/studentTransfer")
+    public ModelAndView Transfer(String logo){
+        ModelAndView modelAndView = new ModelAndView();
+        String nextJsp;
+        switch (logo){
+            case "face" :
+                nextJsp = "/pages/student/human-face";
+                break;
+            default :
+                nextJsp = "";
+                break;
+        }
+        modelAndView.setViewName(nextJsp);
+        return modelAndView;
     }
 }

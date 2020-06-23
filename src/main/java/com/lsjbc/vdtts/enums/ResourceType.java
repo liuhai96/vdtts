@@ -2,6 +2,8 @@ package com.lsjbc.vdtts.enums;
 
 import com.lsjbc.vdtts.dao.mapper.CarMapper;
 import com.lsjbc.vdtts.dao.mapper.LogMapper;
+import com.lsjbc.vdtts.dao.mapper.SchoolMapper;
+import com.lsjbc.vdtts.dao.mapper.TeacherMapper;
 import tk.mybatis.mapper.common.Mapper;
 
 /**
@@ -11,7 +13,9 @@ import tk.mybatis.mapper.common.Mapper;
  */
 public enum ResourceType {
     OPERATION_LOG("操作日志", LogMapper.class),
-    CAR("教练车", CarMapper.class);
+    CAR("教练车", CarMapper.class),
+    School("驾校", SchoolMapper.class),
+    Teacher("教练", TeacherMapper.class);
     private String name;
     private Class<? extends Mapper> mapper;
 

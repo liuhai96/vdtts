@@ -398,11 +398,10 @@ public class StudentServiceImpl implements StudentService {
             account.setAId(student.getSAccountId());
             account = accountMapper.selectAccount(account);
             request.getSession().setAttribute("account",account);
-            request.getSession().setAttribute("aId",account.getAId());
-            request.getSession().setAttribute("aType",account.getAType());
             resultData.setMsg("登录成功");
         } catch (Exception e){
             e.printStackTrace();
+            resultData.setMsg("登录失败");
         }
 	    return resultData;
     }

@@ -1,9 +1,11 @@
 package com.lsjbc.vdtts.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.github.pagehelper.PageInfo;
 import com.lsjbc.vdtts.entity.Account;
 import com.lsjbc.vdtts.entity.Link;
 import com.lsjbc.vdtts.entity.School;
+import com.lsjbc.vdtts.pojo.dto.PageDTO;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.pojo.vo.ResultData;
 import com.lsjbc.vdtts.service.intf.AccountService;
@@ -46,7 +48,7 @@ public class SchoolControl {
 		String pageStr = request.getParameter("page");//页码
 		String pageSizeStr = request.getParameter("limit");//每页记录数
 		String draw = request.getParameter("draw");//重绘次数 和前台对应
-
+		System.out.println(school+pageSizeStr+pageStr);
 		LayuiTableData layuiTableData = schoolService.schoolList(school, Integer.parseInt(pageStr), Integer.parseInt(pageSizeStr));
 		return JSON.toJSONString(layuiTableData);
 	}
@@ -223,5 +225,14 @@ public class SchoolControl {
 	@ResponseBody
 	private ResultData updateSchoolPwd(HttpServletRequest request){
 		return schoolService.updateSchoolPwd(request);
+	}
+
+
+	@RequestMapping(value = "findSchool")
+	@ResponseBody
+	private List<School> findSchool(PageDTO pageDTO){
+		PageInfo pageInfo = schoolService.findSchool(pageDTO);
+		List<School> schools = pageInfo.getList();
+    	return schools;
 	}
 }
