@@ -1,4 +1,5 @@
-<%@ page import="com.lsjbc.vdtts.utils.Tool" %><%--
+<%@ page import="com.lsjbc.vdtts.utils.Tool" %>
+<%--
   Created by IntelliJ IDEA.
   User: Admin
   Date: 2020/6/11
@@ -223,25 +224,22 @@
         <img src="<%=path+"/image/pages/index/home_logo2.jpg"%>" class="home-banner">
     </div>
 </div>
+	    <div class="footer">
+		    <div class="footer-box">
+			    <p class="footer-p" style="text-align: center;">友情链接</p>
+			    <div class="footer-friend">
 
-    <div class="footer">
-        <div class="footer-box">
-            <p class="footer-p" style="text-align: center;">友情链接</p>
-            <div class="footer-friend">
-
-                <c:forEach items="${linkList}" varStatus="item" var="link">
-                    <c:if test="${item.index % 5 == 0}">
-                        <br><br>
-                    </c:if>
-                    <a target="_blank" href="${link.lkUrl}">
-                        <img class="footer-img" src='<%=path%>${link.lkPic}'>
-                    </a>
-                </c:forEach>
-
-            </div>
+				    <c:forEach items="${linkList}" varStatus="item" var="link">
+					    <c:if test="${item.index % 5 == 0}">
+						    <br><br>
+					    </c:if>
+					    <a target="_blank" href="${link.lkUrl}">
+						    <img class="footer-img" src='<%=path%>${link.lkPic}'>
+					    </a>
+				    </c:forEach>
+			    </div>
+		    </div>
         </div>
-
-    </div>
 <div class="footer-inf">
     <ul style="text-align: center;display: table;">
         <li style="margin: 0 60px 0 0px;">

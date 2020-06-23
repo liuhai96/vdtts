@@ -15,6 +15,24 @@
     <link rel="shortcut icon" href="#"/>
     <link rel="stylesheet" href=<%=path+"/static/layui/css/layui.css"%>>
     <script type="text/javascript" src=<%=path+"/static/layui/layui.js"%>></script>
+    <style>
+        .layui-form-label {
+            float: left;
+            display: block;
+            padding: 9px 15px;
+            width: 130px;
+            font-weight: 400;
+            line-height: 20px;
+            text-align: right;
+        }
+
+        .layui-form-item {
+            margin-bottom: 15px;
+            margin-top: 20px;
+            clear: both;
+            *zoom: 1;
+        }
+    </style>
 </head>
 <body>
 <div class="layui-container" style="margin-top: 15px">
@@ -97,9 +115,9 @@
 </form>
 
 <form id="updateTeacher" style="display: none" class="layui-form">
-    <div class="layui-form-item" style="display:none" >
+    <div class="layui-form-item" >
         <label class="layui-form-label" >教练Id</label>
-        <div class="layui-input-inline">
+        <div class="layui-input-inline" style="display:none">
             <input id="teacherId" type="text" name="tId" required  lay-verify="required" autocomplete="off" class="layui-input">
         </div>
     </div>
@@ -126,7 +144,7 @@
 </form>
 
 <form id="updateTeacherLimit" style="display: none" class="layui-form">
-    <div class="layui-form-item" style="display:none" >
+    <div class="layui-form-item"  >
         <label class="layui-form-label" >教练Id</label>
         <div class="layui-input-inline">
             <input id="teacherId1" type="text" name="tId" required  lay-verify="required" autocomplete="off" class="layui-input">
@@ -170,7 +188,7 @@
                 ,{field:'tBirthday', title:'生日'}
                 ,{field:'tPhone', title:'电话'}
                 ,{field:'tLicenseTime', title:'获取驾照时间'}
-                ,{fixed: 'right', title:'操作', toolbar: '#barDemo'}
+                ,{fixed: 'right', title:'操作', toolbar: '#barDemo',width: 200}
             ]]
             ,page: {limit: 5,//指定每页显示的条数
                 limits: [5, 10, 15, 20,
@@ -317,13 +335,13 @@
                     });
                 });
             }else if (obj.event === 'update'){
-                $("#teacherId").val(data.tId);
+                $("#teacherId1").val(data.tId);
                 var index1 = layer.open({
                     type: 1,
                     area:["400","300px"],
                     skin: 'layui-layer-rim',
                     shadeClose: true,//点击其他地方关闭
-                    content:$("#updateTeacher"),
+                    content:$("#updateTeacherLimit"),
                     cancel:function (index) {
                         layer.close(index);
                     }
@@ -339,7 +357,7 @@
                             data: data.field,
                             success: function (msg) {
                                 if (msg.code==1){
-                                    layer.alert("修改教练基本信息成功");
+                                    layer.alert("限制该教练本月毕业人数成功");
                                     $table.reload();
                                 }
                                 layer.close(index1);

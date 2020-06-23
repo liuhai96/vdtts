@@ -1,9 +1,11 @@
 package com.lsjbc.vdtts.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.lsjbc.vdtts.constant.AccountType;
 import com.lsjbc.vdtts.dao.AccountDao;
 import com.lsjbc.vdtts.dao.ExamResultDao;
 import com.lsjbc.vdtts.dao.StudentDao;
+import com.lsjbc.vdtts.dao.mapper.AccountMapper;
 import com.lsjbc.vdtts.dao.mapper.ExamResultMapper;
 import com.lsjbc.vdtts.dao.mapper.StudentMapper;
 import com.lsjbc.vdtts.entity.Account;
@@ -16,9 +18,14 @@ import com.lsjbc.vdtts.pojo.vo.ResultData;
 import com.lsjbc.vdtts.pojo.vo.StudentRegister;
 import com.lsjbc.vdtts.service.intf.LinkService;
 import com.lsjbc.vdtts.service.intf.StudentService;
+import com.lsjbc.vdtts.utils.FileTools;
 import com.lsjbc.vdtts.utils.Tool;
+import com.lsjbc.vdtts.utils.baidu.baiduTools.face.ManageFace;
+import com.lsjbc.vdtts.utils.baidu.baiduTools.face.SearchFace;
+import com.lsjbc.vdtts.utils.baidu.baiduTools.face.TFaceMethod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -321,6 +328,83 @@ public class StudentServiceImpl implements StudentService {
 
 		return "/pages/index/student";
 	}
+
+    @Autowired
+    private ManageFace manageFace;
+    @Autowired
+    private TFaceMethod tFaceMethod;
+	@Override
+    /*
+     *@Description:加入学生人脸
+     *@Author:李浪_191019
+     *@Param:[base64, sId]
+     *@return:com.lsjbc.vdtts.pojo.vo.ResultData
+     *@Date:2020/6/22 22:20
+     **/
+	public ResultData AddFace(String base64, int sId){
+        Map<String,Object> map = null;
+        ResultData resultData = ResultData.success();
+        MultipartFile multipartFile = new FileTools().base64ToMultipartFile(base64);
+        if (tFaceMethod.checkFaceExtension(multipartFile)) {//检测图片格式合法性
+            List<Map<String,Object>> list = manageFace.getFaceList(sId);//获取用户的人脸信息
+            //当图片用户图片数量大于等于20张时，就删除第一张图片后再添加新的图片
+            if(list.size() >= 20){
+                for(Map map2:list){
+                    String face_token = map2.get("face_token").toString();
+                    manageFace.delete(face_token, sId);
+                }
+            }
+            try{
+                map = manageFace.add(base64.split(",")[1], sId);//向第三方加入数据(人脸)
+                if (map.size() > 0) {
+                    System.out.println("加入人脸识别成功");
+                    resultData.setMsg("加入人脸识别成功");
+                    resultData.setCode(list.size()+1);//人脸张数
+                } else {
+                    System.out.println("加入人脸识别失败");
+                    resultData.setMsg("加入人脸识别失败");
+                    resultData.setCode(list.size());
+                }
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+
+        } else {
+            System.out.println("图片格式非法！------>\n"+tFaceMethod.checkFaceExtension(multipartFile));
+        }
+        System.out.println("添加后返回map = "+ JSON.toJSONString(map));//
+        return resultData;
+    }
+
+    @Autowired
+    private SearchFace searchFace;
+	@Autowired
+    private AccountMapper accountMapper;
+    /*
+     *@Description:刷脸登录
+     *@Author:李浪_191019
+     *@Param:[request, base64]
+     *@return:com.lsjbc.vdtts.pojo.vo.ResultData
+     *@Date:2020/6/22 22:56
+     **/
+    @Override
+    public ResultData FaceLogin(HttpServletRequest request, String base64){
+        ResultData resultData = new ResultData();
+        int sId = searchFace.searchFace(base64.split(",")[1]);
+        try{
+            Student student = studentMapper.findTeacher(sId);
+            request.getSession().setAttribute("student",student);
+            Account account = new Account();
+            account.setAId(student.getSAccountId());
+            account = accountMapper.selectAccount(account);
+            request.getSession().setAttribute("account",account);
+            resultData.setMsg("登录成功");
+        } catch (Exception e){
+            e.printStackTrace();
+            resultData.setMsg("登录失败");
+        }
+	    return resultData;
+    }
 
 	/**
 	 * 学员修改手机号流程

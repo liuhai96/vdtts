@@ -108,7 +108,7 @@ public class AccountServiceImp implements AccountService {
                     School school = schoolMapper.findAccount(account.getAId());
                     if(school.getSLock().equals("true")){
                         resultData.setMsg("驾校已被锁定登录");
-                        nextJsp = "transfer?logo=institutionLogin";
+                        nextJsp = "transfer?logo= ";
                     }else{
                         request.getSession().setAttribute("school", school);
                         request.getSession().setAttribute("account",account.getAAccount());
