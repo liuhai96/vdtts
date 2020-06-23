@@ -78,11 +78,7 @@
             <button class="layui-btn" lay-submit lay-filter="formDemo">修改驾校信息</button>
         </div>
     </div>
-
 </form>
-<div class="site-demo-button" id="layerDemo" style="margin-bottom: 0;">
-    <button data-method="offset" data-type="auto" class="layui-btn layui-btn-normal">居中弹出</button>
-</div>
 
 <form class="layui-form" action="" id="updateSchoolInfo" style="display:none">
     <div class="layui-form-item">
@@ -94,13 +90,13 @@
     <div class="layui-form-item">
         <label class="layui-form-label">驾校地址</label>
         <div class="layui-input-block">
-            <input type="text" name="sAddress" required lay-verify="required" autocomplete="off" class="layui-input">
+            <input type="text" name="sAddress" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">联系电话</label>
         <div class="layui-input-block">
-            <input type="text" name="sPhone" required lay-verify="required|phone" autocomplete="off" class="layui-input">
+            <input type="text" name="sPhone" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
@@ -109,19 +105,21 @@
             <input type="text" name="sImageUrl"  autocomplete="off" class="layui-input" disabled="disabled">
         </div>
     </div>
-    <div class="layui-upload">
+    <div>
+    <div class="layui-form-item" style="display:inline-block;margin-right:20px">
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="update">立即提交</button>
+            </div>
+        </div>
+    </div>
+    <div class="layui-upload" style="display:inline-block; margin-top:40px">
         <button type="button" class="layui-btn" id="test1">上传图片</button>
         <div class="layui-upload-list">
             <img class="layui-upload-img" id="demo1">
             <p id="demoText"></p>
         </div>
     </div>
-    <div class="layui-form-item">
-        <div class="layui-form-item">
-            <div class="layui-input-block">
-                <button class="layui-btn" lay-submit lay-filter="update">立即提交</button>
-            </div>
-        </div>
     </div>
 
 </form>
@@ -226,6 +224,7 @@
                             layer.close(index1);
                             $('#updateSchoolInfo')[0].reset();//重置表单
                             form.render();
+                            $('#demo1').attr('src', ""); //图片链接（base64）
                         }
                     });
                 }
@@ -233,28 +232,6 @@
             return false;
         });
 
-
-        //触发事件
-        var active = {
-        offset: function(othis){
-            var surl = $("input[name='sPicUrl']").val();
-            var type = othis.data('type')
-                ,text = othis.text();
-            layer.open({
-                type: 1
-                ,offset: 'auto' //具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
-                ,id: 'layerDemo'+type //防止重复弹出
-                ,content: "<div  style=\"padding: 20px 100px;\"><img src="+<%=path%>surl+"></div>"
-                ,btn: '关闭全部'
-                ,btnAlign: 'c' //按钮居中
-                ,shade: 2 //不显示遮罩
-                ,shadeClose: true
-                ,yes: function(){
-                    layer.closeAll();
-                }
-            });
-        }
-    };
 
         $('#layerDemo .layui-btn').on('click', function(){
             var othis = $(this), method = othis.data('method');

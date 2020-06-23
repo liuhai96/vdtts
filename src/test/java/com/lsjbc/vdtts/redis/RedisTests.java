@@ -65,7 +65,7 @@ public class RedisTests {
     public void contentTest() {
 //        System.out.println(testString(1));
 //        System.out.println(testList(1));
-        System.out.println(testMap(1));
+//        System.out.println(testMap(1));
     }
 
     /**

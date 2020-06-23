@@ -34,4 +34,9 @@ public class VideoApi {
         return videoService.getVideoByLevel(level);
     }
 
+    @GetMapping("id/{id}")
+    public Video getVideoById(@PathVariable("id") Integer id){
+        return videoService.getVideoById(id);
+    }
+
 }
