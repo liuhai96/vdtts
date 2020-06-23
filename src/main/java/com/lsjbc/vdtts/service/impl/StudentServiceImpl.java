@@ -26,6 +26,7 @@ import com.lsjbc.vdtts.utils.baidu.baiduTools.face.TFaceMethod;
 import org.apache.http.HttpRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -398,11 +399,10 @@ public class StudentServiceImpl implements StudentService {
             account.setAId(student.getSAccountId());
             account = accountMapper.selectAccount(account);
             request.getSession().setAttribute("account",account);
-            request.getSession().setAttribute("aId",account.getAId());
-            request.getSession().setAttribute("aType",account.getAType());
             resultData.setMsg("登录成功");
         } catch (Exception e){
             e.printStackTrace();
+            resultData.setMsg("登录失败");
         }
 	    return resultData;
     }

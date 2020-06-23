@@ -62,7 +62,8 @@
                 <button class="" id="cc" onclick="resetMsg();" style="display: block;" type="button">重置</button>
                 <br>
                 <br>
-                <a id="useFace" href="JavaScript:;" style="float: right;">使用人脸登录</a>
+                <a id="useFace" href="JavaScript:;" style="float: right;" onclick="skipPage
+                ('/studentController/studentTransfer?logo=face')">使用人脸登录</a>
             </div>
         </div>
 
