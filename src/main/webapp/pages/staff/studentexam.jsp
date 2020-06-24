@@ -112,7 +112,6 @@
                 case 'findStudent':
                     var data = checkStatus.data;
                     var inputname = $("input[name='inputname']").val();
-                    alert(inputname);
                     table.reload('test',{
                         url:'<%=path%>/examResultController/selectStudentExamList',
                         page:{

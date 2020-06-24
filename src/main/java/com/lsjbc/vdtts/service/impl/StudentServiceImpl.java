@@ -5,13 +5,11 @@ import com.lsjbc.vdtts.constant.AccountType;
 import com.lsjbc.vdtts.dao.AccountDao;
 import com.lsjbc.vdtts.dao.ExamResultDao;
 import com.lsjbc.vdtts.dao.StudentDao;
+import com.lsjbc.vdtts.dao.TeacherDao;
 import com.lsjbc.vdtts.dao.mapper.AccountMapper;
 import com.lsjbc.vdtts.dao.mapper.ExamResultMapper;
 import com.lsjbc.vdtts.dao.mapper.StudentMapper;
-import com.lsjbc.vdtts.entity.Account;
-import com.lsjbc.vdtts.entity.ExamResult;
-import com.lsjbc.vdtts.entity.School;
-import com.lsjbc.vdtts.entity.Student;
+import com.lsjbc.vdtts.entity.*;
 import com.lsjbc.vdtts.pojo.bo.aliai.SMS;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.pojo.vo.ResultData;
@@ -42,6 +40,9 @@ public class StudentServiceImpl implements StudentService {
 	public StudentMapper studentMapper;
 	@Autowired
 	private ExamResultMapper examResultMapper;
+
+	@Autowired
+	private TeacherDao teacherDao;
 
 	@Resource(name = StudentDao.NAME)
 	private StudentDao studentDao;
@@ -218,20 +219,25 @@ public class StudentServiceImpl implements StudentService {
 	@Override
 	public ResultData updateStudentTeacherId(Integer sTeacherId, Integer sId) {
 		Student student = studentMapper.findTeacher(sId);
+		Teacher teacher = teacherDao.getById(sTeacherId);
 		ResultData resultData = null;
-		if (sTeacherId != 0) {
-			if (student.getSTeacherId() != null) {
-				resultData = ResultData.error(-2, "该学员已分配教练，不能重新分配");
-			} else {
-				int num = studentMapper.updateStudentTeacherId(sTeacherId, sId);
-				if (num > 0) {
-					resultData = ResultData.success(1, "您已成功为该学员分配教练");
+		if(teacher.getTTeach().equals("true")||teacher.getTLock().equals("true")){
+			if (sTeacherId != 0) {
+				if (student.getSTeacherId() != null) {
+					resultData = ResultData.error(-2, "该学员已分配教练，不能重新分配");
 				} else {
-					resultData = ResultData.error(-1, "未找到该教练信息");
+					int num = studentMapper.updateStudentTeacherId(sTeacherId, sId);
+					if (num > 0) {
+						resultData = ResultData.success(1, "您已成功为该学员分配教练");
+					} else {
+						resultData = ResultData.error(-1, "未找到该教练信息");
+					}
 				}
+			} else {
+				resultData = ResultData.error(-1, "请选择教练");
 			}
-		} else {
-			resultData = ResultData.error(-1, "请选择教练");
+		}else{
+			resultData = ResultData.error(-1, "该教练已被禁用或者已被限制");
 		}
 		return resultData;
 	}
