@@ -38,10 +38,11 @@
         <div class="center fl">
             <div class="kstm pos">
                 <div class="tit">考试题目</div>
-                <p class="name">
+                <p class="name" style="width: 400px;">
                     <strong class="zjh_exam_question_index" id="questionIndex"></strong>、
                     <span id="questionTitle"></span>
                 </p>
+                <div style="float: right;" class="zjh_exam_question_pic_title layer-photos" id="layer-photos"></div>
                 <div class="option">
                     <div id="answers"></div>
                 </div>
@@ -68,39 +69,6 @@
         </div>
         <div class="right fl">
             <div class="Qn-wrap" id="qunestionIndex"></div>
-        </div>
-        <div class="q-detail pos fl" style="display: block;">
-            <div class="tit">图片信息</div>
-
-            <div class="zjh_exam_question_pic_title layer-photos" id="layer-photos"></div>
-        </div>
-    </div>
-</div>
-
-<div class="jj-wrap jj-wrap1">
-    <div class="jj-con">
-        <div class="jj-header">考试确认窗口</div>
-        <div class="jj-content">
-            <p>操作提示：</p>
-            <p>1、点击【确认交卷】，将提交考试成绩，结束考试。</p>
-            <p>2、点击【继续答题】，将继续答题,倒计时结束无法继续答题。</p>
-        </div>
-        <div class="jj-btn-wrap">
-            <a class="jj-btn jxdt" href="javascript:;">继续答题</a>
-            <a class="jj-btn xzjj" href="javascript:;">现在交卷</a>
-        </div>
-    </div>
-</div>
-
-<div class="jj-wrap jj-wrap2">
-    <div class="jj-con">
-        <div class="jj-header">考试确认窗口</div>
-        <div class="jj-content">
-            <p>考试时间已到，系统将自动为您交卷</p>
-        </div>
-        <div class="jj-btn-wrap">
-            <!-- <a class="jj-btn jxdt" href=" ">继续答题</a > -->
-            <a class="jj-btn xzjj" style="margin: 0 auto;float: none;" href="javascript:;">现在交卷</a>
         </div>
     </div>
 </div>
@@ -485,7 +453,7 @@
 
             //更新题目的图片
             if (newQuestion.eqPic != "") {
-                $("#layer-photos").html("<img id='questionPic' class='zjh_exam_question_pic' src='" + newQuestion.eqPic + "' layer-src='" + newQuestion.eqPic + "' />");
+                $("#layer-photos").html("<img id='questionPic' style='max-width: 250px;max-height: 250px' class='zjh_exam_question_pic' src='" + newQuestion.eqPic + "' layer-src='" + newQuestion.eqPic + "' />");
             } else {
                 $("#layer-photos").empty();
             }
