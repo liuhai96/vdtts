@@ -73,6 +73,8 @@
         let $ = layui.$;
         let layer = layui.layer;
 
+        $("#iframe",window.parent.document).attr("style","height:"+(Number(document.body.scrollHeight)-1600)+"px;");
+
         let path = window.document.location.href.substring(0, (window.document.location.href).indexOf(window.document.location.pathname));
 
         let questionList = null;

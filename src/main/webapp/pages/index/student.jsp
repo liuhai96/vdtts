@@ -101,8 +101,14 @@
     <a href="javascript:void(0)" title="返回上一页" class="sina" onclick="history.go(-1);"></a>
     <a href="javascript:void(0)" title="刷新" class="tencent" onclick="history.go(0);"></a>
 </div>
+<style>
+    iframe{
+        width: 100%;
+        height: 100%;
+    }
+</style>
 <div class="main">
-    <iframe src="<%=path%>${iframeUrl}" style="width: 100%;height: 100%"></iframe>
+    <iframe id="iframe" src="<%=path%>${iframeUrl}"></iframe>
 </div>
 
 <div class="footer">
