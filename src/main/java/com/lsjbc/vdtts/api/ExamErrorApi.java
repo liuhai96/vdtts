@@ -57,23 +57,7 @@ public class ExamErrorApi {
      * @author JX181114 --- 郑建辉
      */
     @DeleteMapping("error")
-    public ResultData deleteErrorQuestion(Integer id) {
-        ResultData resultData = null;
-
-        try {
-            Integer row = examErrorService.deleteErrorQuestionByRecordId(id);
-
-            if (1 == row) {
-                resultData = ResultData.success();
-            } else {
-                resultData = ResultData.warning("传入参数数量和删除数量不一致");
-            }
-
-        } catch (Exception e) {
-            resultData = ResultData.error(e.getMessage());
-        }
-
-
-        return resultData;
+    public void deleteErrorQuestion(Integer id,Integer level) {
+        examErrorService.deleteErrorQuestionByRecordId(id,level);
     }
 }

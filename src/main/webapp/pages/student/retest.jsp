@@ -224,24 +224,17 @@
             //正确
             if (checkSameItem(question.userChoiseId, question.rightId)) {
                 if(question.unSubmit){
+                    question.unSubmit=false;
                     $.ajax({
                         type: 'post',
                         dataType: 'json',
                         url: path + "/api/exam/error",
                         data: {
                             id: question.eeId
+                            , level:$("#level").val()
                             , _method: 'delete'
                         },
-                        traditional: true,
-                        success: function (result) {
-                            console.log(result);
-                            if(result.code==0){
-                                question.unSubmit=false;
-                            }
-                        },
-                        error: function (data) {
-                            alert("操作异常");
-                        }
+                        traditional: true
                     });
                 }
                 return 1;

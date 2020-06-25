@@ -60,26 +60,8 @@ public class ExamSimulateRecordApi {
      * @author JX181114 --- 郑建辉
      */
     @PutMapping("record")
-    public ResultData newRecord(@Valid ExamSimulateRecordAdd object) {
-
-        ResultData result = null;
-
-        try {
-            //根据返回的受影响条数来生成不同的返回值
-            Integer row = examSimulateRecordService.insertNewData(object);
-
-            //返回1：正常
-            if (row == 1) {
-                result = ResultData.success();
-
-                //返回0：数据没有插入成功
-            } else if (row == 0) {
-                result = ResultData.error("插入失败，请重试");
-            }
-        } catch (Exception e) {
-            result = ResultData.error(e.getMessage());
-        }
-
-        return result;
+    public void newRecord(@Valid ExamSimulateRecordAdd object) {
+        //根据返回的受影响条数来生成不同的返回值
+        examSimulateRecordService.insertNewData(object);
     }
 }

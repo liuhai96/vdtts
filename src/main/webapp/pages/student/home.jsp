@@ -138,23 +138,36 @@
 </div>
 
 
-<br>
-<br>
-<br>
 
-<div class="commonhead_line" style="border-top: 1px solid #00C356;"></div>
+<br>
+<br>
 <div class="video-page" border="0">
     <div style="height: auto" class="video-main">
         <p>位置：我的成绩</p>
         <iframe  style="width: 100%;border:0" src="<%=path%>/examResultController/getStudentResult?sId=${sessionScope.student.getSId()}&logo=result"></iframe>
     </div>
 </div>
+
+
+<br>
+<br>
+<br>
+
+<div class="commonhead_line" style="border-top: 1px solid #00C356;"></div>
 <div class="video-page" border="0">
     <div style="height: auto" class="video-main" border="0">
         <p>位置：我的学时</p>
         <iframe style="width: 100%;border:0" src="<%=path%>/examResultController/getStudentResult?sId=${sessionScope.student.getSId()}&logo=period"></iframe>
     </div>
 </div>
+
+
+<br>
+<br>
+<br>
+
+<div class="commonhead_line" style="border-top: 1px solid #00C356;"></div>
+
 <div class="video-page">
     <div class="video-main">
         <p>位置：模拟考试</p>
@@ -177,36 +190,20 @@
                 </div>
                 <div class="topic_ks borderL">
                     <div>
-                        <a id="test"
-                           style="float: left;text-align: center;width: 100%;height: 150px;margin-top: -45px;"
-                           class="lx-link"
-                           href="<%=path%>">
-                            <span class="topicIcon topic_mnks"></span>
+                        <a id="test" class="lx-link" style="height: 65%;">
+                            <span class="topicIcon topic_mnks" style="margin-top: 70px;"></span>
                             <p>模拟考试</p>
                             <p class="topicDes">模拟在线真实考试</p>
                         </a>
                     </div>
                     <div class="borderB height149">
-                        <a id="retest" style="float: left;text-align: center;width: 100%;height: 150px;"
-                           class="lx-link"
-                           href="">
-                            <span class="topicIcon topic_yct"></span>
+                        <a id="retest" class="lx-link" style="height: 65%;">
+                            <span class="topicIcon topic_yct" style="margin-top: 70px;"></span>
                             <p>错题重做</p>
                             <p class="topicDes">准确把握考试难点</p>
                         </a>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<div class="con">
-    <div class="main">
-        <div class="ksCon" style="margin: 0px auto;">
-            <div class="ksRight">
-
             </div>
         </div>
     </div>

@@ -239,9 +239,7 @@
         //点击交卷按钮时，提交的此操作
         $(document).on("click", "#submitBtn", function (event) {
 
-            let submit = true;
-
-            let index = 0
+            let index = 0;
 
             //遍历题目，如果还有题目没有选择答案，就不让提交
             for (; index < questionList.length; index++) {
@@ -255,15 +253,22 @@
             if (submit) {
                 submitTest();
             } else {
-                //如果没做完，不然提交，并跳转到未完成的第一道题目
-                alert("还有没做完的题目!");
-                showQuestion(index);
+                layer.confirm('还有未做完的题目，确定要交卷？', {
+                    btn: ['提交','继续做题']
+                }, function(layerIndex){
+                    submitTest(layerIndex);
+                }, function(){
+                    showQuestion(index);
+                });
             }
 
         });
 
         //交卷流程
-        function submitTest() {
+        function submitTest(layerIndex) {
+
+            layer.close(layerIndex);
+
             let sum = 0;
             let errorQuestions = [];
 
@@ -281,13 +286,14 @@
                 }
             }
 
-            if (sum > 90) {
-                layer.msg("恭喜你，通过了考试，得分：" + sum, {icon: 1});
-            } else {
-                layer.msg("还差一点点就通过了考试，得分：" + sum, {icon: 0});
-            }
 
-            for (var t = Date.now(); Date.now() - t <= 5000;) ;
+            console.log("计算错题完成，开始提示");
+
+            if (sum > 90) {
+                alert("恭喜你，通过了考试，得分：" + sum);
+            } else {
+                alert("还差一点点就通过了考试，得分：" + sum);
+            }
 
 
             $.ajax({
@@ -301,17 +307,10 @@
                     , errorQuestions: errorQuestions
                     , _method: 'put'
                 },
-                traditional: true,
-                success: function (result) {
-                    if (result.code != 0) {
-                        layer.msg(result.msg, {icon: 2})
-                    }
-                    window.location.href = path + "/student"
-                },
-                error: function (data) {
-                    alert("操作异常");
-                }
+                traditional: true
             });
+
+            window.location.href = path + "/student/main";
         };
 
 
