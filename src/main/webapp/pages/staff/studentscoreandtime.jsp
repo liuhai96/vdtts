@@ -128,7 +128,6 @@
             var data = obj.data;
             var sId = data.student.sId;
             var erId = data.erId;
-            layer.alert(erId);
             var teacherId = data.student.sTeacherId;
          if(obj.event === 'edit'){
                 $("#studentName").html(data.student.sName);

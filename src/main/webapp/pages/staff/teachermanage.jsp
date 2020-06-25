@@ -38,14 +38,14 @@
 
 <script type="text/html" id="barDemo">
     {{#  if(d.tTeach=='true'){}}
-      <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="noRegistration">允许学员报名</a>
+      <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="noRegistration">禁止学员报名</a>
     {{#  }else{}}
-      <a class="layui-btn layui-btn-xs" lay-event="noRegistration">禁止学员报名</a>
+      <a class="layui-btn layui-btn-xs" lay-event="noRegistration">允许学员报名</a>
     {{#  } }}
     {{#  if(d.tLock=='true'){}}
-      <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="accountLock">解锁账号</a>
+      <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="accountLock">锁定账号</a>
     {{#  }else{}}
-      <a class="layui-btn  layui-btn-xs" lay-event="accountLock">锁定账号</a>
+      <a class="layui-btn  layui-btn-xs" lay-event="accountLock">解锁账号</a>
     {{#  } }}
 </script>
 
@@ -82,16 +82,16 @@
             done: function (res, curr, count) {
                 $("[data-field='tTeach']").children().each(function () {
                     if ($(this).text() == 'true') {
-                        $(this).text("不允许")
-                    } else if ($(this).text() == 'false') {
                         $(this).text("允许")
+                    } else if ($(this).text() == 'false') {
+                        $(this).text("不允许")
                     }
                 });
                 $("[data-field='tLock']").children().each(function () {
                     if ($(this).text() == 'true') {
-                        $(this).text("禁用")
-                    } else if ($(this).text() == 'false') {
                         $(this).text("启用")
+                    } else if ($(this).text() == 'false') {
+                        $(this).text("禁用")
                     }
                 });
             }
