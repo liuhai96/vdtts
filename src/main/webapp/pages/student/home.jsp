@@ -13,7 +13,6 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>驾校一点通_官方网站_驾校学车_教练陪练_模拟考试</title>
     <meta name="baidu-site-verification" content="JU12JdpLM3">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -159,10 +158,18 @@
 <div class="video-page">
     <div class="video-main">
         <p>位置：模拟考试</p>
-        <div style="width:937px;margin: 0px auto;">
+        <div style="width:937px;margin: 0px auto;border: #a6e1ec solid 1px;height: 515px;">
+            <style>
+                .chooseClassTab{
+                    background-color: #a6e1ec;
+                }
+                .baseClassTab{
+                    background-color: #a9cbe6;
+                }
+            </style>
             <div class="tabCon nozgz">
-                <div id="course1" class="tab tab-active">科目一（交规）</div>
-                <div id="course4" class="tab">科目四（安全文明驾驶）</div>
+                <div id="course1" class="tab chooseClassTab">科目一（交规）</div>
+                <div id="course4" class="tab baseClassTab">科目四（安全文明驾驶）</div>
             </div>
             <div class="topicCon">
                 <div style="margin-top: -10px;width: 699px;float: left;margin-left: 1px;">

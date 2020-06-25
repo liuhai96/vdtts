@@ -2037,8 +2037,6 @@
         });
 
         let sSfz = "";//上传身份证
-        Layui_uploadImage("#test10",$("#path").val()+'/upImage',$('#demo10'),function (mag) {
-            sSfz = mag.fPath;},$('#demoText10'));//上传身份证
 
         form.verify({
             name:function (value) {
@@ -2106,6 +2104,9 @@
                 return true;
             }
         }
+
+        Layui_uploadImage("#test10",$("#path").val()+'/upImage',$('#demo10'),function (mag) {
+            sSfz = mag.fPath;},$('#demoText10'));//上传身份证
     });
 </script>
 

@@ -17,16 +17,20 @@ layui.use(['form', 'table', 'element', 'layer'], function () {
     let testLevel = 1;
 
     $("#course1").on("click", function (event) {
-        $("#course4").removeClass("tab-active");
-        $(this).addClass("tab-active");
+        $("#course4").removeClass("chooseClassTab");
+        $("#course4").addClass("baseClassTab");
+        $(this).addClass("chooseClassTab");
+        $(this).removeClass("baseClassTab");
         testLevel = 1;
         reloadTable();
         testUrl();
     });
 
     $("#course4").on("click", function (event) {
-        $("#course1").removeClass("tab-active");
-        $(this).addClass("tab-active");
+        $("#course1").removeClass("chooseClassTab");
+        $("#course1").addClass("baseClassTab");
+        $(this).addClass("chooseClassTab");
+        $(this).removeClass("baseClassTab");
         testLevel = 4;
         reloadTable();
         testUrl();
