@@ -5,6 +5,8 @@ layui.use(['form', 'table', 'element', 'layer'], function () {
     let element = layui.element;
     let layer = layui.layer;
 
+    let path = window.document.location.href.substring(0, (window.document.location.href).indexOf(window.document.location.pathname));
+
     function resizeIframe(newHeight){
         let height = newHeight;
 
@@ -17,11 +19,10 @@ layui.use(['form', 'table', 'element', 'layer'], function () {
     let msg = $("#zjh_msg").val();
 
     if (msg.length > 0) {
+        $("#iframe",window.parent.document).removeAttr("style");
+        resizeIframe(Number(document.body.scrollHeight)+405);
         alert(msg);
     }
-
-    let path = window.document.location.href.substring(0, (window.document.location.href).indexOf(window.document.location.pathname));
-
 
     let testLevel = 1;
 
@@ -147,7 +148,6 @@ layui.use(['form', 'table', 'element', 'layer'], function () {
                     }else{
                         resizeIframe(Number(document.body.scrollHeight)+subH);
                     }
-
                 }
             }
         });

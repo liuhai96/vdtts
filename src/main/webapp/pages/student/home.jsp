@@ -144,7 +144,7 @@
 <div class="video-page" border="0">
     <div style="height: auto" class="video-main">
         <p>位置：我的成绩</p>
-        <iframe  style="width: 100%;border:0" src="<%=path%>/examResultController/getStudentResult?sId=${sessionScope.student.getSId()}&logo=result"></iframe>
+        <iframe  style="width: 1180px;border:0" src="<%=path%>/examResultController/getStudentResult?sId=${sessionScope.student.getSId()}&logo=result"></iframe>
     </div>
 </div>
 
@@ -157,7 +157,7 @@
 <div class="video-page" border="0">
     <div style="height: auto" class="video-main" border="0">
         <p>位置：我的学时</p>
-        <iframe style="width: 100%;border:0" src="<%=path%>/examResultController/getStudentResult?sId=${sessionScope.student.getSId()}&logo=period"></iframe>
+        <iframe style="width: 1180px;border:0" src="<%=path%>/examResultController/getStudentResult?sId=${sessionScope.student.getSId()}&logo=period"></iframe>
     </div>
 </div>
 
@@ -220,7 +220,7 @@
     <div class="video-main">
         <p>位置：学车视频</p>
         <!-- 学车视频左侧 -->
-        <div class="video-left">
+        <div class="video-left" style="margin: auto;width: 940px;float: none;">
 
             <div class="video-left-bottom" id="jinxuan" >
                 <ul class="car-video">

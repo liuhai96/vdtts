@@ -9,11 +9,17 @@
     <link rel="stylesheet" type="text/css" href="https://www.layuicdn.com/layui-v2.5.6/css/layui.css"/>
     <link rel="stylesheet" href="<%=path+"/css/pages/index/m-index.css"%>">
     <link rel="stylesheet" href="<%=path+"/css/pages/index/mnks.css"%>">
+    <style>
+        body{
+            overflow-y:hidden;
+        }
+    </style>
 </head>
 <body>
 <input type="hidden" id="level" value="${level}">
 <input type="hidden" id="userToken" value="${studentId}">
 <div class="clear"></div>
+<p style="margin-top: 30px;margin-left: 50px;">位置：<a href="<%=path+"/student/main"%>">模拟考试：</a>${levelName}</p>
 <div id="mnks">
     <div class="content-body">
         <div class="left fl">
@@ -79,7 +85,8 @@
         let $ = layui.$;
         let layer = layui.layer;
 
-        $("#iframe",window.parent.document).attr("style","height:"+(Number(document.body.scrollHeight)-1600)+"px;");
+        $("#iframe",window.parent.document).removeAttr("style");
+        $("#iframe",window.parent.document).attr("style","height:"+(Number(document.body.scrollHeight))+"px;");
 
         let path = window.document.location.href.substring(0, (window.document.location.href).indexOf(window.document.location.pathname));
 

@@ -25,7 +25,7 @@
 <div class="commonhead_line" style="border-top: 1px solid #00C356;"></div>
 
 <div class="video-detail-page">
-    <p>位置：<a href="http://tv.jxedt.com/">学车视频</a> &gt; ${levelName}：<span id="videoTitle">${video.VTitle}</span></p>
+    <p>位置：<a href="<%=path+"/student/main"%>">学车视频</a> &gt; ${levelName}：<span id="videoTitle">${video.VTitle}</span></p>
     <div class="video-play-detail">
         <div class="detail-video">
             <video id="videoDiv" controls="" style="border: 1px solid blue;max-height: 470px;width: 800px;"
@@ -67,7 +67,7 @@
         let layer = layui.layer;
 
 
-        $("#iframe",window.parent.document).attr("style","height:"+(Number(document.body.scrollHeight))+"px;");
+        $("#iframe",window.parent.document).attr("style","height:"+(Number(document.body.scrollHeight)-2550)+"px;");
 
 
         let video = document.getElementById("videoDiv");
@@ -86,47 +86,8 @@
         //定时器的标题
         let countDown = undefined;
 
-        video.addEventListener('play', function () {  //开始播放
-            console.log("视频开始播放");
-
-            if ($("#record").val()) {
-                countDown = setInterval(function () {
-                    playTime++;
-                    console.log("记录学时中");
-                }, 1000);
-            }
-        });
-
-        video.addEventListener('pause', function () { //暂停开始执行的函数
-            console.log("暂停播放");
-            submitTime();
-        });
-
-        video.addEventListener('ended', function () { //结束
-            console.log("播放结束");
-            submitTime();
-        }, false);
-
-        $("a[class*='otherVideoA']").on("click", function (event) {
-            $("a[class*='otherVideoA']").prev().removeClass("selected-circle");
-            $(this).prev().addClass("selected-circle");
-
-            submitTime();
-
-            $("#videoTitle").html($(this).html());
-
-            $(video).attr("src", $(this).attr("video"));
-            video.load();
-            video.play();
-        });
-
-
-        let userId = $("#userToken").val();
-
-        function submitTime() {
-
-            if ($("#record").val()) {
-                clearInterval(countDown);
+        let autoSubmit = setInterval(function () {
+            if ($("#record").val()&&playTime>0) {
                 console.log("本次学习共获得学时：" + playTime);
 
                 $.ajax({
@@ -141,7 +102,6 @@
                     },
                     traditional: true,
                     success: function (result) {
-                        console.log(result);
                         if (result.msg.length > 0) {
                             layer.msg(result.msg);
                         }
@@ -151,10 +111,47 @@
                     }
                 });
 
-
                 playTime = 0;
             }
-        }
+        }, 15*1000);
+
+        video.addEventListener('play', function () {  //开始播放
+            console.log("视频开始播放");
+
+            if ($("#record").val()) {
+                countDown = setInterval(function () {
+                    playTime++;
+                    console.log("记录学时中");
+                }, 1000);
+            }
+        });
+
+        video.addEventListener('pause', function () { //暂停开始执行的函数
+            console.log("暂停播放");
+            clearInterval(countDown);
+        });
+
+        video.addEventListener('ended', function () { //结束
+            console.log("播放结束");
+            clearInterval(countDown);
+        }, false);
+
+        $("a[class*='otherVideoA']").on("click", function (event) {
+            $("a[class*='otherVideoA']").prev().removeClass("selected-circle");
+            $(this).prev().addClass("selected-circle");
+
+            $("#videoTitle").html($(this).html());
+
+            $(video).attr("src", $(this).attr("video"));
+            video.load();
+
+            clearInterval(countDown);
+
+            video.play();
+        });
+
+
+        let userId = $("#userToken").val();
     });
 </script>
 
