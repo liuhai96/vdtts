@@ -132,13 +132,6 @@ public class TeacherController {
         return JSON.toJSONString(teacherService.updateTeacherAccountLockState(tLock, Integer.parseInt(tId)));
     }
 
-    @RequestMapping(value = "/teacherInit")
-    public ModelAndView TeacherInit() {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("/pages/teacher/teacher");
-        return modelAndView;
-    }
-
     @RequestMapping(value = "/stuTableData")//教练查找学生信息
     public String StuTabelData(int page, int limit, Student student, HttpServletRequest request) {
         LayuiTableData layuiTableData = studentService.selectList(student, page, limit);
