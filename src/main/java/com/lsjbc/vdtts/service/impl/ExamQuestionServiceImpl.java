@@ -43,13 +43,16 @@ public class ExamQuestionServiceImpl implements ExamQuestionService {
 
     @Override
     public ResultData insertExamQuestion(String level) {
-        System.out.println("PPPPPPPPPP>>>>>>>>>>>>"+level);
-        List<ExamEnity> examEnitityList = GetExamQuestion.getRequest1(level);
-        examQuestionDao.deleteAll(Integer.parseInt(level));
-        examAnswerDao.deleteAll(Integer.parseInt(level));
-        examErrorDao.deleteByLevel(Integer.parseInt(level));
         ResultData resultData = null;
-        // todo 考虑分片
+        if(level.equals("0")){
+            resultData = ResultData.error(-1,"请选择需要更新的科目");
+        }else {
+            List<ExamEnity> examEnitityList = GetExamQuestion.getRequest1(level);
+            examQuestionDao.deleteAll(Integer.parseInt(level));
+            examAnswerDao.deleteAll(Integer.parseInt(level));
+            examErrorDao.deleteByLevel(Integer.parseInt(level));
+
+            // todo 考虑分片
 //        List<ExamQuestion> examQuestionList = examEnitityList.stream().map(examEnity -> {
 //            return ExamQuestion.builder()
 //                    .eqPic(examEnity.getUrl())
@@ -64,31 +67,30 @@ public class ExamQuestionServiceImpl implements ExamQuestionService {
 //            return enity.generateAnswer(e.getEqId()).stream();
 //        }).collect(Collectors.toList());
 //        examAnswerDao.addAll(examAnswerList);
-        for(int i=0;i<examEnitityList.size();i++) {
-            ExamEnity examEnity = examEnitityList.get(i);
+            for(int i=0;i<examEnitityList.size();i++) {
+                ExamEnity examEnity = examEnitityList.get(i);
 
-            //插入题目
-            ExamQuestion examQuestion = ExamQuestion.builder()
-                    .eqQuestion(examEnity.getQuestion())
-                    .eqLevel(Integer.parseInt(level))
-                    .build();
-            if (examEnity.getUrl() != "") {
-                examQuestion.setEqPic(examEnity.getUrl());
+                //插入题目
+                ExamQuestion examQuestion = ExamQuestion.builder()
+                        .eqQuestion(examEnity.getQuestion())
+                        .eqLevel(Integer.parseInt(level))
+                        .build();
+                if (examEnity.getUrl() != "") {
+                    examQuestion.setEqPic(examEnity.getUrl());
+                }
+                int num =  examQuestionDao.add(examQuestion);
+
+                List<ExamAnswer> answers = examEnity.generateAnswer(examQuestion);
+
+                int num1 =examAnswerDao.addAll(answers);
+                if(num1>0&&num>0){
+                    resultData = ResultData.success(1,"题库更新成功");
+                }
             }
-           int num =  examQuestionDao.add(examQuestion);
 
-            List<ExamAnswer> answers = examEnity.generateAnswer(examQuestion.getEqId(),level);
-
-            int num1 =examAnswerDao.addAll(answers);
-            if(num1>0&&num>0){
-                resultData = ResultData.success(1,"题库更新成功");
-            }
         }
-
         //重新生成对应科目的考卷
         questionBank.resetBank(Integer.parseInt(level));
-
-        
         return resultData;
     }
 

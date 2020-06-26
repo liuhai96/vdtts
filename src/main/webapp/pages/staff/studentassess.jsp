@@ -25,19 +25,27 @@
 <body>
 <div class="coach-stu-evaluate">
         <textarea title="评价模板" id="evaluate_tpl" style="display:none;">
-            {{# layui.each(d.data, function(index, item){ }}
-            <div>
-            {{= item.econtent }}<br>
-            {{= item.etime }}
-                <div style="float: right;">
-                    <div class="atar_Show">
-                        <p class="atar_Show scoreStar" tip="{{ item.escore }}"></p>
+            <div style="padding-top:40px;width:700px;margin:0 auto;">
+                {{# layui.each(d.data, function(index, item){ }}
+                <div>
+                     <div style="float:left;"><img style="width:50px;height:50px;border-radius: 50%;"  src="<%=path+"/image/sch.jpg"%>"/></div>
+                    <div style="float:left;">
+                    <span style="margin-left:10px;color:#3D9EEA;font-size:15px;font-weight: bolder;">匿名评价:</span>
+                    <span>{{= item.etime }}</span>
+                        <div style="margin-top:10px;font-size:16px;" >
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{= item.econtent }}
+                        </div>
+                        </div>
+                    <div style="float: right;">
+                        <div class="atar_Show">
+                            <p class="atar_Show scoreStar" tip="{{ item.escore }}"></p>
+                        </div>
+                        <span style="font-size: 17px;color: #65B0F1;">{{ item.escore }}分</span>
                     </div>
-                    <span style="font-size: 17px;color: #65B0F1;">{{ item.escore }}分</span>
+                <hr>
+                {{# }); }}
                 </div>
             </div>
-            <hr>
-            {{# }); }}
         </textarea>
     <p>学员评价</p>
     <hr>

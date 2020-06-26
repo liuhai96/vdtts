@@ -98,6 +98,8 @@
                             if (resmsg.code == 1) {
                                 layer.msg(resmsg.msg);
                                 $table.reload();
+                            }else{
+                                layer.msg(resmsg.msg);
                             }
                         }
                     });
