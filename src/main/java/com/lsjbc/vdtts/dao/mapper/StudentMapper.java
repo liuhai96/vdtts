@@ -20,7 +20,10 @@ public interface StudentMapper extends CustomBaseMapper<Student> {
     List<Student> selectList(@Param("e") Student student, @Param("start") int start, @Param("pageSize") int pageSize);
 
     int selectListCount(@Param("e") Student student);
+    //修改密码
+    String findstudentPwd(@Param("aId") Integer aId);
 
+    int updatestudentPwd(@Param("aId") int aId,@Param("aPassword") String aPassword);
     /*
      *@Description:
      *@Author:周永哲

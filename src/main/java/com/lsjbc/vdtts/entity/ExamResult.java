@@ -127,4 +127,16 @@ public class ExamResult {
 
 	@Transient
 	private String tName;
+
+	/**
+	 * 科目二学时转换为可读数据
+	 */
+	@Transient
+	private String erTime2String;
+
+	/**
+	 * 科目三学时转换为可读数据
+	 */
+	@Transient
+	private String erTime3String;
 }

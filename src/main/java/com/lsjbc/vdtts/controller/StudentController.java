@@ -3,11 +3,11 @@ package com.lsjbc.vdtts.controller;
 import com.alibaba.fastjson.JSON;
 import com.lsjbc.vdtts.aop.Log;
 import com.lsjbc.vdtts.entity.Account;
+import com.lsjbc.vdtts.entity.School;
 import com.lsjbc.vdtts.entity.Student;
-import com.lsjbc.vdtts.enums.OperateType;
-import com.lsjbc.vdtts.enums.ResourceType;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.pojo.vo.ResultData;
+import com.lsjbc.vdtts.pojo.vo.StudentRegister;
 import com.lsjbc.vdtts.service.intf.AccountService;
 import com.lsjbc.vdtts.service.intf.StudentService;
 import com.lsjbc.vdtts.utils.Tool;
@@ -18,9 +18,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/studentController")
@@ -91,8 +94,12 @@ public class StudentController {
             return res;
         }
     }
-
-
+//学员修改密码
+    @RequestMapping(value = "/updatestudentPwd")
+    @ResponseBody
+    private ResultData updatestudentPwd(HttpServletRequest request){
+        return studentService.updatestudentPwd(request);
+    }
     @RequestMapping(value = "/updatestudent")//修改学员
     public String updateadmin(HttpServletRequest request, HttpServletResponse response,
                               @RequestParam(value = "account") String account,@RequestParam(value = "pwd") String pwd ,

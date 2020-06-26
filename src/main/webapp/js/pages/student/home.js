@@ -5,28 +5,42 @@ layui.use(['form', 'table', 'element', 'layer'], function () {
     let element = layui.element;
     let layer = layui.layer;
 
+    let path = window.document.location.href.substring(0, (window.document.location.href).indexOf(window.document.location.pathname));
+
+    function resizeIframe(newHeight){
+        let height = newHeight;
+
+        $("#iframe",window.parent.document).attr("style","height:"+height+"px;");
+    }
+
+    resizeIframe(Number(document.body.scrollHeight)+405);
+
+
     let msg = $("#zjh_msg").val();
 
     if (msg.length > 0) {
+        $("#iframe",window.parent.document).removeAttr("style");
+        resizeIframe(Number(document.body.scrollHeight)+405);
         alert(msg);
     }
-
-    let path = window.document.location.href.substring(0, (window.document.location.href).indexOf(window.document.location.pathname));
-
 
     let testLevel = 1;
 
     $("#course1").on("click", function (event) {
-        $("#course4").removeClass("tab-active");
-        $(this).addClass("tab-active");
+        $("#course4").removeClass("chooseClassTab");
+        $("#course4").addClass("baseClassTab");
+        $(this).addClass("chooseClassTab");
+        $(this).removeClass("baseClassTab");
         testLevel = 1;
         reloadTable();
         testUrl();
     });
 
     $("#course4").on("click", function (event) {
-        $("#course1").removeClass("tab-active");
-        $(this).addClass("tab-active");
+        $("#course1").removeClass("chooseClassTab");
+        $("#course1").addClass("baseClassTab");
+        $(this).addClass("chooseClassTab");
+        $(this).removeClass("baseClassTab");
         testLevel = 4;
         reloadTable();
         testUrl();
@@ -81,7 +95,10 @@ layui.use(['form', 'table', 'element', 'layer'], function () {
         }
     });
 
-    function getVideoDetail(level) {
+    function getVideoDetail(level,resize) {
+
+        let oldH = $("#videoList").height();
+
         $.ajax({
             type: "get",
             url: path + "/api/video/level/" + level,
@@ -120,17 +137,29 @@ layui.use(['form', 'table', 'element', 'layer'], function () {
                         "</div>";
                 }
                 $(videoList).html(str);
+
+                let newH = $("#videoList").height();
+
+                let subH = newH-oldH;
+
+                if(resize){
+                    if(subH>0){
+                        resizeIframe(Number(document.body.scrollHeight)-915+subH);
+                    }else{
+                        resizeIframe(Number(document.body.scrollHeight)+subH);
+                    }
+                }
             }
         });
     }
 
-    getVideoDetail(2);
+    getVideoDetail(2,false);
 
 
     $("ul[class*='car-video'] li").on("click", function (event) {
         $("ul[class*='car-video'] li").children().removeClass("active");
         $(this).children().addClass("active");
 
-        getVideoDetail($(this).attr("level"));
+        getVideoDetail($(this).attr("level"),true);
     });
 });

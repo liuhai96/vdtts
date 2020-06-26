@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="<%=path + "/css/pages/index/reset.css"%>">
     <link rel="stylesheet" href="<%=path + "/css/pages/index/registration.css"%>">
     <link rel="stylesheet" href="https://www.layuicdn.com/layui-v2.5.6/css/layui.css" media="all">
+    <script type="text/javascript" src=<%=path+"/static/layui/layui.js"%>></script>
     <style>
         .header-wrap {
             width: 100%;
@@ -1906,32 +1907,29 @@
                 <form class="layui-form" action="<%=path+"/student/register"%>" autocomplete="off" id="registerfrom" method="post">
                     <h4>学员注册</h4>
                     <div id="idPhoto" style="display: none;">
-                        <div class="form-group radio-form" id="test10" onclick="" type="button" style="padding-left: 70px" >
-                            <div class="user-type-conatiner layui-upload" style="height: 15%;width: 15% ;">
-                                <div class="user-type active layui-upload-list" ref="radioWrap" data-index="0"
-                                     style="height:150px ;width: 200px; margin: auto;border: 0px solid black;">
-                                    <b skip="true">上传身份证</b>
-                                    <img src="" style="height: 100%;width: 100%" class="layui-upload-img" id="demo10"  property="" alt="点击上传身份证">
-                                    <p id="demoText10"></p>
-                                </div>
-                            </div>
-                        </div>
+	                    <div class="layui-upload">
+		                    <button type="button" class="layui-btn" id="test1">上传身份证</button>
+		                    <div class="layui-upload-list">
+			                    <img class="layui-upload-img" id="demo1" style="width: 360px; height: 200px;" alt="身份证正面照">
+			                    <p id="demoText"></p>
+		                    </div>
+	                    </div>
                     </div>
-                    <br/>
+	                    <br/>
 <%--                    <br/>--%>
 <%--                    <br/>--%>
                     <div id="idHand" style="display: block;">
                         <div class="layui-form-item" style="margin-left: -25px;">
                             <label class="layui-form-label">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名</label>
                             <div class="layui-input-inline">
-                                <input value="${username}" type="text" style="width: 285px" name="username" lay-verify="required|name" placeholder="请输入姓名" autocomplete="off" class="layui-input">
+                                <input id="sname" value="${username}" type="text" style="width: 285px" name="username" lay-verify="required|name" placeholder="请输入姓名" autocomplete="off" class="layui-input">
                             </div>
                         </div>
 
                         <div class="layui-form-item" style="margin-left: -25px;">
                             <label class="layui-form-label">身份证号码</label>
                             <div class="layui-input-inline">
-                                <input value="${sfz}" type="text" style="width: 285px" name="sfz" lay-verify="required|id" placeholder="请输入身份证号码" autocomplete="off" class="layui-input">
+                                <input id="ssfz" value="${sfz}" type="text" style="width: 285px" name="sfz" lay-verify="required|id" placeholder="请输入身份证号码" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                     </div>
@@ -1975,8 +1973,7 @@
                         <i></i>
                     </div>
                     <div class="captcha-block">
-                        <div id="captcha"><input type="hidden" name="NECaptchaValidate" value=""
-                                                 class="yidun_input"></div>
+                        <div id="captcha"><input type="hidden" name="NECaptchaValidate" value="" class="yidun_input"></div>
                         <p class="iconfont icon-jinggao"></p>
                     </div>
                     <div>
@@ -2035,10 +2032,6 @@
             $("#showHand").attr("style","display:none;");
             inputByHand = true;
         });
-
-        let sSfz = "";//上传身份证
-        Layui_uploadImage("#test10",$("#path").val()+'/upImage',$('#demo10'),function (mag) {
-            sSfz = mag.fPath;},$('#demoText10'));//上传身份证
 
         form.verify({
             name:function (value) {
@@ -2106,11 +2099,43 @@
                 return true;
             }
         }
+            layui.use(['jquery', 'layer', 'upload'], function () {
+                var $ = layui.jquery, upload = layui.upload;
+                //普通图片上传
+	            var uploadInst = upload.render({
+		            elem: '#test1'
+                    , url: '/pipeControl/sfzdiscern' //改成您自己的上传接口
+
+		            , before: function (obj) {
+			            //预读本地文件示例，不支持ie8
+			            obj.preview(function (index, file, result) {
+				            $('#demo1').attr('src', result); //图片链接（base64）
+			            });
+		            }
+		            , done: function (res) {
+			            //如果上传失败
+			            if (res.code > 0) {
+				            return layer.msg('上传失败');
+			            }else {
+			                alert("识别身份证成功");
+                            console.log(res);
+			                $('#sname').val(res.name);
+                            $('#ssfz').val(res.num);
+                        }
+			            //上传成功
+		            }
+		            , error: function () {
+			            //演示失败状态，并实现重传
+			            var demoText = $('#demoText');
+			            demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+			            demoText.find('.demo-reload').on('click', function () {
+				            uploadInst.upload();
+			            });
+		            }
+	            });
+            });
     });
 </script>
-
-
-
 </body>
 
 </html>

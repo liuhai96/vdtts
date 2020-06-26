@@ -133,6 +133,7 @@ public class AccountServiceImp implements AccountService {
                         evaluate.setEType("teacher");
                         request.getSession().setAttribute("evaluate", evaluateMapper.selectEvaluate(evaluate));
                         nextJsp = "transfer?logo=institutionIndex";//前端jsp地址
+                        resultData.setMsg("登录成功");
                     }
                     break;
                 case "manage":

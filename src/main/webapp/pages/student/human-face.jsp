@@ -65,6 +65,8 @@
             layer = layui.layer;
             upload=layui.upload;
 
+            $("#iframe",window.parent.document).attr("style","height:"+Number(document.body.scrollHeight)+"px;width:100%;");
+
             $("#openCamera").on("click",function () {
                 var clock2=setInterval(function () {
                     $('#image').faceDetection({

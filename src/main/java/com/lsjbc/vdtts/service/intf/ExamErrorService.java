@@ -26,9 +26,10 @@ public interface ExamErrorService {
      * 根据错题ID来删除记录
      *
      * @param id 错题ID
+     * @param level 所属科目
      * @return 受影响条数
      * @author JX181114 --- 郑建辉
      */
-    Integer deleteErrorQuestionByRecordId(Integer id);
+    Integer deleteErrorQuestionByRecordId(Integer id,Integer level);
 
 }
