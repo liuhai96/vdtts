@@ -7,6 +7,7 @@ import com.lsjbc.vdtts.entity.ExamError;
 import com.lsjbc.vdtts.entity.ExamQuestion;
 import com.lsjbc.vdtts.pojo.vo.ExamQuestionWithEeId;
 import com.lsjbc.vdtts.service.intf.ExamErrorService;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -67,11 +68,13 @@ public class ExamErrorServiceImpl implements ExamErrorService {
      * 根据错题ID来删除记录
      *
      * @param id 错题ID
+     * @param level 所属科目
      * @return 受影响条数
      * @author JX181114 --- 郑建辉
      */
     @Override
-    public Integer deleteErrorQuestionByRecordId(Integer id) {
-        return examErrorDao.deleteById(id);
+    @Async
+    public Integer deleteErrorQuestionByRecordId(Integer id,Integer level) {
+        return examErrorDao.deleteByIdAndLevel(id,level);
     }
 }

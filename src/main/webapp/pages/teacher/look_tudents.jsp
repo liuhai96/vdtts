@@ -35,7 +35,7 @@
             </div>
             <button class="layui-btn" data-type="reload">搜索</button>
         </div>
-        <div style="width: 60%;margin: 0 0 0 20%">
+        <div style="width: 100%;">
             <table class="layui-hide" id="LAY_table_user" lay-filter="user"></table>
         </div>
     </div>
@@ -49,13 +49,13 @@
                 elem: '#LAY_table_user'
                 ,url: $("#path").val()+'/teacherController/stuTableData?sTeacherId='+$("#aId").val()
                 ,cols: [[
-                    {field:'sId', title: 'ID', width:80, sort: true, fixed: true}
-                    ,{field:'sName', title: '学生姓名', width:150}
-                    ,{field:'sSex', title: '性别', width:100}
-                    ,{field:'sBirthday', title: '出生日期', width:150, sort: true}
-                    ,{field:'sPhone', title: '联系方式', width:150}
-                    ,{field:'sLicenseTime', title: '驾考情况', width:150}
-                    ,{field:'schoolName', title: '驾校', width:150}
+                    {field:'sId', title: 'ID', sort: true, fixed: true}
+                    ,{field:'sName', title: '学生姓名'}
+                    ,{field:'sSex', title: '性别'}
+                    ,{field:'sBirthday', title: '出生日期', sort: true}
+                    ,{field:'sPhone', title: '联系方式'}
+                    ,{field:'sLicenseTime', title: '驾考情况'}
+                    ,{field:'schoolName', title: '驾校'}
                 ]]
                 ,id: 'testReload'
                 ,height: 400

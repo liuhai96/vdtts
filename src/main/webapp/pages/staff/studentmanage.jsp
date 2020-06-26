@@ -76,7 +76,7 @@
                 ,{field:'sPhone', title:'电话', width:80,sort: true}
                 ,{field:'sSex', title:'性别', width:100}
                 ,{field:'sSfz', title:'身份证号'}
-                ,{field:'teacherName', title:'身份证号'}
+                ,{field:'teacherName', title:'教练名'}
                 ,{field:'sApplyState', title:'报名审核状态'}
                 ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:150}
             ]]

@@ -13,7 +13,6 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>驾校一点通_官方网站_驾校学车_教练陪练_模拟考试</title>
     <meta name="baidu-site-verification" content="JU12JdpLM3">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -139,30 +138,51 @@
 </div>
 
 
+
+<br>
+<br>
+<div class="video-page" border="0">
+    <div style="height: auto" class="video-main">
+        <p>位置：我的成绩</p>
+        <iframe  style="width: 1180px;border:0" src="<%=path%>/examResultController/getStudentResult?sId=${sessionScope.student.getSId()}&logo=result"></iframe>
+    </div>
+</div>
+
+
 <br>
 <br>
 <br>
 
 <div class="commonhead_line" style="border-top: 1px solid #00C356;"></div>
 <div class="video-page" border="0">
-    <div style="height: auto" class="video-main">
-        <p>位置：我的成绩</p>
-        <iframe  style="width: 100%;border:0" src="<%=path%>/examResultController/getStudentResult?sId=${sessionScope.student.getSId()}&logo=result"></iframe>
-    </div>
-</div>
-<div class="video-page" border="0">
     <div style="height: auto" class="video-main" border="0">
         <p>位置：我的学时</p>
-        <iframe style="width: 100%;border:0" src="<%=path%>/examResultController/getStudentResult?sId=${sessionScope.student.getSId()}&logo=period"></iframe>
+        <iframe style="width: 1180px;border:0" src="<%=path%>/examResultController/getStudentResult?sId=${sessionScope.student.getSId()}&logo=period"></iframe>
     </div>
 </div>
+
+
+<br>
+<br>
+<br>
+
+<div class="commonhead_line" style="border-top: 1px solid #00C356;"></div>
+
 <div class="video-page">
     <div class="video-main">
         <p>位置：模拟考试</p>
-        <div style="width:937px;margin: 0px auto;">
+        <div style="width:937px;margin: 0px auto;border: #a6e1ec solid 1px;height: 515px;">
+            <style>
+                .chooseClassTab{
+                    background-color: #a6e1ec;
+                }
+                .baseClassTab{
+                    background-color: #a9cbe6;
+                }
+            </style>
             <div class="tabCon nozgz">
-                <div id="course1" class="tab tab-active">科目一（交规）</div>
-                <div id="course4" class="tab">科目四（安全文明驾驶）</div>
+                <div id="course1" class="tab chooseClassTab">科目一（交规）</div>
+                <div id="course4" class="tab baseClassTab">科目四（安全文明驾驶）</div>
             </div>
             <div class="topicCon">
                 <div style="margin-top: -10px;width: 699px;float: left;margin-left: 1px;">
@@ -170,36 +190,20 @@
                 </div>
                 <div class="topic_ks borderL">
                     <div>
-                        <a id="test"
-                           style="float: left;text-align: center;width: 100%;height: 150px;margin-top: -45px;"
-                           class="lx-link"
-                           href="<%=path%>">
-                            <span class="topicIcon topic_mnks"></span>
+                        <a id="test" class="lx-link" style="height: 65%;">
+                            <span class="topicIcon topic_mnks" style="margin-top: 70px;"></span>
                             <p>模拟考试</p>
                             <p class="topicDes">模拟在线真实考试</p>
                         </a>
                     </div>
                     <div class="borderB height149">
-                        <a id="retest" style="float: left;text-align: center;width: 100%;height: 150px;"
-                           class="lx-link"
-                           href="">
-                            <span class="topicIcon topic_yct"></span>
+                        <a id="retest" class="lx-link" style="height: 65%;">
+                            <span class="topicIcon topic_yct" style="margin-top: 70px;"></span>
                             <p>错题重做</p>
                             <p class="topicDes">准确把握考试难点</p>
                         </a>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<div class="con">
-    <div class="main">
-        <div class="ksCon" style="margin: 0px auto;">
-            <div class="ksRight">
-
             </div>
         </div>
     </div>
@@ -216,7 +220,7 @@
     <div class="video-main">
         <p>位置：学车视频</p>
         <!-- 学车视频左侧 -->
-        <div class="video-left">
+        <div class="video-left" style="margin: auto;width: 940px;float: none;">
 
             <div class="video-left-bottom" id="jinxuan" >
                 <ul class="car-video">

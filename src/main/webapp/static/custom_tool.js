@@ -23,10 +23,10 @@ function Skip(c) {//表单换页
     page.attr("value",count);
     $("#skip").submit();
 }
-function skipPage(box) {
+function skipPage(box) {//普通跳转
     window.location.href = $("#path").val()+box;
 }
-function skipAbsolute(box) {
+function skipAbsolute(box) {//绝对跳转
     if(top.location!=self.location)top.location=top.location = $("#path").val()+box;//跳出iframe到指定位置
 }
 function isContain(beingMeasured,con) {

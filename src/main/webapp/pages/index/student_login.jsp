@@ -93,6 +93,8 @@
         let $ = layui.$;
         let layer = layui.layer;
 
+        $("#iframe",window.parent.document).attr("style","height:"+Number(document.body.scrollHeight)+"px;");
+
         let msg = $("#zjh_msg").val();
 
         if (msg.length > 0) {
