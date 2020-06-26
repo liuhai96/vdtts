@@ -49,7 +49,7 @@
                                     <div class="user-type active layui-upload-list" ref="radioWrap" data-index="0"
                                          style="width: 60%"  >
                                         <b skip="true">宣传图片</b>
-                                        <img src="" class="layui-upload-img" id="demo1" <%--<%=path+"/image/home-page/sml_002.png"%>--%>
+                                        <img src="" class="layui-upload-img" id="demo1" height="300px" width="500px"
                                              property="" alt="会展示到<%=schoolName%>中，入驻需认证，用于营销、招生、管理">
                                         <p id="demoText"></p>
                                     </div>
@@ -92,7 +92,7 @@
                                     <div class="user-type active layui-upload-list" ref="radioWrap" data-index="0"
                                          style="width: 60%">
                                         <b skip="true">法人证件照</b>
-                                        <img src="" class="layui-upload-img" id="demo10" <%--<%=path+"/image/home-page/sml_002.png"%>--%>
+                                        <img src="" class="layui-upload-img" id="demo10" height="300px" width="500px"
                                              property="" alt="用于管理">
                                         <p id="demoText10"></p>
                                     </div>

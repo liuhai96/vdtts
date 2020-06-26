@@ -2,9 +2,12 @@ package com.lsjbc.vdtts.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageInfo;
+import com.lsjbc.vdtts.aop.Log;
 import com.lsjbc.vdtts.entity.Account;
 import com.lsjbc.vdtts.entity.Link;
 import com.lsjbc.vdtts.entity.School;
+import com.lsjbc.vdtts.enums.OperateType;
+import com.lsjbc.vdtts.enums.ResourceType;
 import com.lsjbc.vdtts.pojo.dto.PageDTO;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.pojo.vo.ResultData;
@@ -186,19 +189,20 @@ public class SchoolControl {
 
     @RequestMapping(value = "/findSchoolInfo")
 	@ResponseBody
+	@Log(operateType = OperateType.QUERY, resourceType = ResourceType.School)
     public Object findSchoolInfo(HttpServletRequest request, HttpServletResponse response){
         System.out.println("JSON.toJSONString(schoolService.findSchoolInfo(request,response):>>>>>>)"+JSON.toJSONString(schoolService.findSchoolInfo(request,response)));
 	    return schoolService.findSchoolInfo(request,response);
     }
 
+	/*
+	 *@Description:驾校入驻
+	 *@Author:李浪_191019
+	 *@Param:[file]
+	 *@return:java.lang.Object
+	 *@Date:2020/6/11 11:52
+	 **/
     @RequestMapping(value = "/drivingIn")
-    /*
-     *@Description:驾校入驻
-     *@Author:李浪_191019
-     *@Param:[file]
-     *@return:java.lang.Object
-     *@Date:2020/6/11 11:52
-     **/
     @ResponseBody
     private String DrivingIn(School school, Account account){
         Tool tool = new Tool();
@@ -216,6 +220,7 @@ public class SchoolControl {
 
     @RequestMapping(value = "/updateSchoolBasicInfo")
 	@ResponseBody
+	@Log(operateType = OperateType.MODIFY, resourceType = ResourceType.School)
     private ResultData updateSchoolBasicInfo(School school){
         System.out.println("school"+school);
         return schoolService.updateSchoolBasicInfo(school);
@@ -223,6 +228,7 @@ public class SchoolControl {
 
 	@RequestMapping(value = "/updateSchoolPwd")
 	@ResponseBody
+	@Log(operateType = OperateType.MODIFY, resourceType = ResourceType.School)
 	private ResultData updateSchoolPwd(HttpServletRequest request){
 		return schoolService.updateSchoolPwd(request);
 	}

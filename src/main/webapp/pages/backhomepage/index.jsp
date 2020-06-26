@@ -1,10 +1,13 @@
 <html class="x-admin-sm">
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
     String path = request.getContextPath();
 %>
 <head>
     <meta charset="utf-8">
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="<%=path%>/static/preadmin/component/layui/css/layui.css" />
     <link rel="stylesheet" href="<%=path%>/static/preadmin/admin/css/pearTab.css" />
@@ -34,7 +37,7 @@
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item layui-hide-xs"><a href="#" class="fullScreen layui-icon layui-icon-screen-full"></a></li>
             <li class="layui-nav-item" lay-unselect="">
-                <a href="javascript:;"><img src="<%=path%>/static/preadmin/admin/images/avatar.jpg" class="layui-nav-img">就眠仪式</a>
+                <a href="javascript:;"><img src="<%=path%>${userHead}" class="layui-nav-img">${name}</a>
                 <dl class="layui-nav-child">
                     <dd><a href="javascript:;" onclick="Logout()">注销登陆</a></dd>
                 </dl>
@@ -45,14 +48,21 @@
     <div class="layui-side layui-bg-black">
         <div class="layui-logo">
             <img class="logo" src="<%=path%>/static/preadmin/admin/images/logo.png" />
-            <span class="title">Pear Admin</span>
+            <span class="title">
+                <label style="color: darkorange;font-size: 25px;">
+            <c:if test="${aType eq 'school'}">驾校</c:if>
+            <c:if test="${aType eq 'teacher'}">教练</c:if>
+            <c:if test="${aType eq 'manage'}">运营</c:if>
+            管理端
+        </label>
+            </span>
         </div>
         <div class="layui-side-scroll">
             <div id="sideMenu"></div>
         </div>
     </div>
     <div class="layui-body">
-        <div id="content"></div>动画
+        <div id="content"></div>
     </div>
 </div>
 
@@ -92,7 +102,7 @@
             muiltTab: true, // 是 否 开 启 多 标 签 页 true 开启 false 关闭
             control: false, // 是 否 开 启 多 系 统 菜 单 true 开启 false 关闭
             theme: "dark-theme", // 默 认 主 题 样 式 dark-theme 默认主题 light-theme 亮主题
-            index: '<%=path%>/static/preadmin/view/console/console1.html', // 默 认 加 载 主 页
+            index: '<%=path%>/pages/backhomepage/welcome.jsp', // 默 认 加 载 主 页
             data: '<%=path%>/frontMenuController/selectMenuList', // 菜 单 数 据 加 载 地 址
         };
 

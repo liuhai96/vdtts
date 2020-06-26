@@ -207,6 +207,29 @@ public class StudentServiceImpl implements StudentService {
 		layuiTableData.setCount(count);
 		return layuiTableData;
 	}
+//修改密码
+	@Override
+	public ResultData updatestudentPwd(HttpServletRequest request) {
+		ResultData resultData = null;
+		Tool tool = new Tool();
+		Student student = (Student) request.getSession().getAttribute("student");
+		String pwd = studentMapper.findstudentPwd(student.getSAccountId());
+		String  oldPwd = tool.createMd5(request.getParameter("oldPwd"));
+		String  newPwd = tool.createMd5(request.getParameter("newPwd"));
+		String  repeatPwd = tool.createMd5(request.getParameter("repeatPwd"));
+		System.out.println("pwd"+pwd);
+		if(newPwd.equals(repeatPwd)){
+			if(oldPwd.equals(pwd)){
+				int num = studentMapper.updatestudentPwd(student.getSAccountId(),newPwd);
+				resultData = ResultData.error(1,"密码修改成功");
+			}else{
+				resultData = ResultData.error(-1,"旧密码输入错误");
+			}
+		}else{
+			resultData = ResultData.error(-1,"新密码与重复输入密码不同");
+		}
+		return resultData;
+	}
 
 	@Override
 	public ResultData updateStudentApplyState(Integer sId) {

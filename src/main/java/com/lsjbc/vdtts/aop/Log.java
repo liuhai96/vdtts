@@ -3,10 +3,7 @@ package com.lsjbc.vdtts.aop;
 import com.lsjbc.vdtts.enums.OperateType;
 import com.lsjbc.vdtts.enums.ResourceType;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 
 /**
  * @Description: 操作日志注解
@@ -16,6 +13,7 @@ import java.lang.annotation.Target;
 
 @Target(value = { ElementType.TYPE, ElementType.METHOD })
 @Retention(RetentionPolicy.RUNTIME)
+@Documented
 public @interface Log {
     /**
      * 动作类型

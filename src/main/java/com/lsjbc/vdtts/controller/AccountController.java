@@ -99,15 +99,14 @@ public class AccountController {
                 goal = "/pages/homepage/driving-in/driving-in";
                 break;
             case "logout"://注销登录
+            case "exit"://退出
                 request.getSession().invalidate();
             case "institutionLogin"://去机构登录页
                 goal = "/pages/index/institution";
                 break;
-            case "alterpass"://去机构登录页
+            case "alterpass"://学生修改信息页
                 goal = "/pages/student/student_password";
                 break;
-            case "exit"://退出
-                request.getSession().invalidate();
             default://回系统首页
                 goal = "/pages/index/index";
                 break;
