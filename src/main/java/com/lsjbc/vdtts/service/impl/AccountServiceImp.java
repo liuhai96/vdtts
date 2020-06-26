@@ -98,7 +98,7 @@ public class AccountServiceImp implements AccountService {
         account.setAPassword(tool.createMd5(account.getAPassword()));
         account = accountMapper.UserLogin(account);
         try{
-            request.getSession().setAttribute("account", account);
+//            request.getSession().setAttribute("account", account);
             request.getSession().setAttribute("aId", account.getAId());
             request.getSession().setAttribute("aType", account.getAType());
         }catch (Exception e){}
@@ -113,6 +113,7 @@ public class AccountServiceImp implements AccountService {
                         request.getSession().setAttribute("school", school);
                         request.getSession().setAttribute("account",account.getAAccount());
                         request.getSession().setAttribute("name",school.getSName());
+                        request.getSession().setAttribute("userHead",school.getSImageUrl());
                         resultData.setMsg("登录成功!");
                         nextJsp = "transfer?logo=institutionIndex";//前端jsp地址
                     }
@@ -126,7 +127,8 @@ public class AccountServiceImp implements AccountService {
                     }else{
                         request.getSession().setAttribute("teacher", teacher);
                         request.getSession().setAttribute("account",account.getAAccount());
-                        request.getSession().setAttribute("name",teacher.getSName());
+                        request.getSession().setAttribute("name",teacher.getTName());
+                        request.getSession().setAttribute("userHead",teacher.getTPic());
                         //教练评价
                         Evaluate evaluate = new Evaluate();
                         evaluate.setEToId(teacher.getTId());
@@ -142,6 +144,7 @@ public class AccountServiceImp implements AccountService {
                         request.getSession().setAttribute("manage",transManage);
                         request.getSession().setAttribute("account",account.getAAccount());
                         request.getSession().setAttribute("name",transManage.getTmName());
+                        request.getSession().setAttribute("userHead","/image/sch.jpg");
                         resultData.setMsg("登录成功");
                         nextJsp = "transfer?logo=institutionIndex";//前端jsp地址
                     }else{

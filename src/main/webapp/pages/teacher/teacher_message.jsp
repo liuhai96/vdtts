@@ -83,7 +83,7 @@
                                 <c:if test="${teacher.TTeach}">
                                     <input disabled="disabled" type="text" class="layui-input" value="允许教学"></c:if>
                                 <c:if test="${!teacher.TTeach}">
-                                    <input disabled="disabled" type="text" class="layui-input" value="无教学资质"></c:if>
+                                    <input disabled="disabled" type="text" class="layui-input" value="不允许教学"></c:if>
                             </div>
                             <label class="layui-form-label">出生日期:</label>
                             <div class="layui-input-inline">
