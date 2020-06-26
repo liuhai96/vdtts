@@ -17,6 +17,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,9 +39,18 @@ public class sfzServiceImpl implements sfzService
     @Override
     public String sfzdiscern(HttpServletRequest request, HttpServletResponse response, MultipartFile file)
     {
+
+        String url = null;
         try
         {
-            file.transferTo(new File("/vdtts/src/main/webapp/image/pages/sfzphoto/jj.jpg")); // 将接收的文件保存到指定文件中
+            String path = request.getSession().getServletContext().getRealPath("/image");
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-ddHHmmss");
+            String date = df.format(new Date());
+            String fileName = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
+
+            url = path+"/"+date+fileName;
+            System.out.println("路径："+path+"/"+date+fileName);
+            file.transferTo(new File(path+"/"+date+fileName)); // 将接收的文件保存到指定文件中
         } catch (IOException e)
         {
             e.printStackTrace();
@@ -47,7 +58,7 @@ public class sfzServiceImpl implements sfzService
         String host = "http://dm-51.data.aliyun.com";
         String path = "/rest/160601/ocr/ocr_idcard.json";
         String appcode = "92f66ab7c6ab4e7fbb07fb18200d12cd";
-        String imgFile = "/vdtts/src/main/webapp/image/pages/sfzphoto/jj.jpg";
+        String imgFile = url;
         String method = "POST";
 
         Map<String, String> headers = new HashMap<String, String>();
@@ -87,11 +98,15 @@ public class sfzServiceImpl implements sfzService
             String res = EntityUtils.toString(respons.getEntity());
             JSONObject res_obj = JSON.parseObject(res);
             //打印
+            System.out.println(res_obj.get("num"));
+            System.out.println(res_obj.get("name"));
             System.out.println(res_obj.toJSONString());
+            request.getSession().setAttribute("sfz",res_obj);
+            return res;
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+        return "上传身份证模糊换个照片";
     }
 
     public static String img_base64(String path) {
@@ -117,44 +132,4 @@ public class sfzServiceImpl implements sfzService
 
         return imgBase64;
     }
-//    /**
-//     * 添加及保存操作
-//     */
-//    @RequestMapping(value = "/upload")
-//    @ResponseBody
-//    public Object saveNews(HttpServletRequest request, HttpServletResponse response, MultipartFile file) {
-//
-//        try {
-//            //获取文件名
-//            String originalName = file.getOriginalFilename();
-//            //扩展名
-//            String prefix = originalName.substring(originalName.lastIndexOf(".") + 1);
-//            Date date = new Date();
-//            //使用UUID+后缀名保存文件名，防止中文乱码问题
-//            String uuid = UUID.randomUUID() + "";
-//            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-//            String dateStr = simpleDateFormat.format(date);
-//            String savePath = request.getSession().getServletContext().getRealPath("/upload/");
-//            String projectPath = savePath + dateStr + File.separator + uuid + "." + prefix;
-//
-//            System.out.println("projectPath==" + projectPath);
-//            File files = new File(projectPath);
-//            //打印查看上传路径
-//            if (!files.getParentFile().exists()) {//判断目录是否存在
-//                System.out.println("files11111=" + files.getPath());
-//                files.getParentFile().mkdirs();
-//            }
-//            file.transferTo(files); // 将接收的文件保存到指定文件中
-//            System.out.println(projectPath);
-//            LayuiData layuiData = new LayuiData();
-//            layuiData.setCode(1);
-//            layuiData.setMsg("上传成功");
-//            return JSON.toJSONString(layuiData);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return null;
-//        }
-//    }
-
-
 }

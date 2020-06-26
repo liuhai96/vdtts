@@ -1,12 +1,10 @@
 package com.lsjbc.vdtts.service.intf;
 
 import com.lsjbc.vdtts.entity.Account;
-import com.lsjbc.vdtts.entity.School;
 import com.lsjbc.vdtts.entity.Student;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.pojo.vo.ResultData;
 import com.lsjbc.vdtts.pojo.vo.StudentRegister;
-import org.apache.http.HttpRequest;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
@@ -52,9 +50,9 @@ public interface StudentService {
      **/
     public LayuiTableData selectList(Student student, int page, int pageSize);
 
-
     public int registerStudent(Student student);
 
+    ResultData updatestudentPwd(HttpServletRequest request);
 
     /*
      *@Description:

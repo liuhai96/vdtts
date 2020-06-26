@@ -77,8 +77,6 @@ public class pipeControl
 	@RequestMapping(value = "/sfzdiscern",produces = {"application/json;charset=UTF-8"})
 	@ResponseBody
 	public String sfzdiscern(HttpServletRequest request, HttpServletResponse response, MultipartFile file) {
-//		LayuiTableData layuiTableData = sfzService.sfzdiscern();
-//		return JSON.toJSONString(layuiTableData);
 		response.setContentType("text/html;charset=utf-8");
 		System.out.println("asdasdsadasdasdasdasdasdasdasdasdasdasdasd");
 		return sfzService.sfzdiscern(request,response,file);

@@ -1893,79 +1893,6 @@
             text-decoration: underline
         }
     </style>
-<%--    <style>--%>
-    <%--    /*.message-title {*/--%>
-    <%--    /*    width: calc(100% - 539px);*/--%>
-    <%--    /*    height: auto;*/--%>
-    <%--    /*    font-size: 14px;*/--%>
-    <%--    /*    font-weight: bold;*/--%>
-    <%--    /*    line-height: 46px;*/--%>
-    <%--    /*    text-align: right;*/--%>
-    <%--    /*//color: $gray-dark;*/--%>
-    <%--    /*}*/--%>
-    <%--    .left-image-box,--%>
-    <%--    .right-image-box {--%>
-    <%--        position: relative;--%>
-    <%--    }--%>
-    <%--    .upload-image-box {--%>
-    <%--        position: relative;--%>
-    <%--        width: 226px;--%>
-    <%--        height: 132px;--%>
-    <%--        margin-bottom: 12px;--%>
-    <%--        border: 1px dashed #d2d2d2;--%>
-    <%--    /*//background-color: $gray-input;*/--%>
-
-    <%--    &.warn {--%>
-    <%--         border-color: $pink;--%>
-    <%--     }--%>
-    <%--    }--%>
-    <%--    .upload-image {--%>
-    <%--        position: absolute;--%>
-    <%--        top: 0;--%>
-    <%--        opacity: 0;--%>
-    <%--        width: 226px;--%>
-    <%--        height: 132px;--%>
-    <%--    }--%>
-    <%--    .image-inbox {--%>
-    <%--        padding-top: 36px;--%>
-    <%--        text-align: center;--%>
-    <%--    /*// 上传的+号*/--%>
-    <%--       .add-icon-image {--%>
-    <%--           height: 34px;--%>
-    <%--           background-image: url(/src/assets/images/add.png);--%>
-    <%--           background-repeat: no-repeat;--%>
-    <%--           background-position: center;--%>
-    <%--           background-size: contain;--%>
-    <%--       }--%>
-
-    <%--    #file {--%>
-    <%--        width: 100%;--%>
-    <%--        height: 100%;--%>
-    <%--        opacity: 0;--%>
-    <%--        position: absolute;--%>
-    <%--        left: 0;--%>
-    <%--        top: 0;--%>
-    <%--        cursor: pointer;--%>
-    <%--        z-index: 5;--%>
-    <%--    }--%>
-
-    <%--    .add-text {--%>
-    <%--        padding-top: 22px;--%>
-    <%--        font-size: 16px;--%>
-    <%--        color: $gray-dark;--%>
-    <%--    }--%>
-    <%--    }--%>
-    <%--    .left-delete-image, .right-delete-image {--%>
-    <%--        position: absolute;--%>
-    <%--        display: none;--%>
-    <%--        top: -12px;--%>
-    <%--        right: 0;--%>
-    <%--        font-size: 32px;--%>
-    <%--        color: $gray-base;--%>
-    <%--        transform: rotate(45deg);--%>
-    <%--        cursor: pointer;--%>
-    <%--    }--%>
-    <%--</style>--%>
 </head>
 
 <body>
@@ -1980,52 +1907,29 @@
                 <form class="layui-form" action="<%=path+"/student/register"%>" autocomplete="off" id="registerfrom" method="post">
                     <h4>学员注册</h4>
                     <div id="idPhoto" style="display: none;">
-<%--                        <div class="form-group radio-form" id="test10" onclick="" type="button" style="padding-left: 70px" >--%>
-<%--                            <div class="user-type-conatiner layui-upload" style="height: 15%;width: 15% ;">--%>
-<%--                                <div class="user-type active layui-upload-list" ref="radioWrap" data-index="0"--%>
-<%--                                     style="height:150px ;width: 200px; margin: auto;border: 0px solid black;">--%>
-<%--                                    <b skip="true">上传身份证</b>--%>
-<%--                                    <img src="" style="height: 100%;width: 100%" class="layui-upload-img" id="demo10"  property="" alt="点击上传身份证">--%>
-<%--                                    <p id="demoText10"></p>--%>
-<%--                                </div>--%>
-<%--                            </div>--%>
-<%--                        </div>--%>
-    <div class="message-title pull-left">上传身份证照片：</div>
-    <div class="left-image-box pull-left">
-        <div class="upload-image-box">
-            <input type="file" class="upload-image" id="input-image" accept="image/jpg, image/png" />
-<%--            <div class="image-inbox" id="image-left">--%>
-<%--                <div class="add-icon-image"></div>--%>
-<%--                <div class="add-text">上传照片</div>--%>
-<%--            </div>--%>
-        </div>
-        <img src="#" alt="上传照片" id="left-img" style="width: 370px ;height: 200px;">
-<%--        <div class="left-delete-image">+</div>--%>
-        <div class="card-text card-the-right">（身份证正面）</div>
-    </div>
+	                    <div class="layui-upload">
+		                    <button type="button" class="layui-btn" id="test1">上传身份证</button>
+		                    <div class="layui-upload-list">
+			                    <img class="layui-upload-img" id="demo1" style="width: 360px; height: 200px;" alt="身份证正面照">
+			                    <p id="demoText"></p>
+		                    </div>
+	                    </div>
                     </div>
-<%--    <div class="layui-upload">--%>
-<%--        <button type="button" class="layui-btn" id="test1">上传图片</button>--%>
-<%--        <div class="layui-upload-list">--%>
-<%--            <img class="layui-upload-img" id="demo1">--%>
-<%--            <p id="demoText"></p>--%>
-<%--        </div>--%>
-<%--    </div>--%>
-    <br/>
+	                    <br/>
 <%--                    <br/>--%>
 <%--                    <br/>--%>
                     <div id="idHand" style="display: block;">
                         <div class="layui-form-item" style="margin-left: -25px;">
                             <label class="layui-form-label">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名</label>
                             <div class="layui-input-inline">
-                                <input value="${username}" type="text" style="width: 285px" name="username" lay-verify="required|name" placeholder="请输入姓名" autocomplete="off" class="layui-input">
+                                <input id="sname" value="${username}" type="text" style="width: 285px" name="username" lay-verify="required|name" placeholder="请输入姓名" autocomplete="off" class="layui-input">
                             </div>
                         </div>
 
                         <div class="layui-form-item" style="margin-left: -25px;">
                             <label class="layui-form-label">身份证号码</label>
                             <div class="layui-input-inline">
-                                <input value="${sfz}" type="text" style="width: 285px" name="sfz" lay-verify="required|id" placeholder="请输入身份证号码" autocomplete="off" class="layui-input">
+                                <input id="ssfz" value="${sfz}" type="text" style="width: 285px" name="sfz" lay-verify="required|id" placeholder="请输入身份证号码" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                     </div>
@@ -2069,8 +1973,7 @@
                         <i></i>
                     </div>
                     <div class="captcha-block">
-                        <div id="captcha"><input type="hidden" name="NECaptchaValidate" value=""
-                                                 class="yidun_input"></div>
+                        <div id="captcha"><input type="hidden" name="NECaptchaValidate" value="" class="yidun_input"></div>
                         <p class="iconfont icon-jinggao"></p>
                     </div>
                     <div>
@@ -2096,15 +1999,6 @@
 <script type="text/javascript" src=<%=path+"/js/pages/index/jquery.cookie.js"%>></script>
 <script type="text/javascript" src=<%=path+"/js/pages/index/60sCountdown.js"%>></script>
 <script>
-
-    $('.left-delete-image').click(function () {
-        document.getElementById('input-image').value = '';
-        document.getElementById('left-img').src = '#';
-        $('#left-img').css({ display: 'none' });
-        $('.left-delete-image').css({ display: 'none' });
-        $('#image-left').css({ display: 'block' });
-        $('#input-image').parent().addClass('warn');
-    })
     layui.use(['form', 'laydate','layer'],function () {
         let $ = layui.$;
         let form = layui.form;
@@ -2205,95 +2099,43 @@
                 return true;
             }
         }
-        //身份证正面（左）
-        function changeLeftpic() {
-            $('#image-left').css({ display: 'none' });
-            var reads = new FileReader();
-            f = document.getElementById('input-image').files[0];
-            reads.readAsDataURL(f);
-            reads.onload = function (e) {
-                document.getElementById('left-img').src = this.result;
-                $('#left-img').css({ display: 'block' });
-                $('.left-delete-image').css({ display: 'block' });
-                $('#input-image').parent().removeClass('warn');
-            };
-        }
-
-        // // 此处调用
-        $('#input-image').change(function () {
-
-            console.log("fghjk");
             layui.use(['jquery', 'layer', 'upload'], function () {
                 var $ = layui.jquery, upload = layui.upload;
                 //普通图片上传
-                var uploadInst = upload.render({
-                    elem: '#test1'
+	            var uploadInst = upload.render({
+		            elem: '#test1'
                     , url: '/pipeControl/sfzdiscern' //改成您自己的上传接口
-                    , before: function (obj) {
-                        //预读本地文件示例，不支持ie8
-                        obj.preview(function (index, file, result) {
-                            $('#demo1').attr('src', result); //图片链接（base64）
-                        });
-                    }
-                    , done: function (res) {
-                        //如果上传失败
-                        if (res.code > 0) {
-                            return layer.msg('上传失败');
+
+		            , before: function (obj) {
+			            //预读本地文件示例，不支持ie8
+			            obj.preview(function (index, file, result) {
+				            $('#demo1').attr('src', result); //图片链接（base64）
+			            });
+		            }
+		            , done: function (res) {
+			            //如果上传失败
+			            if (res.code > 0) {
+				            return layer.msg('上传失败');
+			            }else {
+			                alert("识别身份证成功");
+                            console.log(res);
+			                $('#sname').val(res.name);
+                            $('#ssfz').val(res.num);
                         }
-                        //上传成功
-                    }
-                    , error: function () {
-                        //演示失败状态，并实现重传
-                        var demoText = $('#demoText');
-                        demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
-                        demoText.find('.demo-reload').on('click', function () {
-                            uploadInst.upload();
-                        });
-                    }
-                });
-            changeLeftpic($(this));
-        })
-        })
-        // $('#input-image-other').change(function () {
-        //     console.log("qweweqwe")
-        //     changeRightpic($(this));
-        // })
-        // layui.use('upload', function() {
-        //     var $ = layui.jquery
-        //             , upload = layui.upload;
-        //
-        //     //普通图片上传
-        //     var uploadInst = upload.render({
-        //         elem: '#test1'
-        //         , url: 'https://httpbin.org/post' //改成您自己的上传接口
-        //         , before: function (obj) {
-        //             //预读本地文件示例，不支持ie8
-        //             obj.preview(function (index, file, result) {
-        //                 $('#demo1').attr('src', result); //图片链接（base64）
-        //             });
-        //         }
-        //         , done: function (res) {
-        //             //如果上传失败
-        //             if (res.code > 0) {
-        //                 return layer.msg('上传失败');
-        //             }
-        //             //上传成功
-        //         }
-        //         , error: function () {
-        //             //演示失败状态，并实现重传
-        //             var demoText = $('#demoText');
-        //             demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
-        //             demoText.find('.demo-reload').on('click', function () {
-        //                 uploadInst.upload();
-        //             });
-        //         }
-        //     });
-        // }
+			            //上传成功
+		            }
+		            , error: function () {
+			            //演示失败状态，并实现重传
+			            var demoText = $('#demoText');
+			            demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+			            demoText.find('.demo-reload').on('click', function () {
+				            uploadInst.upload();
+			            });
+		            }
+	            });
+            });
     });
 </script>
-
-
-
 </body>
 
 </html>

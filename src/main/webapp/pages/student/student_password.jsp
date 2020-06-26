@@ -32,7 +32,7 @@
 <style>
 	body{
 		background:url("../../static/layui/images/photo/08.png");
-		background-size: 100% 90%;
+		background-size: 100% 100%;
 		background-repeat:no-repeat;
 	}
 </style>
@@ -125,8 +125,8 @@
                         <div class="user-type-conatiner layui-upload" style="height: 15%;width: 15% ;">
                             <div class="user-type active layui-upload-list" ref="radioWrap" data-index="0"
                                  style="height:150px ;width: 200px; margin: auto;border: 0px solid black;">
-                                <b skip="true">修改头像</b>
-                                <img src="" style="height: 100%;width: 100%" class="layui-upload-img" id="demo10"  property="" alt="修改头像">
+                                <b skip="true">上传头像</b>
+                                <img src="" style="height: 100%;width: 100%" class="layui-upload-img" id="demo10"  property="" alt="点击上传头像">
                                 <p id="demoText10"></p>
                             </div>
                         </div>
@@ -139,32 +139,32 @@
                     <br>
                     <br>
                     <br>
-                    <div class="layui-form-item" id="oldPass">
-                        <div class="layui-inline">
-                            <label class="layui-form-label">原密码:</label>
-                            <div class="layui-input-inline">
-                                <input type="password" class="layui-input " value="" onfocusout="verifyPass()">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="layui-form-item" id="newPass">
-                        <div class="layui-inline">
-                            <label class="layui-form-label">设置密码:</label>
-                            <div class="layui-input-inline">
-                                <input type="password" class="layui-input" value="">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="layui-form-item" id="newPass2">
-                        <div class="layui-inline">
-                            <label class="layui-form-label">确认密码:</label>
-                            <div class="layui-input-inline">
-                                <input type="password" class="layui-input" value="">
-                            </div>
-                        </div>
-                    </div>
-                    <button type="button" class="layui-btn layui-btn-warm" id="toPass" onclick="changePassword()">修改密码</button>
-                    <button type="button" hidden class="" id="not" onclick="passNot()">取消</button>
+	                <form class="layui-form" action="" id="updatePwd" style="padding-left:400px">
+		                <div class="layui-form-item">
+			                <label class="layui-form-label">旧密码</label>
+			                <div class="layui-input-inline">
+				                <input type="password" name="oldPwd" required lay-verify="required" placeholder="请输入旧密码" autocomplete="off" class="layui-input">
+			                </div>
+		                </div>
+		                <div class="layui-form-item">
+			                <label class="layui-form-label">新密码</label>
+			                <div class="layui-input-inline">
+				                <input type="password" name="newPwd" required lay-verify="required" placeholder="新密码" autocomplete="off" class="layui-input">
+			                </div>
+		                </div>
+		                <div class="layui-form-item">
+			                <label class="layui-form-label">新密码</label>
+			                <div class="layui-input-inline">
+				                <input type="password" name="repeatPwd" required lay-verify="required" placeholder="请重新输入新密码" autocomplete="off" class="layui-input">
+			                </div>
+		                </div>
+		                <div class="layui-form-item" style="padding-right: 500px">
+			                <div class="layui-input-block">
+<%--				                <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>--%>
+				                <button class=" layui-btn layui-btn-warm" lay-submit lay-filter="formDemo">立即提交</button>
+			                </div>
+		                </div>
+	                </form>
                     <br>
                     <br>
                     <br>
@@ -301,49 +301,54 @@
                 else {alert("验证密码失败！");}
                 verify = mag.msg;
             });
-        }//密码验证
-
-        function changePassword() {//更改密码
-            let toPass = $("#toPass");
-            let not = $("#not");
-            let newPass = $("#newPass input"),newPass2 = $("#newPass2 input");
-            if (passTypes){//修改按钮
-                toPass.html("提交");
-                not.attr("class","layui-btn layui-btn-warm");
-            } else {//提交按钮
-                if (verify > 0){
-                    if (newPass.val().length < 6) alert("密码长度应大于6位");
-                    else if (!done(newPass.val(),0,newPass.val().length)) alert("密码有非法字符！");
-                    else if (newPass.val() != newPass2.val()) alert("设置密码不一致");
-                    else {
-                        AjaxTransfer($("#path").val()+"/changePassword","aPassword="+newPass.val()
-                            +"&aId="+$("#aId").val(), function (mag) {
-                            if (mag.msg) {
-                                alert("修改成功！请重新登录");
-                                skipAbsolute("/transfer?logo=logout");//跳出iframe到指定位置
-                            } else{
-                                alert("修改失败,请检查网络!");
-                            }
-                        });
-                    }
-
-                } else {
-                    alert("验证密码失败！");
-                    return;
-                }
-            }
-            passNot();
-        }//更改密码
-        function passNot(){//取消修改更改密码
-            if (!passTypes){
-                $("#oldPass").val("");
-                $("#newPass").val("");
-                $("#newPass2").val("");
-                $("#toPass").html("修改");
-                $("#not").attr("class","");
-            }
-            passTypes = !passTypes;
         }
+
+        layui.use(['form','layer'], function(){
+	        var form = layui.form,layer = layui.layer;
+	        var $ = layui.jquery;
+	        //监听提交
+	        form.on('submit(formDemo)', function(data){
+		        var newPwd = $("input[name='newPwd']").val();
+		        var repeatPwd = $("input[name='repeatPwd']").val();
+		        var index = layer.confirm('您确定修改用户的基本信息？', {
+			        btn: ["确定", "取消"],
+			        btn2: function (index) {
+				        layer.close(index);
+				        layer.close(index1)
+				        $('#updatePwd')[0].reset();//重置表单
+				        form.render();
+			        },
+			        btn1: function () {
+				        if (newPwd != repeatPwd) {
+					        layer.msg("两次新密码输入不同请重新输入");
+				        } else {
+					        $.ajax({
+						        type: 'POST',
+						        url: '<%=path%>/studentController/updatestudentPwd',
+						        dataType: 'JSON',
+						        data:{
+							        oldPwd:$("input[name='oldPwd']").val(),
+							        newPwd:$("input[name='newPwd']").val(),
+							        repeatPwd:$("input[name='repeatPwd']").val()
+						        },
+						        success: function (resmsg) {
+							        if (resmsg.code == 1) {
+								        layer.msg(resmsg.msg);
+							        } else {
+								        layer.msg(resmsg.msg);
+								        layer.close(index);
+							        }
+							        $('#updatePwd')[0].reset();//重置表单
+							        form.render();
+						        }
+					        });
+				        }
+			        }
+		        });
+		        return false;
+
+	        });
+        });
     </script>
     </body>
 </html>

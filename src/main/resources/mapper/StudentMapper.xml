@@ -91,7 +91,13 @@
 <!--    <select id="findsfz" resultType="com.lsjbc.vdtts.entity.Student">-->
 <!--        select * from tb_student where s_sfz = #{sSfz}-->
 <!--    </select>-->
+    <select id="findstudentPwd" parameterType="int" resultType="java.lang.String">
+        select a_password from tb_account where a_id=#{aId}
+    </select>
 
+    <update id="updatestudentPwd">
+        update tb_account set a_password = #{aPassword} where a_id=#{aId}
+    </update>
     <update id="inschool" parameterType="com.lsjbc.vdtts.entity.Student" >
         update tb_student set s_school_id = #{sSchoolId} where s_sfz = #{e.sSfz}
     </update>
