@@ -35,22 +35,24 @@
                     <div class="jxb-logo"></div>
                     <div class="nav">
                         <div class="tip">联系电话：xxxxx-xxxxxx QQ：xxxxxxxxx</div>
-                        <span ref="nav" data-url="jkbd"><%=schoolName%></span>
-                        <span ref="nav" data-url="jxdl">驾校登录</span>
+                        <a style="color: cornsilk" href="<%=path+"/index"%>"><%=schoolName%></a>
+                        <label style="color: cornsilk;">&nbsp;|&nbsp;</label>
+                        <a style="color: cornsilk;" href="<%=path+"/transfer?logo=institutionLogin"%>">驾校登录</a>
                     </div>
                 </div>
                 <div class="cooperate-container"><h2 skip="true">欢迎入驻<%=schoolName%>-企业版</h2>
                     <div class="cooperate-form">
                         <div class="form">
                             <div class="err-tip"></div>
-                            <div class="form-group radio-form" id="test1" onclick="" type="button">
+                            <div class="form-group radio-form" onclick="">
                                 <label skip="true">驾校图片<i>*</i></label>
-                                <div class="user-type-conatiner layui-upload">
+                                <div class="user-type-conatiner layui-upload" >
                                     <div class="user-type active layui-upload-list" ref="radioWrap" data-index="0"
-                                         style="width: 60%"  >
+                                         style="width: 252px;" id="test1">
                                         <b skip="true">宣传图片</b>
-                                        <img src="" class="layui-upload-img" id="demo1" height="300px" width="500px"
-                                             property="" alt="会展示到<%=schoolName%>中，入驻需认证，用于营销、招生、管理">
+                                        <img src="" class="layui-upload-img" id="demo1" height="163px"
+                                             width="250px" property="" alt="会展示到驾校推荐首页，
+                                             入驻需认证，用于营销、招生、管理">
                                         <p id="demoText"></p>
                                     </div>
                                 </div>
@@ -86,13 +88,13 @@
                             </div>
                             <label id="sOwnerIdNotify" style="color: crimson"></label>
                             <div class="err-tip "></div>
-                            <div class="form-group radio-form" id="test10" onclick="" type="button">
+                            <div class="form-group radio-form" onclick="">
                                 <label skip="true">法人证件照<i>*</i></label>
                                 <div class="user-type-conatiner layui-upload">
                                     <div class="user-type active layui-upload-list" ref="radioWrap" data-index="0"
-                                         style="width: 60%">
+                                         style="width: 252px;" id="test10">
                                         <b skip="true">法人证件照</b>
-                                        <img src="" class="layui-upload-img" id="demo10" height="300px" width="500px"
+                                        <img src="" class="layui-upload-img" id="demo10"  height="163px" width="250px"
                                              property="" alt="用于管理">
                                         <p id="demoText10"></p>
                                     </div>
@@ -102,7 +104,7 @@
                             <div class="err-tip "></div>
                             <div class="form-group">
                                 <label skip="true">报名费用<i>*</i></label>
-                                <input class="" type="text" name="sRegisteryFee" ref="input" placeholder="请输入报名费用" maxlength="20">
+                                <input class="" type="text" name="sRegisteryFee" ref="input" placeholder="请输入报名费用(￥)" maxlength="20">
                             </div>
                             <div class="err-tip"></div>
                             <div class="form-group">
@@ -122,14 +124,15 @@
                             <div skip="true">
                                 <span class="form-btn btn layui-btn layui-btn-normal layui-btn-radius"
                                       style="width: 30%;margin: 0 0 0 30%">&nbsp;&nbsp;提&nbsp;&nbsp;交&nbsp;&nbsp;</span>
-                            </div>
-                            <div class="protocol">
-                                <div class="protocol-checkbox checked" ref="protocol-checkbox"></div>
-                                <div>我已阅读并接受
-                                    <a href="" target="_blank">《驾校用户使用协议》</a><%-- https://qiye.jiakaobaodian.com/xieyi1.html--%>
-                                    和<a href="" target="_blank">《企业版隐私政策》</a><%--https://qiye.jiakaobaodian.com/xieyi2.html--%>
-                                </div>
-                            </div>
+                            </div><br><br>
+                            <div class="err-tip"></div>
+<%--                            <div class="protocol">--%>
+<%--                                <div class="protocol-checkbox checked" ref="protocol-checkbox"></div>--%>
+<%--                                <div>我已阅读并接受--%>
+<%--                                    <a href="" target="_blank">《驾校用户使用协议》</a>&lt;%&ndash; https://qiye.jiakaobaodian.com/xieyi1.html&ndash;%&gt;--%>
+<%--                                    和<a href="" target="_blank">《企业版隐私政策》</a>&lt;%&ndash;https://qiye.jiakaobaodian.com/xieyi2.html&ndash;%&gt;--%>
+<%--                                </div>--%>
+<%--                            </div>--%>
                         </div>
                     </div>
                     <div class="copyright" skip="true"><span>Copyright ©xxxxxx信息技术有限公司 |<span class="beian"></span><a
