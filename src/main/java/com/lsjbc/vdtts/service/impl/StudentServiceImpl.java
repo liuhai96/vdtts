@@ -307,6 +307,7 @@ public class StudentServiceImpl implements StudentService {
 
 		ResultData resultData = ResultData.success("登录成功", "url", "student/main");
 		resultData.put("username", student.getSName());
+		resultData.put("sid", student.getSId());
 		return resultData;
 	}
 
