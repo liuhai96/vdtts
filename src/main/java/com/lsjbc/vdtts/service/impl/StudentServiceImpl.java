@@ -20,7 +20,6 @@ import com.lsjbc.vdtts.utils.baidu.baiduTools.face.ManageFace;
 import com.lsjbc.vdtts.utils.baidu.baiduTools.face.SearchFace;
 import com.lsjbc.vdtts.utils.baidu.baiduTools.face.TFaceMethod;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -235,8 +234,7 @@ public class StudentServiceImpl implements StudentService {
 	public ResultData updateStudentApplyState(Integer sId) {
 		ResultData resultData = null;
 		int num = studentMapper.updateApplyState(sId);
-		int num1 = examResultMapper.insertStudent(sId);
-		if(num>0&&num1>0){
+		if(num>0){
 			resultData = ResultData.success(1,"已成功审核学员的报名信息");
 		}else{
 			resultData = ResultData.success(-1,"未找到该学员信息");

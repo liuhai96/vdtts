@@ -120,7 +120,6 @@ public interface SchoolService {
      *@return:
      *@Date:2020/6/22 21:14
      **/
-
     PageInfo findSchool(PageDTO pageDTO);
 
 }

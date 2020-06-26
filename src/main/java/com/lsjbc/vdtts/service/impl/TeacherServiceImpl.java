@@ -279,8 +279,6 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public ResultData HomePageShow(Teacher teacher, int page, int pageSize) {
         ResultData resultData = ResultData.success();
-
-
         resultData.put("teachers", teacherMapper.homePageShow(teacher, page, pageSize));
         return resultData;
     }
