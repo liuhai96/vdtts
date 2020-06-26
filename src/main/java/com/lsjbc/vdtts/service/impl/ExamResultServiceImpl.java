@@ -181,7 +181,7 @@ public class ExamResultServiceImpl implements ExamResultService {
                 resultData = ResultData.error(-1, "请选择考试科目");
                 break;
             case 1:
-                if(erScore>100){
+                if(erScore>100||erScore<0){
                     resultData = ResultData.error(-1, "成绩输入不合法，请重新输入");
                 }else{
                     if (examResult.getErScore1() >= 90 && examResult.getErState1() == 1) {
@@ -202,7 +202,7 @@ public class ExamResultServiceImpl implements ExamResultService {
 
                 break;
             case 2:
-                if(erScore>100){
+                if(erScore>100||erScore<0){
                     resultData = ResultData.error(-1, "成绩输入不合法，请重新输入");
                 }else{
                     if (examResult.getErScore1() > 90) {
@@ -226,7 +226,7 @@ public class ExamResultServiceImpl implements ExamResultService {
                 }
                 break;
             case 3:
-                if(erScore>100){
+                if(erScore>100||erScore<0){
                     resultData = ResultData.error(-1, "成绩输入不合法，请重新输入");
                 }else{
                     if(examResult.getErScore2()>80){
@@ -250,7 +250,7 @@ public class ExamResultServiceImpl implements ExamResultService {
                 }
                 break;
             case 4:
-                if(erScore>100){
+                if(erScore>100||erScore<0){
                     resultData = ResultData.error(-1, "成绩输入不合法，请重新输入");
                 }else{
                     if (examResult.getErScore3() > 90) {

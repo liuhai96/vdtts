@@ -234,9 +234,11 @@ public class SchoolControl {
 	}
 
 
-	@RequestMapping(value = "findSchool")
+	@RequestMapping(value = "/findSchool")
 	@ResponseBody
-	private List<School> findSchool(PageDTO pageDTO){
+	public List<School> findSchool(PageDTO pageDTO){
+		System.out.println(pageDTO.getPage());
+		System.out.println(pageDTO.getLimit());
 		PageInfo pageInfo = schoolService.findSchool(pageDTO);
 		List<School> schools = pageInfo.getList();
     	return schools;

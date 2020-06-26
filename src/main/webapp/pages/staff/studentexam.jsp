@@ -11,7 +11,7 @@
 %>
 <html>
 <head>
-    <title>驾校门户管理</title>
+    <title>学员考试安排</title>
     <link rel="shortcut icon" href="#"/>
     <link rel="stylesheet" href=<%=path+"/static/layui/css/layui.css"%>>
     <script type="text/javascript" src=<%=path+"/static/layui/layui.js"%>></script>
@@ -76,8 +76,7 @@
             }]
             ,title: '用户数据表'
             ,cols: [[
-                {type: 'checkbox', fixed: 'left'}
-                ,{field:'erId', title:'ID', width:80, fixed: 'left', unresize: true, sort: true}
+                {field:'erId', title:'ID', width:80, fixed: 'left', unresize: true, sort: true}
                 ,{field:'sId',title:'学生Id',templet: '<div>{{d.student.sId}}</div>'}
                 ,{title:'学生姓名',templet: '<div>{{d.student.sName}}</div>'}
                 ,{title:'性别',templet: '<div>{{d.student.sSex}}</div>'}

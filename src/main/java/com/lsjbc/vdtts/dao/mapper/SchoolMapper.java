@@ -18,7 +18,8 @@ import java.util.List;
 public interface SchoolMapper extends CustomBaseMapper<School> {
 
 
-	//修改审核状态
+
+    //修改审核状态
 	public int updateschoolInfo(School school);
 	public List<School> findschool(@Param("e") School school);
 	//修改禁止招生

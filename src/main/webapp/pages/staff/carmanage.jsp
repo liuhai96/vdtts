@@ -130,8 +130,7 @@
             }]
             ,title: '车辆管理表'
             ,cols: [[
-                {type: 'checkbox', fixed: 'left'}
-                ,{field:'cId', title:'ID', width:80, fixed: 'left', unresize: true, sort: true}
+                {field:'cId', title:'ID', width:80, fixed: 'left', unresize: true, sort: true}
                 ,{field:'cLogo', title:'品牌', width:120, edit: 'text'}
                 ,{field:'cModel', title:'车型', width:80, edit: 'text', sort: true}
                 ,{field:'cColor', title:'车辆颜色', width:100}

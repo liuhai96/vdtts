@@ -70,8 +70,7 @@
             }]
             ,title: '学员报名审核'
             ,cols: [[
-                {type: 'checkbox', fixed: 'left'}
-                ,{field:'sId', title:'ID', width:80, fixed: 'left'}
+                {field:'sId', title:'ID', width:80, fixed: 'left'}
                 ,{field:'sName', title:'姓名', width:120}
                 ,{field:'sPhone', title:'电话', width:80,sort: true}
                 ,{field:'sSex', title:'性别', width:100}
@@ -108,7 +107,6 @@
                             curr:1//重第一页开始
                         },
                         where:{
-                            studentName:"qwe",
                             sName:inputname
                         }
                     });
