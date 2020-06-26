@@ -139,9 +139,6 @@
                             </button>
                         </li>
                     </ul>
-                        <hr>
-
-
                         <div class="inq-school">
                     <textarea title="消息模版" id="SCHOOL_tpl" style="display:none;">
                             {{# layui.each(d.data, function(index, item){ }}
@@ -216,7 +213,6 @@
                                 <button class="sexBtn" value="女">女</button>
                             </li>
                         </ul>
-                        <hr>
                         <div class="inq-student">
                     <textarea title="消息模版" id="TEACHER_tpl" style="display:none;">
                         {{# layui.each(d.data, function(index, item){ }}
