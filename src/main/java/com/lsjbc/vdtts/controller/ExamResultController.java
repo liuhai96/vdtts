@@ -1,7 +1,10 @@
 package com.lsjbc.vdtts.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.lsjbc.vdtts.aop.Log;
 import com.lsjbc.vdtts.entity.Student;
+import com.lsjbc.vdtts.enums.OperateType;
+import com.lsjbc.vdtts.enums.ResourceType;
 import com.lsjbc.vdtts.service.intf.ExamResultService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,13 +26,13 @@ public class ExamResultController {
      *@Date:2020/6/10 23:59
      **/
     @RequestMapping(value = "/selectStudentExamList")
+    @Log(operateType = OperateType.QUERY, resourceType = ResourceType.ExamResult)
     public Object selectStudentExamList(String page, String limit, String sName, String studentName, HttpServletRequest request){
         System.out.println("sName>>>>>"+sName);
         System.out.println("sName>>>>>"+studentName);
         return JSON.toJSONString(examResultService.selectStudentExamList(page,limit,sName,request));
     }
 
-    @RequestMapping(value = "/arringeExam")
     /*
      *@Description:安排学员考试
      *@Author:刘海
@@ -37,6 +40,8 @@ public class ExamResultController {
      *@return:java.lang.Object
      *@Date:2020/6/10 23:59
      **/
+    @RequestMapping(value = "/arringeExam")
+    @Log(operateType = OperateType.MODIFY, resourceType = ResourceType.ExamResult)
     public Object arringeExam(String erId,String sId,String examSujectId,String teacherId){
 
         return JSON.toJSONString(examResultService.arringeExam(Integer.parseInt(erId),Integer.parseInt(sId),Integer.parseInt(examSujectId),Integer.parseInt(teacherId)));
@@ -51,6 +56,7 @@ public class ExamResultController {
      *@Date:2020/6/11 11:12
      **/
     @RequestMapping(value = "/enterResults")
+    @Log(operateType = OperateType.MODIFY, resourceType = ResourceType.ExamResult)
     public Object enterResults(String erId,String sId,String examSujectId,String erScore){
         return JSON.toJSONString(examResultService.enterResults(Integer.parseInt(erId),Integer.parseInt(sId),Integer.parseInt(examSujectId),Integer.parseInt(erScore)));
     }

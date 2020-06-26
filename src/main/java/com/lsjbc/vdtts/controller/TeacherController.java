@@ -2,9 +2,12 @@ package com.lsjbc.vdtts.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.lsjbc.vdtts.aop.Log;
 import com.lsjbc.vdtts.entity.Account;
 import com.lsjbc.vdtts.entity.Student;
 import com.lsjbc.vdtts.entity.Teacher;
+import com.lsjbc.vdtts.enums.OperateType;
+import com.lsjbc.vdtts.enums.ResourceType;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.pojo.vo.ResultData;
 import com.lsjbc.vdtts.service.intf.StudentService;
@@ -38,6 +41,7 @@ public class TeacherController {
     private StudentService studentService;
 
     @RequestMapping(value = "/findTeacherList")
+    @Log(operateType = OperateType.MODIFY, resourceType = ResourceType.Teacher)
     public String findTeacherList(String page, String limit, String tName, HttpServletRequest request) {
         LayuiTableData layuiTableData = teacherService.findTeacherList(page, limit, tName, request);
         return JSON.toJSONString(layuiTableData, SerializerFeature.DisableCircularReferenceDetect);
@@ -52,6 +56,7 @@ public class TeacherController {
      *@Date:2020/6/7 23:09
      **/
     @RequestMapping(value = "/addTeacher")
+    @Log(operateType = OperateType.ADD, resourceType = ResourceType.Teacher)
     public String addTeacher(Teacher teacher, Account teacherAccount, HttpServletRequest request) {
         LayuiTableData LayuiTableData = teacherService.addTeacher(teacher, teacherAccount, request);
         return JSON.toJSONString(LayuiTableData);
@@ -66,6 +71,7 @@ public class TeacherController {
      *@Date:2020/6/8 16:21
      **/
     @RequestMapping(value = "/deleteTeacher")
+    @Log(operateType = OperateType.DELETE, resourceType = ResourceType.Teacher)
     public String deleteTeacher(String tId, HttpServletRequest request) {
         System.out.println("tId" + tId);
         LayuiTableData layuiTableData = teacherService.deleteTeacher(Integer.parseInt(tId), request);
@@ -73,7 +79,6 @@ public class TeacherController {
     }
 
 
-    @RequestMapping(value = "/updateTeacherInfo")
     /*
      *@Description:修改教练的基本信息
      *@Author:刘海
@@ -81,6 +86,8 @@ public class TeacherController {
      *@return:java.lang.String
      *@Date:2020/6/8 21:49
      **/
+    @RequestMapping(value = "/updateTeacherInfo")
+    @Log(operateType = OperateType.MODIFY, resourceType = ResourceType.Teacher)
     public String updateTeacherInfo(Teacher teacher) {
         LayuiTableData layuiTableData = teacherService.updateTeacherInfo(teacher);
         return JSON.toJSONString(layuiTableData);
@@ -94,6 +101,7 @@ public class TeacherController {
      *@Date:2020/6/21 20:37
      **/
     @RequestMapping(value = "/updateTeacherLimit")
+    @Log(operateType = OperateType.MODIFY, resourceType = ResourceType.Teacher)
     public ResultData updateTeacherLimit(Teacher teacher) {
         return teacherService.updateTeacherLimit(teacher);
     }

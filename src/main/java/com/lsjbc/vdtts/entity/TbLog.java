@@ -11,7 +11,7 @@ import javax.persistence.*;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "`tb_front_menu`")
+@Table(name = "`tb_log`")
 public class TbLog {
 
   @Id
@@ -25,10 +25,10 @@ public class TbLog {
   @Column(name = "`operator_name`")
   private String operatorName;
 
-  @Column(name = "`operator_time`")
+  @Column(name = "`create_time`")
   private String createTime;
 
-  @Column(name = "`operator_type`")
+  @Column(name = "`action_type`")
   private String actionType;
 
   @Column(name = "`content`")
