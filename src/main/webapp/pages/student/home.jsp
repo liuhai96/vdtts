@@ -83,7 +83,7 @@
             <ul>
                 <h3>学车流程</h3>
                 <li class="km1li">
-                    <a href="#course1" target="_blank"
+                    <a href="#course1"
                        onclick="clickLog('from=JXEDT_HOME_XCLC_KM1')">
                         <div class="km1"></div>
                         <div>
@@ -95,7 +95,7 @@
                     </a>
                 </li>
                 <li class="km2li">
-                    <a href="#jinxuan" target="_blank"
+                    <a href="#jinxuan"
                        onclick="clickLog('from=JXEDT_HOME_XCLC_KM2')">
                         <div class="km2"></div>
                         <div>
@@ -107,7 +107,7 @@
                     </a>
                 </li>
                 <li class="km3li">
-                    <a href="#jinxuan" target="_blank"
+                    <a href="#jinxuan"
                        onclick="clickLog('from=JXEDT_HOME_XCLC_KM3')">
                         <div class="km3"></div>
                         <div>
@@ -119,7 +119,7 @@
                     </a>
                 </li>
                 <li class="km4li">
-                    <a href="#course4" target="_blank"
+                    <a href="#course4"
                        onclick="clickLog('from=JXEDT_HOME_XCLC_KM4')">
                         <div class="km4"></div>
                         <div>
