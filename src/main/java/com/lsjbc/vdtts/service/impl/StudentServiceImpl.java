@@ -2,10 +2,7 @@ package com.lsjbc.vdtts.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.lsjbc.vdtts.constant.AccountType;
-import com.lsjbc.vdtts.dao.AccountDao;
-import com.lsjbc.vdtts.dao.ExamResultDao;
-import com.lsjbc.vdtts.dao.StudentDao;
-import com.lsjbc.vdtts.dao.TeacherDao;
+import com.lsjbc.vdtts.dao.*;
 import com.lsjbc.vdtts.dao.mapper.AccountMapper;
 import com.lsjbc.vdtts.dao.mapper.ExamResultMapper;
 import com.lsjbc.vdtts.dao.mapper.StudentMapper;
@@ -14,6 +11,7 @@ import com.lsjbc.vdtts.pojo.bo.aliai.SMS;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.pojo.vo.ResultData;
 import com.lsjbc.vdtts.pojo.vo.StudentRegister;
+import com.lsjbc.vdtts.service.intf.AsyncService;
 import com.lsjbc.vdtts.service.intf.LinkService;
 import com.lsjbc.vdtts.service.intf.StudentService;
 import com.lsjbc.vdtts.utils.FileTools;
@@ -22,6 +20,7 @@ import com.lsjbc.vdtts.utils.baidu.baiduTools.face.ManageFace;
 import com.lsjbc.vdtts.utils.baidu.baiduTools.face.SearchFace;
 import com.lsjbc.vdtts.utils.baidu.baiduTools.face.TFaceMethod;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -58,6 +57,12 @@ public class StudentServiceImpl implements StudentService {
 
 	@Resource(name = SMS.NAME)
 	private SMS sms;
+
+	@Resource(name = ExamErrorDao.NAME)
+	private ExamErrorDao examErrorDao;
+
+	@Resource
+	private AsyncService asyncService;
 
 	/**
 	 * student 里面所有的属性将会作为查询条件
@@ -269,14 +274,17 @@ public class StudentServiceImpl implements StudentService {
 		if (!token.getAType().equals(AccountType.STUDENT)) {
 			return ResultData.error("账号或密码错误，请重试");
 		}
-
 		Student student = studentDao.getStudentByAccountId(token.getAId());
+
+		asyncService.readExamError(student.getSId());
 
 		request.getSession().setAttribute("student", student);
 		request.getSession().setAttribute("account", token);
 
+
 		ResultData resultData = ResultData.success("登录成功", "url", "student/main");
 		resultData.put("username", student.getSName());
+		System.out.println("返回给前端");
 		return resultData;
 	}
 

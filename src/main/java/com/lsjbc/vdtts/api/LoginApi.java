@@ -29,9 +29,6 @@ public class LoginApi {
     @Resource(name = StudentServiceImpl.NAME)
     private StudentService studentService;
 
-    @Resource(name = ExamErrorDao.NAME)
-    private ExamErrorDao examErrorDao;
-
     /**
      * 学员登录
      *
@@ -43,22 +40,7 @@ public class LoginApi {
     public ResultData studentLogin(HttpServletRequest request, Account account) {
         ResultData resultData = studentService.studentLogin(account, request);
 
-        if(resultData.getCode()==0){
-            Student student = (Student) request.getSession().getAttribute("student");
-            readExamError(student.getSId());
-        }
-
         return resultData;
-    }
-
-    /**
-     * 预读用户的错题
-     * @param studentId 学员ID
-     */
-    @Async
-    public void readExamError(Integer studentId){
-        examErrorDao.getByStudentId(studentId,1);
-        examErrorDao.getByStudentId(studentId,4);
     }
 
 }
