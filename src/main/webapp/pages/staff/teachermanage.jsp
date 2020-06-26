@@ -65,8 +65,7 @@
             }]
             ,title: '用户数据表'
             ,cols: [[
-                {type: 'checkbox', fixed: 'left'}
-                ,{field:'tId', title:'ID', width:80, fixed: 'left', unresize: true, sort: true}
+                {field:'tId', title:'ID', width:80, fixed: 'left', unresize: true, sort: true}
                 ,{field:'account', title:'账号', edit: 'text'}
                 ,{field:'tName', title:'姓名', edit: 'text'}
                 ,{field:'tSfz', title:'身份证号'}

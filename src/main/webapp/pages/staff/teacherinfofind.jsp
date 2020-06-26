@@ -90,7 +90,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">电话</label>
         <div class="layui-input-inline">
-            <input type="text" name="tPhone" required  lay-verify="required" placeholder="请输入电话" autocomplete="off" class="layui-input">
+            <input type="text" name="tPhone" required  lay-verify="required|phone" placeholder="请输入电话" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-inline">
@@ -116,9 +116,8 @@
 
 <form id="updateTeacher" style="display: none" class="layui-form">
     <div class="layui-form-item" >
-        <label class="layui-form-label" >教练Id</label>
         <div class="layui-input-inline" style="display:none">
-            <input id="teacherId" type="text" name="tId" required  lay-verify="required" autocomplete="off" class="layui-input">
+            <input id="teacherId" type="hidden" name="tId" required  lay-verify="required" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item" id="account_div">
@@ -132,7 +131,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">电话</label>
         <div class="layui-input-inline">
-            <input type="text" name="tPhone" required  lay-verify="required" placeholder="请输入电话" autocomplete="off" class="layui-input">
+            <input type="text" name="tPhone" required  lay-verify="required|phone" placeholder="请输入电话" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
@@ -145,9 +144,8 @@
 
 <form id="updateTeacherLimit" style="display: none" class="layui-form">
     <div class="layui-form-item"  >
-        <label class="layui-form-label" >教练Id</label>
         <div class="layui-input-inline">
-            <input id="teacherId1" type="text" name="tId" required  lay-verify="required" autocomplete="off" class="layui-input">
+            <input id="teacherId1" type="hidden" name="tId" required  lay-verify="required" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
@@ -179,8 +177,7 @@
             }]
             ,title: '用户数据表'
             ,cols: [[
-                {type: 'checkbox', fixed: 'left'}
-                ,{field:'tId', title:'ID', width:80, fixed: 'left', unresize: true, sort: true}
+                {field:'tId', title:'ID', width:80, fixed: 'left', unresize: true, sort: true}
                 ,{field:'account', title:'账号', edit: 'text'}
                 ,{field:'tName', title:'姓名', edit: 'text'}
                 ,{field:'tSfz', title:'身份证号'}
@@ -204,7 +201,7 @@
                             case 'addTeacher':
                              index  =   layer.open({
                                     type: 1,
-                                    area:["400","600px"],
+                                    area:["400","800px"],
                                     skin: 'layui-layer-rim',
                                     shadeClose: true,//点击其他地方关闭
                                     content:$("#addTeacher"),
@@ -301,7 +298,7 @@
                 $("#teacherId").val(data.tId);
                 var index1 = layer.open({
                     type: 1,
-                    area:["400","300px"],
+                    area:["400","500px"],
                     skin: 'layui-layer-rim',
                     shadeClose: true,//点击其他地方关闭
                     content:$("#updateTeacher"),
