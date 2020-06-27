@@ -107,7 +107,7 @@
                 else passNotify.html("");
                 if (!isStop){
                     AjaxTransfer($("#path").val()+"/userLogin","aAccount="+aAccount+"&aPassword="+aPassword,function (mag) {
-                        alert(mag.msg);//提示信息
+                        layer.alert(mag.msg);//提示信息
                         skipAbsolute("/"+mag.data.url);//路径跳转路径
                     });
                 }

@@ -103,55 +103,60 @@ public class AccountServiceImp implements AccountService {
             request.getSession().setAttribute("aType", account.getAType());
         }catch (Exception e){}
         if(account != null){ //登录成功时
-            switch (account.getAType()) {
-                case "school": //驾校登录界面地址
-                    School school = schoolMapper.findAccount(account.getAId());
-                    if(school.getSLock().equals("true")){
-                        resultData.setMsg("驾校已被锁定登录");
-                        nextJsp = "transfer?logo= ";
-                    }else{
-                        request.getSession().setAttribute("school", school);
-                        request.getSession().setAttribute("account",account.getAAccount());
-                        request.getSession().setAttribute("name",school.getSName());
-                        request.getSession().setAttribute("userHead",school.getSImageUrl());
-                        resultData.setMsg("登录成功!");
-                        nextJsp = "transfer?logo=institutionIndex";//前端jsp地址
-                    }
-                    break;
-                case "teacher"://教练登录界面地址
-                    //教练的对象
-                    Teacher teacher = teacherMapper.findAccount(account);
-                    if(teacher.getTLock().equals("true")){
-                        resultData.setMsg("您的账号已被锁定，请找驾校询问具体原因");
-                        nextJsp = "transfer?logo=institutionLogin";
-                    }else{
-                        request.getSession().setAttribute("teacher", teacher);
-                        request.getSession().setAttribute("account",account.getAAccount());
-                        request.getSession().setAttribute("name",teacher.getTName());
-                        request.getSession().setAttribute("userHead",teacher.getTPic());
-                        //教练评价
-                        Evaluate evaluate = new Evaluate();
-                        evaluate.setEToId(teacher.getTId());
-                        evaluate.setEType("teacher");
-                        request.getSession().setAttribute("evaluate", evaluateMapper.selectEvaluate(evaluate));
-                        nextJsp = "transfer?logo=institutionIndex";//前端jsp地址
-                        resultData.setMsg("登录成功");
-                    }
-                    break;
-                case "manage":
-                    TransManage transManage = transManageDao.findTransManage(account);
-                    if(transManage!=null){
-                        request.getSession().setAttribute("manage",transManage);
-                        request.getSession().setAttribute("account",account.getAAccount());
-                        request.getSession().setAttribute("name",transManage.getTmName());
-                        request.getSession().setAttribute("userHead","/image/sch.jpg");
-                        resultData.setMsg("登录成功");
-                        nextJsp = "transfer?logo=institutionIndex";//前端jsp地址
-                    }else{
-                        resultData.setMsg("未找到该运管信息");
-                        nextJsp = "transfer?logo=institutionLogin";
-                    }
-                    break;
+            try {
+                switch (account.getAType()) {
+                    case "school": //驾校登录界面地址
+                        School school = schoolMapper.findAccount(account.getAId());
+                        if(school.getSLock().equals("false")){
+                            resultData.setMsg("驾校已被锁定登录");
+                            nextJsp = "transfer?logo= ";
+                        }else{
+                            request.getSession().setAttribute("school", school);
+                            request.getSession().setAttribute("account",account.getAAccount());
+                            request.getSession().setAttribute("name",school.getSName());
+                            request.getSession().setAttribute("userHead",school.getSImageUrl());
+                            resultData.setMsg("登录成功!");
+                            nextJsp = "transfer?logo=institutionIndex";//前端jsp地址
+                        }
+                        break;
+                    case "teacher"://教练登录界面地址
+                        //教练的对象
+                        Teacher teacher = teacherMapper.findAccount(account);
+                        if(teacher.getTLock().equals("true")){
+                            resultData.setMsg("您的账号已被锁定，请找驾校询问具体原因");
+                            nextJsp = "transfer?logo=institutionLogin";
+                        }else{
+                            request.getSession().setAttribute("teacher", teacher);
+                            request.getSession().setAttribute("account",account.getAAccount());
+                            request.getSession().setAttribute("name",teacher.getTName());
+                            request.getSession().setAttribute("userHead",teacher.getTPic());
+                            //教练评价
+                            Evaluate evaluate = new Evaluate();
+                            evaluate.setEToId(teacher.getTId());
+                            evaluate.setEType("teacher");
+                            request.getSession().setAttribute("evaluate", evaluateMapper.selectEvaluate(evaluate));
+                            nextJsp = "transfer?logo=institutionIndex";//前端jsp地址
+                            resultData.setMsg("登录成功");
+                        }
+                        break;
+                    case "manage":
+                        TransManage transManage = transManageDao.findTransManage(account);
+                        if(transManage!=null){
+                            request.getSession().setAttribute("manage",transManage);
+                            request.getSession().setAttribute("account",account.getAAccount());
+                            request.getSession().setAttribute("name",transManage.getTmName());
+                            request.getSession().setAttribute("userHead","/image/sch.jpg");
+                            resultData.setMsg("登录成功");
+                            nextJsp = "transfer?logo=institutionIndex";//前端jsp地址
+                        }else{
+                            resultData.setMsg("未找到该运管信息");
+                            nextJsp = "transfer?logo=institutionLogin";
+                        }
+                        break;
+                }
+            } catch (Exception e){
+                resultData.setMsg("入驻待审核！");
+                nextJsp = "transfer?logo=institutionLogin";//前端jsp地址
             }
         } else {//登录失败
             resultData.setMsg("登录失败，请核对账号");
