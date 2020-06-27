@@ -31,4 +31,6 @@ public interface AccountService {
     public int updateAdminAccount(AdminAccount account);
     public AdminAccount adminLogin(AdminAccount account);
     public List<Menuitem> adminList(int roleId);
+
+    String Transfer(String logo, HttpServletRequest request);
 }
