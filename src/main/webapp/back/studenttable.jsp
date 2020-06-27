@@ -34,7 +34,7 @@
 		<div class="layui-inline">
 			<label class="layui-form-label">获取时间：</label>
 			<div class="layui-input-block">
-				<input type="text" name="sLicenseTime" id="sLicenseTime" placeholder="请输入姓名" class="layui-input">
+				<input type="text" name="sLicenseTime" id="sLicenseTime" placeholder="请输入时间" class="layui-input">
 			</div>
 		</div>
 		<div class="layui-inline">
@@ -70,8 +70,9 @@
 			}]
 			,title: '学生表数据表'
 			,cols: [[
-				{type: 'checkbox', fixed: 'left'}
-				,{field:'sId', title:'学员ID', width:115, fixed: 'left', unresize: true, sort: true}
+				// {type: 'checkbox', fixed: 'left'}
+				// ,
+				{field:'sId', title:'学员ID', width:115, fixed: 'left', unresize: true, sort: true}
 				,{field:'schoolName', title:'驾校名字', width:130, edit: 'text'}
 				,{field:'sSfz', title:'学员身份证号', width:200, edit: 'text'}
 				,{field:'sName', title:'学员姓名', width:130, sort: true}
