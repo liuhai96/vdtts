@@ -45,11 +45,11 @@
                         <div class="form">
                             <div class="err-tip"></div>
                             <div class="form-group radio-form" onclick="">
-                                <label skip="true">驾校图片<i>*</i></label>
+                                <label skip="true">认证图片</label>
                                 <div class="user-type-conatiner layui-upload" >
                                     <div class="user-type active layui-upload-list" ref="radioWrap" data-index="0"
                                          style="width: 252px;" id="test1">
-                                        <b skip="true">宣传图片</b>
+                                        <b skip="true">认证图片</b>
                                         <img src="" class="layui-upload-img" id="demo1" height="163px"
                                              width="250px" property="" alt="会展示到驾校推荐首页，
                                              入驻需认证，用于营销、招生、管理">
@@ -60,7 +60,7 @@
                             <div class="err-tip"></div>
                             <div class="form-group">
                                 <label>驾校名称<i skip="true">*</i></label>
-                                <input class="" type="text" name="fName" placeholder="请输入驾校所在的城市">
+                                <input class="" type="text" name="fName" placeholder="请输入驾校名称">
                             </div>
                             <div class="err-tip"></div>
                             <div class="form-group">
@@ -71,13 +71,13 @@
                             <div class="err-tip"></div>
                             <div class="form-group">
                                 <label>确认密码<i skip="true">*</i></label>
-                                <input class="" type="password" name="aPassword2" placeholder="请设置你的登录密码">
+                                <input class="" type="password" name="aPassword2" placeholder="请确认你的登录密码">
                             </div>
                             <label id="aPassword2Notify" style="color: crimson"></label>
                             <div class="err-tip"></div>
                             <div class="form-group">
                                 <label skip="true">所在城市<i>*</i></label>
-                                <input class="" type="text" name="sAddress" placeholder="请输入驾校所在的城市">
+                                <input class="" type="text" name="sAddress" placeholder="请输入驾校的所在城市">
                             </div>
                             <label id="sAddressNotify" style="color: crimson"></label>
                             <div class="err-tip"></div>
@@ -143,10 +143,10 @@
             </div>
         </div>
         <script>
-            let sBusinessPic = "";//学校宣传图
+            let sBusinessPic = "";//认证
             let sRecruit = "";//法人证件
             Layui_uploadImage("#test1",$("#path").val()+'/upImage',$('#demo1'),function (mag) {
-                sBusinessPic = mag.fPath;},$('#demoText'));//学校宣传图
+                sBusinessPic = mag.fPath;},$('#demoText'));//认证
             Layui_uploadImage("#test10",$("#path").val()+'/upImage',$('#demo10'),function (mag) {
                 sRecruit = mag.fPath;},$('#demoText10'));//法人证件图
             function toService() {
