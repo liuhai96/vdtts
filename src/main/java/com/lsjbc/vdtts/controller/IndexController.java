@@ -1,6 +1,8 @@
 package com.lsjbc.vdtts.controller;
 
 import com.lsjbc.vdtts.constant.EvaluateType;
+import com.lsjbc.vdtts.dao.ExamErrorDao;
+import com.lsjbc.vdtts.dao.ExamQuestionDao;
 import com.lsjbc.vdtts.dao.ExamResultDao;
 import com.lsjbc.vdtts.entity.*;
 import com.lsjbc.vdtts.pojo.dto.QuestionBank;
@@ -51,6 +53,9 @@ public class IndexController {
 
     @Resource(name = StudentServiceImpl.NAME)
     private StudentService studentService;
+
+    @Resource(name = ExamErrorDao.NAME)
+    private ExamErrorDao examErrorDao;
 
 
     //陈竑霖
@@ -250,8 +255,8 @@ public class IndexController {
             return "/pages/index/student_login";
         }
 
-        if (examErrorService.getErrorQuestionByStudentId(level, student.getSId()).size() == 0) {
-            map.put("zjh_msg", "你在当前科目没有错题，你真是胖胖呢");
+        if (examErrorDao.getByStudentId(student.getSId(),level).size() == 0) {
+            map.put("zjh_msg", "你在当前科目没有错题，你真是棒棒呢");
             return "/pages/student/home";
         }
 
@@ -312,8 +317,7 @@ public class IndexController {
         map.put("videoList", videoList);
         map.put("record", "true");
 
-
-        if (result.getErState2() == 1 || result.getErState3() == 1) {
+        if((level==2&&result.getErState2() == 1)||(level==3&&result.getErState3() == 1)){
             map.put("zjh_msg", "你已经通过考试，观看视频将不会获取学时");
             map.put("record", "false");
             return "/pages/student/video_look";
