@@ -313,7 +313,7 @@ public class IndexController {
         map.put("record", "true");
 
 
-        if (result.getErState2() == 1 || result.getErState3() == 1) {
+        if((level==2&&result.getErState2() == 1)||(level==3&&result.getErState3() == 1)){
             map.put("zjh_msg", "你已经通过考试，观看视频将不会获取学时");
             map.put("record", "false");
             return "/pages/student/video_look";
@@ -429,6 +429,4 @@ public class IndexController {
     public String StudentRegister(StudentRegister register, Map<String, Object> map, HttpServletRequest request) {
         return studentService.studentRegister(register, map, request);
     }
-
-    ;
 }
