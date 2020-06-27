@@ -458,8 +458,6 @@
             //显示答题按钮
             $("#answerBtn").html(answerBtnString);
 
-            console.log(newQuestion.eqPic);
-
             //更新题目的图片
             if (newQuestion.eqPic != "") {
                 $("#layer-photos").html("<img id='questionPic' style='max-width: 250px;max-height: 250px' class='zjh_exam_question_pic' src='" + newQuestion.eqPic + "' layer-src='" + newQuestion.eqPic + "' />");
