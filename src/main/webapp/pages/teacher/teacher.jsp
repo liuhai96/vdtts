@@ -37,9 +37,7 @@
             <div class="layui-logo">${teacher.SName}</div>
             <!-- 头部区域（可配合layui已有的水平导航） -->
             <ul class="layui-nav layui-layout-left">
-                <li class="layui-nav-item"><a href="<%=path+"/pages/homepage/home-page.jsp"%>">首页</a></li>
-<%--                <li class="layui-nav-item">--%>
-<%--                    <a href="javascript:;">教练信息</a>--%>
+                  <a href="javascript:;">教练信息</a>--%>
 <%--                    <dl class="layui-nav-child">--%>
 <%--                        <dd><a href="">驾校基础信息</a></dd>--%>
 <%--                        <dd><a href="">学员评价</a></dd>--%>
@@ -56,10 +54,7 @@
 <%--                        <dd><a href="">基本资料</a></dd>--%>
 <%--                        <dd><a href="">安全设置</a></dd>--%>
 <%--                    </dl>--%>
-                </li>
-                <li class="layui-nav-item"><a href="<%=path+"/pages/homepage/home-page.jsp?logout=cc632ef332fex2ee3010012e"%>">退出账号</a></li>
-            </ul>
-        </div>
+
 
         <div class="layui-side layui-bg-black">
             <div class="layui-side-scroll">
