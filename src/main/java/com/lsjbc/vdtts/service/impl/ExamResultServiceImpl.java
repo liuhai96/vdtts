@@ -85,14 +85,14 @@ public class ExamResultServiceImpl implements ExamResultService {
                 break;
             case 2:
                 ExamParam examParam = examParamDao.selectTime("科目二学时");
-                Long towTime = examResult.getErTime2()* CustomTime.SECOND_OF_HOUR;
+                Long towTime = Integer.parseInt(examParam.getPmValue())* CustomTime.SECOND_OF_HOUR;
                 if(examResult.getErState2()==2){
                     resultData = ResultData.error(-1,"该学员的科目二或正在考试中");
                 }else if(examResult.getErState2()==1){
                     resultData = ResultData.error(-1,"该学员的科目二已通过");
                 }else{
                     if(examResult.getErState1()==1){
-                        if(towTime>Integer.parseInt(examParam.getPmValue())){
+                        if(towTime<examResult.getErTime2()){
                             count = examResultMapper.findSubjectExamCount(teacherId,examSujectId);
                             if(count>=5){
                                 resultData = ResultData.error(-1,"该科目考试人数已满请重新选择考试科目");
@@ -113,14 +113,14 @@ public class ExamResultServiceImpl implements ExamResultService {
                 break;
             case 3:
                 ExamParam examParam2 = examParamDao.selectTime("科目三学时");
-                Long threeTime = examResult.getErTime3()* CustomTime.SECOND_OF_HOUR;
+                Long threeTime = Integer.parseInt(examParam2.getPmValue())* CustomTime.SECOND_OF_HOUR;
                 if(examResult.getErState3()==2){
                     resultData = ResultData.error(-1,"该学员的科目三正在考试中");
                 }else if(examResult.getErState3()==1){
                     resultData = ResultData.error(-1,"该学员的科目三已通过");
                 }else{
                     if(examResult.getErState2()==1){
-                        if(threeTime>Integer.parseInt(examParam2.getPmValue())){
+                        if(threeTime<examResult.getErTime3()){
                             count = examResultMapper.findSubjectExamCount(teacherId,examSujectId);
                             if(count>=5){
                                 resultData = ResultData.error(-1,"该科目考试人数已满请重新选择考试科目");
@@ -144,7 +144,7 @@ public class ExamResultServiceImpl implements ExamResultService {
                 }else if(examResult.getErState4()==1){
                     resultData = ResultData.error(-1,"该学员的科目四已通过");
                 }else{
-                    if(examResult.getErState3()==1){
+                    if(examResult.getErState4()==1){
                             count = examResultMapper.findSubjectExamCount(teacherId,examSujectId);
                             if(count>=5){
                                 resultData = ResultData.error(-1,"该科目考试人数已满请重新选择考试科目");
