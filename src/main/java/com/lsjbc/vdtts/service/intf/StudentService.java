@@ -52,7 +52,10 @@ public interface StudentService {
 
     public int registerStudent(Student student);
 
+    //修改学生密码
     ResultData updatestudentPwd(HttpServletRequest request);
+    //上传学生照片
+    ResultData studentToProduct(Student student,HttpServletRequest request);
 
     /*
      *@Description:

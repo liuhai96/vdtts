@@ -22,7 +22,9 @@ public interface StudentMapper extends CustomBaseMapper<Student> {
     int selectListCount(@Param("e") Student student);
     //修改密码
     String findstudentPwd(@Param("aId") Integer aId);
-
+    //修改信息照片
+    int xiuphone(Student student);
+    //修改学生密码
     int updatestudentPwd(@Param("aId") int aId,@Param("aPassword") String aPassword);
     /*
      *@Description:

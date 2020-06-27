@@ -266,4 +266,11 @@ public class StudentController {
         modelAndView.setViewName(nextJsp);
         return modelAndView;
     }
+    //上传头像
+    @RequestMapping(value = "/phone")
+    @ResponseBody
+    private String phone(Student student,HttpServletRequest request){
+        System.out.println(JSON.toJSONString(student));
+        return JSON.toJSONString(studentService.studentToProduct(student,request));
+    }
 }
