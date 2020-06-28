@@ -36,7 +36,7 @@ public class HumanFaceController {
         return modelAndView;
     }
 
-
+    private boolean loginKey = true;
     @Autowired
     private SearchFace searchFace;
     @RequestMapping(value = "/lookFace")
@@ -48,16 +48,27 @@ public class HumanFaceController {
      *@Date:2020/6/22 21:57
      **/
     public String lookAtTheFace(String base64, HttpServletRequest request){
-        request.getSession().setAttribute("result",studentService.FaceLogin(request,base64));
-        try {
-            if (request.getSession().getAttribute("account").toString() != null){
-                return  "redirect:/student/main"; //redirect:重定向到index的后台
-            } else {
-                return  "/pages/index/student_login"; //redirect:重定向到学生登录的后台
+        String nextJsp;
+        if(loginKey){
+            loginKey = false;
+            try {
+                request.getSession().setAttribute("result",studentService.FaceLogin(request,base64));
+                if (request.getSession().getAttribute("account") != null){//人脸识别成功
+                    nextJsp = "redirect:/student/main"; //redirect:重定向到index的后台
+                } else {
+                    nextJsp = "/pages/index/student_login"; //redirect:重定向到学生登录的后台
+                }
+            } catch (Exception e){
+                e.printStackTrace();
+                nextJsp = "/pages/index/student_login";//redirect:重定向到学生登录的后台
             }
-        } catch (Exception e){
-            return  "/pages/index/student_login";//redirect:重定向到学生登录的后台
+            request.getSession().setAttribute("humanFaceNotfiy", 0);
+            loginKey = true;
+        } else {
+            request.getSession().setAttribute("humanFaceNotfiy", 1);//重复识别提示消息
+            try { Thread.sleep(1200); } catch (InterruptedException e) {}
+            nextJsp = "/pages/student/human-face";
         }
+        return nextJsp;
     }
-
 }

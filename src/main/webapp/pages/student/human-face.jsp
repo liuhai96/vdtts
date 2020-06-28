@@ -12,6 +12,7 @@
 %>
 <html>
 <head>
+
     <meta charset="utf-8">
     <title>人脸识别</title>
     <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
@@ -29,11 +30,23 @@
 </head>
 <body style="text-align: center;">
 <input hidden="hidden" value="<%=path%>" id="path">
+<c:if test="${humanFaceNotfiy == 1}">
+    <script>
+        alert("已识别，服务器正在为你疯狂处理！");
+    </script>
+</c:if>
+<c:if test="${account ne null}">
+    <script>
+        setTimeout(function () {
+            skipAbsolute("/pages/index/index.jsp");
+        },3000);
+    </script>
+</c:if>
+<a onclick="history.go(-1)" style="font-size: 20px" href="javascript:void(-1);">返回</a>
     <div style="text-align: start">
-        &nbsp;&nbsp;<a onclick="history.go(-1)" style="font-size: 20px" href="javascript:void(0);">返回</a>
+        &nbsp;&nbsp;
         <div class="alone-buy layui-btn-container" style="text-align: center;">
             <button id="openCamera" type="button" class="layui-btn" style="position: relative;" >开启摄像头</button>
-            <button type="button" class="layui-btn" onclick="skipPage('')">关闭摄像头</button>
         </div>
     </div>
     <label style="font-size: 20px;color: coral">人脸识别登录</label><br>
