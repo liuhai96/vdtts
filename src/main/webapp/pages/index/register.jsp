@@ -2043,9 +2043,10 @@
                     if(value.length==0){
                         return '姓名不得为空';
                     }
-                }else{
-                    return "请上传身份证照片";
                 }
+                // else{
+                //     return "请上传身份证照片";
+                // }
 
             },
             id:function (value) {
@@ -2053,8 +2054,8 @@
                     if (!/^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/.test(value)) {
                         return "身份证格式不正确，请重新输入";
                     }
-                }else{
-                    return "请上传身份证照片";
+                // }else{
+                    //     return "请上传身份证照片";
                 }
             },
             account:function(value){

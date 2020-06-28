@@ -190,6 +190,9 @@ public class StudentServiceImpl implements StudentService {
 	public ResultData studentToProduct(Student student, HttpServletRequest request){
 		ResultData resultData = ResultData.success();
 		//		Integer sStudentId = Integer.parseInt(request.getParameter("sId"));
+
+		System.out.println("asdasdsadasdasd"+student);
+		System.out.println("asdasdsadasdasd"+request);
 		if (student != null)
 		{ //查询
 			int num =studentMapper.xiuphone(student);
@@ -198,6 +201,7 @@ public class StudentServiceImpl implements StudentService {
 		{
 			resultData = ResultData.error(2, "修改头像失败");
 		}
+		System.out.println("asdasdsadasdasd"+student);
 		return resultData;
 	}
     /*
