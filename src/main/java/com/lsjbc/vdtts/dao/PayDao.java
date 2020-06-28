@@ -1,11 +1,12 @@
 package com.lsjbc.vdtts.dao;
 
 import com.lsjbc.vdtts.dao.mapper.PayMapper;
-import com.lsjbc.vdtts.entity.Account;
 import com.lsjbc.vdtts.entity.PayFee;
 import org.springframework.stereotype.Repository;
+import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @ClassName: PayDao
@@ -27,6 +28,13 @@ public class PayDao {
      * @return
      */
     public Integer add(PayFee payFee) {//添加账号
-        return mapper.addPayFee(payFee);
+        return mapper.insert(payFee);
+    }
+
+    public List<PayFee> selectPayInfo(String schoolName){
+        Example example = new Example(PayFee.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andLike("schoolName","%"+schoolName+"%");
+        return mapper.selectByExample(example);
     }
 }

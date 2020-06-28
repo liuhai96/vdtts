@@ -49,7 +49,7 @@ public class AdminControl {
      **/
     @RequestMapping(value = "/adminLogin")
     public String adminLogin(HttpServletRequest request, HttpServletResponse response, AdminAccount account) {
-//        account.setAPassword(new Tool().createMd5(account.getAPassword()));//转MD5码（加密）
+        account.setAcPassword(new Tool().createMd5(account.getAcPassword()));//转MD5码（加密）
         System.out.println("管理员登录--- account:" + account.getAcAccount() + " pwd:" + account.getAcPassword());
         AdminAccount adminLog = accountService.adminLogin(account);
         String res = "";
@@ -88,6 +88,8 @@ public class AdminControl {
 
     @RequestMapping(value = "/updatePwd")
     public String updatePwd(HttpServletRequest request, HttpServletResponse response, AdminAccount adminAccount) {
+        Tool tool = new Tool();
+        adminAccount.setAcPassword(tool.createMd5(adminAccount.getAcPassword()));//MD5
         int updateaAccount = accountService.updateAdminAccount(adminAccount);
         String res = "";
         if (updateaAccount > 0) {

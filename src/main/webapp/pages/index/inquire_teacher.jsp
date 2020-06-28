@@ -133,8 +133,9 @@
                 </div>
                 <span style="font-size: 17px;color: #65B0F1;">${score}</span>
             </div>
-	        <div class="site-demo-button" id="layerDemo" style="margin-bottom: 0; text-align: center">
+	        <div class="layui-elem-field site-demo-button" id="layerDemo" style="margin-bottom: 0; text-align: center">
 		        <button data-method="notice" data-type="auto" class="layui-btn">学生报名</button>
+                <button data-method="notice" data-type="auto" class="layui-btn">评论教练</button>
 	        </div>
             <p></p>
         </div>
@@ -288,6 +289,11 @@
         //             //         '</div>'
 				    ,
 				    yes: function (index, layer) {
+                        alert("即将跳转到学费支付界面");
+                        let payLink = path+"/pay/"+$("#teacherId").html();
+                        $("#payLink").attr("href",payLink);
+                        $("#payLink>p").trigger('click') ;
+
                         // let sName = $("#sName").val();
                         let teacherId = $("#teacherId").html();
                         // let sSfz = $("#sSfz").val();

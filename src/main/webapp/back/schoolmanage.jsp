@@ -64,13 +64,13 @@
                 ,{field: 'sId', title: '序号', width:80, sort: true, fixed: 'left', }
                 ,{field: 'sName', title: '驾校名称', width:90}
                 ,{field: 'sAccount', title: '账号', width:80, sort: true, totalRow: true}
-                ,{field: 'sAddress', title: '驾校地址', width: 90}
-                ,{field: 'sPhone', title: '报名电话', width: 90}
+                ,{field: 'sAddress', title: '驾校地址', width: 120}
+                ,{field: 'sPhone', title: '报名电话', width: 110}
                 ,{field: 'sBusinessId', title: '统一信用代码', width: 120}
                 ,{field: 'sOwnerId', title: '法人身份证', width: 110}
-                ,{field: 'sRegTime', title: '注册时间', width:90 }
+                ,{field: 'sRegTime', title: '注册时间', width:120 }
                 ,{field: 'sRecruit', title: '允许招生', width:90}
-                ,{field: 'sRecruit', title: '允许登录', width:90}
+                // ,{field: 'sLock', title: '允许登录', width:90}
                 ,{field: 'sVerification', title: '审核状态', width:90}
                 ,{field: 'sLock', title: '锁定', width:70}
                 ,{field: 'sAccountId', title: '账号id', width:10, hide:'true'}

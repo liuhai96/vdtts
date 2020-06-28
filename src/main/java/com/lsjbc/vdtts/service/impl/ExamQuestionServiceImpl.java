@@ -43,6 +43,7 @@ public class ExamQuestionServiceImpl implements ExamQuestionService {
 
     @Override
     public ResultData insertExamQuestion(String level) {
+        System.out.println("PPPPPPPPPP>>>>>>>>>>>>"+level);
         List<ExamEnity> examEnitityList = GetExamQuestion.getRequest1(level);
         examQuestionDao.deleteAll(Integer.parseInt(level));
         examAnswerDao.deleteAll(Integer.parseInt(level));
@@ -76,7 +77,7 @@ public class ExamQuestionServiceImpl implements ExamQuestionService {
             }
            int num =  examQuestionDao.add(examQuestion);
 
-            List<ExamAnswer> answers = examEnity.generateAnswer(examQuestion.getEqId());
+            List<ExamAnswer> answers = examEnity.generateAnswer(examQuestion.getEqId(),level);
 
             int num1 =examAnswerDao.addAll(answers);
             if(num1>0&&num>0){
@@ -95,6 +96,15 @@ public class ExamQuestionServiceImpl implements ExamQuestionService {
     public PageInfo findExamQuestion(PageDTO pageDTO) {
         PageHelper.startPage(pageDTO.getPage(), pageDTO.getLimit(), true);
         return new PageInfo<>(examQuestionMapper.selectAll());
+    }
+
+
+    @Override
+    public ResultData findAnswer(String questionId){
+        ResultData resultData = null;
+        List answerList = examAnswerDao.getByQuestionId(Integer.parseInt(questionId));
+        resultData = ResultData.success("查询成功","answerList",answerList);
+        return resultData;
     }
 
 

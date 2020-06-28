@@ -52,7 +52,6 @@ public class CarDao implements BaseDao<Car> {
         Example example = new Example(Car.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("cTeacherId", teacherId);
-
         return mapper.selectByExample(example);
     }
 
@@ -92,7 +91,8 @@ public class CarDao implements BaseDao<Car> {
      */
     @Override
     public Integer updateById(Car object) {
-        return null;
+
+        return mapper.updateCarInfo(object);
     }
 
     /**
@@ -103,6 +103,6 @@ public class CarDao implements BaseDao<Car> {
      */
     @Override
     public Integer deleteById(Integer id) {
-        return null;
+        return mapper.deleteCar(id);
     }
 }

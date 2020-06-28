@@ -127,7 +127,7 @@
 			<div class="layui-form-item">
 				<div class="layui-input-block" >
 					<label class="layui-form-label">验证码:</label>
-					<input id="idtext" type="text" value="" placeholder="请输入验证码（不区分大小写）"class="layui-input"></canvas>
+					<input id="idtext" type="text" value="" placeholder="请输验证码（不区分大小写）"class="layui-input"></canvas>
 				</div>
 			</div>
 			<div class="layui-form-item">
@@ -146,40 +146,45 @@
 	</div>
 </div>
 <script>
-	layui.use(['layer', 'form','jquery'], function () {
-		var layer = layui.layer
-				, form = layui.form;
-		var $ = layui.jquery;
-		form.on('submit(formDemo)', function (data) {
-			alert(JSON.stringify(data.field));
-			var idtext = $(".idtext").val();
-			var canvas = $(".canvas").val();
-			// if(idtext==''){
-			//     alert("请输入验证码");
-			// }else if (idtext!=canvas){
-			//     alert("验证码输入有误，请重新输入");
-			// }else if(idtext==canvas){
-			$.ajax({
-				url: "/adminControl/adminLogin",
-				type: "POST",
-				dataType: "text",
-				data: data.field,
-				success: function (msg) {
-					if (msg.trim() == "success") {
-						layer.alert("管理端登录成功");
-						location.href = 'adminmenu.jsp';
-					} else {
-						alert("登录失败，账号或密码有误")
-					}
-				}
-			});
-			return false;
-		});
-	});
+	// layui.use(['layer', 'form','jquery'], function () {
+	// 	var layer = layui.layer
+	// 			, form = layui.form;
+	// 	var $ = layui.jquery;
+	// 	form.on('submit(formDemo)', function (data) {
+	// 		// alert(JSON.stringify(data.field));
+	// 		var idtext = $("#idtext").val();
+	// 		var canvas = $("#canvas").val();
+	// 		alert('idtext ='+idtext);
+	// 		alert('canvas ='+canvas);
+	// 		if(idtext==''){
+	// 		    alert("请输入验证码");
+	// 		}else if (idtext!=canvas){
+	// 		    alert("验证码输入有误，请重新输入");
+	// 		}else if(idtext==canvas){
+	// 		$.ajax({
+	// 			url: "/adminControl/adminLogin",
+	// 			type: "POST",
+	// 			dataType: "text",
+	// 			data: data.field,
+	// 			success: function (msg) {
+	// 				if (msg.trim() == "success") {
+	// 					alert("管理端登录成功");
+	// 					location.href = 'adminmenu.jsp';
+	// 				} else {
+	// 					alert("登录失败，账号或密码有误")
+	// 				}
+	// 			}
+	// 		});
+	// 		return false;
+	// 	}
+	// 	});
+	// });
 </script>
 <script>
-	layui.use(['layer', 'jquery'], function () {
+	layui.use(['layer', 'jquery','form'], function () {
+		var layer = layui.layer;
 		var $ = layui.jquery;
+		var form = layui.form;
 		var show_num = [];
 		draw(show_num);
 
@@ -188,21 +193,39 @@
 		}
 
 		$(function () {
-			$("input[name='submit']").click(function () {
-				var val = $("#idtext").val();
-				var num = show_num.join("");
-				if (val === "") {
-					alert('请输入验证码！');
+				form.on('submit(formDemo)', function (data) {
+					// $("input[name='submit']").click(function () {
+						var val = $("#idtext").val();
+						var num = show_num.join("");
+						// alert('验证码错误！\n你输入的是:  ' + val + "\n正确的是:  " + num + '\n请重新输入！');
+						if (val === "") {
+							alert('请输入验证码！');
+							return false;
+						}
+						if (val.toLowerCase() !== num.toLowerCase()) {
+							alert('验证码错误！\n你输入的是:  ' + val + "\n正确的是:  " + num + '\n请重新输入！');
+							document.getElementById("idtext").value = '';
+							draw(show_num);
+							return false;
+						} else {
+							// alert('验证码正确！\n你输入的是:  ' + val + "\n正确的是:  " + num );
+							$.ajax({
+								url: "/adminControl/adminLogin",
+								type: "POST",
+								dataType: "text",
+								data: data.field,
+								success: function (msg) {
+									if (msg.trim() == "success") {
+										alert("管理端登录成功");
+										location.href = 'adminmenu.jsp';
+									} else {
+										alert("登录失败，账号或密码有误")
+									}
+								}
+							});
+						}
 					return false;
-				}
-				if (val.toLowerCase() !== num.toLowerCase()) {
-					alert('验证码错误！\n你输入的是:  ' + val + "\n正确的是:  " + num + '\n请重新输入！');
-					document.getElementById("idtext").value = '';
-					draw(show_num);
-					return false;
-				}
-
-			});
+					});
 		});
 
 		function draw(show_num) {

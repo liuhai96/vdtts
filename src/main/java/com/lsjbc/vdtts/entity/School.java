@@ -128,6 +128,10 @@ public class  School {
 	private String sOwnerPic;
 
 
+	@Column(name = "`s_image_url`")
+	private String sImageUrl;
+
+
     /**
      *驾校报名费
      */

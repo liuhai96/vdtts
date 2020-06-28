@@ -73,6 +73,7 @@ public class CarControl {
     }
 
     @RequestMapping(value = "/addCar")
+    @Log(operateType = OperateType.ADD, resourceType = ResourceType.CAR, detail = "#cId")
     public Object addCar(Car car, HttpServletRequest request) {
         return JSON.toJSONString(carService.addCar(car, request));
     }
@@ -104,8 +105,7 @@ public class CarControl {
      *@Date:2020/6/10 15860799877
      **/
     @RequestMapping(value = "/selectCarInfo")//初始化教练车信息表
-    public String selectCarInfo(HttpServletRequest request, HttpServletResponse response,
-                                @RequestParam(value = "page") String page, @RequestParam(value = "limit") String limit,
+    public String selectCarInfo(HttpServletRequest request, HttpServletResponse response,@RequestParam(value = "page") String page, @RequestParam(value = "limit") String limit,
                                 Car car) {
         int page2 = (Integer.valueOf(page) - 1) * Integer.valueOf(limit);
         System.out.println(" ---carpage=" + page2);
@@ -132,4 +132,17 @@ public class CarControl {
         }
     }
 
+    @RequestMapping(value = "/delCar")//删除教练车
+    public String deleteCar (HttpServletRequest request ,HttpServletResponse response,Car car){
+        System.out.println("carId="+car.getCId());
+        int i = carDao.deleteById(car.getCId());
+        if(i>0){
+            System.out.println("删除教练车成功");
+            return "success";
+        }else {
+            System.out.println("删除教练车失败");
+            return "failed";
+        }
+
+    }
 }

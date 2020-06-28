@@ -83,7 +83,7 @@ public class CarServiceImpl implements CarService {
     @Override
     public LayuiTableData addCar(Car car,HttpServletRequest request) {
         School school = (School) request.getSession().getAttribute("school");
-        car.setCSchoolId(1);
+        car.setCSchoolId(school.getSId());
         LayuiTableData layuiTableData = new LayuiTableData();
         int num = carMapper.addCar(car);
         if(num>0){

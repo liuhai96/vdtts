@@ -29,13 +29,13 @@
             <input type="text" class="layui-input" name="cLogo" id="demoReload" autocomplete="off"placeholder="请输入车辆品牌">
         </div>
         <button class="layui-btn layui-btn-normal" lay-event="search"  lay-submit lay-filter="search" data-type="reload">搜索</button>
-        <button class="layui-btn " lay-event="add" style="margin-left: 10%">添加教练车</button>
+<%--        <button class="layui-btn " lay-event="add" style="margin-left: 10%">添加教练车</button>--%>
     </div>
 </script>
 
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-xs" lay-event="delete">删除教练车</a>
-    <a class="layui-btn layui-btn-xs" lay-event="update">教练车信息修改</a>
+<%--    <a class="layui-btn layui-btn-xs" lay-event="update">教练车信息修改</a>--%>
 </script>
 
 <script>
@@ -133,25 +133,24 @@
             }
 
             else if(layEvent === 'delete'){       //删除驾校
-                var schoolId = data.sId;
-                var sName= data.sName;
-                layer.alert('schoolId='+schoolId);
+                var carId = data.cId;
+               alert('carId='+carId);
                 var data ={
-                    schoolId: schoolId,
+                    cId: carId,
                     dealtype: "delete"
                 }
-                layer.alert('data='+JSON.stringify(data));
-                layer.confirm('确认删除此驾校？', function(index){
+                // layer.alert('data='+JSON.stringify(data));
+                layer.confirm('确认删除此教练车？', function(index){
                     obj.del(); //删除对应行（tr）的DOM结构
                     layer.close(index);
                     $.ajax({
-                        url: "/carControl/deleteSchool",
+                        url: "/carControl/delCar",
                         type: "POST",
                         dataType: "text",
                         data: data,
                         success: function (msg) {
                             if (msg.trim() == "success") {
-                                alert(sName+"删除成功！");
+                                alert("删除教练车成功！");
                                 layer.close(addstudent);
                                 location.reload();
                             } else {
@@ -159,40 +158,10 @@
                             }
                         }
                     });
-                    //向服务端发送删除指令
+                    return false;
                 });
+
             }
-        //     else if(layEvent === 'del'){       //删除/禁用学员
-        //         var studentId = data.studentId;
-        //        var studentName= data.studentName;
-        //         layer.alert('studentId='+studentId);
-        //         var data ={
-        //             studentId: studentId,
-        //             dealtype: "delete"
-        //         }
-        //         layer.alert('data='+JSON.stringify(data));
-        //         layer.confirm('确认删除此学员信息？', function(index){
-        //             obj.del(); //删除对应行（tr）的DOM结构
-        //             layer.close(index);
-        //             $.ajax({
-        //                 url: "/sharefile/studentControl/deletestudent",
-        //                 type: "POST",
-        //                 dataType: "text",
-        //                 data: data,
-        //                 success: function (msg) {
-        //                     if (msg.trim() == "success") {
-        //                         alert("学员"+studentName+"删除成功！");
-        //                         layer.close(addstudent);
-        //                         // location.href = "userlogin.jsp";
-        //                     } else {
-        //                         alert(msg)
-        //                     }
-        //                 }
-        //             });
-        //             //向服务端发送删除指令
-        //         });
-        //     }
-        //
         //     else if(layEvent === 'edit'){ //修改学员
         //        studentId2 = data.studentId;
         //         addstudent = layer.open({

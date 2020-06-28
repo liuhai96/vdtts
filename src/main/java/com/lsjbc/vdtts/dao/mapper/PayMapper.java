@@ -5,5 +5,5 @@ import com.lsjbc.vdtts.utils.mopper.CustomBaseMapper;
 
 public interface PayMapper extends CustomBaseMapper<PayFee> {
 
-    public int addPayFee(PayFee payFee);
+//    public int addPayFee(PayFee payFee);
 }

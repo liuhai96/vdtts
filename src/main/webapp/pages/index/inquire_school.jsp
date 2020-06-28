@@ -113,18 +113,23 @@
 	<DIV class="del-lun">
 	</DIV>
 	<DIV style="float: left">
-		<IMG style="height: 260px; width: 700px;" src="<%=path%>/static/layui/images/photo/06.png">
+		<IMG style="height: 280px; width: 700px;" src="<%=path%>/static/layui/images/photo/06.png">
 	</DIV>
 	<DIV class="del-schinf">
-		<P class="del-p"><span>${name}</span><IMG src="<%=path%>/image/pages/index/tower.png"></P>
+		<P class="del-p"><span id="schoolName">${name}</span><IMG src="<%=path%>/image/pages/index/tower.png"></P>
 		<DIV class="del-inf">
 			<p>
 				<b>全国统一信用代码：</b>
-				<span>${sbusinessId}</span>
-				<b style="margin-left: 40px;">经营许可日期：</b>
+				<span id="schoolSId">${sid}</span>
+			</p>
+			<p>
+				<b>经营许可日期：</b>
 				<span>${time}</span>
 			</p>
-
+			<p>
+				<b>报名费：</b>
+				<span id="schoolFee">${sRegisteryFee}</span>
+			</p>
 			<p><b>教练员人数：</b>
 				<span>${teachercount}</span>人
 			</p>
@@ -147,9 +152,11 @@
 				</div>
 				<span style="font-size: 17px;color: #65B0F1;">${score}</span>
 			</div>
-			<div class="site-demo-button" id="layerDemo" style="margin-bottom: 0; text-align: center">
-				<button data-method="notice" class="layui-btn">学生报名</button>
+			<div class="layui-elem-field site-demo-button" id="layerDemo" style="margin-bottom: 0; text-align: center">
+				<button type="button"data-method="notice" class="layui-btn">学生报名</button>
+				<button type="button"data-method="notice2" class="layui-btn">评论驾校</button>
 			</div>
+
 		</DIV>
 		<p></p>
 	</div>
@@ -258,7 +265,11 @@
 				<IMG id="pubnumfile"><IMG src="<%=path%>/image/pages/index/code2.jpg">
 			</DIV>
 		</LI>
+
 	</UL>
+	<a id="payLink" target="_blank" style="display: none;">
+		<p>baidu</p>
+	</a>
 </DIV>
 </DIV>
 <DIV class="footer-inf">
@@ -377,9 +388,20 @@
 					content: '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">确认报名该驾校? </div>'
 					,
 					yes: function (index, layero) {
+						alert("即将跳转到学费支付界面");
+						let payLink = path+"/pay/"+$("#schoolSId").html();
+						$("#payLink").attr("href",payLink);
+						$("#payLink>p").trigger('click') ;
+
+						<%--alert("studentid ="+${sessionScope.student.SId},"studentname ="+${sessionScope.student.SName});--%>
+						<%--alert("schoolName ="+'${name}',"schoolId="+${sid});--%>
+						<%--alert("schoolfee="+${sRegisteryFee});--%>
+
 						// let sName = $("#sName").val();
 						let schoolId = $("#schoolId").val();
 						// let sSfz = $("#sSfz").val();
+
+
 						$.ajax({
 							type: 'get',
 							url: '/SchoolControl/insSfz',
@@ -391,25 +413,21 @@
 							},
 							success: function (remsg) {
 								console.log(remsg);
-								alert("即将跳转到支付界面");
 								alert(remsg.msg);
-								// alert("即将跳转到支付界面");
-								//跳转支付界面
-								location.href =path+'/aliPayController/pay'
-								//驾校id 驾校name 学员id 学员姓名 学费金额
-								alert("schoolId="+schoolId+" schoolName="+schoolName+" studentId="+studentId+" studentName="+studentName+)
-								$.ajax({
-									type:'get',
-									url:'/aliPayController/pay',
-									data:{
-										schoolId:schoolId,
-										schoolName:Name,
-									}
-								})
-								// layer.close(index);
+								layer.close(index);
 							}
 						})
 					}
+				})
+			},
+			notice2:function () {
+				let schoolId = $("#schoolId").val();
+				$.ajax({
+					url:'<%=path%>/evaluateController/aa',
+					data:{
+						schoolId:schoolId
+					},
+
 				})
 			}
 		}

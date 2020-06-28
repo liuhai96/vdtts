@@ -28,4 +28,10 @@ public class ExamQuestionController {
         layuiTableData.setData(pageInfo.getList());
         return layuiTableData;
     }
+
+    @RequestMapping(value = "/findAnswer")
+    public ResultData findAnswer(String questionId){
+
+        return  examQuestionService.findAnswer(questionId);
+    }
 }
