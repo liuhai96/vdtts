@@ -12,10 +12,14 @@
 <html>
 <head>
     <title>Title</title>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
     <link rel="stylesheet" href=<%=path+"/static/layui/css/layui.css"%>>
     <script type="text/javascript" src=<%=path+"/static/layui/layui.js"%>></script>
+    <script src="<%=path+"/static/custom_tool.js"%>"></script>
 </head>
 <body>
+<input hidden="hidden" value="<%=path%>" id="path">
 <form class="layui-form" action="" id="updatePwd">
     <div class="layui-form-item">
         <label class="layui-form-label">旧密码</label>
@@ -74,7 +78,7 @@
                                 },
                                 success: function (resmsg) {
                                     if (resmsg.code == 1) {
-                                        layer.msg(resmsg.msg);
+                                        alert(resmsg.msg+"，请重新登录！");
                                         skipAbsolute("/transfer?logo=exit");
                                     } else {
                                         layer.msg(resmsg.msg);
