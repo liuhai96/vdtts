@@ -65,7 +65,6 @@ public class HumanFaceController {
                 request.getSession().setAttribute("ll", "-1");
                 nextJsp = "/pages/index/student_login";//redirect:重定向到学生登录的后台
             }
-
             loginKey = true;
         } else {
             try { Thread.sleep(1200); } catch (InterruptedException e) {}
