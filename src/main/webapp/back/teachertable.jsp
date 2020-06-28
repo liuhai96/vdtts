@@ -24,7 +24,7 @@
 			</div>
 		</div>
 		<div class="layui-inline">
-			<label class="layui-form-label">学员状态</label>
+			<label class="layui-form-label">招生状态</label>
 			<div class="layui-input-inline">
 				<select name="tTeach"id="tTeach" >
 					<option value="">选择状态查询</option>
@@ -77,8 +77,9 @@
 			}]
 			,title: '教练表数据表'
 			,cols: [[
-				{type: 'checkbox', fixed: 'left'}
-				,{field:'tId', title:'教练ID', width:115, fixed: 'left', unresize: true, sort: true}
+				// {type: 'checkbox', fixed: 'left'}
+				// ,
+				{field:'tId', title:'教练ID', width:115, fixed: 'left', unresize: true, sort: true}
 				,{field:'tName', title:'教练名字', width:130, edit: 'text'}
 				,{field:'schoolName', title:'所属驾校', width:110, edit: 'text'}
 				,{field:'tSfz', title:'教练身份证', width:200, sort: true}

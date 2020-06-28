@@ -54,7 +54,7 @@
             <p class="top-title-p1">机动车驾驶员计时培训系统</p>
             <p class="top-title-p2">Timing training system for motor vehicle drivers</p>
         </div>
-        <form id="searchSchoolOrTeacher" action="<%=path+"inquire"%>" method="post" class="top-search">
+        <form id="searchSchoolOrTeacher" action="<%=path+"/inquire"%>" method="post" class="top-search">
             <select name="type">
                 <option value="school">驾培机构</option>
                 <option value="teacher">教练员</option>
@@ -80,7 +80,7 @@
                 <a href="<%=path+"/publicity/notice/1/-1"%>">公开公示</a>
             </li>
             <li id="menu-title-three" class="layui-this menu-title-bg" style="display: block;cursor:hand;">
-                <form id="jumpToInquire" action="<%=path+"inquire"%>" method="post">
+                <form id="jumpToInquire" action="<%=path+"/inquire"%>" method="post">
                     <img src="<%=path+"/image/pages/index/menu_inquire1.png"%>">
                     <a onclick="document:jumpToInquire.submit()">信息查询</a>
                 </form>
@@ -139,9 +139,6 @@
                             </button>
                         </li>
                     </ul>
-                        <hr>
-
-
                         <div class="inq-school">
                     <textarea title="消息模版" id="SCHOOL_tpl" style="display:none;">
                             {{# layui.each(d.data, function(index, item){ }}
@@ -216,7 +213,6 @@
                                 <button class="sexBtn" value="女">女</button>
                             </li>
                         </ul>
-                        <hr>
                         <div class="inq-student">
                     <textarea title="消息模版" id="TEACHER_tpl" style="display:none;">
                         {{# layui.each(d.data, function(index, item){ }}

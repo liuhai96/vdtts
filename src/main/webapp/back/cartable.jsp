@@ -18,7 +18,7 @@
 		<div class="layui-inline">
 			<label class="layui-form-label">车牌号：</label>
 			<div class="layui-input-block">
-				<input type="text" name="cNumber" id="cNumber" placeholder="请输入姓名" class="layui-input">
+				<input type="text" name="cNumber" id="cNumber" placeholder="请输入车牌号" class="layui-input">
 			</div>
 		</div>
 		<div class="layui-inline">
@@ -51,8 +51,9 @@
 			}]
 			,title: '车辆表数据表'
 			,cols: [[
-				{type: 'checkbox', fixed: 'left'}
-				,{field:'cId', title:'车辆ID', width:115, fixed: 'left', unresize: true, sort: true}
+				// {type: 'checkbox', fixed: 'left'}
+				// ,
+				{field:'cId', title:'车辆ID', width:115, fixed: 'left', unresize: true, sort: true}
 				,{field:'cLogo', title:'品牌', width:130, edit: 'text'}
 				,{field:'schoolName', title:'所属驾校', width:110, edit: 'text'}
 				,{field:'cModel', title:'车辆型号', width:115, sort: true}

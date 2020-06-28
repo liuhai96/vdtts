@@ -4,13 +4,16 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.lsjbc.vdtts.dao.ExamErrorDao;
 import com.lsjbc.vdtts.dao.ExamSimulateRecordDao;
+import com.lsjbc.vdtts.entity.ExamError;
 import com.lsjbc.vdtts.entity.ExamSimulateRecord;
 import com.lsjbc.vdtts.pojo.vo.ExamSimulateRecordAdd;
 import com.lsjbc.vdtts.service.intf.ExamSimulateRecordService;
 import com.lsjbc.vdtts.utils.CustomTimeUtils;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @ClassName: ExamSimulateRecordServiceImpl
@@ -51,10 +54,19 @@ public class ExamSimulateRecordServiceImpl implements ExamSimulateRecordService 
         Integer row = examSimulateRecordDao.add(record);
 
         if(row>=1){
-            examErrorDao.add(object.createErrorList(record));
+            addErrorRecord(object.createErrorList(record));
         }
 
         return row;
+    }
+
+    /**
+     * 多线程插入错题记录
+     * @param list
+     */
+    @Async
+    protected void addErrorRecord(List<ExamError> list){
+        examErrorDao.add(list);
     }
 
     /**

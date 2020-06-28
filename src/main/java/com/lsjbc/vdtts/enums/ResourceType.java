@@ -1,10 +1,7 @@
 package com.lsjbc.vdtts.enums;
 
-import com.lsjbc.vdtts.dao.mapper.CarMapper;
-import com.lsjbc.vdtts.dao.mapper.LogMapper;
-import com.lsjbc.vdtts.dao.mapper.SchoolMapper;
-import com.lsjbc.vdtts.dao.mapper.TeacherMapper;
-import tk.mybatis.mapper.common.Mapper;
+import com.lsjbc.vdtts.dao.mapper.*;
+import com.lsjbc.vdtts.utils.mopper.CustomBaseMapper;
 
 /**
  * @Description: 资源类型
@@ -15,19 +12,21 @@ public enum ResourceType {
     OPERATION_LOG("操作日志", LogMapper.class),
     CAR("教练车", CarMapper.class),
     School("驾校", SchoolMapper.class),
-    Teacher("教练", TeacherMapper.class);
+    Teacher("教练", TeacherMapper.class),
+    ExamResult("考试情况",ExamResultMapper.class),
+    Student("学员",StudentMapper.class);
     private String name;
-    private Class<? extends Mapper> mapper;
+    private Class<? extends CustomBaseMapper> mapper;
 
     public String getName() {
         return name;
     }
 
-    public Class<? extends Mapper> getMapper() {
+    public Class<? extends CustomBaseMapper> getMapper() {
         return mapper;
     }
 
-    ResourceType(String name, Class<? extends Mapper> mapper) {
+    ResourceType(String name, Class<? extends CustomBaseMapper> mapper) {
         this.name = name;
         this.mapper = mapper;
     }

@@ -7,10 +7,12 @@ import com.lsjbc.vdtts.entity.Student;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.service.intf.NoticeService;
 import com.lsjbc.vdtts.service.intf.StudentService;
+import com.lsjbc.vdtts.service.intf.sfzService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -31,6 +33,8 @@ public class pipeControl
 		private StudentService studentService;
 		@Autowired
 	    private NoticeService noticeService;
+	@Autowired
+	private sfzService sfzService;
 //学员表查看
 		@RequestMapping(value = "/studentList",produces = {"application/json;charset=UTF-8"})
 		@ResponseBody
@@ -68,6 +72,14 @@ public class pipeControl
         notice.setNType("notice");
 		LayuiTableData layuiTableData =noticeService.addnotice(notice);
 		return layuiTableData;
+	}
+
+	@RequestMapping(value = "/sfzdiscern",produces = {"application/json;charset=UTF-8"})
+	@ResponseBody
+	public String sfzdiscern(HttpServletRequest request, HttpServletResponse response, MultipartFile file) {
+		response.setContentType("text/html;charset=utf-8");
+		System.out.println("asdasdsadasdasdasdasdasdasdasdasdasdasdasd");
+		return sfzService.sfzdiscern(request,response,file);
 	}
 }
 

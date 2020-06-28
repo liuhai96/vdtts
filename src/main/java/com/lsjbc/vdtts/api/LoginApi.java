@@ -1,9 +1,12 @@
 package com.lsjbc.vdtts.api;
 
+import com.lsjbc.vdtts.dao.ExamErrorDao;
 import com.lsjbc.vdtts.entity.Account;
+import com.lsjbc.vdtts.entity.Student;
 import com.lsjbc.vdtts.pojo.vo.ResultData;
 import com.lsjbc.vdtts.service.impl.StudentServiceImpl;
 import com.lsjbc.vdtts.service.intf.StudentService;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,7 +38,9 @@ public class LoginApi {
      */
     @PostMapping("student")
     public ResultData studentLogin(HttpServletRequest request, Account account) {
-        return studentService.studentLogin(account, request);
+        ResultData resultData = studentService.studentLogin(account, request);
+
+        return resultData;
     }
 
 }

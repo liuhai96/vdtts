@@ -11,10 +11,7 @@ import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.service.intf.CarService;
 import com.lsjbc.vdtts.service.intf.SchoolService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -30,6 +27,7 @@ public class CarControl {
     private SchoolService schoolService;
     @Resource
     CarDao carDao;
+
     /*
      *@Description:查询驾校内教练车辆基本信息
      *@Author:刘海
@@ -55,6 +53,7 @@ public class CarControl {
      *@Date:2020/6/9 19:49
      **/
     @RequestMapping(value = "/updateCarInfo")
+    @Log(operateType = OperateType.MODIFY, resourceType = ResourceType.CAR)
     public String updateCarInfo(Car car) {
         return JSON.toJSONString(carService.updateCarInfo(car));
     }
@@ -67,13 +66,14 @@ public class CarControl {
      *@Date:2020/6/9 20:48
      **/
     @RequestMapping(value = "/deleteCar")
-    @Log(operateType = OperateType.DELETE, resourceType = ResourceType.CAR, detail = "#cId")
+    @Log(operateType = OperateType.DELETE, resourceType = ResourceType.CAR)//,detail = "#cId"
     public String deleteCar(int cId, HttpServletRequest request) {
         return JSON.toJSONString(carService.deleteCar(cId, request));
     }
 
+
     @RequestMapping(value = "/addCar")
-    @Log(operateType = OperateType.ADD, resourceType = ResourceType.CAR, detail = "#cId")
+    @Log(operateType = OperateType.ADD, resourceType = ResourceType.CAR)// detail = "#cId"
     public Object addCar(Car car, HttpServletRequest request) {
         return JSON.toJSONString(carService.addCar(car, request));
     }
@@ -105,7 +105,7 @@ public class CarControl {
      *@Date:2020/6/10 15860799877
      **/
     @RequestMapping(value = "/selectCarInfo")//初始化教练车信息表
-    public String selectCarInfo(HttpServletRequest request, HttpServletResponse response,@RequestParam(value = "page") String page, @RequestParam(value = "limit") String limit,
+    public String selectCarInfo(HttpServletRequest request, HttpServletResponse response, @RequestParam(value = "page") String page, @RequestParam(value = "limit") String limit,
                                 Car car) {
         int page2 = (Integer.valueOf(page) - 1) * Integer.valueOf(limit);
         System.out.println(" ---carpage=" + page2);
@@ -120,13 +120,13 @@ public class CarControl {
     }
 
     @RequestMapping(value = "/insertCar")//添加教练车
-    public  String insertCar (HttpServletRequest request, HttpServletResponse response, Car car){
-        System.out.println(" 添加教练车 car="+car.toString());
+    public String insertCar(HttpServletRequest request, HttpServletResponse response, Car car) {
+        System.out.println(" 添加教练车 car=" + car.toString());
         int i = carDao.add(car);
-        if(i>0){
+        if (i > 0) {
             System.out.println("添加驾校成功");
             return "success";
-        }else {
+        } else {
             System.out.println("添加驾校失败");
             return "failed";
         }

@@ -20,7 +20,7 @@ layui.use('layim', function(layim){
     });
     //打开一个客服面板
     layim.chat({
-        name: '智能机器人'
+        name: '智能客服'
         ,type: 'kefu'
         ,avatar: path+"/robot/images/avatar.gif"
         ,id: 1111111

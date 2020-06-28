@@ -9,8 +9,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
     String schoolName = "机动车驾驶员计时培训系统";//名称
-    int aId = 0;
-    try{ aId = Integer.valueOf(request.getSession().getAttribute("aId").toString());} catch (Exception e){}
     String path = request.getContextPath();
     Cookie[] cookies = request.getCookies();
     for (Cookie cookie:cookies){
@@ -26,7 +24,7 @@
     <link href="https://www.layuicdn.com/layui/css/layui.css" rel="stylesheet" type="text/css"/>
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no,user-scalable=no">
     <title>机动车驾驶员计时培训系统·企业版 入驻</title>
-    <link href="driving-in_files/main.css" rel="stylesheet" type="text/css">
+    <link href="<%=path+"/pages/homepage/driving-in/driving-in_files/main.css"%>" rel="stylesheet" type="text/css">
     <script src="<%=path+"/static/custom_tool.js"%>"></script>
 </head>
     <body>
@@ -37,22 +35,24 @@
                     <div class="jxb-logo"></div>
                     <div class="nav">
                         <div class="tip">联系电话：xxxxx-xxxxxx QQ：xxxxxxxxx</div>
-                        <span ref="nav" data-url="jkbd"><%=schoolName%></span>
-                        <span ref="nav" data-url="jxdl">驾校登录</span>
+                        <a style="color: cornsilk" href="<%=path+"/index"%>"><%=schoolName%></a>
+                        <label style="color: cornsilk;">&nbsp;|&nbsp;</label>
+                        <a style="color: cornsilk;" href="<%=path+"/transfer?logo=institutionLogin"%>">驾校登录</a>
                     </div>
                 </div>
                 <div class="cooperate-container"><h2 skip="true">欢迎入驻<%=schoolName%>-企业版</h2>
                     <div class="cooperate-form">
                         <div class="form">
                             <div class="err-tip"></div>
-                            <div class="form-group radio-form" id="test1" onclick="" type="button">
-                                <label skip="true">驾校图片<i>*</i></label>
-                                <div class="user-type-conatiner layui-upload">
+                            <div class="form-group radio-form" onclick="">
+                                <label skip="true">认证图片</label>
+                                <div class="user-type-conatiner layui-upload" >
                                     <div class="user-type active layui-upload-list" ref="radioWrap" data-index="0"
-                                         style="width: 60%"  >
-                                        <b skip="true">宣传图片</b>
-                                        <img src="" class="layui-upload-img" id="demo1" <%--<%=path+"/image/home-page/sml_002.png"%>--%>
-                                             property="" alt="会展示到<%=schoolName%>中，入驻需认证，用于营销、招生、管理">
+                                         style="width: 252px;" id="test1">
+                                        <b skip="true">认证图片</b>
+                                        <img src="" class="layui-upload-img" id="demo1" height="163px"
+                                             width="250px" property="" alt="会展示到驾校推荐首页，
+                                             入驻需认证，用于营销、招生、管理">
                                         <p id="demoText"></p>
                                     </div>
                                 </div>
@@ -60,7 +60,7 @@
                             <div class="err-tip"></div>
                             <div class="form-group">
                                 <label>驾校名称<i skip="true">*</i></label>
-                                <input class="" type="text" name="fName" placeholder="请输入驾校所在的城市">
+                                <input class="" type="text" name="fName" placeholder="请输入驾校名称">
                             </div>
                             <div class="err-tip"></div>
                             <div class="form-group">
@@ -71,13 +71,13 @@
                             <div class="err-tip"></div>
                             <div class="form-group">
                                 <label>确认密码<i skip="true">*</i></label>
-                                <input class="" type="password" name="aPassword2" placeholder="请设置你的登录密码">
+                                <input class="" type="password" name="aPassword2" placeholder="请确认你的登录密码">
                             </div>
                             <label id="aPassword2Notify" style="color: crimson"></label>
                             <div class="err-tip"></div>
                             <div class="form-group">
                                 <label skip="true">所在城市<i>*</i></label>
-                                <input class="" type="text" name="sAddress" placeholder="请输入驾校所在的城市">
+                                <input class="" type="text" name="sAddress" placeholder="请输入驾校的所在城市">
                             </div>
                             <label id="sAddressNotify" style="color: crimson"></label>
                             <div class="err-tip"></div>
@@ -88,13 +88,13 @@
                             </div>
                             <label id="sOwnerIdNotify" style="color: crimson"></label>
                             <div class="err-tip "></div>
-                            <div class="form-group radio-form" id="test10" onclick="" type="button">
+                            <div class="form-group radio-form" onclick="">
                                 <label skip="true">法人证件照<i>*</i></label>
                                 <div class="user-type-conatiner layui-upload">
                                     <div class="user-type active layui-upload-list" ref="radioWrap" data-index="0"
-                                         style="width: 60%">
+                                         style="width: 252px;" id="test10">
                                         <b skip="true">法人证件照</b>
-                                        <img src="" class="layui-upload-img" id="demo10" <%--<%=path+"/image/home-page/sml_002.png"%>--%>
+                                        <img src="" class="layui-upload-img" id="demo10"  height="163px" width="250px"
                                              property="" alt="用于管理">
                                         <p id="demoText10"></p>
                                     </div>
@@ -104,7 +104,7 @@
                             <div class="err-tip "></div>
                             <div class="form-group">
                                 <label skip="true">报名费用<i>*</i></label>
-                                <input class="" type="text" name="sRegisteryFee" ref="input" placeholder="请输入报名费用" maxlength="20">
+                                <input class="" type="text" name="sRegisteryFee" ref="input" placeholder="请输入报名费用(￥)" maxlength="20">
                             </div>
                             <div class="err-tip"></div>
                             <div class="form-group">
@@ -124,14 +124,15 @@
                             <div skip="true">
                                 <span class="form-btn btn layui-btn layui-btn-normal layui-btn-radius"
                                       style="width: 30%;margin: 0 0 0 30%">&nbsp;&nbsp;提&nbsp;&nbsp;交&nbsp;&nbsp;</span>
-                            </div>
-                            <div class="protocol">
-                                <div class="protocol-checkbox checked" ref="protocol-checkbox"></div>
-                                <div>我已阅读并接受
-                                    <a href="" target="_blank">《驾校用户使用协议》</a><%-- https://qiye.jiakaobaodian.com/xieyi1.html--%>
-                                    和<a href="" target="_blank">《企业版隐私政策》</a><%--https://qiye.jiakaobaodian.com/xieyi2.html--%>
-                                </div>
-                            </div>
+                            </div><br><br>
+                            <div class="err-tip"></div>
+<%--                            <div class="protocol">--%>
+<%--                                <div class="protocol-checkbox checked" ref="protocol-checkbox"></div>--%>
+<%--                                <div>我已阅读并接受--%>
+<%--                                    <a href="" target="_blank">《驾校用户使用协议》</a>&lt;%&ndash; https://qiye.jiakaobaodian.com/xieyi1.html&ndash;%&gt;--%>
+<%--                                    和<a href="" target="_blank">《企业版隐私政策》</a>&lt;%&ndash;https://qiye.jiakaobaodian.com/xieyi2.html&ndash;%&gt;--%>
+<%--                                </div>--%>
+<%--                            </div>--%>
                         </div>
                     </div>
                     <div class="copyright" skip="true"><span>Copyright ©xxxxxx信息技术有限公司 |<span class="beian"></span><a
@@ -142,10 +143,10 @@
             </div>
         </div>
         <script>
-            let sBusinessPic = "";//学校宣传图
+            let sBusinessPic = "";//认证
             let sRecruit = "";//法人证件
             Layui_uploadImage("#test1",$("#path").val()+'/upImage',$('#demo1'),function (mag) {
-                sBusinessPic = mag.fPath;},$('#demoText'));//学校宣传图
+                sBusinessPic = mag.fPath;},$('#demoText'));//认证
             Layui_uploadImage("#test10",$("#path").val()+'/upImage',$('#demo10'),function (mag) {
                 sRecruit = mag.fPath;},$('#demoText10'));//法人证件图
             function toService() {

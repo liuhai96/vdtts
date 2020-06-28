@@ -2,20 +2,16 @@ package com.lsjbc.vdtts.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.lsjbc.vdtts.constant.AccountType;
-import com.lsjbc.vdtts.dao.AccountDao;
-import com.lsjbc.vdtts.dao.ExamResultDao;
-import com.lsjbc.vdtts.dao.StudentDao;
+import com.lsjbc.vdtts.dao.*;
 import com.lsjbc.vdtts.dao.mapper.AccountMapper;
 import com.lsjbc.vdtts.dao.mapper.ExamResultMapper;
 import com.lsjbc.vdtts.dao.mapper.StudentMapper;
-import com.lsjbc.vdtts.entity.Account;
-import com.lsjbc.vdtts.entity.ExamResult;
-import com.lsjbc.vdtts.entity.School;
-import com.lsjbc.vdtts.entity.Student;
+import com.lsjbc.vdtts.entity.*;
 import com.lsjbc.vdtts.pojo.bo.aliai.SMS;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.pojo.vo.ResultData;
 import com.lsjbc.vdtts.pojo.vo.StudentRegister;
+import com.lsjbc.vdtts.service.intf.AsyncService;
 import com.lsjbc.vdtts.service.intf.LinkService;
 import com.lsjbc.vdtts.service.intf.StudentService;
 import com.lsjbc.vdtts.utils.FileTools;
@@ -43,6 +39,9 @@ public class StudentServiceImpl implements StudentService {
 	@Autowired
 	private ExamResultMapper examResultMapper;
 
+	@Autowired
+	private TeacherDao teacherDao;
+
 	@Resource(name = StudentDao.NAME)
 	private StudentDao studentDao;
 
@@ -57,6 +56,12 @@ public class StudentServiceImpl implements StudentService {
 
 	@Resource(name = SMS.NAME)
 	private SMS sms;
+
+	@Resource(name = ExamErrorDao.NAME)
+	private ExamErrorDao examErrorDao;
+
+	@Resource
+	private AsyncService asyncService;
 
 	/**
 	 * student 里面所有的属性将会作为查询条件
@@ -181,6 +186,18 @@ public class StudentServiceImpl implements StudentService {
 	    return studentMapper.addStudentMessage(student);
     }
 
+	@Override//修改信息照片上传
+	public ResultData studentToProduct(Student student, HttpServletRequest request){
+		ResultData resultData = ResultData.success();
+		//		Integer sStudentId = Integer.parseInt(request.getParameter("sId"));
+        System.out.println(JSON.toJSONString(student));
+        int num =studentMapper.xiuphone(student);
+		if (num > 0) { //查询
+            return ResultData.success("修改头像成功");
+		} else {
+            return ResultData.success("修改头像失败");
+		}
+	}
     /*
      *@Description:查询驾校内学员的
      *@Author:刘海
@@ -201,13 +218,35 @@ public class StudentServiceImpl implements StudentService {
 		layuiTableData.setCount(count);
 		return layuiTableData;
 	}
+//修改密码
+	@Override
+	public ResultData updatestudentPwd(HttpServletRequest request) {
+		ResultData resultData = null;
+		Tool tool = new Tool();
+		Student student = (Student) request.getSession().getAttribute("student");
+		String pwd = studentMapper.findstudentPwd(student.getSAccountId());
+		String  oldPwd = tool.createMd5(request.getParameter("oldPwd"));
+		String  newPwd = tool.createMd5(request.getParameter("newPwd"));
+		String  repeatPwd = tool.createMd5(request.getParameter("repeatPwd"));
+		System.out.println("pwd"+pwd);
+		if(newPwd.equals(repeatPwd)){
+			if(oldPwd.equals(pwd)){
+				int num = studentMapper.updatestudentPwd(student.getSAccountId(),newPwd);
+				resultData = ResultData.error(1,"密码修改成功");
+			}else{
+				resultData = ResultData.error(-1,"旧密码输入错误");
+			}
+		}else{
+			resultData = ResultData.error(-1,"新密码与重复输入密码不同");
+		}
+		return resultData;
+	}
 
 	@Override
 	public ResultData updateStudentApplyState(Integer sId) {
 		ResultData resultData = null;
 		int num = studentMapper.updateApplyState(sId);
-		int num1 = examResultMapper.insertStudent(sId);
-		if(num>0&&num1>0){
+		if(num>0){
 			resultData = ResultData.success(1,"已成功审核学员的报名信息");
 		}else{
 			resultData = ResultData.success(-1,"未找到该学员信息");
@@ -218,20 +257,25 @@ public class StudentServiceImpl implements StudentService {
 	@Override
 	public ResultData updateStudentTeacherId(Integer sTeacherId, Integer sId) {
 		Student student = studentMapper.findTeacher(sId);
+		Teacher teacher = teacherDao.getById(sTeacherId);
 		ResultData resultData = null;
-		if (sTeacherId != 0) {
-			if (student.getSTeacherId() != null) {
-				resultData = ResultData.error(-2, "该学员已分配教练，不能重新分配");
-			} else {
-				int num = studentMapper.updateStudentTeacherId(sTeacherId, sId);
-				if (num > 0) {
-					resultData = ResultData.success(1, "您已成功为该学员分配教练");
+		if(teacher.getTTeach().equals("true")||teacher.getTLock().equals("true")){
+			if (sTeacherId != 0) {
+				if (student.getSTeacherId() != null) {
+					resultData = ResultData.error(-2, "该学员已分配教练，不能重新分配");
 				} else {
-					resultData = ResultData.error(-1, "未找到该教练信息");
+					int num = studentMapper.updateStudentTeacherId(sTeacherId, sId);
+					if (num > 0) {
+						resultData = ResultData.success(1, "您已成功为该学员分配教练");
+					} else {
+						resultData = ResultData.error(-1, "未找到该教练信息");
+					}
 				}
+			} else {
+				resultData = ResultData.error(-1, "请选择教练");
 			}
-		} else {
-			resultData = ResultData.error(-1, "请选择教练");
+		}else{
+			resultData = ResultData.error(-1, "该教练已被禁用或者已被限制");
 		}
 		return resultData;
 	}
@@ -263,14 +307,17 @@ public class StudentServiceImpl implements StudentService {
 		if (!token.getAType().equals(AccountType.STUDENT)) {
 			return ResultData.error("账号或密码错误，请重试");
 		}
-
 		Student student = studentDao.getStudentByAccountId(token.getAId());
+
+		asyncService.readExamError(student.getSId());
 
 		request.getSession().setAttribute("student", student);
 		request.getSession().setAttribute("account", token);
 
+
 		ResultData resultData = ResultData.success("登录成功", "url", "student/main");
 		resultData.put("username", student.getSName());
+		resultData.put("sid", student.getSId());
 		return resultData;
 	}
 
@@ -359,7 +406,12 @@ public class StudentServiceImpl implements StudentService {
                 if (map.size() > 0) {
                     System.out.println("加入人脸识别成功");
                     resultData.setMsg("加入人脸识别成功");
-                    resultData.setCode(list.size()+1);//人脸张数
+                    if(map.size()==20) {
+                        resultData.setCode(list.size());
+                    } else{
+                        resultData.setCode(list.size()+1);//人脸张数
+                    }
+
                 } else {
                     System.out.println("加入人脸识别失败");
                     resultData.setMsg("加入人脸识别失败");
@@ -398,6 +450,7 @@ public class StudentServiceImpl implements StudentService {
             account.setAId(student.getSAccountId());
             account = accountMapper.selectAccount(account);
             request.getSession().setAttribute("account",account);
+            request.getSession().setAttribute("aId",account.getAId());
             resultData.setMsg("登录成功");
         } catch (Exception e){
             e.printStackTrace();

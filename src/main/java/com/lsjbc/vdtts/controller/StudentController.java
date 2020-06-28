@@ -1,26 +1,26 @@
 package com.lsjbc.vdtts.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.lsjbc.vdtts.dao.AccountDao;
+import com.lsjbc.vdtts.aop.Log;
 import com.lsjbc.vdtts.entity.Account;
-import com.lsjbc.vdtts.entity.School;
 import com.lsjbc.vdtts.entity.Student;
+import com.lsjbc.vdtts.enums.OperateType;
+import com.lsjbc.vdtts.enums.ResourceType;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.pojo.vo.ResultData;
-import com.lsjbc.vdtts.pojo.vo.StudentRegister;
 import com.lsjbc.vdtts.service.intf.AccountService;
 import com.lsjbc.vdtts.service.intf.StudentService;
 import com.lsjbc.vdtts.utils.Tool;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/studentController")
@@ -91,8 +91,12 @@ public class StudentController {
             return res;
         }
     }
-
-
+//学员修改密码
+    @RequestMapping(value = "/updatestudentPwd")
+    @ResponseBody
+    private ResultData updatestudentPwd(HttpServletRequest request){
+        return studentService.updatestudentPwd(request);
+    }
     @RequestMapping(value = "/updatestudent")//修改学员
     public String updateadmin(HttpServletRequest request, HttpServletResponse response,
                               @RequestParam(value = "account") String account,@RequestParam(value = "pwd") String pwd ,
@@ -213,6 +217,7 @@ public class StudentController {
      *@Date:2020/6/15 23:12
      **/
     @RequestMapping(value = "/findStudentList")
+    @Log(operateType = OperateType.QUERY, resourceType = ResourceType.Student)
     public String findStudentList(HttpServletRequest request,String page,String limit,String sName){
         return JSON.toJSONString(studentService.findStudenList(request,page,limit,sName));
     }
@@ -225,6 +230,7 @@ public class StudentController {
      *@Date:2020/6/16 1:31
      **/
     @RequestMapping(value = "/updateStudentApplyState")
+    @Log(operateType = OperateType.MODIFY, resourceType = ResourceType.Student)
     public ResultData updateStudentApplyState(String sId){
         return studentService.updateStudentApplyState(Integer.parseInt(sId));
     }
@@ -237,6 +243,7 @@ public class StudentController {
      *@Date:2020/6/16 1:31
      **/
     @RequestMapping(value = "/updateStudentTeacherId")
+    @Log(operateType = OperateType.MODIFY, resourceType = ResourceType.Student)
     public ResultData updateStudentTeacherId(String sTeacherId,String sId){
         return studentService.updateStudentTeacherId(Integer.parseInt(sTeacherId),Integer.parseInt(sId));
     }
@@ -246,8 +253,11 @@ public class StudentController {
         ModelAndView modelAndView = new ModelAndView();
         String nextJsp;
         switch (logo){
-            case "face" :
+            case "face" ://人脸登录中转
                 nextJsp = "/pages/student/human-face";
+            break;
+            case"addFace"://人脸录入中转
+                nextJsp = "/pages/student/add-student-face";
                 break;
             default :
                 nextJsp = "";
@@ -255,5 +265,12 @@ public class StudentController {
         }
         modelAndView.setViewName(nextJsp);
         return modelAndView;
+    }
+    //上传头像
+    @RequestMapping(value = "/phone")
+    @ResponseBody
+    public String phone(Student student,HttpServletRequest request){
+        System.out.println("11");
+        return JSON.toJSONString(studentService.studentToProduct(student,request));
     }
 }

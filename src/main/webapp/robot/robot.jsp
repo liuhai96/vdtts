@@ -12,7 +12,7 @@
 %>
 <html>
 <head>
-    <title>智障机器人</title>
+    <title>智能客服</title>
 </head>
 <body>
 

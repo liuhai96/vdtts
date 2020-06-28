@@ -64,8 +64,9 @@
 			}]
 			, title: '审核驾校数据表'
 			, cols: [[
-				{type: 'checkbox', fixed: 'left'}
-				, {field: 'sId', title: '驾校ID', width: 100, fixed: 'left', unresize: true, sort: true}
+				// {type: 'checkbox', fixed: 'left'}
+				// ,
+				{field: 'sId', title: '驾校ID', width: 100, fixed: 'left', unresize: true, sort: true}
 				, {field: 'sName', title: '驾校名', width: 100, edit: 'text'}
 				, {field: 'sAddress', title: '驾校地址', width: 250, edit: 'text'}
 				, {field: 'sPhone', title: '驾校电话', width: 110, sort: true}

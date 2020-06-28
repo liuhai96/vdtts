@@ -11,7 +11,7 @@
 %>
 <html>
 <head>
-    <title>驾校门户管理</title>
+    <title>学员分数录入</title>
     <link rel="shortcut icon" href="#"/>
     <link rel="stylesheet" href=<%=path+"/static/layui/css/layui.css"%>>
     <script type="text/javascript" src=<%=path+"/static/layui/layui.js"%>></script>
@@ -81,8 +81,7 @@
             }]
             ,title: '用户数据表'
             ,cols: [[
-                {type: 'checkbox', fixed: 'left'}
-                ,{field:'erId', title:'ID', width:80, fixed: 'left', unresize: true, sort: true}
+                {field:'erId', title:'ID', width:80, fixed: 'left', unresize: true, sort: true}
                 ,{field:'sId',title:'学生Id',templet: '<div>{{d.student.sId}}</div>'}
                 ,{title:'学生姓名',templet: '<div>{{d.student.sName}}</div>'}
                 ,{title:'性别',templet: '<div>{{d.student.sSex}}</div>'}
@@ -105,14 +104,12 @@
                 case 'findStudent':
                     var data = checkStatus.data;
                     var inputname = $("input[name='inputname']").val();
-                    alert(inputname);
                     table.reload('test',{
                         url:'<%=path%>/examResultController/selectStudentExamList',
                         page:{
                             curr:1//重第一页开始
                         },
                         where:{
-                            studentName:"qwe",
                             sName:inputname
                         }
                     });
@@ -128,7 +125,6 @@
             var data = obj.data;
             var sId = data.student.sId;
             var erId = data.erId;
-            layer.alert(erId);
             var teacherId = data.student.sTeacherId;
          if(obj.event === 'edit'){
                 $("#studentName").html(data.student.sName);

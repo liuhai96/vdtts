@@ -26,24 +26,18 @@
     <body>
         <div>
             <input hidden="hidden" value="<%=path%>" id="path">
-            <div style="margin: 0 10% 0 10%">
-                <div style="margin-bottom: 5px;">
-
-                    <!-- 示例-970 -->
-                    <ins class="adsbygoogle" style="display:inline-block;width:970px;height:90px" data-ad-client="ca-pub-6111334333458862" data-ad-slot="3820120620"></ins>
-
-                </div>
-                <div style="text-align: right;font-size: 30px;"><a href="<%=path+"/back/addLink.jsp"%>">+</a></div>
-                <table class="layui-table" lay-data="{width: 892, height:330, url:<%=path%>'/link/selectLink',
+            <div style="margin: auto">&nbsp;
+                <div style="text-align: right;font-size: 30px;"><a href="<%=path+"/back/addLink.jsp"%>">+</a>&nbsp;&nbsp;&nbsp;</div>
+                <table class="layui-table" lay-data="{ height:330, url:<%=path%>'/link/selectLink',
                 page:true, id:'idTest',page: {limit: 6,limits: [6, 12, 18, 24,30],}}" lay-filter="demo">
                     <thead>
                     <tr>
                         <th lay-data="{type:'checkbox', fixed: 'left'}"></th>
-                        <th lay-data="{field:'lkId', width:80, sort: true, fixed: true}">ID</th>
-                        <th lay-data="{field:'lkName', width:150}">链接标签</th>
-                        <th lay-data="{field:'lkUrl', width:200}">跳转路径</th>
-                        <th lay-data="{field:'lkPic', width:350}">友情图标路径</th>
-                        <th lay-data="{fixed: 'right', width:150, align:'center', toolbar: '#barDemo'}">操作</th>
+                        <th lay-data="{field:'lkId', sort: true, fixed: true}">ID</th>
+                        <th lay-data="{field:'lkName',}">链接标签</th>
+                        <th lay-data="{field:'lkUrl', }">跳转路径</th>
+                        <th lay-data="{field:'lkPic',}">友情图标路径</th>
+                        <th lay-data="{fixed: 'right', align:'center', toolbar: '#barDemo'}">操作</th>
                     </tr>
                     </thead>
                 </table>

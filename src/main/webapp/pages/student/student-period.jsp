@@ -1,6 +1,5 @@
 <%@ page import="com.lsjbc.vdtts.pojo.vo.ResultData" %>
 <%@ page import="com.lsjbc.vdtts.entity.ExamResult" %>
-<%@ page import="java.util.List" %>
 <%@ page import="com.lsjbc.vdtts.utils.CustomTimeUtils" %><%--
   Created by IntelliJ IDEA.
   User: LiLang9725
@@ -17,7 +16,6 @@
     ExamResult examResult = (ExamResult)(((ResultData)request.getAttribute("data"))
             .getData().get("examResult"));//获取学员成绩
 
-
 %>
 <html>
 <head>
@@ -28,6 +26,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <script src="https://www.layuicdn.com/layui/layui.js"></script>
     <link href="https://www.layuicdn.com/layui/css/layui.css" rel="stylesheet" type="text/css"/>
+    <script src="<%=path+"/static/custom_tool.js"%>"></script>
 </head>
 <body>
 <div>

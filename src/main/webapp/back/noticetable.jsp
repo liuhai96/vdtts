@@ -1,6 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="com.lsjbc.vdtts.utils.Tool" %>
 <%
 	String path = request.getContextPath();
+	String today = new Tool().getDate("yyyy/MM/dd");
 %>
 <!DOCTYPE html>
 <html>
@@ -38,7 +41,7 @@
 
 <script type="text/html" id="toolbarDemo">
 	<div class="layui-btn-container">
-	<button class="layui-btn layui-btn-sm" lay-event="addnotice">增加公告</button>--%>
+		<button class="layui-btn layui-btn-sm" lay-event="addnotice">增加公告</button>--%>
 	</div>
 </script>
 <script type="text/html" id="barDemo">
@@ -63,8 +66,9 @@
 			}]
 			,title: '公告表数据表'
 			,cols: [[
-				{type: 'checkbox', fixed: 'left'}
-				,{field:'nId', title:'公告ID', width:100, fixed: 'left', unresize: true, sort: true}
+				// {type: 'checkbox', fixed: 'left'}
+				// ,
+				{field:'nId', title:'公告ID', width:100, fixed: 'left', unresize: true, sort: true}
 				,{field:'nName', title:'公告标题', width:350, edit: 'text'}
 				,{field:'nTime', title:'公告发布时间', width:120, edit: 'text'}
 				,{field:'nContent', title:'公告内容', width:700, sort: true}
@@ -109,7 +113,7 @@
 							return false;
 						});
 					});
-				break;
+					break;
 			};
 		});
 		//监听行工具事件
@@ -149,7 +153,7 @@
 				});
 
 			}
-		// }
+			// }
 		});
 		//表单查询
 		form.on('submit(search)',function (data) {
@@ -179,7 +183,7 @@
 	<div class="layui-form-item">
 		<label class="layui-form-label">发布时间</label>
 		<div class="layui-input-inline">
-			<input type="text"  name="nTime" required  lay-verify="required" placeholder="请输发布时间" autocomplete="off" class="layui-input">
+			<input disabled="disabled" type="text" name="nTime" required  lay-verify="required"  value="<%=today%>" textbox="<%=today%>" autocomplete="off" class="layui-input">
 		</div>
 	</div>
 	<div class="layui-form-item layui-form-text">

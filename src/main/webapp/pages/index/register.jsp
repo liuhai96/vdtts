@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="<%=path + "/css/pages/index/reset.css"%>">
     <link rel="stylesheet" href="<%=path + "/css/pages/index/registration.css"%>">
     <link rel="stylesheet" href="https://www.layuicdn.com/layui-v2.5.6/css/layui.css" media="all">
+    <script type="text/javascript" src=<%=path+"/static/layui/layui.js"%>></script>
     <style>
         .header-wrap {
             width: 100%;
@@ -1891,6 +1892,9 @@
             cursor: pointer;
             text-decoration: underline
         }
+        img{
+            background: url("../../static/layui/images/photo/09.png");
+        }
     </style>
 </head>
 
@@ -1906,32 +1910,29 @@
                 <form class="layui-form" action="<%=path+"/student/register"%>" autocomplete="off" id="registerfrom" method="post">
                     <h4>学员注册</h4>
                     <div id="idPhoto" style="display: none;">
-                            <div class="alone-version-desc layui-text">
-	                            上传身份信息
-                                <div class="methodContent">
-                                    <ul>
-                                        <li>请上传身份证上<strong style="color: #FF5722;">带有人脸的那一面</strong></li>
-                                        <li>仅支持<strong style="color: #FF5722;">png,jpg,jpeg,bmp</strong>文件</li>
-                                    </ul>
-                                </div>
-                                <div class="alone-buy layui-btn-container">
-                                    <button id="uploadCard" type="button" class="layui-btn" style="position: relative;" >开始上传身份证照片</button>
-                                </div>
+                        <div class="layui-upload">
+                            <button type="button" class="layui-btn" id="test1">上传身份证</button>
+                            <div class="layui-upload-list">
+                                <img class="layui-upload-img" id="demo1" style="width: 360px; height: 200px;" alt="身份证正面照" >
+                                <p id="demoText"></p>
                             </div>
+                        </div>
                     </div>
+                    <br/>
+                    <%--                    <br/>--%>
+                    <%--                    <br/>--%>
                     <div id="idHand" style="display: block;">
-
                         <div class="layui-form-item" style="margin-left: -25px;">
                             <label class="layui-form-label">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名</label>
                             <div class="layui-input-inline">
-                                <input value="${username}" type="text" style="width: 285px" name="username" lay-verify="required|name" placeholder="请输入姓名" autocomplete="off" class="layui-input">
+                                <input id="sname" value="${username}" type="text" style="width: 285px" name="username" lay-verify="required|name" placeholder="请输入姓名" autocomplete="off" class="layui-input">
                             </div>
                         </div>
 
                         <div class="layui-form-item" style="margin-left: -25px;">
                             <label class="layui-form-label">身份证号码</label>
                             <div class="layui-input-inline">
-                                <input value="${sfz}" type="text" style="width: 285px" name="sfz" lay-verify="required|id" placeholder="请输入身份证号码" autocomplete="off" class="layui-input">
+                                <input id="ssfz" value="${sfz}" type="text" style="width: 285px" name="sfz" lay-verify="required|id" placeholder="请输入身份证号码" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                     </div>
@@ -1975,8 +1976,7 @@
                         <i></i>
                     </div>
                     <div class="captcha-block">
-                        <div id="captcha"><input type="hidden" name="NECaptchaValidate" value=""
-                                                 class="yidun_input"></div>
+                        <div id="captcha"><input type="hidden" name="NECaptchaValidate" value="" class="yidun_input"></div>
                         <p class="iconfont icon-jinggao"></p>
                     </div>
                     <div>
@@ -2012,6 +2012,7 @@
 
 
         let msg = $("#zjh_msg").val();
+        let ssfz = $("#ssfz").val("");
         if(msg.length>0){
             layer.msg(msg);
         }
@@ -2042,18 +2043,13 @@
                     if(value.length==0){
                         return '姓名不得为空';
                     }
-                }else{
-                    return "请上传身份证照片";
                 }
-
             },
             id:function (value) {
                 if(inputByHand) {
                     if (!/^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/.test(value)) {
                         return "身份证格式不正确，请重新输入";
                     }
-                }else{
-                    return "请上传身份证照片";
                 }
             },
             account:function(value){
@@ -2102,25 +2098,43 @@
                 return true;
             }
         }
+        layui.use(['jquery', 'layer', 'upload'], function () {
+            var $ = layui.jquery, upload = layui.upload;
+            //普通图片上传
+            var uploadInst = upload.render({
+                elem: '#test1'
+                , url: '/pipeControl/sfzdiscern' //改成您自己的上传接口
 
-        // //身份证
-		//     $(function() {
-		// 	    //添加窗口尺寸改变响应监听
-		// 	    $(window).resize(resizeCanvas);
-		// 	    //页面加载后先设置一下canvas大小
-		// 	    resizeCanvas();
-		//     });
-	    //
-	    // //窗口尺寸改变响应（修改canvas大小）
-	    // function resizeCanvas() {
-		//     $("#myCanvas").attr("width", $("#cameraDiv").width());
-		//     $("#myCanvas").attr("height", $("#cameraDiv").height());
-	    // };
+                , before: function (obj) {
+                    //预读本地文件示例，不支持ie8
+                    obj.preview(function (index, file, result) {
+                        $('#demo1').attr('src', result); //图片链接（base64）
+                    });
+                }
+                , done: function (res) {
+                    //如果上传失败
+                    if (res.code > 0) {
+                        return layer.msg('上传失败');
+                    }else {
+                        alert("识别身份证成功");
+                        console.log(res);
+                        $('#sname').val(res.name);
+                        $('#ssfz').val(res.num);
+                    }
+                    //上传成功
+                }
+                , error: function () {
+                    //演示失败状态，并实现重传
+                    var demoText = $('#demoText');
+                    demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+                    demoText.find('.demo-reload').on('click', function () {
+                        uploadInst.upload();
+                    });
+                }
+            });
+        });
     });
 </script>
-
-
-
 </body>
 
 </html>

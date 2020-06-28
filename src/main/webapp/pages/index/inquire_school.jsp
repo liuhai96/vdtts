@@ -61,7 +61,7 @@
 			<p class="top-title-p1">机动车驾驶员计时培训系统</p>
 			<p class="top-title-p2">Timing training system for motor vehicle drivers</p>
 		</div>
-		<form id="searchSchoolOrTeacher" action="<%=path+"inquire"%>" method="post" class="top-search">
+		<form id="searchSchoolOrTeacher" action="<%=path+"/inquire"%>" method="post" class="top-search">
 			<select name="type">
 				<option value="school">驾培机构</option>
 				<option value="teacher">教练员</option>
@@ -113,7 +113,7 @@
 	<DIV class="del-lun">
 	</DIV>
 	<DIV style="float: left">
-		<IMG style="height: 280px; width: 700px;" src="<%=path%>/static/layui/images/photo/06.png">
+		<IMG style="height: 300px; width: 700px;" src="<%=path%>/static/layui/images/photo/06.png">
 	</DIV>
 	<DIV class="del-schinf">
 		<P class="del-p"><span id="schoolName">${name}</span><IMG src="<%=path%>/image/pages/index/tower.png"></P>

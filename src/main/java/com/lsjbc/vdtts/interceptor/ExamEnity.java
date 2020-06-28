@@ -1,6 +1,7 @@
 package com.lsjbc.vdtts.interceptor;
 
 import com.lsjbc.vdtts.entity.ExamAnswer;
+import com.lsjbc.vdtts.entity.ExamQuestion;
 import lombok.*;
 import org.springframework.util.StringUtils;
 
@@ -25,12 +26,12 @@ public class ExamEnity {
     private String url;
 
 
-    public List<ExamAnswer> generateAnswer(Integer questionId,String level){
+    public List<ExamAnswer> generateAnswer(ExamQuestion examQuestion){
 
-        ExamAnswer aExamAnswer = ExamAnswer.builder().eaAnswer(item1).eaQuestionId(questionId).eaRight("false").eaLevel(Integer.parseInt(level)).build();
-        ExamAnswer bExamAnswer = ExamAnswer.builder().eaAnswer(item2).eaQuestionId(questionId).eaRight("false").eaLevel(Integer.parseInt(level)).build();
-        ExamAnswer cExamAnswer = ExamAnswer.builder().eaAnswer(item3).eaQuestionId(questionId).eaRight("false").eaLevel(Integer.parseInt(level)).build();
-        ExamAnswer dExamAnswer = ExamAnswer.builder().eaAnswer(item4).eaQuestionId(questionId).eaRight("false").eaLevel(Integer.parseInt(level)).build();
+        ExamAnswer aExamAnswer = ExamAnswer.builder().eaAnswer(item1).eaQuestionId(examQuestion.getEqId()).eaRight("false").eaLevel(examQuestion.getEqLevel()).build();
+        ExamAnswer bExamAnswer = ExamAnswer.builder().eaAnswer(item2).eaQuestionId(examQuestion.getEqId()).eaRight("false").eaLevel(examQuestion.getEqLevel()).build();
+        ExamAnswer cExamAnswer = ExamAnswer.builder().eaAnswer(item3).eaQuestionId(examQuestion.getEqId()).eaRight("false").eaLevel(examQuestion.getEqLevel()).build();
+        ExamAnswer dExamAnswer = ExamAnswer.builder().eaAnswer(item4).eaQuestionId(examQuestion.getEqId()).eaRight("false").eaLevel(examQuestion.getEqLevel()).build();
 
         switch (answer){
             case "1":
