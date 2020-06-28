@@ -27,7 +27,7 @@
     <link rel="stylesheet" href="<%=path+"/css/pages/index/home_main.css"%>">
 </head>
 <body>
-
+<input type="hidden" id="zjh_msg" value="${zjh_msg}">
 <div class="login-inf">
     <div class="inf-box">
         <div class="inf-time">
@@ -264,6 +264,12 @@
 <script>
 layui.use(['form'], function () {
     let $ = layui.$;
+    let layer = layui.layer;
+
+    let msg = $("#zjh_msg").val();
+    if(msg.length>0){
+        layer.msg(msg);
+    }
 
     $("td[class*='searchSchool']").on("click",function(event){
         $("#searchSchool").val($(this).html());

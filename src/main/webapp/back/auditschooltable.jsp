@@ -118,7 +118,7 @@
 				var sId = data.sId;
 				var index1 = layer.open({
 					type: 1,
-					area:["250","250px"],
+					area:["100","150px"],
 					skin: 'layui-layer-rim',
 					shadeClose: true,//点击其他地方关闭
 					content:$("#updateschool"),
@@ -176,20 +176,13 @@
 		});
 	});
 </script>
- <form action="" id="updateschool" style="display: none" class="layui-form">
+ <form action="" id="updateschool" style="display: none ;text-align:center " class="layui-form">
 	<div class="layui-form-item">
-		<label class="layui-form-label">审核</label>
-		<div class="layui-input-block">
-			<select name="sVerification" lay-filter="aihao"  id="schoolSelect">
-				<option value="">请选择审批状态</option>
-				<option value="true">已通过</option>
-			</select>
-		</div>
+		<a>确认通过审核？</a>
 	</div>
 	<div class="layui-form-item">
 		<div class="layui-input-block">
-			<button type="submit" class="layui-btn" lay-submit="" lay-filter="demo2">审核提交</button>
-			<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+			<button type="submit" class="layui-btn" lay-submit="" lay-filter="demo2">通过审核</button>
 		</div>
 	</div>
  </form>

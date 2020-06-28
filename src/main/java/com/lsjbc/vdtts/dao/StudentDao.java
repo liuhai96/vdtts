@@ -93,7 +93,7 @@ public class StudentDao implements BaseDao<Student> {
      */
     @Override
     public Student getById(Integer id) {
-        return null;
+        return (Student) mapper.selectByPrimaryKey(id);
     }
 
     /**

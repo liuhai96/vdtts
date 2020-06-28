@@ -51,7 +51,7 @@
         form.on('submit(formDemo)', function(data){
             var newPwd = $("input[name='newPwd']").val();
             var repeatPwd = $("input[name='repeatPwd']").val();
-                var index = layer.confirm('您确定修改驾校的基本信息？', {
+                var index = layer.confirm('您确定修改驾校的登录密码？', {
                     btn: ["确定", "取消"],
                     btn2: function (index) {
                         layer.close(index);
@@ -75,6 +75,7 @@
                                 success: function (resmsg) {
                                     if (resmsg.code == 1) {
                                         layer.msg(resmsg.msg);
+                                        skipAbsolute("/transfer?logo=exit");
                                     } else {
                                         layer.msg(resmsg.msg);
                                         layer.close(index);

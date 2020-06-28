@@ -149,7 +149,7 @@
                     "&sAddress="+SAddress+"&sPhone="+SPhone+"&sImageUrl="+SImageUrl+"&sRegisteryFee="
                     +SRegisteryFee+"&sId="+$("input[name='SId']").val(), function () {
                     if (confirm("修改成功!是否重新登录刷新数据？")){
-                        window.location.href = $("#path").val()+"/transfer?logo=exit";
+                        skipAbsolute("/transfer?logo=exit");
                     }
                 })
             }

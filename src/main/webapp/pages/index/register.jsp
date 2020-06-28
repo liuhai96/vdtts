@@ -2114,7 +2114,8 @@
                 , done: function (res) {
                     //如果上传失败
                     if (res.code > 0) {
-                        return layer.msg('上传失败');
+                        alert("识别身份证失败");
+                        // return layer.msg('上传失败');
                     }else {
                         alert("识别身份证成功");
                         console.log(res);
@@ -2124,12 +2125,13 @@
                     //上传成功
                 }
                 , error: function () {
+                    alert("识别身份证失败");
                     //演示失败状态，并实现重传
-                    var demoText = $('#demoText');
-                    demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
-                    demoText.find('.demo-reload').on('click', function () {
-                        uploadInst.upload();
-                    });
+                    // var demoText = $('#demoText');
+                    // demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+                    // demoText.find('.demo-reload').on('click', function () {
+                    //     uploadInst.upload();
+                    // });
                 }
             });
         });

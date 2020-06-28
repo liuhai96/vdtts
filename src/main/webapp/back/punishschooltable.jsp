@@ -157,8 +157,8 @@
 							}
 						});
 						tableinf.reload();
+						tableinf.reload();
 					}
-
 				});
 			}else if(obj.event === 'unbindcall'){
 				var sId = data.sId;
@@ -186,6 +186,7 @@
 								}
 							}
 						});
+						tableinf.reload();
 						tableinf.reload();
 					}
 			});
@@ -216,6 +217,7 @@
 							}
 						});
 						tableinf.reload();
+						tableinf.reload();
 					}
 
 				});
@@ -244,6 +246,7 @@
 								}
 							}
 						});
+						tableinf.reload();
 						tableinf.reload();
 					}
 				});

@@ -10,10 +10,7 @@ import com.lsjbc.vdtts.dao.*;
 import com.lsjbc.vdtts.dao.mapper.CarMapper;
 import com.lsjbc.vdtts.dao.mapper.SchoolMapper;
 import com.lsjbc.vdtts.dao.mapper.StudentMapper;
-import com.lsjbc.vdtts.entity.Account;
-import com.lsjbc.vdtts.entity.ExamParam;
-import com.lsjbc.vdtts.entity.School;
-import com.lsjbc.vdtts.entity.Student;
+import com.lsjbc.vdtts.entity.*;
 import com.lsjbc.vdtts.pojo.dto.CarCount;
 import com.lsjbc.vdtts.pojo.dto.PageDTO;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
@@ -224,12 +221,14 @@ public class SchoolServiceImpl implements SchoolService
 		ResultData resultData = null;
 		Integer sSchoolId = Integer.parseInt(request.getParameter("schoolId"));
 		Student student =(Student) request.getSession().getAttribute("student");
+		School school = schoolDao.getById(sSchoolId);
 		if (student != null)
 		{ //查询
-
-			if (student.getSSchoolId() == null)
+			if (school.getSLock().equals("true") || school.getSRecruit().equals("true"))
 			{
-				int num =studentMapper.inschool(student,sSchoolId);
+				if (student.getSSchoolId() == null)
+				{
+					int num = studentMapper.inschool(student, sSchoolId);
 					resultData = ResultData.error(1, "该学员已经报名成功");
 				} else
 				{
@@ -237,8 +236,12 @@ public class SchoolServiceImpl implements SchoolService
 				}
 
 
+			} else
+			{
+				resultData = ResultData.error(3, "该驾校已被禁用或者已被限制");
+			}
 		}else{
-			resultData = ResultData.error(3, "未该有此学员信息请先去注册");
+			resultData = ResultData.error(4, "未该有此学员信息请先去注册");
 		}
 		return resultData;
 	}
