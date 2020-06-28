@@ -204,7 +204,7 @@ public class SchoolControl {
 	 **/
     @RequestMapping(value = "/drivingIn")
     @ResponseBody
-    private String DrivingIn(School school, Account account){
+    public String DrivingIn(School school, Account account){
         Tool tool = new Tool();
         account.setAType("school");
         account.setAPassword(tool.createMd5(account.getAPassword()));//转MD5码
@@ -221,7 +221,7 @@ public class SchoolControl {
     @RequestMapping(value = "/updateSchoolBasicInfo")
 	@ResponseBody
 	@Log(operateType = OperateType.MODIFY, resourceType = ResourceType.School)
-    private ResultData updateSchoolBasicInfo(School school){
+    public ResultData updateSchoolBasicInfo(School school){
         System.out.println("school"+school);
         return schoolService.updateSchoolBasicInfo(school);
     }
@@ -229,7 +229,7 @@ public class SchoolControl {
 	@RequestMapping(value = "/updateSchoolPwd")
 	@ResponseBody
 	@Log(operateType = OperateType.MODIFY, resourceType = ResourceType.School)
-	private ResultData updateSchoolPwd(HttpServletRequest request){
+    public ResultData updateSchoolPwd(HttpServletRequest request){
 		return schoolService.updateSchoolPwd(request);
 	}
 

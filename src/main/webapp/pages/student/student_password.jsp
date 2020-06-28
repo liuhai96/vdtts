@@ -21,14 +21,16 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 	<script src="https://www.layuicdn.com/layui/layui.js"></script>
 	<link href="https://www.layuicdn.com/layui/css/layui.css" rel="stylesheet" type="text/css"/>
-	<link href="<%=path+"/driving-in_files/main.css"%>" rel="stylesheet" type="text/css">
-	<script src="<%=path+"/static/custom_tool.js"%>"></script>
+
 	<link rel="stylesheet" href="https://www.layuicdn.com/layui-v2.5.6/css/layui.css" media="all">
 	<link rel="stylesheet" href="<%=path+"/css/pages/index/common.css"%>">
 	<link rel="shortcut icon" type="image/x-icon" href="http://47.96.140.98:20034/static/img/logo_favicon.ico">
 
 	<link rel="stylesheet" href="<%=path+"/css/pages/index/style.css"%>">
 	<link rel="stylesheet" href="<%=path+"/css/pages/index/home_main.css"%>">
+
+    <link href="<%=path+"/driving-in_files/main.css"%>" rel="stylesheet" type="text/css">
+    <script src="<%=path+"/static/custom_tool.js"%>"></script>
 	<style>
 		body{
 			background:url("../../static/layui/images/photo/08.png");
@@ -126,7 +128,8 @@
 							<div class="user-type active layui-upload-list" ref="radioWrap" data-index="0"
 							     style="height:150px ;width: 200px; margin: auto;border: 0px solid black;">
 								<b skip="true">上传头像</b>
-								<img src="<%=path%>${sessionScope.student.SPic}" style="height: 100%;width: 100%" class="layui-upload-img" id="demo10"  property="" alt="点击上传头像">
+								<img src="<%=path%>${sessionScope.student.SPic}" style="height: 100%;
+								width: 100%" class="layui-upload-img" id="demo10"  property="" alt="点击上传头像">
 								<p id="demoText10"></p>
 							</div>
 						</div>
@@ -328,15 +331,13 @@
 		let sPic = "";//修改头像
 		Layui_uploadImage("#test10",$("#path").val()+'/upImage',$('#demo10'),function (mag) {
 			sPic = mag.fPath;},$('#demoText10'));//修改头像
-		form.on('submit(formDemo1)', function(data){
-			AjaxTransfer("<%=path%>/studentController/phone","sId="+$("#sId").val()+"&sPic="+sPic,
-				function(mag){
-
-				});
-			return false;
-
-		});
-
+		form.on('submit(formDemo1)', function(data) {
+            AjaxTransfer("<%=path%>/studentController/phone", "sId=" + $("#sId").val() + "&sPic=" + sPic,
+                function (mag) {
+                    alert(mag.msg);
+                }
+            );
+        });
 		//监听提交
 		form.on('submit(formDemo)', function(data){
 			var newPwd = $("input[name='newPwd']").val();

@@ -188,17 +188,14 @@ public class StudentServiceImpl implements StudentService {
 
 	@Override//修改信息照片上传
 	public ResultData studentToProduct(Student student, HttpServletRequest request){
-		ResultData resultData = ResultData.success();
 		//		Integer sStudentId = Integer.parseInt(request.getParameter("sId"));
-		if (student != null)
-		{ //查询
-			int num =studentMapper.xiuphone(student);
-			resultData = ResultData.error(1, "修改头像成功");
-		} else
-		{
-			resultData = ResultData.error(2, "修改头像失败");
+        System.out.println(JSON.toJSONString(student));
+        int num =studentMapper.xiuphone(student);
+		if (num > 0) { //查询
+            return ResultData.success("修改头像成功");
+		} else {
+            return ResultData.success("修改头像失败");
 		}
-		return resultData;
 	}
     /*
      *@Description:查询驾校内学员的

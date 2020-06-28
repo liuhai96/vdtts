@@ -269,8 +269,8 @@ public class StudentController {
     //上传头像
     @RequestMapping(value = "/phone")
     @ResponseBody
-    private String phone(Student student,HttpServletRequest request){
-        System.out.println(JSON.toJSONString(student));
+    public String phone(Student student,HttpServletRequest request){
+        System.out.println("11");
         return JSON.toJSONString(studentService.studentToProduct(student,request));
     }
 }
