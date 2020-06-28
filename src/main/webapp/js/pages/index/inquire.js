@@ -1,9 +1,14 @@
 var path = window.document.location.href.substring(0, (window.document.location.href).indexOf(window.document.location.pathname));
-layui.use(['laytpl', 'laypage'], function () {
+layui.use(['laytpl', 'laypage','layer'], function () {
     var layer = layui.layer
         , laytpl = layui.laytpl
         , $ = layui.jquery
         , laypage = layui.laypage;
+
+    let zjhmsg = $("#zjh_msg").val();
+    if(zjhmsg.length>0){
+        layer.msg(zjhmsg);
+    }
 
     let schoolName = $("#schoolName").val();
 

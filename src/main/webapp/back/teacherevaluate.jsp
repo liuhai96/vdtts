@@ -122,6 +122,9 @@
 </head>
 
 <body>
+<input type="hidden" id="zjh_msg" value="${zjh_msg}">
+<input type="hidden" id="toId" value="${tid}">
+<input type="hidden" id="userToken" value="${sessionScope.student.SId}">
 <div class="layui-container" id="loginbody">
 		<form class="layui-form" >
 			<div class="layui-form-item">
@@ -183,7 +186,7 @@
 					<button type="submit" class="layui-btn layui-btn-primary" lay-submit lay-filter="formDemo">立即提交</button>
 					<button type="reset" class="layui-btn layui-btn-primary">重置</button>
 					<a title="返回" class="layui-b" href="https://www.baidu.com" >返回首页</a>
-					<a title="驾校投诉系统" class="layui-a" href="https://www.baidu.com" >点击进入驾校投诉系统</a>
+<%--					<a title="驾校投诉系统" class="layui-a" href="https://www.baidu.com" >点击进入驾校投诉系统</a>--%>
 				</div>
 			</div>
 		</form>
@@ -194,6 +197,13 @@
 	layui.use(['element', 'layer'], function(){
 		var element = layui.element;
 		var layer = layui.layer;
+
+		let $ = layui.$;
+
+		let msg = $("#zjh_msg").val();
+		if(msg.length>0){
+			layer.msg(msg);
+		}
 
 		// //监听折叠
 		// element.on('collapse(test)', function(data){
@@ -257,11 +267,16 @@
 		layui.use(['form','jquery','layer'],function () {
 			var layer = layui.layer,form=layui.form;
 			var $ = layui.jquery;
+
+
+
+			let path = window.document.location.href.substring(0, (window.document.location.href).indexOf(window.document.location.pathname));
+
+
 			form.on('submit(formDemo)',function (data) {
 				var textarea=$('.layui-textarea').val();
-				alert('t5='+t5+' t6='+t6+' t7='+t7+' textarea='+textarea)
 				$.ajax({
-					url: "/evaluateController/teacherEvaluate",
+					url: path+"/evaluateController/teacherEvaluate",
 					type: "POST",
 					dataType: "text",
 					data:{
@@ -269,12 +284,13 @@
 						teacherScore:t6,
 						palaceScore:t7,
 						eContent:textarea,
-						eToId:3,
-						eStudentId:2
+						eToId:$("#toId").val(),
+						eStudentId:$("#userToken").val()
 					},
 					success: function (msg) {
 						if (msg.trim() == "success") {
 							layer.alert("谢谢您的评价，评价已提交");
+							window.location.href=path+"/index";
 						} else {
 							alert("评价失败，请重新提交评价")
 						}
