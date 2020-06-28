@@ -133,9 +133,12 @@
                 </div>
                 <span style="font-size: 17px;color: #65B0F1;">${score}</span>
             </div>
-	        <div class="site-demo-button" id="layerDemo" style="margin-bottom: 0; text-align: center">
-		        <button data-method="notice" data-type="auto" class="layui-btn">学生报名</button>
-	        </div>
+            <form action="<%=path+"/../../../../../evaluate"%>" method="get" class="layui-elem-field site-demo-button" id="layerDemo" style="margin-bottom: 0; text-align: center">
+                <button type="button" data-method="notice" class="layui-btn">学生报名</button>
+                <button type="submit" class="layui-btn">评价教练</button>
+                <input type="hidden" name="toId" value="${tid}">
+                <input type="hidden" name="toType" value="teacher">
+            </form>
             <p></p>
         </div>
     </div>
@@ -200,7 +203,7 @@
 
 <SCRIPT src="<%=path+"/js/pages/index/inquireSchDetails.js"%>"></SCRIPT>
 <script>
-    layui.use(['laytpl', 'flow','layer'], function () {
+    layui.use(['laytpl','layer','flow'], function () {
         var laytpl = layui.laytpl
             , $ = layui.$
             , flow = layui.flow
@@ -282,12 +285,9 @@
 				    offset: ['100px', '300px']
                     ,
                     content: '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">确认报名该教练？ </div>'
-        //             //         '欢迎报名该教练！' +
-        //             //         '<br>姓名<br><input type="text" name="sName" id="sName" placeholder="请输入姓名" class="layui-input" >' +
-        //             //         '<br>身份证<br><input type="text" name="sSfz" id="sSfz" placeholder="请输入身份证" class="layui-input" > ' +
-        //             //         '</div>'
 				    ,
-				    yes: function (index, layer) {
+				    // yes: function (index, layer) {
+                    yes: function (index, layero) {
                         // let sName = $("#sName").val();
                         let teacherId = $("#teacherId").html();
                         // let sSfz = $("#sSfz").val();

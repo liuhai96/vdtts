@@ -94,9 +94,10 @@ public class StudentController {
 //学员修改密码
     @RequestMapping(value = "/updatestudentPwd")
     @ResponseBody
-    private ResultData updatestudentPwd(HttpServletRequest request){
+    public ResultData updatestudentPwd(HttpServletRequest request){
         return studentService.updatestudentPwd(request);
     }
+
     @RequestMapping(value = "/updatestudent")//修改学员
     public String updateadmin(HttpServletRequest request, HttpServletResponse response,
                               @RequestParam(value = "account") String account,@RequestParam(value = "pwd") String pwd ,

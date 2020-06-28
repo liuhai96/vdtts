@@ -324,8 +324,10 @@
 	}
 
 	layui.use(['form','layer'], function(){
-		var form = layui.form,layer = layui.layer;
-		var $ = layui.jquery;
+		var form = layui.form
+		    , $ = layui.$
+	        , flow = layui.flow
+			, layer = layui.layer;
 		let verify = -1;
 		let passTypes = true;
 		let sPic = "";//修改头像
@@ -364,13 +366,11 @@
 								repeatPwd:$("input[name='repeatPwd']").val(),
 
 							},
-							success: function (resmsg) {
-								if (resmsg.code == 1) {
-									layer.msg(resmsg.msg);
-								} else {
-									layer.msg(resmsg.msg);
-									layer.close(index);
-								}
+							success: function (remsg) {
+								console.log(remsg);
+								alert(remsg.msg);
+								layer.close(index);
+
 								$('#updatePwd')[0].reset();//重置表单
 								form.render();
 							}
