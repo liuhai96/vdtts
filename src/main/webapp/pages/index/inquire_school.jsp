@@ -388,10 +388,10 @@
 					content: '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">确认报名该驾校? </div>'
 					,
 					yes: function (index, layero) {
-						alert("即将跳转到学费支付界面");
-						let payLink = path+"/pay/"+$("#schoolSId").html();
-						$("#payLink").attr("href",payLink);
-						$("#payLink>p").trigger('click') ;
+						// alert("即将跳转到学费支付界面");
+						// let payLink = path+"/pay/"+$("#schoolSId").html();
+						// $("#payLink").attr("href",payLink);
+						// $("#payLink>p").trigger('click') ;
 
 						<%--alert("studentid ="+${sessionScope.student.SId},"studentname ="+${sessionScope.student.SName});--%>
 						<%--alert("schoolName ="+'${name}',"schoolId="+${sid});--%>
@@ -412,9 +412,19 @@
 								schoolId:schoolId
 							},
 							success: function (remsg) {
-								console.log(remsg);
-								alert(remsg.msg);
-								layer.close(index);
+								if(remsg.code==1){
+									alert("即将跳转到学费支付界面");
+									let payLink = path+"/pay/"+$("#schoolSId").html();
+									$("#payLink").attr("href",payLink);
+									$("#payLink>p").trigger('click') ;
+									console.log(remsg);
+									alert(remsg.msg);
+									layer.close(index);
+								}else {
+									console.log(remsg);
+									alert(remsg.msg);
+									layer.close(index);
+								}
 							}
 						})
 					}

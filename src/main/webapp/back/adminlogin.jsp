@@ -219,7 +219,8 @@
 										alert("管理端登录成功");
 										location.href = 'adminmenu.jsp';
 									} else {
-										alert("登录失败，账号或密码有误")
+										alert("登录失败，账号或密码有误");
+										location.reload();
 									}
 								}
 							});

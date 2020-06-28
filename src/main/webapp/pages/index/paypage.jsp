@@ -20,6 +20,8 @@
     <input type="hidden" name="schoolId" value="${sid}">
     <input type="hidden" name="schoolName" value="${name}">
     <input type="hidden" name="registerFee" value="${sRegisteryFee}">
+    <input type="hidden" name="teacherId" value="${teacherId}">
+    <input type="hidden" name="teacherName" value="${teacherName}">
 <%--    <input type="submit" name="form1" id="paysubmit">--%>
 </form>
 <script>

@@ -1,7 +1,9 @@
+<%@ page import="com.lsjbc.vdtts.utils.Tool" %>
 <html class="x-admin-sm">
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     String path = request.getContextPath();
+    String today = new Tool().getDate("yyyy年MM月dd日");
     if(request.getSession().getAttribute("admin")==null){
         response.sendRedirect("/back/adminlogin.jsp");
     }
@@ -41,7 +43,7 @@
 <%--            <li class="layui-nav-item layui-hide-xs"><a href="http://www.pearadmin.cn" class="layui-icon layui-icon-website"></a></li>--%>
 <%--            <li class="layui-nav-item layui-hide-xs" id="headerNotice"></li>--%>
             <li class="layui-nav-item" lay-unselect="">
-                <a href="javascript:;">hello，${admin.acName} <img src="<%=path%>/static/preadmin/admin/images/avatar.jpg" class="layui-nav-img"></a>
+                <a href="javascript:;">你好，管理员：${admin.acName} <img src="<%=path%>/static/preadmin/admin/images/avatar.jpg" class="layui-nav-img"></a>
 <%--                <dl class="layui-nav-child">--%>
 <%--                    <dd><a href="javascript:;" class="pearson">个人信息</a></dd>--%>
 <%--                    <dd><a href="javascript:;">安全配置</a></dd>--%>
@@ -50,13 +52,18 @@
 <%--                </dl>--%>
             </li>
             <li class="layui-nav-item">
+                <div class="inf-time" style="color: #0C0C0C">
+                    今天是<%=today%>
+                </div>
+            </li>
+            <li class="layui-nav-item">
                 <div class="site-demo-button" id="layerDemo2" style="margin-bottom: 0;">
-                    <button data-method="offset2" data-type="rt" class="layui-btn">修改密码</button>
+                    <button data-method="offset2" data-type="rt" class="layui-btn" style="color: #cc0000">修改密码</button>
                 </div>
             </li>
             <li class="layui-nav-item">
                 <div class="site-demo-button" id="layerDemo" style="margin-bottom: 0;">
-                    <button data-method="offset" data-type="rt" id="logout" class="layui-btn">退出</button>
+                    <button data-method="offset" data-type="rt" id="logout" class="layui-btn"style="color: #cc0000">退出</button>
                 </div>
             </li>
             <li class="setting layui-nav-item"><a href="#" class="layui-icon layui-icon-more-vertical"></a></li>

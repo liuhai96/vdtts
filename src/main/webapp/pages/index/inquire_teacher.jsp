@@ -192,6 +192,9 @@
         </li>
     </ul>
 </div>
+<a id="payLink" target="_blank" style="display: none;">
+    <p>baidu</p>
+</a>
 <script src="https://www.layuicdn.com/layui/layui.js"></script>
 <script src="<%=path+"/js/pages/index/City_data.js"%>"></script>
 <script src="<%=path+"/js/pages/index/areadata.js"%>"></script>
@@ -289,10 +292,10 @@
         //             //         '</div>'
 				    ,
 				    yes: function (index, layer) {
-                        alert("即将跳转到学费支付界面");
-                        let payLink = path+"/pay/"+$("#teacherId").html();
-                        $("#payLink").attr("href",payLink);
-                        $("#payLink>p").trigger('click') ;
+                        // alert("即将跳转到学费支付界面");
+                        // let payLink = path+"/tpay/"+$("#teacherId").html();
+                        // $("#payLink").attr("href",payLink);
+                        // $("#payLink>p").trigger('click') ;
 
                         // let sName = $("#sName").val();
                         let teacherId = $("#teacherId").html();
@@ -308,9 +311,19 @@
                                     teacherId:teacherId
                             },
                             success: function (remsg) {
-                                console.log(remsg);
-                                alert(remsg.msg);
-	                            layer.close(index);
+                                if(remsg.code==1){
+                                    alert("即将跳转到学费支付界面");
+                                    let payLink = path+"/tpay/"+$("#teacherId").html();
+                                    $("#payLink").attr("href",payLink);
+                                    $("#payLink>p").trigger('click') ;
+                                    console.log(remsg);
+                                    alert(remsg.msg);
+                                    layer.close(index);
+                                }else{
+                                    console.log(remsg);
+                                    alert(remsg.msg);
+                                    layer.close(index);
+                                }
                             }
                         })
                     }
