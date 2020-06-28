@@ -51,6 +51,7 @@ public class HumanFaceController {
         String nextJsp;
         if(loginKey){
             loginKey = false;
+            request.getSession().setAttribute("ll", "1");
             try {
                 request.getSession().setAttribute("result",studentService.FaceLogin(request,base64));
                 if (request.getSession().getAttribute("account") != null){//人脸识别成功
@@ -58,14 +59,15 @@ public class HumanFaceController {
                 } else {
                     nextJsp = "/pages/index/student_login"; //redirect:重定向到学生登录的后台
                 }
+                request.getSession().setAttribute("ll", "0");
             } catch (Exception e){
                 e.printStackTrace();
+                request.getSession().setAttribute("ll", "-1");
                 nextJsp = "/pages/index/student_login";//redirect:重定向到学生登录的后台
             }
-            request.getSession().setAttribute("humanFaceNotfiy", 0);
+
             loginKey = true;
         } else {
-            request.getSession().setAttribute("humanFaceNotfiy", 1);//重复识别提示消息
             try { Thread.sleep(1200); } catch (InterruptedException e) {}
             nextJsp = "/pages/student/human-face";
         }

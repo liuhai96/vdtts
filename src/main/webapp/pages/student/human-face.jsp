@@ -30,19 +30,16 @@
 </head>
 <body style="text-align: center;">
 <input hidden="hidden" value="<%=path%>" id="path">
-<c:if test="${humanFaceNotfiy == 1}">
-    <script>
-        alert("已识别，服务器正在为你疯狂处理！");
-    </script>
-</c:if>
-<c:if test="${account ne null}">
-    <script>
+<script>
+    if (${ll != -1}){
         setTimeout(function () {
-            skipAbsolute("/pages/index/index.jsp");
-        },3000);
-    </script>
-</c:if>
-<a onclick="history.go(-1)" style="font-size: 20px" href="javascript:void(-1);">返回</a>
+            skipAbsolute("/student");
+        },5000);
+    } else if (${ll == -1}){
+        alert("人脸识别不成功！登录失败");
+    }
+</script>
+<a onclick="history.go(-1)" style="font-size: 20px" href="javascript:void(0);">返回</a>
     <div style="text-align: start">
         &nbsp;&nbsp;
         <div class="alone-buy layui-btn-container" style="text-align: center;">
@@ -91,6 +88,8 @@
                                 let base64 = $('#image').attr("src");
                                 $("#faceImg").attr("value",base64);
                                 $("#userInCameraForm").submit();
+                                alert("已识别，服务器正在为你疯狂处理！");
+                                history.go(0);//刷新此一页
                             }
                         },
                         error: function (code, message) {
