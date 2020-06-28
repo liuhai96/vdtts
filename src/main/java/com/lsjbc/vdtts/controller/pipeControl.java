@@ -74,6 +74,7 @@ public class pipeControl
 		return layuiTableData;
 	}
 
+	//身份证识别
 	@RequestMapping(value = "/sfzdiscern",produces = {"application/json;charset=UTF-8"})
 	@ResponseBody
 	public String sfzdiscern(HttpServletRequest request, HttpServletResponse response, MultipartFile file) {
