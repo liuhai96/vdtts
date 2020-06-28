@@ -188,6 +188,7 @@ public class StudentServiceImpl implements StudentService {
 
 	@Override//修改信息照片上传
 	public ResultData studentToProduct(Student student, HttpServletRequest request){
+		ResultData resultData = ResultData.success();
 		//		Integer sStudentId = Integer.parseInt(request.getParameter("sId"));
         System.out.println(JSON.toJSONString(student));
         int num =studentMapper.xiuphone(student);

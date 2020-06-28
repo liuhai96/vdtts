@@ -2044,10 +2044,6 @@
                         return '姓名不得为空';
                     }
                 }
-                // else{
-                //     return "请上传身份证照片";
-                // }
-
             },
             id:function (value) {
                 if(inputByHand) {
@@ -2055,9 +2051,6 @@
                         return "身份证格式不正确，请重新输入";
                     }
                 }
-                // else{
-                //     return "请上传身份证照片";
-                // }
             },
             account:function(value){
                 if(value.length<6||value.length>18){
