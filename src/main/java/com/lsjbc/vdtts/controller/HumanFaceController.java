@@ -28,12 +28,16 @@ public class HumanFaceController {
      *@return:java.lang.String
      *@Date:2020/6/22 20:57
      **/
-    public ModelAndView AddFace(String base64, int sId){
-        ModelAndView modelAndView = new ModelAndView();
-        ResultData resultData = studentService.AddFace(base64,sId);
-        modelAndView.addObject("result2", resultData);
-        modelAndView.setViewName("/pages/student/add-student-face");
-        return modelAndView;
+    public String AddFace(String base64, int sId,HttpServletRequest request){
+        request.getSession().setAttribute("xx", 1);
+        try{
+            ResultData resultData = studentService.AddFace(base64,sId);
+            request.getSession().setAttribute("resultAddFace", resultData.getData().get("result"));
+            request.getSession().setAttribute("xx", 0);
+        } catch (Exception e){
+            request.getSession().setAttribute("resultAddFace", -1);
+        }
+        return "/pages/student/add-student-face";
     }
 
     private boolean loginKey = true;

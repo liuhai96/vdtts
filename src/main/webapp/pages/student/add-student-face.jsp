@@ -26,25 +26,28 @@
     <script type="text/javascript" src=<%=path + "/static/jqueryFaceDetection/ccv.js"%>></script>
     <script type="text/javascript" src=<%=path + "/static/jqueryFaceDetection/jquery.facedetection.js"%>></script>
     <script type="text/javascript" src="<%=path+"/static/custom_tool.js"%>"></script>
+    <script>
+        if(${sessionScope.student.getSId() eq null}){
+            alert("请先登录！");
+        }
+        if (${xx == 1}){
+            setTimeout(function () {
+                history.go(0);
+            },5000);
+        }
+        if (${resultAddFace == 1}){
+            alert("你已经成功录入！");
+        } else if(${resultAddFace == -1}){
+            alert("人脸录入失败！");
+        }
+    </script>
 </head>
 <body style="text-align: center;">
 <input hidden="hidden" value="<%=path%>" id="path">
-    <c:if test="${result2 ne null}">
-        <script>
-            if (${result2.code > 0}){
-                if (${result2.code < 20}){
-                    alert("          ${result2.msg}\n你已成功添加人脸库图片 ${result2.code} 张\n");
-                } else {
-                    alert("          ${result2.msg} \n  你当前人脸库人已经有 20 张 \n        无需再上传了！");
-                }
-            }
-        </script>
-
-    </c:if>
     <div style="text-align: start">
         <div class="alone-buy layui-btn-container" style="text-align: center;">
             <button id="openCamera" type="button" class="layui-btn" style="position: relative;">开启录入</button>
-            <button type="button" class="layui-btn" onclick="skipPage('')">关闭摄像头</button>
+            <button type="button" class="layui-btn" onclick="history.go(0)">关闭摄像头</button>
         </div>
     </div>
     <label style="font-size: 20px;color: coral">人脸录入</label><br>
@@ -87,6 +90,8 @@
                                 let base64 = $('#image').attr("src");
                                 $("#faceImg").attr("value",base64);
                                 $("#userInCameraForm").submit();
+                                alert("已识别到人脸！服务器正在为了存储......");
+                                history.go(0);
                             }
                         },
                         error: function (code, message) {

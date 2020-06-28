@@ -411,11 +411,12 @@ public class StudentServiceImpl implements StudentService {
                     } else{
                         resultData.setCode(list.size()+1);//人脸张数
                     }
-
+                    resultData.put("result",1);
                 } else {
                     System.out.println("加入人脸识别失败");
                     resultData.setMsg("加入人脸识别失败");
                     resultData.setCode(list.size());
+                    resultData.put("result",-1);
                 }
             } catch (Exception e){
                 e.printStackTrace();
