@@ -87,7 +87,7 @@
 				<a href="<%=path+"/publicity/notice/1/-1"%>">公开公示</a>
 			</li>
 			<li id="menu-title-three" class="layui-this menu-title-bg" style="display: block;cursor:hand;">
-				<form id="jumpToInquire" action="<%=path+"/inquire"%>" method="post">
+				<form id="jumpToInquire" action="<%=path+"inquire"%>" method="post">
 					<img src="<%=path+"/image/pages/index/menu_inquire1.png"%>">
 					<a onclick="document:jumpToInquire.submit()">信息查询</a>
 				</form>
@@ -116,11 +116,11 @@
 		<IMG style="height: 300px; width: 700px;" src="<%=path%>/static/layui/images/photo/06.png">
 	</DIV>
 	<DIV class="del-schinf">
-		<P class="del-p"><span>${name}</span><IMG src="<%=path%>/image/pages/index/tower.png"></P>
+		<P class="del-p"><span id="schoolName">${name}</span><IMG src="<%=path%>/image/pages/index/tower.png"></P>
 		<DIV class="del-inf">
 			<p>
 				<b>全国统一信用代码：</b>
-				<span>${sbusinessId}</span>
+				<span id="schoolSId">${sid}</span>
 			</p>
 			<p>
 				<b>经营许可日期：</b>
@@ -128,7 +128,7 @@
 			</p>
 			<p>
 				<b>报名费：</b>
-				<span>${sRegisteryFee}</span>
+				<span id="schoolFee">${sRegisteryFee}</span>
 			</p>
 			<p><b>教练员人数：</b>
 				<span>${teachercount}</span>人
@@ -158,6 +158,11 @@
 				<input type="hidden" name="toId" value="${sid}">
 				<input type="hidden" name="toType" value="school">
 			</form>
+			<div class="layui-elem-field site-demo-button" id="layerDemo" style="margin-bottom: 0; text-align: center">
+				<button type="button"data-method="notice" class="layui-btn">学生报名</button>
+				<button type="button"data-method="notice2" class="layui-btn">评论驾校</button>
+			</div>
+
 		</DIV>
 		<p></p>
 	</div>
@@ -266,7 +271,11 @@
 				<IMG id="pubnumfile"><IMG src="<%=path%>/image/pages/index/code2.jpg">
 			</DIV>
 		</LI>
+
 	</UL>
+	<a id="payLink" target="_blank" style="display: none;">
+		<p>baidu</p>
+	</a>
 </DIV>
 </DIV>
 <DIV class="footer-inf">
@@ -385,9 +394,20 @@
 					content: '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">确认报名该驾校? </div>'
 					,
 					yes: function (index, layero) {
+						// alert("即将跳转到学费支付界面");
+						// let payLink = path+"/pay/"+$("#schoolSId").html();
+						// $("#payLink").attr("href",payLink);
+						// $("#payLink>p").trigger('click') ;
+
+						<%--alert("studentid ="+${sessionScope.student.SId},"studentname ="+${sessionScope.student.SName});--%>
+						<%--alert("schoolName ="+'${name}',"schoolId="+${sid});--%>
+						<%--alert("schoolfee="+${sRegisteryFee});--%>
+
 						// let sName = $("#sName").val();
 						let schoolId = $("#schoolId").val();
 						// let sSfz = $("#sSfz").val();
+
+
 						$.ajax({
 							type: 'get',
 							url: '/SchoolControl/insSfz',
@@ -398,12 +418,32 @@
 								schoolId:schoolId
 							},
 							success: function (remsg) {
-								console.log(remsg);
-								alert(remsg.msg);
-								layer.close(index);
+								if(remsg.code==1){
+									alert("即将跳转到学费支付界面");
+									let payLink = path+"/pay/"+$("#schoolSId").html();
+									$("#payLink").attr("href",payLink);
+									$("#payLink>p").trigger('click') ;
+									console.log(remsg);
+									alert(remsg.msg);
+									layer.close(index);
+								}else {
+									console.log(remsg);
+									alert(remsg.msg);
+									layer.close(index);
+								}
 							}
 						})
 					}
+				})
+			},
+			notice2:function () {
+				let schoolId = $("#schoolId").val();
+				$.ajax({
+					url:'<%=path%>/evaluateController/aa',
+					data:{
+						schoolId:schoolId
+					},
+
 				})
 			}
 		}

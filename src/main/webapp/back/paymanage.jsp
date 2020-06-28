@@ -1,12 +1,14 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%String path = request.getContextPath();%>
+<%
+    String path = request.getContextPath();
+%>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <title>参数管理</title>
+    <title>支付查询</title>
     <link rel="stylesheet" href=<%=path+"/static/layui/css/layui.css"%>>
     <script type="text/javascript" src=<%=path+"/static/layui/layui.js"%>></script>
         <style>
@@ -21,7 +23,7 @@
 <script type="text/html" id="toolbarTest">
     <div class="demoTable">
         <div class="layui-inline">
-            <input type="text" class="layui-input" name="pmKey" id="demoReload" autocomplete="off"placeholder="请输入科目名称">
+            <input type="text" class="layui-input" name="schoolName" id="demoReload" autocomplete="off"placeholder="请输入驾校名称">
         </div>
         <button class="layui-btn layui-btn-normal" lay-event="search"  lay-submit lay-filter="search" data-type="reload">搜索</button>
 <%--        <button class="layui-btn " lay-event="add" style="margin-left: 10%">添加驾校</button>--%>
@@ -29,7 +31,7 @@
 </script>
 
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-xs" lay-event="updateinfo">修改学时信息</a>
+    <a class="layui-btn layui-btn-xs" lay-event="updateinfo">信息修改</a>
 </script>
 
 <script>
@@ -50,7 +52,7 @@
             elem: '#demo'
             ,height: 420
             ,toolbar: '#toolbarTest' //开启头部工具栏，并为其绑定左侧模板
-            ,url: '/schoolController/selectParamInfo' //数据接口
+            ,url: '/aliPayController/selectPayInfo' //数据接口
             ,title: '参数表'
             ,page: true //开启分页
             ,limit: 5 //每行显示5页
@@ -58,16 +60,20 @@
             // ,totalRow: true //开启合计行
             // ,id: 'testReload'
             ,where: {
-                pmKey: ""
+                schoolName: ""
             }
             ,cols: [[ //表头
                 {type: 'checkbox', fixed: 'left'}
-                ,{field: 'pmId', title: '序号', width:80, sort: true, fixed: 'left', }
-                ,{field: 'pmKey', title: '驾考科目', width:120}
-                ,{field: 'pmValue', title: '驾考科目学时', width:150, sort: true, totalRow: true}
-                ,{field: 'pmDescribe', title: '驾考科目学时描述', width: 300}
-                ,{fixed: 'right', title: '管理操作',width: 175, align:'center', toolbar: '#barDemo'}
-                // ,{field: 'sAccountId', title: '账号id', hide:'true'}
+                ,{field: 'payId', title: '序号', width:80, sort: true, fixed: 'left', }
+                ,{field: 'schoolName', title: '驾校名称', width:120}
+                ,{field: 'teacherName', title: '教练姓名', width:120}
+                ,{field: 'studentName', title: '学员姓名', width:120}
+                ,{field: 'registerFee', title: '报名学费', width:100, sort: true, totalRow: true}
+                ,{field: 'feeTime', title: '缴费时间', width: 110}
+                ,{field: 'orderNumber', title: '订单号', width: 130}
+                ,{field: 'payStatu', title: '订单状态', width: 100}
+                ,{fixed: 'right', title: '管理操作',width: 135, align:'center', toolbar: '#barDemo'}
+                // ,{field: 'sAccountId', title: '账号id', hide:'teacherNametrue'}
                 ,{fixed: 'right', title: '备注', align:'center'}
             ]]
                 ,page: {limit: 5,//指定每页显示的条数
@@ -84,12 +90,12 @@
                     var demoReload = $('#demoReload').val();
                     //执行重载
                     table.reload('demo', {
-                        url: "/schoolController/selectParamInfo",
+                        url: "/aliPayController/selectPayInfo",
                         page: {
                             curr: 1 //重新从第 1 页开始
                         }
                         ,where: {
-                            pmKey: demoReload
+                            schoolName: demoReload
                         }
                     });
                     $('#demoReload').val(demoReload);
@@ -113,7 +119,7 @@
                 $("#pmDescribe").val(data.pmDescribe);
                 updateinfo = layer.open({
                     type: 1
-                    ,title:"科目学时信息修改"
+                    ,title:"支付信息修改"
                     ,area:['400px','400px']
                     , offset: 'auto' //具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
                     ,id: 'layerDemo'+'auto' //防止重复弹出

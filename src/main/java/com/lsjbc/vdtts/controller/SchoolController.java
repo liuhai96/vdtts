@@ -13,6 +13,7 @@ import com.lsjbc.vdtts.entity.ExamParam;
 import com.lsjbc.vdtts.entity.School;
 import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.service.intf.SchoolService;
+import com.lsjbc.vdtts.utils.Tool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -94,6 +95,7 @@ public class SchoolController {
 	 **/
 	@RequestMapping(value = "insertSchool")//添加驾校
 	public  String insertSchool (HttpServletRequest request, HttpServletResponse response,School school, Account account){
+		account.setAPassword(new Tool().createMd5(account.getAPassword()));//转MD5码（加密）
 		System.out.println(" 添加驾校school list="+school.toString());
 		System.out.println(" 添加驾校account="+account.getAAccount()+" pwd="+account.getAPassword());
 //		int a = schoolService.insertSchoolAccount(account);

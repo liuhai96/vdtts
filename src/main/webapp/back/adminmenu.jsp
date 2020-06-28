@@ -1,7 +1,9 @@
+<%@ page import="com.lsjbc.vdtts.utils.Tool" %>
 <html class="x-admin-sm">
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     String path = request.getContextPath();
+    String today = new Tool().getDate("yyyy年MM月dd日");
     if(request.getSession().getAttribute("admin")==null){
         response.sendRedirect("/back/adminlogin.jsp");
     }
@@ -38,25 +40,30 @@
         <div id="control" class="layui-layout-control"></div>
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item layui-hide-xs"><a href="#" class="fullScreen layui-icon layui-icon-screen-full"></a></li>
-            <li class="layui-nav-item layui-hide-xs"><a href="http://www.pearadmin.cn" class="layui-icon layui-icon-website"></a></li>
-            <li class="layui-nav-item layui-hide-xs" id="headerNotice"></li>
+<%--            <li class="layui-nav-item layui-hide-xs"><a href="http://www.pearadmin.cn" class="layui-icon layui-icon-website"></a></li>--%>
+<%--            <li class="layui-nav-item layui-hide-xs" id="headerNotice"></li>--%>
             <li class="layui-nav-item" lay-unselect="">
-                <a href="javascript:;">hello，${admin.acName} <img src="<%=path%>/static/preadmin/admin/images/avatar.jpg" class="layui-nav-img"></a>
-                <dl class="layui-nav-child">
-                    <dd><a href="javascript:;" class="pearson">个人信息</a></dd>
-                    <dd><a href="javascript:;">安全配置</a></dd>
-                    <dd><a href="javascript:;">修改密码</a></dd>
-                    <dd><a href="javascript:;">注销登陆</a></dd>
-                </dl>
+                <a href="javascript:;">你好，管理员：${admin.acName} <img src="<%=path%>/static/preadmin/admin/images/avatar.jpg" class="layui-nav-img"></a>
+<%--                <dl class="layui-nav-child">--%>
+<%--                    <dd><a href="javascript:;" class="pearson">个人信息</a></dd>--%>
+<%--                    <dd><a href="javascript:;">安全配置</a></dd>--%>
+<%--                    <dd><a href="javascript:;">修改密码</a></dd>--%>
+<%--                    <dd><a href="javascript:;">注销登陆</a></dd>--%>
+<%--                </dl>--%>
+            </li>
+            <li class="layui-nav-item">
+                <div class="inf-time" style="color: #0C0C0C">
+                    今天是<%=today%>
+                </div>
             </li>
             <li class="layui-nav-item">
                 <div class="site-demo-button" id="layerDemo2" style="margin-bottom: 0;">
-                    <button data-method="offset2" data-type="rt" class="layui-btn">修改密码</button>
+                    <button data-method="offset2" data-type="rt" class="layui-btn" style="color: #cc0000">修改密码</button>
                 </div>
             </li>
             <li class="layui-nav-item">
                 <div class="site-demo-button" id="layerDemo" style="margin-bottom: 0;">
-                    <button data-method="offset" data-type="rt" id="logout" class="layui-btn">退出</button>
+                    <button data-method="offset" data-type="rt" id="logout" class="layui-btn"style="color: #cc0000">退出</button>
                 </div>
             </li>
             <li class="setting layui-nav-item"><a href="#" class="layui-icon layui-icon-more-vertical"></a></li>
@@ -65,7 +72,7 @@
     <div class="layui-side layui-bg-black">
         <div class="layui-logo">
             <img class="logo" src="<%=path%>/static/preadmin/admin/images/logo.png" />
-            <span class="title">传一驾校系统后台管理</span>
+            <span class="title">驾校系统后台管理</span>
         </div>
         <div class="layui-side-scroll">
             <div id="sideMenu"></div>
@@ -103,7 +110,7 @@
             muiltTab: true, // 是 否 开 启 多 标 签 页 true 开启 false 关闭
             control: false, // 是 否 开 启 多 系 统 菜 单 true 开启 false 关闭
             theme: "dark-theme", // 默 认 主 题 样 式 dark-theme 默认主题 light-theme 亮主题
-            index: '<%=path%>/static/preadmin/view/console/console1.html', // 默 认 加 载 主 页
+            index: '<%=path%>/back/studentaccount.jsp', // 默 认 加 载 主 页
             data: '<%=path%>/adminControl/adminList', // 菜 单 数 据 加 载 地 址
         };
 
@@ -250,7 +257,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">原始密码：</label>
             <div class="layui-input-inline">
-                <input type="password" name="aPassword" value=${admin.acPassword} placeholder="" autocomplete="off" class="layui-input" lay-verify="required">
+                <input type="password" name="aPassword"  value=${admin.acPassword} disabled placeholder="" autocomplete="off" class="layui-input" lay-verify="required">
             </div>
         </div>
         <div class="layui-form-item">

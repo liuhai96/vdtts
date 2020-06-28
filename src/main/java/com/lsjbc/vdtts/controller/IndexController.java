@@ -3,6 +3,8 @@ package com.lsjbc.vdtts.controller;
 import com.lsjbc.vdtts.constant.EvaluateType;
 import com.lsjbc.vdtts.dao.ExamResultDao;
 import com.lsjbc.vdtts.dao.StudentDao;
+import com.lsjbc.vdtts.dao.SchoolDao;
+import com.lsjbc.vdtts.dao.TeacherDao;
 import com.lsjbc.vdtts.entity.*;
 import com.lsjbc.vdtts.pojo.dto.QuestionBank;
 import com.lsjbc.vdtts.pojo.vo.StudentRegister;
@@ -13,6 +15,7 @@ import com.lsjbc.vdtts.utils.CustomTimeUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.Mapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -58,6 +61,11 @@ public class IndexController {
     @Resource(name = StudentDao.NAME)
     private StudentDao studentDao;
 
+    @Resource(name = SchoolDao.NAME)
+    private SchoolDao schoolDao;
+
+    @Resource(name = TeacherDao.NAME)
+    private TeacherDao teacherDao;
 
     //陈竑霖
     @Resource(name = SchoolServiceImpl.NAME)
@@ -80,12 +88,14 @@ public class IndexController {
      * @return 页面
      */
     @GetMapping("index")
-    public String index2(Map<String, Object> map) {
+    public String index2(Map<String, Object> map,HttpServletRequest request) {
 
+//        request.getSession().setAttribute("student", Student.builder().sId(19).build());
         map.put("schoolList", schoolService.getFiveMostPowerfulSchool());
         map.put("noticeList", noticeService.getIndexPageNotice());
         map.put("lawList", noticeService.getIndexPageLaw());
         map.put("linkList", linkServive.getFooterFriendLink());
+
 
         return "/pages/index/index";
     }
@@ -373,7 +383,9 @@ public class IndexController {
         map.put("count", studentCount);
         map.put("school", school);
         map.put("score", score);
-
+        School schoolEntity = schoolService.getSchoolBySchoolId(teacher.getTSchoolId());
+        map.put("sid",schoolEntity.getSId());
+        map.put("payfee",schoolEntity.getSRegisteryFee());
         map.put("linkList", linkServive.getFooterFriendLink());
         return "/pages/index/inquire_teacher";
     }
@@ -486,4 +498,27 @@ public class IndexController {
 
         return "redirect:/index";
     }
+
+    @GetMapping("pay/{sid}")
+    public String pay(HttpServletRequest request,Map<String,Object> map,@PathVariable("sid") Integer sid){
+        School school = schoolDao.getById(sid);
+        map.put("sid",sid);
+        map.put("name",school.getSName());
+        map.put("sRegisteryFee",school.getSRegisteryFee());
+        return "/pages/index/paypage";
+    }
+
+
+     @GetMapping("tpay/{teacherId}")
+    public  String tpay(HttpServletRequest request,Map<String,Object> map,@PathVariable("teacherId") Integer teacherid){
+        Teacher teacher = teacherDao.getById(teacherid);
+        Integer sid = teacher.getTSchoolId();
+         School school = schoolDao.getById(sid);
+         map.put("sid",sid);
+         map.put("name",school.getSName());
+         map.put("sRegisteryFee",school.getSRegisteryFee());
+         map.put("teacherId",teacherid);
+         map.put("teacherName",teacher.getTName());
+         return "/pages/index/paypage";
+     }
 }

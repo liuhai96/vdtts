@@ -132,4 +132,17 @@ public class CarControl {
         }
     }
 
+    @RequestMapping(value = "/delCar")//删除教练车
+    public String deleteCar (HttpServletRequest request ,HttpServletResponse response,Car car){
+        System.out.println("carId="+car.getCId());
+        int i = carDao.deleteById(car.getCId());
+        if(i>0){
+            System.out.println("删除教练车成功");
+            return "success";
+        }else {
+            System.out.println("删除教练车失败");
+            return "failed";
+        }
+
+    }
 }

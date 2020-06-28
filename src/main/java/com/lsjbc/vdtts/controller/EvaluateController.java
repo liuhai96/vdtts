@@ -73,4 +73,11 @@ public class EvaluateController {
             return "failed";
         }
     }
+
+    @RequestMapping(value = "aa")
+    public void aa(String schoolId){
+        if(schoolId!=null){
+            System.out.println("输出schoolId"+schoolId);
+        }
+    }
 }
