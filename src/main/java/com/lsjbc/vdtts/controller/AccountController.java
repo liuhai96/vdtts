@@ -88,9 +88,8 @@ public class AccountController {
      *@return:org.springframework.web.servlet.ModelAndView
      *@Date:2020/6/18 14:40
      **/
-    public ModelAndView Transfer(String logo, HttpServletRequest request) {
+    public String Transfer(String logo, HttpServletRequest request) {
         String goal;//去的目的地
-        ModelAndView modelAndView = new ModelAndView();
         switch (logo) {
             case "institutionIndex"://去机构首页
                 goal = "/pages/backhomepage/index";
@@ -108,10 +107,9 @@ public class AccountController {
                 goal = "/pages/student/student_password";
                 break;
             default://回系统首页
-                goal = "/pages/index/index";
+                goal = "redirect:/index";//后台重定向到首页
                 break;
         }
-        modelAndView.setViewName(goal);
-        return modelAndView;
+        return goal;
     }
 }
