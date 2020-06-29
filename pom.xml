@@ -272,6 +272,18 @@
             <artifactId>java-sdk</artifactId>
             <version>4.11.3</version>
         </dependency>
+        <!--沙箱支付-->
+        <!--
+        alipay-sdk-java-3.7.110.ALL.jar
+        commons-logging-1.1.1.jar
+        -->
+        <dependency>
+            <groupId>com.alipay.sdk</groupId>
+            <artifactId>alipay-sdk-java</artifactId>
+            <version>3.7.110.ALL</version>
+        </dependency>
+
+
     </dependencies>
 
     <build>

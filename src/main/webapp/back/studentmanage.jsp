@@ -23,7 +23,7 @@
             <input type="text" class="layui-input" name="studentname" id="demoReload" autocomplete="off"placeholder="请输入学员姓名">
         </div>
         <button class="layui-btn layui-btn-normal" lay-event="search"  lay-submit lay-filter="search" data-type="reload">搜索</button>
-        <button class="layui-btn " lay-event="add" style="margin-left: 10%">添加学员</button>
+<%--        <button class="layui-btn " lay-event="add" style="margin-left: 10%">添加学员</button>--%>
     </div>
 </script>
 
@@ -31,7 +31,7 @@
 <%--    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>--%>
 <%--    <a class="layui-btn layui-btn-xs" lay-event="edit">修改</a>--%>
     <a class="layui-btn layui-btn-xs" lay-event="resetpwd">重置密码</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除/禁用</a>
+<%--    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除/禁用</a>--%>
 </script>
 
 <%--<script src="//res.layui.com/layui/dist/layui.js?t=1586046995289"></script>--%>

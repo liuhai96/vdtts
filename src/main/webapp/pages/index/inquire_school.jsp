@@ -118,11 +118,11 @@
 		<IMG style="height: 300px; width: 700px;" src="<%=path%>/static/layui/images/photo/06.png">
 	</DIV>
 	<DIV class="del-schinf">
-		<P class="del-p"><span>${name}</span><IMG src="<%=path%>/image/pages/index/tower.png"></P>
+		<P class="del-p"><span id="schoolName">${name}</span><IMG src="<%=path%>/image/pages/index/tower.png"></P>
 		<DIV class="del-inf">
 			<p>
 				<b>全国统一信用代码：</b>
-				<span>${sbusinessId}</span>
+				<span id="schoolSId">${sid}</span>
 			</p>
 			<p>
 				<b>经营许可日期：</b>
@@ -130,7 +130,7 @@
 			</p>
 			<p>
 				<b>报名费：</b>
-				<span>${sRegisteryFee}</span>
+				<span id="schoolFee">${sRegisteryFee}</span>
 			</p>
 			<p><b>教练员人数：</b>
 				<span>${teachercount}</span>人
@@ -160,6 +160,7 @@
 				<input type="hidden" name="toId" value="${sid}">
 				<input type="hidden" name="toType" value="school">
 			</form>
+
 		</DIV>
 		<p></p>
 	</div>
@@ -268,6 +269,9 @@
 		</div>
 	</LI>
 	</UL>
+	<a id="payLink" target="_blank" style="display: none;">
+		<p>baidu</p>
+	</a>
 </DIV>
 </DIV>
 <DIV class="footer-inf">
@@ -386,9 +390,20 @@
 					content: '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">确认报名该驾校? </div>'
 					,
 					yes: function (index, layero) {
+						// alert("即将跳转到学费支付界面");
+						// let payLink = path+"/pay/"+$("#schoolSId").html();
+						// $("#payLink").attr("href",payLink);
+						// $("#payLink>p").trigger('click') ;
+
+						<%--alert("studentid ="+${sessionScope.student.SId},"studentname ="+${sessionScope.student.SName});--%>
+						<%--alert("schoolName ="+'${name}',"schoolId="+${sid});--%>
+						<%--alert("schoolfee="+${sRegisteryFee});--%>
+
 						// let sName = $("#sName").val();
 						let schoolId = $("#schoolId").val();
 						// let sSfz = $("#sSfz").val();
+
+
 						$.ajax({
 							type: 'get',
 							url: '/SchoolControl/insSfz',
@@ -399,12 +414,32 @@
 								schoolId:schoolId
 							},
 							success: function (remsg) {
-								console.log(remsg);
-								alert(remsg.msg);
-								layer.close(index);
+								if(remsg.code==1){
+									alert("即将跳转到学费支付界面");
+									let payLink = path+"/pay/"+$("#schoolSId").html();
+									$("#payLink").attr("href",payLink);
+									$("#payLink>p").trigger('click') ;
+									console.log(remsg);
+									alert(remsg.msg);
+									layer.close(index);
+								}else {
+									console.log(remsg);
+									alert(remsg.msg);
+									layer.close(index);
+								}
 							}
 						})
 					}
+				})
+			},
+			notice2:function () {
+				let schoolId = $("#schoolId").val();
+				$.ajax({
+					url:'<%=path%>/evaluateController/aa',
+					data:{
+						schoolId:schoolId
+					},
+
 				})
 			}
 		}
