@@ -31,10 +31,10 @@
 <body style="text-align: center;">
 <input hidden="hidden" value="<%=path%>" id="path">
 <script>
-    if (${ll != -1}){
+    if (${ll != null}){
         setTimeout(function () {
             skipAbsolute("/student");
-        },5000);
+        },15000);
     } else if (${ll == -1}){
         alert("人脸识别不成功！登录失败");
     }
