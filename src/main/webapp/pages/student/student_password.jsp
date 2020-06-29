@@ -40,6 +40,7 @@
 	</style>
 </head>
 <body>
+<input hidden="hidden" value="<%=path%>" id="path">
 <div class="login-inf">
 	<div class="inf-box">
 		<div class="inf-time">

@@ -186,17 +186,24 @@ public class StudentServiceImpl implements StudentService {
 	    return studentMapper.addStudentMessage(student);
     }
 
-	@Override//修改信息照片上传
+	//修改信息照片上传
+	//陈竑霖
+	@Override
 	public ResultData studentToProduct(Student student, HttpServletRequest request){
 		ResultData resultData = ResultData.success();
-		//		Integer sStudentId = Integer.parseInt(request.getParameter("sId"));
+		String sPic = request.getParameter("sPic");
+//				parseInt(request.getParameter("sPic"));
         System.out.println(JSON.toJSONString(student));
+        if(student.getSPic() != sPic){
         int num =studentMapper.xiuphone(student);
 		if (num > 0) { //查询
             return ResultData.success("修改头像成功");
 		} else {
             return ResultData.success("修改头像失败");
 		}
+        }else{
+	        return ResultData.success("还未上传要修改的头像");
+        }
 	}
     /*
      *@Description:查询驾校内学员的
@@ -254,6 +261,7 @@ public class StudentServiceImpl implements StudentService {
 		return resultData;
 	}
 
+//   陈竑霖 教练练报名
 	@Override
 	public ResultData updateStudentTeacherId(Integer sTeacherId, Integer sId) {
 		Student student = studentMapper.findTeacher(sId);
