@@ -38,7 +38,7 @@ public class GetExamQuestion<http> {
         params.put("key",APPKEY);//您申请的appKey
         params.put("subject",level);//选择考试科目类型，1：科目1；4：科目4
         params.put("model","c1");//驾照类型，可选择参数为：c1,c2,a1,a2,b1,b2；当subject=4时可省略
-        params.put("testType","rand");//测试类型，rand：随机测试（随机100个题目），order：顺序测试（所选科目全部题目）
+        params.put("testType","order");//测试类型，rand：随机测试（随机100个题目），order：顺序测试（所选科目全部题目）
         List<ExamEnity> examEnityList = new ArrayList<>();
         try {
             result = net(url, params, "GET");

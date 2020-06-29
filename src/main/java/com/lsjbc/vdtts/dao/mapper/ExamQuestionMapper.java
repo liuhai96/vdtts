@@ -16,4 +16,5 @@ import java.util.List;
 public interface ExamQuestionMapper extends CustomBaseMapper<ExamQuestion> {
    int insertExamQuestion(@Param("examQuestionList") List examQuestionList);
 
+
 }
