@@ -33,7 +33,7 @@
         if (${xx == 1}){
             setTimeout(function () {
                 history.go(0);
-            },5000);
+            },15000);
         }
         if (${resultAddFace == 1}){
             alert("你已经成功录入！");
@@ -98,7 +98,7 @@
                             console.log("complete回调函数出错");
                         }
                     });
-                }, 5);
+                }, 1000);
             });
         });
     </script>
