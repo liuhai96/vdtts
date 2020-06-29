@@ -31,7 +31,7 @@
 <body style="text-align: center;">
 <input hidden="hidden" value="<%=path%>" id="path">
 <script>
-    if (${ll != null}){
+    if (${ll != -1}){
         setTimeout(function () {
             skipAbsolute("/student");
         },15000);
