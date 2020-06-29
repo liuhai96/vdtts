@@ -40,6 +40,7 @@
 	</style>
 </head>
 <body>
+<input hidden="hidden" value="<%=path%>" id="path">
 <div class="login-inf">
 	<div class="inf-box">
 		<div class="inf-time">
@@ -115,8 +116,7 @@
 	<iframe src="<%=path+"/studentController/studentTransfer?logo=addFace"%>"
 	        id="addFace" height="0" width="0"></iframe>
 </div>
-<div class="main">
-	<input hidden="hidden" value="<%=path%>" id="path">
+<div class="main">en
 	<input hidden="hidden" value="${sessionScope.student.SId}" id="sId"><br>
 	<div style="text-align: center;">
 		<br> <br>

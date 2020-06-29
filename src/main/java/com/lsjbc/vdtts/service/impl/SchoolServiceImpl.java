@@ -447,7 +447,6 @@ public class SchoolServiceImpl implements SchoolService
 	 **/
 	@Override
 	public PageInfo findSchool(PageDTO pageDTO) {
-		System.out.println("11111111111111111111111111");
 		PageHelper.startPage(pageDTO.getPage(), pageDTO.getLimit(), true);
 		System.out.println(schoolMapper.selectAll());
 		return new PageInfo<>(schoolMapper.selectAll());
