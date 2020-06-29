@@ -115,6 +115,10 @@
 
         let questionList = null;
 
+        layer.load(1, {
+            shade: [0.6, '#fff']
+        });
+
         $.ajax({
             type: "get",
             url: path + "/api/exam/text?level=" + $("#level").val(),
@@ -151,6 +155,8 @@
                 }
 
                 $(table).html(str);
+
+                layer.closeAll('loading');
 
                 //显示第一题
                 showQuestion(0);

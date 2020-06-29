@@ -2,6 +2,9 @@ package com.lsjbc.vdtts.controller;
 
 import com.lsjbc.vdtts.constant.EvaluateType;
 import com.lsjbc.vdtts.dao.ExamResultDao;
+import com.lsjbc.vdtts.dao.StudentDao;
+import com.lsjbc.vdtts.dao.SchoolDao;
+import com.lsjbc.vdtts.dao.TeacherDao;
 import com.lsjbc.vdtts.entity.*;
 import com.lsjbc.vdtts.pojo.dto.QuestionBank;
 import com.lsjbc.vdtts.pojo.vo.StudentRegister;
@@ -11,8 +14,11 @@ import com.lsjbc.vdtts.utils.CustomStringUtils;
 import com.lsjbc.vdtts.utils.CustomTimeUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.Mapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -52,6 +58,14 @@ public class IndexController {
     @Resource(name = StudentServiceImpl.NAME)
     private StudentService studentService;
 
+    @Resource(name = StudentDao.NAME)
+    private StudentDao studentDao;
+
+    @Resource(name = SchoolDao.NAME)
+    private SchoolDao schoolDao;
+
+    @Resource(name = TeacherDao.NAME)
+    private TeacherDao teacherDao;
 
     //陈竑霖
     @Resource(name = SchoolServiceImpl.NAME)
@@ -74,12 +88,14 @@ public class IndexController {
      * @return 页面
      */
     @GetMapping("index")
-    public String index2(Map<String, Object> map) {
+    public String index2(Map<String, Object> map,HttpServletRequest request) {
 
+//        request.getSession().setAttribute("student", Student.builder().sId(19).build());
         map.put("schoolList", schoolService.getFiveMostPowerfulSchool());
         map.put("noticeList", noticeService.getIndexPageNotice());
         map.put("lawList", noticeService.getIndexPageLaw());
         map.put("linkList", linkServive.getFooterFriendLink());
+
 
         return "/pages/index/index";
     }
@@ -117,7 +133,7 @@ public class IndexController {
      * @return 页面
      */
     @GetMapping("student")
-    public String student(Map<String, Object> map, HttpServletRequest request) {
+    public String student(Map<String, Object> map, HttpServletRequest request, @ModelAttribute("zjh_msg")String msg) {
 
         Student student = (Student) request.getSession().getAttribute("student");
 
@@ -130,6 +146,11 @@ public class IndexController {
         }
 
         map.put("linkList", linkServive.getFooterFriendLink());
+
+
+        if(null!=msg){
+            map.put("zjh_msg",msg);
+        }
         return "/pages/index/student";
     }
 
@@ -362,7 +383,9 @@ public class IndexController {
         map.put("count", studentCount);
         map.put("school", school);
         map.put("score", score);
-
+        School schoolEntity = schoolService.getSchoolBySchoolId(teacher.getTSchoolId());
+        map.put("sid",schoolEntity.getSId());
+        map.put("payfee",schoolEntity.getSRegisteryFee());
         map.put("linkList", linkServive.getFooterFriendLink());
         return "/pages/index/inquire_teacher";
     }
@@ -394,6 +417,7 @@ public class IndexController {
         map.put("name", school.getSName());
 
         map.put("linkList", linkServive.getFooterFriendLink());
+
         return "/pages/index/inquire_school";
     }
 
@@ -429,4 +453,72 @@ public class IndexController {
     public String StudentRegister(StudentRegister register, Map<String, Object> map, HttpServletRequest request) {
         return studentService.studentRegister(register, map, request);
     }
+
+    /**
+     * 跳转到评价界面
+     * @param request request域
+     * @param map ModelAndView属性集合
+     * @param attr 重定向属性集合
+     * @param toId 评价对象ID
+     * @param toType 评价对象类型
+     * @return
+     */
+    @GetMapping("evaluate")
+    public String evaluate(HttpServletRequest request, Map<String,Object> map, RedirectAttributes attr, Integer toId, String toType){
+        Student student = (Student) request.getSession().getAttribute("student");
+
+        if(student==null){
+            attr.addFlashAttribute("zjh_msg","请先登录");
+            return "redirect:/student";
+        }
+
+        //获取最新的学员信息
+        student = studentDao.getById(student.getSId());
+        request.getSession().setAttribute("student",student);
+
+        if(toType.equals(EvaluateType.TYPE_SCHOOL)){
+            if(toId.equals(student.getSSchoolId())){
+                map.put("sid",toId);
+                return "/back/schoolevaluate";
+            }
+            map.put("zjh_msg","未报名该驾校，无法评价");
+            map.put("linkList", linkServive.getFooterFriendLink());
+            map.put("schoolName","");
+            return "/pages/index/inquire";
+        }else if(toType.equals(EvaluateType.TYPE_TEACHER)){
+            if(toId.equals(student.getSTeacherId())){
+                map.put("tid",toId);
+                return "/back/teacherevaluate";
+            }
+            map.put("zjh_msg","不是该教练的学员，无法评价");
+            map.put("teacherName","");
+            map.put("linkList", linkServive.getFooterFriendLink());
+            return "/pages/index/inquire";
+        }
+
+        return "redirect:/index";
+    }
+
+    @GetMapping("pay/{sid}")
+    public String pay(HttpServletRequest request,Map<String,Object> map,@PathVariable("sid") Integer sid){
+        School school = schoolDao.getById(sid);
+        map.put("sid",sid);
+        map.put("name",school.getSName());
+        map.put("sRegisteryFee",school.getSRegisteryFee());
+        return "/pages/index/paypage";
+    }
+
+
+    @GetMapping("tpay/{teacherId}")
+    public  String tpay(HttpServletRequest request,Map<String,Object> map,@PathVariable("teacherId") Integer teacherid){
+        Teacher teacher = teacherDao.getById(teacherid);
+        Integer sid = teacher.getTSchoolId();
+         School school = schoolDao.getById(sid);
+         map.put("sid",sid);
+         map.put("name",school.getSName());
+         map.put("sRegisteryFee",school.getSRegisteryFee());
+         map.put("teacherId",teacherid);
+         map.put("teacherName",teacher.getTName());
+         return "/pages/index/paypage";
+     }
 }

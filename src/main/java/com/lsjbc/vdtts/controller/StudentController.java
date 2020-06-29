@@ -94,9 +94,10 @@ public class StudentController {
 //学员修改密码
     @RequestMapping(value = "/updatestudentPwd")
     @ResponseBody
-    private ResultData updatestudentPwd(HttpServletRequest request){
+    public ResultData updatestudentPwd(HttpServletRequest request){
         return studentService.updatestudentPwd(request);
     }
+
     @RequestMapping(value = "/updatestudent")//修改学员
     public String updateadmin(HttpServletRequest request, HttpServletResponse response,
                               @RequestParam(value = "account") String account,@RequestParam(value = "pwd") String pwd ,
@@ -265,5 +266,12 @@ public class StudentController {
         }
         modelAndView.setViewName(nextJsp);
         return modelAndView;
+    }
+    //上传头像
+    @RequestMapping(value = "/phone")
+    @ResponseBody
+    public String phone(Student student,HttpServletRequest request){
+        System.out.println("11");
+        return JSON.toJSONString(studentService.studentToProduct(student,request));
     }
 }

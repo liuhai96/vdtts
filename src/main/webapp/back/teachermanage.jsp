@@ -29,7 +29,7 @@
             <input type="text" class="layui-input" name="tName" id="demoReload" autocomplete="off"placeholder="请输入教练姓名">
         </div>
         <button class="layui-btn layui-btn-normal" lay-event="search"  lay-submit lay-filter="search" data-type="reload">搜索</button>
-        <button class="layui-btn " lay-event="add" style="margin-left: 10%">添加教练</button>
+<%--        <button class="layui-btn " lay-event="add" style="margin-left: 10%">添加教练</button>--%>
     </div>
 </script>
 

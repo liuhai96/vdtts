@@ -12,6 +12,7 @@
 %>
 <html>
 <head>
+
     <meta charset="utf-8">
     <title>人脸识别</title>
     <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
@@ -29,11 +30,20 @@
 </head>
 <body style="text-align: center;">
 <input hidden="hidden" value="<%=path%>" id="path">
+<script>
+    if (${ll != -1}){
+        setTimeout(function () {
+            skipAbsolute("/student");
+        },15000);
+    } else if (${ll == -1}){
+        alert("人脸识别不成功！登录失败");
+    }
+</script>
+<a onclick="history.go(-1)" style="font-size: 20px" href="javascript:void(0);">返回</a>
     <div style="text-align: start">
-        &nbsp;&nbsp;<a onclick="history.go(-1)" style="font-size: 20px" href="javascript:void(0);">返回</a>
+        &nbsp;&nbsp;
         <div class="alone-buy layui-btn-container" style="text-align: center;">
             <button id="openCamera" type="button" class="layui-btn" style="position: relative;" >开启摄像头</button>
-            <button type="button" class="layui-btn" onclick="skipPage('')">关闭摄像头</button>
         </div>
     </div>
     <label style="font-size: 20px;color: coral">人脸识别登录</label><br>
@@ -78,6 +88,8 @@
                                 let base64 = $('#image').attr("src");
                                 $("#faceImg").attr("value",base64);
                                 $("#userInCameraForm").submit();
+                                alert("已识别，服务器正在为你疯狂处理！");
+                                history.go(0);//刷新此一页
                             }
                         },
                         error: function (code, message) {

@@ -30,7 +30,7 @@
                 <c:forEach items="${evaluate}" step="1" begin="0" end="1000" var="teacher_eva">
                     <input hidden class="ss">
                     <div class="comment">
-                        <div style="float:left;"><img style="width:50px;height:50px;border-radius: 50%;"  src="<%=path+"/image/sch.jpg"%>"/></div>
+                        <div style="float:left;"><img style="width:50px;height:50px;border-radius: 50%;"  src="<%=path+"/image/system/untitled.png"%>"/></div>
                         <div style="float:left;">
                         <span style="margin-left:10px;color:#3D9EEA;font-size:15px;font-weight:
                          bolder;">匿名评论 </span>     <span>${teacher_eva.ETime}</span>

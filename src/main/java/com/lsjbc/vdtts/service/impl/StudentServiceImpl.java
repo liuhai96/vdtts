@@ -186,6 +186,25 @@ public class StudentServiceImpl implements StudentService {
 	    return studentMapper.addStudentMessage(student);
     }
 
+	//修改信息照片上传
+	//陈竑霖
+	@Override
+	public ResultData studentToProduct(Student student, HttpServletRequest request){
+		ResultData resultData = ResultData.success();
+		String sPic = request.getParameter("sPic");
+//				parseInt(request.getParameter("sPic"));
+        System.out.println(JSON.toJSONString(student));
+        if(student.getSPic() != sPic){
+        int num =studentMapper.xiuphone(student);
+		if (num > 0) { //查询
+            return ResultData.success("修改头像成功");
+		} else {
+            return ResultData.success("修改头像失败");
+		}
+        }else{
+	        return ResultData.success("还未上传要修改的头像");
+        }
+	}
     /*
      *@Description:查询驾校内学员的
      *@Author:刘海
@@ -212,7 +231,7 @@ public class StudentServiceImpl implements StudentService {
 		ResultData resultData = null;
 		Tool tool = new Tool();
 		Student student = (Student) request.getSession().getAttribute("student");
-		String pwd = studentMapper.findstudentPwd(student.getSAccountId());
+		String  pwd = studentMapper.findstudentPwd(student.getSAccountId());
 		String  oldPwd = tool.createMd5(request.getParameter("oldPwd"));
 		String  newPwd = tool.createMd5(request.getParameter("newPwd"));
 		String  repeatPwd = tool.createMd5(request.getParameter("repeatPwd"));
@@ -222,10 +241,10 @@ public class StudentServiceImpl implements StudentService {
 				int num = studentMapper.updatestudentPwd(student.getSAccountId(),newPwd);
 				resultData = ResultData.error(1,"密码修改成功");
 			}else{
-				resultData = ResultData.error(-1,"旧密码输入错误");
+				resultData = ResultData.error(2,"旧密码输入错误");
 			}
 		}else{
-			resultData = ResultData.error(-1,"新密码与重复输入密码不同");
+			resultData = ResultData.error(3,"新密码与重复输入密码不同");
 		}
 		return resultData;
 	}
@@ -242,6 +261,7 @@ public class StudentServiceImpl implements StudentService {
 		return resultData;
 	}
 
+//   陈竑霖 教练练报名
 	@Override
 	public ResultData updateStudentTeacherId(Integer sTeacherId, Integer sId) {
 		Student student = studentMapper.findTeacher(sId);
@@ -399,11 +419,12 @@ public class StudentServiceImpl implements StudentService {
                     } else{
                         resultData.setCode(list.size()+1);//人脸张数
                     }
-
+                    resultData.put("result",1);
                 } else {
                     System.out.println("加入人脸识别失败");
                     resultData.setMsg("加入人脸识别失败");
                     resultData.setCode(list.size());
+                    resultData.put("result",-1);
                 }
             } catch (Exception e){
                 e.printStackTrace();

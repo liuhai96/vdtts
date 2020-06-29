@@ -1892,6 +1892,9 @@
             cursor: pointer;
             text-decoration: underline
         }
+        img{
+            background: url("../../static/layui/images/photo/09.png");
+        }
     </style>
 </head>
 
@@ -1907,17 +1910,17 @@
                 <form class="layui-form" action="<%=path+"/student/register"%>" autocomplete="off" id="registerfrom" method="post">
                     <h4>学员注册</h4>
                     <div id="idPhoto" style="display: none;">
-	                    <div class="layui-upload">
-		                    <button type="button" class="layui-btn" id="test1">上传身份证</button>
-		                    <div class="layui-upload-list">
-			                    <img class="layui-upload-img" id="demo1" style="width: 360px; height: 200px;" alt="身份证正面照">
-			                    <p id="demoText"></p>
-		                    </div>
-	                    </div>
+                        <div class="layui-upload">
+                            <button type="button" class="layui-btn" id="test1">上传身份证</button>
+                            <div class="layui-upload-list">
+                                <img class="layui-upload-img" id="demo1" style="width: 360px; height: 200px;" alt="身份证正面照" >
+                                <p id="demoText"></p>
+                            </div>
+                        </div>
                     </div>
-	                    <br/>
-<%--                    <br/>--%>
-<%--                    <br/>--%>
+                    <br/>
+                    <%--                    <br/>--%>
+                    <%--                    <br/>--%>
                     <div id="idHand" style="display: block;">
                         <div class="layui-form-item" style="margin-left: -25px;">
                             <label class="layui-form-label">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名</label>
@@ -2009,6 +2012,7 @@
 
 
         let msg = $("#zjh_msg").val();
+        let ssfz = $("#ssfz").val("");
         if(msg.length>0){
             layer.msg(msg);
         }
@@ -2040,17 +2044,21 @@
                         return '姓名不得为空';
                     }
                 }else{
-                    return "请上传身份证照片";
+                    if(value.length==0) {
+                        return '请上传身份证';
+                    }
                 }
-
             },
             id:function (value) {
                 if(inputByHand) {
                     if (!/^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/.test(value)) {
                         return "身份证格式不正确，请重新输入";
                     }
-                }else{
-                    return "请上传身份证照片";
+                }
+                else{
+                    if (!/^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/.test(value)) {
+                        return "请上传身份证";
+                    }
                 }
             },
             account:function(value){
@@ -2099,41 +2107,43 @@
                 return true;
             }
         }
-            layui.use(['jquery', 'layer', 'upload'], function () {
-                var $ = layui.jquery, upload = layui.upload;
-                //普通图片上传
-	            var uploadInst = upload.render({
-		            elem: '#test1'
-                    , url: '/pipeControl/sfzdiscern' //改成您自己的上传接口
+        layui.use(['jquery', 'layer', 'upload'], function () {
+            var $ = layui.jquery, upload = layui.upload;
+            //普通图片上传
+            var uploadInst = upload.render({
+                elem: '#test1'
+                , url: '/pipeControl/sfzdiscern' //改成您自己的上传接口
 
-		            , before: function (obj) {
-			            //预读本地文件示例，不支持ie8
-			            obj.preview(function (index, file, result) {
-				            $('#demo1').attr('src', result); //图片链接（base64）
-			            });
-		            }
-		            , done: function (res) {
-			            //如果上传失败
-			            if (res.code > 0) {
-				            return layer.msg('上传失败');
-			            }else {
-			                alert("识别身份证成功");
-                            console.log(res);
-			                $('#sname').val(res.name);
-                            $('#ssfz').val(res.num);
-                        }
-			            //上传成功
-		            }
-		            , error: function () {
-			            //演示失败状态，并实现重传
-			            var demoText = $('#demoText');
-			            demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
-			            demoText.find('.demo-reload').on('click', function () {
-				            uploadInst.upload();
-			            });
-		            }
-	            });
+                , before: function (obj) {
+                    //预读本地文件示例，不支持ie8
+                    obj.preview(function (index, file, result) {
+                        $('#demo1').attr('src', result); //图片链接（base64）
+                    });
+                }
+                , done: function (res) {
+                    //如果上传失败
+                    if (res.code > 0) {
+                        alert("识别身份证失败");
+                        // return layer.msg('上传失败');
+                    }else {
+                        alert("识别身份证成功");
+                        console.log(res);
+                        $('#sname').val(res.name);
+                        $('#ssfz').val(res.num);
+                    }
+                    //上传成功
+                }
+                , error: function () {
+                    alert("识别身份证失败");
+                    //演示失败状态，并实现重传
+                    // var demoText = $('#demoText');
+                    // demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+                    // demoText.find('.demo-reload').on('click', function () {
+                    //     uploadInst.upload();
+                    // });
+                }
             });
+        });
     });
 </script>
 </body>
