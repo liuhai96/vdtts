@@ -2,9 +2,10 @@ var path = window.document.location.href.substring(0, (window.document.location.
 var customType;
 var customPage;
 var customNoticeId;
-layui.use(['laytpl','laypage'], function() {
+layui.use(['laytpl','laypage','layer'], function() {
     var layer = layui.layer
         , laytpl = layui.laytpl
+        , layer = layui.layer
         , $ = layui.jquery
         , laypage = layui.laypage;
 
@@ -15,6 +16,21 @@ layui.use(['laytpl','laypage'], function() {
 
     //通过分页和类型来获取数据
     let searchList = function (type, curr, name) {
+        layer.load(2, {
+            shade: [0.6, '#fff'], content: '数据加载中...', success: function (layero) {
+                layero.find('.layui-layer-content').css({
+                    'padding-top': '6px',
+                    'width': '150px',
+                    'padding-left': '40px'
+                });
+                layero.find('.layui-layer-ico16, .layui-layer-loading .layui-layer-loading2').css({
+                    'width': '150px !important',
+                    'background-position': '2px 0 !important'
+                });
+            }
+        });
+
+
         $.get(path + '/api/notice/getList', {
             page: curr || 1
             , type: type
@@ -42,6 +58,8 @@ layui.use(['laytpl','laypage'], function() {
                     customPage = e.curr;
                 }
             });
+
+            layer.closeAll('loading');
         });
     }
 
