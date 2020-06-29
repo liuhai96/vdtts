@@ -126,7 +126,7 @@
                         </thead>
                         <tbody class="title-center" id="vehInfoOrder">
                             <c:forEach items="${schoolList}" varStatus="item" var="school">
-                                <tr>
+                                <tr style="border-top: 0px;">
                                     <td>
                                         <c:if test="${item.index == 0}">
                                             <img src="<%=path+"/image/pages/index/first.png"%>">

@@ -209,7 +209,7 @@
                             </li>
                             <li id="coaSexParent">
                                 <span class="title-area">性　　别：</span>
-                                <button class="sexBtn" value="">不限</button>
+                                <button class="sexBtn" style="background-color: cornsilk;" value="">不限</button>
                                 <button class="sexBtn" value="男">男</button>
                                 <button class="sexBtn" value="女">女</button>
                             </li>
@@ -230,7 +230,7 @@
                                 <div class="inf-student">
                                     <a href="javascript:;" onclick="document:teacherForm{{ item.id }}.submit()">
                                         <p class="word-1">{{ item.name }}</p>
-                                    </a>>
+                                    </a>
                                     <p style="float: left;">综合星级：</p>
                                     <div class="atar_Show" style="display:inline;">
                                         <p class="scoreStar" tip="{{ item.score }}"></p>

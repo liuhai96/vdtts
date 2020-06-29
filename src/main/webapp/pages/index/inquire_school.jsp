@@ -152,7 +152,7 @@
 				</div>
 				<span style="font-size: 17px;color: #65B0F1;">${score}</span>
 			</div>
-			<form action="<%=path+"/../../../../../evaluate"%>" method="get" class="layui-elem-field site-demo-button" id="layerDemo" style="margin-bottom: 0; text-align: center">
+			<form action="<%=path+"/../../../../../evaluate"%>" method="get" class="layui-elem-field site-demo-button" id="layerDemo" style="float:left;margin-top: 9px;margin-bottom: 0; text-align: center">
 				<button type="button" data-method="notice" class="layui-btn">学生报名</button>
 				<button type="submit" class="layui-btn">评价驾校</button>
 				<input type="hidden" name="toId" value="${sid}">

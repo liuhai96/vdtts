@@ -15,21 +15,9 @@ layui.use(['laytpl', 'laypage','layer'], function () {
     //通过分页和类型来获取数据
     let searchSchoolList = function (curr, name) {
 
-        layer.load(2, {
-            shade: [0.6, '#fff'], content: '数据加载中...', success: function (layero) {
-                layero.find('.layui-layer-content').css({
-                    'padding-top': '6px',
-                    'width': '150px',
-                    'padding-left': '40px'
-                });
-                layero.find('.layui-layer-ico16, .layui-layer-loading .layui-layer-loading2').css({
-                    'width': '150px !important',
-                    'background-position': '2px 0 !important'
-                });
-            }
+        layer.load(1, {
+            shade: [0.6, '#fff']
         });
-
-
 
         $.get(path + '/api/school/info', {
             page: curr || 1
@@ -82,6 +70,12 @@ layui.use(['laytpl', 'laypage','layer'], function () {
 
     //通过分页和类型来获取数据
     let searchTeacherList = function (curr, name, sex) {
+
+        layer.load(1, {
+            shade: [0.6, '#fff']
+        });
+
+
         $.get(path + '/api/teacher/info', {
             page: curr || 1
             , name: name
@@ -115,15 +109,24 @@ layui.use(['laytpl', 'laypage','layer'], function () {
                     }
                 }
             });
+
+            layer.closeAll('loading');
         });
     };
 
     searchTeacherList(1, teacherName, teacherSex);
 
     $(".sexBtn").on("click", function (event) {
-        teacherSex = $(this).val();
 
-        searchTeacherList(1, teacherName, teacherSex);
+        if(teacherSex != $(this).val()){
+            teacherSex = $(this).val();
+
+            $(".sexBtn").removeAttr("style");
+            $(this).attr("style","background-color: cornsilk");
+
+            searchTeacherList(1, teacherName, teacherSex);
+        }
+
     });
 
     $("#selectTeacherByName").on('click', function (event) {
