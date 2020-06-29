@@ -41,7 +41,7 @@
 		</div>
 		<div class="inf-login">
 			<c:if test="${sessionScope.student == null }">
-                <<a target="_blank" href="<%=path+"/back/adminlogin.jsp"%>">管理登录</a> |
+                <a target="_blank" href="<%=path+"/back/adminlogin.jsp"%>">管理登录</a> |
                 <a target="_blank" href="<%=path+"/transfer?logo=institutionLogin"%>">机构登录</a> |
                 <a href="<%=path+"/student"%>">学员登录</a> |
                 <a target="_blank" href="<%=path+"/transfer?logo=schoolIn"%>">驾校入驻</a>
@@ -158,10 +158,6 @@
 				<input type="hidden" name="toId" value="${sid}">
 				<input type="hidden" name="toType" value="school">
 			</form>
-			<div class="layui-elem-field site-demo-button" id="layerDemo" style="margin-bottom: 0; text-align: center">
-				<button type="button"data-method="notice" class="layui-btn">学生报名</button>
-				<button type="button"data-method="notice2" class="layui-btn">评论驾校</button>
-			</div>
 
 		</DIV>
 		<p></p>

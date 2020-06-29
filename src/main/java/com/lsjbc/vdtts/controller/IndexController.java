@@ -509,7 +509,7 @@ public class IndexController {
     }
 
 
-     @GetMapping("tpay/{teacherId}")
+    @GetMapping("tpay/{teacherId}")
     public  String tpay(HttpServletRequest request,Map<String,Object> map,@PathVariable("teacherId") Integer teacherid){
         Teacher teacher = teacherDao.getById(teacherid);
         Integer sid = teacher.getTSchoolId();
