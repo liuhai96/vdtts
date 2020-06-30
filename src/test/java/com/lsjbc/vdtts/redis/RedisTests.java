@@ -1,6 +1,5 @@
 package com.lsjbc.vdtts.redis;
 
-import com.lsjbc.vdtts.entity.ExamQuestion;
 import com.lsjbc.vdtts.redis.dao.ListDao;
 import com.lsjbc.vdtts.redis.dao.RedisStudentDao;
 import com.lsjbc.vdtts.redis.dao.StringDao;
@@ -10,7 +9,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.annotation.Resource;
-import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -61,6 +59,7 @@ public class RedisTests {
     private static final String DIR2 = BASE_KEY + ":dir2";
     private static final String DIR2_DIR3 = DIR2 + ":dir3";
 
+
     @Test
     public void contentTest() {
 //        System.out.println(testString(1));
@@ -76,9 +75,9 @@ public class RedisTests {
      */
     public String testString(Integer id){
 
-        //这个对象保存在Redis中的键
-        String keyString = BASE_KEY+":string:"+id;
 
+        //这个对象保存在Redis中的键
+        String keyString = BASE_KEY+"teacher"+id;
         //优先从Redis中取值
         String str = (String) redisClient.get(keyString);
 
@@ -140,6 +139,15 @@ public class RedisTests {
         return resultList;
     }
 
+
+    /* Hash适合存储多个类型不相同的元素
+     *      Key：
+            *          [Field(属性名),Value],
+            *          [Field(属性名),Value],
+            *          [Field(属性名),Value],
+            *          [Field(属性名),Value],
+            *          [Field(属性名),Value]
+            */
     public RedisStudent testMap(Integer id){
 
         String keyMap = BASE_KEY+":map:"+id;

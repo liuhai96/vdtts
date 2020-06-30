@@ -12,12 +12,12 @@ import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.pojo.vo.ResultData;
 import com.lsjbc.vdtts.service.intf.StudentService;
 import com.lsjbc.vdtts.service.intf.TeacherService;
+import com.lsjbc.vdtts.utils.Tool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -58,6 +58,9 @@ public class TeacherController {
     @RequestMapping(value = "/addTeacher")
     @Log(operateType = OperateType.ADD, resourceType = ResourceType.Teacher)
     public String addTeacher(Teacher teacher, Account teacherAccount, HttpServletRequest request) {
+        Tool tool = new Tool();
+        String tPwd = tool.createMd5(teacherAccount.getAPassword());
+        teacherAccount.setAPassword(tPwd);
         LayuiTableData LayuiTableData = teacherService.addTeacher(teacher, teacherAccount, request);
         return JSON.toJSONString(LayuiTableData);
     }
