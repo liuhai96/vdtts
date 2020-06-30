@@ -1925,14 +1925,14 @@
                         <div class="layui-form-item" style="margin-left: -25px;">
                             <label class="layui-form-label">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名</label>
                             <div class="layui-input-inline">
-                                <input id="sname" value="${username}" type="text" style="width: 285px" name="username" lay-verify="required|name" placeholder="请输入姓名" autocomplete="off" class="layui-input">
+                                <input id="sname" value="${username}" type="text" style="width: 285px" name="username" lay-verify="name" placeholder="请输入姓名" autocomplete="off" class="layui-input">
                             </div>
                         </div>
 
                         <div class="layui-form-item" style="margin-left: -25px;">
                             <label class="layui-form-label">身份证号码</label>
                             <div class="layui-input-inline">
-                                <input id="ssfz" value="${sfz}" type="text" style="width: 285px" name="sfz" lay-verify="required|id" placeholder="请输入身份证号码" autocomplete="off" class="layui-input">
+                                <input id="ssfz" value="${sfz}" type="text" style="width: 285px" name="sfz" lay-verify="id" placeholder="请输入身份证号码" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                     </div>
@@ -1940,21 +1940,21 @@
                     <div class="layui-form-item" style="margin-left: -28px;">
                         <label class="layui-form-label" style="margin-top: 0px;">账&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号</label>
                         <div class="layui-input-block">
-                            <input value="${account}" type="text" style="width: 285px" lay-verify="required|account" name="account" placeholder="请输入账号" autocomplete="off" class="layui-input">
+                            <input value="${account}" type="text" style="width: 285px" lay-verify="account" name="account" placeholder="请输入账号" autocomplete="off" class="layui-input">
                         </div>
                     </div>
 
                     <div class="layui-form-item" style="margin-left: -28px;">
                         <label class="layui-form-label" style="margin-top: 0px;">输&nbsp;入&nbsp;密&nbsp;码</label>
                         <div class="layui-input-block">
-                            <input value="${password}" type="password" id="firstPassword" style="width: 285px" lay-verify="required|firstPwd" name="password" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                            <input value="${password}" type="password" id="firstPassword" style="width: 285px" lay-verify="firstPwd" name="password" placeholder="请输入密码" autocomplete="off" class="layui-input">
                         </div>
                     </div>
 
                     <div class="layui-form-item" style="margin-left: -28px;">
                         <label class="layui-form-label" style="margin-top: 0px;">确&nbsp;认&nbsp;密&nbsp;码</label>
                         <div class="layui-input-block">
-                            <input value="${password}" type="password" style="width: 285px" lay-verify="required|secondPwd" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                            <input value="${password}" type="password" style="width: 285px" lay-verify="secondPwd" placeholder="请输入密码" autocomplete="off" class="layui-input">
                         </div>
                     </div>
 
