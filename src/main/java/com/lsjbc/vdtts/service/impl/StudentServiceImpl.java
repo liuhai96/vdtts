@@ -455,11 +455,13 @@ public class StudentServiceImpl implements StudentService {
         try{
             Student student = studentMapper.findTeacher(sId);
             request.getSession().setAttribute("student",student);
+            request.getSession().setAttribute("ll", 0);
             Account account = new Account();
             account.setAId(student.getSAccountId());
             account = accountMapper.selectAccount(account);
             request.getSession().setAttribute("account",account);
             request.getSession().setAttribute("aId",account.getAId());
+
             resultData.setMsg("登录成功");
         } catch (Exception e){
             e.printStackTrace();
