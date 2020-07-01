@@ -89,11 +89,11 @@
                             <label id="sOwnerIdNotify" style="color: crimson"></label>
                             <div class="err-tip "></div>
                             <div class="form-group radio-form" onclick="">
-                                <label skip="true">法人营业执照<i>*</i></label>
+                                <label skip="true">法人执照<i>*</i></label>
                                 <div class="user-type-conatiner layui-upload">
                                     <div class="user-type active layui-upload-list" ref="radioWrap" data-index="0"
                                          style="width: 252px;" id="test10">
-                                        <b skip="true">营业执照</b>
+                                        <b skip="true">法人营业执照</b>
                                         <img src="<%=path+"/image/system/timg.bmp"%>" class="layui-upload-img" id="demo10"  height="163px" width="250px"
                                              property="" alt="用于管理">
                                         <p id="demoText10"></p>
