@@ -115,7 +115,7 @@
 	<DIV class="del-lun">
 	</DIV>
 	<DIV style="float: left">
-		<IMG style="height: 300px; width: 700px;" src="<%=path%>/static/layui/images/photo/06.png">
+		<IMG style="height: 300px; width: 700px;" src="<%=path%>${pic}">
 	</DIV>
 	<DIV class="del-schinf">
 		<P class="del-p"><span id="schoolName">${name}</span><IMG src="<%=path%>/image/pages/index/tower.png"></P>

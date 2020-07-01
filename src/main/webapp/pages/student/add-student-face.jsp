@@ -26,24 +26,27 @@
     <script type="text/javascript" src=<%=path + "/static/jqueryFaceDetection/ccv.js"%>></script>
     <script type="text/javascript" src=<%=path + "/static/jqueryFaceDetection/jquery.facedetection.js"%>></script>
     <script type="text/javascript" src="<%=path+"/static/custom_tool.js"%>"></script>
-    <script>
-        if(${sessionScope.student.getSId() eq null}){
-            alert("请先登录！");
-        }
-        if (${xx == 1}){
-            setTimeout(function () {
-                history.go(0);
-            },15000);
-        }
-        if (${resultAddFace == 1}){
-            alert("你已经成功录入！");
-        } else if(${resultAddFace == -1}){
-            alert("人脸录入失败！");
-        }
-    </script>
 </head>
 <body style="text-align: center;">
 <input hidden="hidden" value="<%=path%>" id="path">
+<c:if test="${sessionScope.student.getSId() eq null}">
+    <script>alert("请先登录！");</script>
+</c:if>
+<c:if test="${xx == 1}">
+    <script>
+        setTimeout(function () {
+            history.go(0);
+        },15000);
+    </script>
+</c:if>
+<c:if test="${resultAddFace == 1}">
+    <script>alert("你已经成功录入！");</script>
+    <%request.getSession().setAttribute("resultAddFace",null);%>
+</c:if>
+<c:if test="${resultAddFace == -1}">
+    <script>alert("人脸录入失败！");</script>
+    <%request.getSession().setAttribute("resultAddFace",null);%>
+</c:if>
     <div style="text-align: start">
         <div class="alone-buy layui-btn-container" style="text-align: center;">
             <button id="openCamera" type="button" class="layui-btn" style="position: relative;">开启录入</button>

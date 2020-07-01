@@ -31,15 +31,6 @@ public class RedisTests {
      * Redis中的Value可以是Java中的任何数据
      *
      * 常用的Redis格式为String，list，Hash
-     *
-     *
-     * Hash适合存储多个类型不相同的元素
-     *      Key：
-     *          [Field(属性名),Value],
-     *          [Field(属性名),Value],
-     *          [Field(属性名),Value],
-     *          [Field(属性名),Value],
-     *          [Field(属性名),Value]
      */
 
     /**
