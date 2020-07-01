@@ -44,6 +44,11 @@ public class TeacherDetail {
     private Integer age;
 
     /**
+     * 教练图片
+     */
+    private String pic;
+
+    /**
      * 总学员数
      */
     private Integer studentCount;

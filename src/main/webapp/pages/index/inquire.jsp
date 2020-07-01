@@ -151,7 +151,7 @@
                                     <input type="hidden" name="teachercount" value="{{ item.teacherCount }}">
                                     <input type="hidden" name="carcount" value="{{ item.carCount }}">
                                     <a href="javascript:;" onclick="document:schoolForm{{ item.id }}.submit()">
-                                        <img src="<%=path+"/../../../../../../image/pages/index/sch6.jpg"%>">
+                                        <img src="<%=path+"{{ item.pic }}"%>">
                                     </a>
                                     <div class="inf-school">
                                         <a href="javascript:;" onclick="document:schoolForm{{ item.id }}.submit()">
@@ -225,7 +225,7 @@
                                 <input type="hidden" name="school" value="{{ item.schoolName }}">
                                 <a href="javascript:;" onclick="document:teacherForm{{ item.id }}.submit()">
                                     <img width="142px;" height="191px;"
-                                         src="<%=path+"/../../../../../../image/pages/index/53461368581418814_23418.jpg"%>">
+                                         src="<%=path%>{{ item.pic }}">
                                 </a>
                                 <div class="inf-student">
                                     <a href="javascript:;" onclick="document:teacherForm{{ item.id }}.submit()">

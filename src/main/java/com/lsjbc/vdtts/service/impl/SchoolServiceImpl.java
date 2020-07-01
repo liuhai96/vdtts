@@ -311,6 +311,7 @@ public class SchoolServiceImpl implements SchoolService
 			detail.setCarCount(carDao.getCountBySchoolId(schoolId));
 			detail.setTeacherCount(teacherDao.getCountBySchoolId(schoolId));
 			detail.setStudentCount(studentDao.getStudentCountBySchoolId(schoolId));
+			detail.setPic(item.getSImageUrl());
 			details.getResult().add(detail);
 		});
 

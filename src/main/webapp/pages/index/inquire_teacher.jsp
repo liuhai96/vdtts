@@ -102,7 +102,7 @@
 </div>
 <div class="main">
     <div class="inq-coach">
-        <img src="<%=path+"/image/pages/index/53461368581418814_23418.jpg"%>">
+        <img src="<%=path%>${pic}">
         <div class="coach-inf">
             <p><span>${name}</span></p>
             <p>

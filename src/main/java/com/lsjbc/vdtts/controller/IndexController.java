@@ -387,6 +387,7 @@ public class IndexController {
         map.put("sid",schoolEntity.getSId());
         map.put("payfee",schoolEntity.getSRegisteryFee());
         map.put("linkList", linkServive.getFooterFriendLink());
+        map.put("pic",teacher.getTPic());
         return "/pages/index/inquire_teacher";
     }
 
@@ -415,6 +416,7 @@ public class IndexController {
         map.put("studencount", studentCount);
         map.put("score", score);
         map.put("name", school.getSName());
+        map.put("pic",school.getSImageUrl());
 
         map.put("linkList", linkServive.getFooterFriendLink());
 
