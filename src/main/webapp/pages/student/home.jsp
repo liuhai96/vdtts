@@ -32,6 +32,8 @@
 </head>
 <body>
 <input type="hidden" id="userToken" value="${sessionScope.student.getSId()}">
+<input type="hidden" id="username" value="${sessionScope.student.getSName()}">
+<input type="hidden" id="faceIn" value="${faceIn}">
 <input type="hidden" id="zjh_msg" value="${zjh_msg}">
 <div class="commonhead_line" style="border-top: 1px solid rgb(0, 195, 86); display: none;"></div>
 <div class="home">

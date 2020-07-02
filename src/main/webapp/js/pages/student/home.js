@@ -7,6 +7,8 @@ layui.use(['form', 'table', 'element', 'layer'], function () {
 
     let path = window.document.location.href.substring(0, (window.document.location.href).indexOf(window.document.location.pathname));
 
+
+
     function resizeIframe(newHeight){
         let height = newHeight;
 
@@ -22,6 +24,16 @@ layui.use(['form', 'table', 'element', 'layer'], function () {
         $("#iframe",window.parent.document).removeAttr("style");
         resizeIframe(Number(document.body.scrollHeight)+405);
         alert(msg);
+    }
+
+    let username = $("#username").val();
+    if(username.length>0&&$("#faceIn").val()=="true"){
+
+        let str = "<a href='"+path+"/student' id='studentName'>欢迎您！ 学员: "+username+" </a>" +
+            "<a href='"+path+"/transfer?logo=alterpass'>修改信息 </a>" +
+            "<a href='"+path+"/logout/student'>退出</a>";
+
+        $("#studentOption",window.parent.document).html(str);
     }
 
     let testLevel = 1;

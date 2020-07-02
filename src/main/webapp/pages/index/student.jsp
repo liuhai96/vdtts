@@ -32,7 +32,7 @@
         <div class="inf-time">
             今天是<%=today%>
         </div>
-        <div class="inf-login" id="studentName">
+        <div class="inf-login" id="studentOption">
             <c:if test="${sessionScope.student == null }">
                 <a target="_blank" href="<%=path+"/back/adminlogin.jsp"%>">管理登录</a> |
                 <a target="_blank" href="<%=path+"/transfer?logo=institutionLogin"%>">机构登录</a> |

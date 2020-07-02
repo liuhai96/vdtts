@@ -37,10 +37,20 @@ $(function () {
 
 	function openUserMedia() {
 		if(navigator.mediaDevices.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.getUserMedia){
-			getUserMediaToPhoto({video:{width:480,height:320,facingMode: "user"}},success,error);
+			getUserMediaToPhoto({video:{width:500,height:350,facingMode: "user"}},success,error);
 		}else{
-			noticeMessage("error",'你的浏览器不支持访问用户媒体设备');
+			alert("error",'你的浏览器不支持访问用户媒体设备');
 		}
+	}
+
+	function closeUserMedia() {
+		navigator.mediaDevices.getUserMedia({video:{width:500,height:350,facingMode: "user"}}).then(function(stream) {
+			var track = stream.getTracks()[0];  // if only one media track
+			// ...
+			track.stop();
+		}).catch(function(err) {
+			/* handle the error */
+		});
 	}
 
 
@@ -51,19 +61,21 @@ $(function () {
 	var ctx=canvas.getContext("2d");
 
 
-
+	let clock1;
 
 	$("#openCamera").on("click",function () {
 		openUserMedia();
 
-		var clock1=setInterval(function () {
+		clock1=setInterval(function () {
 			ctx.clearRect(0, 0, canvas.width, canvas.height);
 			ctx.drawImage(video, 0, 0);
 			$("#image").attr("src",canvas.toDataURL('image/png'));
 		}, 60);
-	})
-})
+	});
 
-function closeVideo() {
-    mediaStreamTrack && mediaStreamTrack.stop();
-}
+	$("#closeCamera").on("click",function () {
+		closeUserMedia();
+
+		clearInterval(clock1);
+	});
+})

@@ -459,7 +459,7 @@ public class StudentServiceImpl implements StudentService {
      **/
     @Override
     public ResultData FaceLogin(HttpServletRequest request, String base64){
-        ResultData resultData = new ResultData();
+        ResultData resultData = null;
         int sId = searchFace.searchFace(base64.split(",")[1]);
         if(sId > 0){
             try{
@@ -471,15 +471,15 @@ public class StudentServiceImpl implements StudentService {
                 account = accountMapper.selectAccount(account);
                 request.getSession().setAttribute("account",account);
                 request.getSession().setAttribute("aId",account.getAId());
-                resultData.setMsg("登录成功");
+				resultData = ResultData.success("登录成功");
             } catch (Exception e){
                 e.printStackTrace();
                 request.getSession().setAttribute("account",null);
-                resultData.setMsg("登录失败");
+				resultData = ResultData.error("登录失败");
             }
         } else{
             request.getSession().setAttribute("account",null);
-            resultData.setMsg("登录失败");
+			resultData = ResultData.error("登录失败");
         }
 	    return resultData;
     }

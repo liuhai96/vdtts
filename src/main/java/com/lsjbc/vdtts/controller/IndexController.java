@@ -7,6 +7,7 @@ import com.lsjbc.vdtts.dao.SchoolDao;
 import com.lsjbc.vdtts.dao.TeacherDao;
 import com.lsjbc.vdtts.entity.*;
 import com.lsjbc.vdtts.pojo.dto.QuestionBank;
+import com.lsjbc.vdtts.pojo.vo.ResultData;
 import com.lsjbc.vdtts.pojo.vo.StudentRegister;
 import com.lsjbc.vdtts.service.impl.*;
 import com.lsjbc.vdtts.service.intf.*;
@@ -196,6 +197,7 @@ public class IndexController {
         }
 
         map.put("studentId", student.getSId());
+        map.put("faceIn", "false");
 
         return "/pages/student/home";
     }
@@ -515,12 +517,36 @@ public class IndexController {
     public  String tpay(HttpServletRequest request,Map<String,Object> map,@PathVariable("teacherId") Integer teacherid){
         Teacher teacher = teacherDao.getById(teacherid);
         Integer sid = teacher.getTSchoolId();
-         School school = schoolDao.getById(sid);
-         map.put("sid",sid);
-         map.put("name",school.getSName());
-         map.put("sRegisteryFee",school.getSRegisteryFee());
-         map.put("teacherId",teacherid);
-         map.put("teacherName",teacher.getTName());
-         return "/pages/index/paypage";
-     }
+        School school = schoolDao.getById(sid);
+        map.put("sid",sid);
+        map.put("name",school.getSName());
+        map.put("sRegisteryFee",school.getSRegisteryFee());
+        map.put("teacherId",teacherid);
+        map.put("teacherName",teacher.getTName());
+        return "/pages/index/paypage";
+    }
+
+    /**
+     * 人脸识别登录
+     * @param base64 图片
+     * @param request
+     * @param map
+     * @return
+     */
+    @PostMapping("login/student/face")
+    public String faceLoginStudent(String base64, HttpServletRequest request,Map<String,Object> map){
+        ResultData resultData = studentService.FaceLogin(request, base64);
+
+        map.put("zjh_msg",resultData.getMsg());
+
+        if(resultData.getCode()==0) {
+            map.put("studentId", ((Student)request.getSession().getAttribute("student")).getSId());
+            map.put("faceIn", "true");
+
+            return "/pages/student/home";
+        }
+
+        return "/pages/index/student_login";
+
+    }
 }
