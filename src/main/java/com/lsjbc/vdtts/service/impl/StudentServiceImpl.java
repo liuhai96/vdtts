@@ -194,16 +194,17 @@ public class StudentServiceImpl implements StudentService {
 		String sPic = request.getParameter("sPic");
 //				parseInt(request.getParameter("sPic"));
         System.out.println(JSON.toJSONString(student));
-        if(student.getSPic() != sPic){
+//        if(student.getSPic() != sPic){
         int num =studentMapper.xiuphone(student);
 		if (num > 0) { //查询
             return ResultData.success("修改头像成功");
 		} else {
             return ResultData.success("修改头像失败");
 		}
-        }else{
-	        return ResultData.success("还未上传要修改的头像");
-        }
+//        }
+//        else{
+//	        return ResultData.success("还未上传要修改的头像");
+//        }
 	}
     /*
      *@Description:查询驾校内学员的
@@ -267,7 +268,7 @@ public class StudentServiceImpl implements StudentService {
 		Student student = studentMapper.findTeacher(sId);
 		Teacher teacher = teacherDao.getById(sTeacherId);
 		ResultData resultData = null;
-		if(teacher.getTTeach().equals("true")||teacher.getTLock().equals("true")){
+		if(teacher.getTTeach().equals("true")){
 			if (sTeacherId != 0) {
 				if (student.getSTeacherId() != null) {
 					resultData = ResultData.error(-2, "该学员已分配教练，不能重新分配");

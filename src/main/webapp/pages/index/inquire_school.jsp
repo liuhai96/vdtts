@@ -167,68 +167,10 @@
 </DIV>
 <DIV class="table-list">
 	<UL class="blist clearfix">
-<%--		<LI class="active">驾培机构简介</LI>--%>
-<%--		<LI>驾培机构风采</LI>--%>
 		<LI class="active">联系方式</LI>
 	    <LI ><a href="#course1">学员评价</a></LI>
 	</UL>
 	<UL class="blsit-list blsit-list1">
-<%--		<LI class="del-lis1">--%>
-<%--			<P class="p-title">驾培机构简介</P>--%>
-<%--			<HR>--%>
-
-<%--			<P class="p-cont">暂无简介!</P></LI>--%>
-<%--		<LI class="del-lis2">--%>
-<%--			<P class="p-title">驾培机构风采</P>--%>
-<%--			<HR>--%>
-
-<%--			<DIV class="del-sch-view"><IMG id="trainingImgFile" style="width: 450px; height: 253px;"--%>
-<%--										   src="<%=path%>/image/pages/index/school1.jpg">--%>
-<%--				<P class="img-title">训练场地相册</P>--%>
-<%--				<P style="line-height: 40px; margin-left: 15px;"><IMG--%>
-<%--						src="<%=path%>/image/pages/index/photos.png"><SPAN--%>
-<%--						id="trainingCount" style="margin: 0px 15px;">共0张</SPAN>--%>
-<%--					<IMG style="width: 14px;" src="<%=path%>/image/pages/index/inq.png">--%>
-<%--					<SPAN style="margin: 0px 10px; color: rgb(39, 68, 114); cursor: pointer;"--%>
-<%--						  onclick="showPhotos(4);">查看相册 </SPAN>--%>
-<%--					<IMG src="<%=path%>/image/pages/index/arrows1.png"></P></DIV>--%>
-
-<%--			<DIV class="del-sch-view">--%>
-<%--				<IMG id="teachToolImgFile" style="width: 450px; height: 253px;"--%>
-<%--					 src="<%=path%>/image/pages/index/school1.jpg">--%>
-<%--				<P class="img-title">教具设施相册</P>--%>
-<%--				<P style="line-height: 40px; margin-left: 15px;"><IMG--%>
-<%--						src="<%=path%>/image/pages/index/photos.png"><SPAN--%>
-<%--						id="teachToolCount" style="margin: 0px 15px;">共0张</SPAN>--%>
-<%--					<IMG style="width: 14px;" src="<%=path%>/image/pages/index/inq.png">--%>
-<%--					<SPAN style="margin: 0px 10px; color: rgb(39, 68, 114); cursor: pointer;"--%>
-<%--						  onclick="showPhotos(5);">查看相册 </SPAN>--%>
-<%--					<IMG src="<%=path%>/image/pages/index/arrows1.png"></P></DIV>--%>
-
-
-<%--			<DIV class="del-sch-view"><IMG id="trainSceneryImgFile" style="width: 450px; height: 253px;"--%>
-<%--										   src="<%=path%>/image/pages/index/school1.jpg">--%>
-<%--				<P class="img-title">培训实景相册</P>--%>
-<%--				<P style="line-height: 40px; margin-left: 15px;"><IMG--%>
-<%--						src="<%=path%>/image/pages/index/photos.png"><SPAN--%>
-<%--						id="trainSceneryCount" style="margin: 0px 15px;">共0张</SPAN>--%>
-<%--					<IMG style="width: 14px;" src="<%=path%>/image/pages/index/inq.png">--%>
-<%--					<SPAN style="margin: 0px 10px; color: rgb(39, 68, 114); cursor: pointer;"--%>
-<%--						  onclick="showPhotos(6);">查看相册 </SPAN>--%>
-<%--					<IMG src="<%=path%>/image/pages/index/arrows1.png"></P></DIV>--%>
-
-
-<%--			<DIV class="del-sch-view">--%>
-<%--				<IMG id="schStyleImgFile" style="width: 450px; height: 253px;"--%>
-<%--					 src="<%=path%>/image/pages/index/school1.jpg">--%>
-<%--				<P class="img-title">校园风貌相册</P>--%>
-<%--				<P style="line-height: 40px; margin-left: 15px;"><IMG--%>
-<%--						src="<%=path%>/image/pages/index/photos.png">--%>
-<%--					<SPAN id="schStyleCount" style="margin: 0px 15px;">共0张</SPAN>--%>
-<%--					<IMG style="width: 14px;" src="<%=path%>/image/pages/index/inq.png">--%>
-<%--					<SPAN style="margin: 0px 10px; color: rgb(39, 68, 114); cursor: pointer;" onclick="showPhotos(7);">查看相册 </SPAN>--%>
-<%--					<IMG src="<%=path%>/image/pages/index/arrows1.png"></P></DIV>--%>
-<%--		</LI>--%>
 		<LI class="del-lis6">
 			<DIV  style="margin: 10px 0px 0px 10px; float: left;">
 				<P style="color: rgb(90, 134, 205); padding-left: 10px; font-size: 18px;"><IMG

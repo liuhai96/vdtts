@@ -224,7 +224,7 @@ public class SchoolServiceImpl implements SchoolService
 		School school = schoolDao.getById(sSchoolId);
 		if (student != null)
 		{ //查询
-			if (school.getSLock().equals("true") || school.getSRecruit().equals("true"))
+			if (school.getSRecruit().equals("true"))
 			{
 				if (student.getSSchoolId() == null)
 				{
@@ -234,14 +234,12 @@ public class SchoolServiceImpl implements SchoolService
 				{
 					resultData = ResultData.error(2, "该学员已报名驾校，不能再报名");
 				}
-
-
 			} else
 			{
 				resultData = ResultData.error(3, "该驾校已被禁用或者已被限制");
 			}
 		}else{
-			resultData = ResultData.error(4, "未该有此学员信息请先去注册");
+			resultData = ResultData.error(4, "未该有此学员信息请先去注册或者登陆");
 		}
 		return resultData;
 	}

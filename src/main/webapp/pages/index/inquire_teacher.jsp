@@ -210,11 +210,11 @@
 
 <SCRIPT src="<%=path+"/js/pages/index/inquireSchDetails.js"%>"></SCRIPT>
 <script>
-    layui.use(['laytpl','layer','flow'], function () {
-        var laytpl = layui.laytpl
-            , $ = layui.$
-            , flow = layui.flow
-	        , layer = layui.layer;
+	layui.use(['laytpl', 'layer', 'flow'], function () {
+		var laytpl = layui.laytpl
+			, $ = layui.$
+			, flow = layui.flow
+			, layer = layui.layer;
 
 
         let path = window.document.location.href.substring(0, (window.document.location.href).indexOf(window.document.location.pathname));
@@ -294,8 +294,7 @@
                     content: '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">确认报名该教练？ </div>'
 				    ,
 				    // yes: function (index, layer) {
-                    // yes: function (index, layero) {
-				    yes: function (index, layer) {
+                    yes: function (index, layero) {
                         // alert("即将跳转到学费支付界面");
                         // let payLink = path+"/tpay/"+$("#teacherId").html();
                         // $("#payLink").attr("href",payLink);

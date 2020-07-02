@@ -116,7 +116,7 @@
 	<iframe src="<%=path+"/studentController/studentTransfer?logo=addFace"%>"
 	        id="addFace" height="0" width="0"></iframe>
 </div>
-<div class="main">en
+<div class="main">
 	<input hidden="hidden" value="${sessionScope.student.SId}" id="sId"><br>
 	<div style="text-align: center;">
 		<br> <br>
@@ -323,14 +323,15 @@
 		}
 	}
 
-	layui.use(['form','layer'], function(){
+	layui.use(['form','layer','flow'], function(){
 		var form = layui.form
 		    , $ = layui.$
 	        , flow = layui.flow
 			, layer = layui.layer;
 		let verify = -1;
 		let passTypes = true;
-		let sPic = "";//修改头像
+		// let sPic = "";//修改头像
+		let sPic = $("#demo10").html();
 		Layui_uploadImage("#test10",$("#path").val()+'/upImage',$('#demo10'),function (mag) {
 			sPic = mag.fPath;},$('#demoText10'));//修改头像
 		form.on('submit(formDemo1)', function(data) {
