@@ -67,27 +67,28 @@
         </div>
     </div>
     <script type="text/javascript">
-        if (${xx ne null}){
+        if (${sessionScope.xx ne null}){
             setInterval(function () {
-                if (${xx == 1}){
-                    setTimeout(function () {
-                        <%request.getSession().setAttribute("xx",null);%>
-                        history.go(0);
-                        return;
-                    },10000);
+                if (${sessionScope.xx == 1}){
+                    <%request.getSession().setAttribute("xx",null);%>
+                    history.go(0);
+                    <%request.getSession().setAttribute("xx",null);%>
+                    return;
                 }
-                if (${resultAddFace == 1}){
+                if (${sessionScope.resultAddFace == 1}){
                     alert("你已经成功录入！");
+                    <%request.getSession().setAttribute("xx",null);%>
                     <%request.getSession().setAttribute("resultAddFace",null);%>
                     return;
-                } else if (${resultAddFace == -1}){
+                } else if (${sessionScope.resultAddFace == -1}){
                     alert("人脸录入失败！");
+                    <%request.getSession().setAttribute("xx",null);%>
                     <%request.getSession().setAttribute("resultAddFace",null);%>
                     return;
                 }
+
             },10000);
         }
-
 
         //人脸识别js
         var layer;

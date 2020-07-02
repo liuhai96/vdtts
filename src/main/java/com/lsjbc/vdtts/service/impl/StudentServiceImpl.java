@@ -452,19 +452,24 @@ public class StudentServiceImpl implements StudentService {
     public ResultData FaceLogin(HttpServletRequest request, String base64){
         ResultData resultData = new ResultData();
         int sId = searchFace.searchFace(base64.split(",")[1]);
-        try{
-            Student student = studentMapper.findTeacher(sId);
-            request.getSession().setAttribute("student",student);
-            request.getSession().setAttribute("ll", 0);
-            Account account = new Account();
-            account.setAId(student.getSAccountId());
-            account = accountMapper.selectAccount(account);
-            request.getSession().setAttribute("account",account);
-            request.getSession().setAttribute("aId",account.getAId());
-
-            resultData.setMsg("登录成功");
-        } catch (Exception e){
-            e.printStackTrace();
+        if(sId > 0){
+            try{
+                Student student = studentMapper.findTeacher(sId);
+                request.getSession().setAttribute("student",student);
+                request.getSession().setAttribute("ll", 0);
+                Account account = new Account();
+                account.setAId(student.getSAccountId());
+                account = accountMapper.selectAccount(account);
+                request.getSession().setAttribute("account",account);
+                request.getSession().setAttribute("aId",account.getAId());
+                resultData.setMsg("登录成功");
+            } catch (Exception e){
+                e.printStackTrace();
+                request.getSession().setAttribute("account",null);
+                resultData.setMsg("登录失败");
+            }
+        } else{
+            request.getSession().setAttribute("account",null);
             resultData.setMsg("登录失败");
         }
 	    return resultData;

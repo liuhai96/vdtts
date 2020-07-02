@@ -67,7 +67,7 @@
                     <%request.getSession().setAttribute("ll", null);%>
                     return;
                 }
-            },10000);
+            },5000);
         }
 
         //人脸识别js
@@ -101,7 +101,7 @@
                             console.log("complete回调函数出错");
                         }
                     });
-                }, 1000);
+                }, 500);
             });
         });
     </script>
