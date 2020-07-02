@@ -93,7 +93,7 @@
                                 $("#userInCameraForm").submit();
                                 setTimeout(function () {
                                     alert("已识别，服务器正在为你疯狂处理！");
-                                },1000);
+                                },2000);
                                 return;
                             }
                         },
@@ -101,7 +101,7 @@
                             console.log("complete回调函数出错");
                         }
                     });
-                }, 500);
+                }, 2000);
             });
         });
     </script>

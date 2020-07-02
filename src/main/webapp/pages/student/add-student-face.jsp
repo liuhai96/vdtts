@@ -72,7 +72,6 @@
                 if (${sessionScope.xx == 1}){
                     <%request.getSession().setAttribute("xx",null);%>
                     history.go(0);
-                    <%request.getSession().setAttribute("xx",null);%>
                     return;
                 }
                 if (${sessionScope.resultAddFace == 1}){
@@ -87,7 +86,7 @@
                     return;
                 }
 
-            },10000);
+            },5000);
         }
 
         //人脸识别js
@@ -113,7 +112,7 @@
                                 $("#userInCameraForm").submit();
                                 setTimeout(function () {
                                     alert("已识别到人脸！服务器正在为了存储......");
-                                },1000);
+                                },2000);
                                 return;
                             }
                         },
@@ -121,7 +120,7 @@
                             console.log("complete回调函数出错");
                         }
                     });
-                }, 1000);
+                }, 2000);
             });
         });
     </script>
