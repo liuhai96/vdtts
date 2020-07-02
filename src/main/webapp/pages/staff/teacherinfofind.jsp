@@ -201,7 +201,7 @@
                             case 'addTeacher':
                              index  =   layer.open({
                                     type: 1,
-                                    area:["400","800px"],
+                                    area:["400","600px"],
                                     skin: 'layui-layer-rim',
                                     shadeClose: true,//点击其他地方关闭
                                     content:$("#addTeacher"),

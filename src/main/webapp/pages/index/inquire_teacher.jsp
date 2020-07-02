@@ -78,7 +78,7 @@
                 <img src="<%=path+"/image/pages/index/menu_publicity1.png"%>">
                 <a href="<%=path+"/publicity/notice/1/-1"%>">公开公示</a>
             </li>
-            <li id="menu-title-three" class="layui-this menu-title-bg" style="display: block;cursor:hand;">
+            <li id="menu-title-three" class="layui-this menu-title-bg" style="display: block;cursor:pointer;">
                 <form id="jumpToInquire" action="<%=path+"/inquire"%>" method="post">
                     <img src="<%=path+"/image/pages/index/menu_inquire1.png"%>">
                     <a onclick="document:jumpToInquire.submit()">信息查询</a>
@@ -213,11 +213,11 @@
 
 <SCRIPT src="<%=path+"/js/pages/index/inquireSchDetails.js"%>"></SCRIPT>
 <script>
-    layui.use(['laytpl','layer','flow'], function () {
-        var laytpl = layui.laytpl
-            , $ = layui.$
-            , flow = layui.flow
-	        , layer = layui.layer;
+	layui.use(['laytpl', 'layer', 'flow'], function () {
+		var laytpl = layui.laytpl
+			, $ = layui.$
+			, flow = layui.flow
+			, layer = layui.layer;
 
 
         let path = window.document.location.href.substring(0, (window.document.location.href).indexOf(window.document.location.pathname));
@@ -297,8 +297,7 @@
                     content: '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">确认报名该教练？ </div>'
 				    ,
 				    // yes: function (index, layer) {
-                    // yes: function (index, layero) {
-				    yes: function (index, layer) {
+                    yes: function (index, layero) {
                         // alert("即将跳转到学费支付界面");
                         // let payLink = path+"/tpay/"+$("#teacherId").html();
                         // $("#payLink").attr("href",payLink);

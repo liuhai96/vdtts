@@ -93,7 +93,7 @@
 				<img src="<%=path+"/image/pages/index/menu_publicity1.png"%>">
 				<a href="<%=path+"/publicity/notice/1/-1"%>">公开公示</a>
 			</li>
-			<li id="menu-title-three" style="display: block;cursor:hand;">
+			<li id="menu-title-three" style="display: block;cursor:pointer;">
 				<form id="jumpToInquire" action="<%=path+"inquire"%>" method="post">
 					<img src="<%=path+"/image/pages/index/menu_inquire1.png"%>">
 					<a onclick="document:jumpToInquire.submit()">信息查询</a>
@@ -116,7 +116,7 @@
 	<iframe src="<%=path+"/studentController/studentTransfer?logo=addFace"%>"
 	        id="addFace" height="0" width="0"></iframe>
 </div>
-<div class="main">en
+<div class="main">
 	<input hidden="hidden" value="${sessionScope.student.SId}" id="sId"><br>
 	<div style="text-align: center;">
 		<br> <br>
@@ -281,7 +281,7 @@
 
 	$(document).on('click',"#codeBtn",function(){
 		if(checkPhone()){
-			$.cookie("total",5);
+			$.cookie("total",60);
 			timekeeping();
 			$.get(path + "/api/sms/update/", {
 				phone: $("#phone").val()
@@ -294,7 +294,6 @@
 					}
 				})
 			});
-			alert("模拟验证码为：000000     6个零")
 		}
 	});
 
@@ -323,14 +322,15 @@
 		}
 	}
 
-	layui.use(['form','layer'], function(){
+	layui.use(['form','layer','flow'], function(){
 		var form = layui.form
 		    , $ = layui.$
 	        , flow = layui.flow
 			, layer = layui.layer;
 		let verify = -1;
 		let passTypes = true;
-		let sPic = "";//修改头像
+		// let sPic = "";//修改头像
+		let sPic = $("#demo10").html();
 		Layui_uploadImage("#test10",$("#path").val()+'/upImage',$('#demo10'),function (mag) {
 			sPic = mag.fPath;},$('#demoText10'));//修改头像
 		form.on('submit(formDemo1)', function(data) {

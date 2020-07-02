@@ -150,7 +150,7 @@ public class SMS {
         request.putQueryParameter("TemplateParam", "{\"code\":\"" + vc + "\"}");
 
         //调用短信接口
-//        client.getCommonResponse(request);
+        client.getCommonResponse(request);
     }
 
 

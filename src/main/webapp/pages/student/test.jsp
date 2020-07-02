@@ -224,6 +224,8 @@
 
             let index = 0;
 
+            let submit = true;
+
             //遍历题目，如果还有题目没有选择答案，就不让提交
             for (; index < questionList.length; index++) {
                 if (questionList[index].userChoise.length == 0) {
