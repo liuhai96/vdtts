@@ -60,13 +60,13 @@ public class HumanFaceController {
                 request.getSession().setAttribute("result",studentService.FaceLogin(request,base64));
                 if (request.getSession().getAttribute("account") != null){//人脸识别成功
                     nextJsp = "redirect:/student/main"; //redirect:重定向到index的后台
+                    request.getSession().setAttribute("ll", 0);
                 } else {
                     nextJsp = "/pages/index/student_login"; //redirect:重定向到学生登录的后台
+                    request.getSession().setAttribute("ll", -1);
                 }
-                request.getSession().setAttribute("ll", "0");
             } catch (Exception e){
-                e.printStackTrace();
-                request.getSession().setAttribute("ll", "-1");
+                request.getSession().setAttribute("ll", -1);
                 nextJsp = "/pages/index/student_login";//redirect:重定向到学生登录的后台
             }
             loginKey = true;

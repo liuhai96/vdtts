@@ -353,6 +353,14 @@ public class StudentServiceImpl implements StudentService {
 			return "/pages/index/register";
 		}
 
+		//根据提供的信息和账号ID来生成学生对象
+		Student student = register.generateStudent();
+
+		if(!studentDao.sfzHasExist(student.getSSfz())){
+			register.putInfoAndMsgToMap(map,"该身份证已经被注册，注册失败");
+			return "/pages/index/register";
+		}
+
 		//更具提供的信息生成Account对象
 		Account token = register.generateAccount();
 
@@ -369,8 +377,8 @@ public class StudentServiceImpl implements StudentService {
 		request.getSession().removeAttribute(SMS.PHONE);
 		request.getSession().removeAttribute(SMS.VC_TYPE_REGISTER);
 
-		//根据提供的信息和账号ID来生成学生对象
-		Student student = register.generateStudent(token.getAId());
+		student.setSAccountId(token.getAId());
+
 
 		Integer row2 = studentDao.add(student);
 
@@ -456,11 +464,13 @@ public class StudentServiceImpl implements StudentService {
         try{
             Student student = studentMapper.findTeacher(sId);
             request.getSession().setAttribute("student",student);
+            request.getSession().setAttribute("ll", 0);
             Account account = new Account();
             account.setAId(student.getSAccountId());
             account = accountMapper.selectAccount(account);
             request.getSession().setAttribute("account",account);
             request.getSession().setAttribute("aId",account.getAId());
+
             resultData.setMsg("登录成功");
         } catch (Exception e){
             e.printStackTrace();

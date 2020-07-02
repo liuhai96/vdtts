@@ -30,13 +30,24 @@
 </head>
 <body style="text-align: center;">
 <input hidden="hidden" value="<%=path%>" id="path">
+<c:if test="${ll == 0}">
 <script>
-    if (${ll != null}){
-        setTimeout(function () {
-            skipAbsolute("/student");
-        },15000);
-    } else if (${ll == -1}){
+    alert("登录成功");
+    <%request.getSession().setAttribute("ll", null);%>
+    skipAbsolute("/student");
+</script>
+</c:if>
+<c:if test="${ll == -1}">
+    <script>
         alert("人脸识别不成功！登录失败");
+        <%request.getSession().setAttribute("ll", null);%>
+    </script>
+</c:if>
+<script>
+    if (${ll ne null}){
+        setInterval(function () {
+            history.go(0);
+        },10000);
     }
 </script>
 <a onclick="history.go(-1)" style="font-size: 20px" href="javascript:void(0);">返回</a>

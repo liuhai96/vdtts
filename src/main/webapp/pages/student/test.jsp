@@ -115,18 +115,8 @@
 
         let questionList = null;
 
-        layer.load(2, {
-            shade: [0.6, '#fff'], content: '数据加载中...', success: function (layero) {
-                layero.find('.layui-layer-content').css({
-                    'padding-top': '6px',
-                    'width': '150px',
-                    'padding-left': '40px'
-                });
-                layero.find('.layui-layer-ico16, .layui-layer-loading .layui-layer-loading2').css({
-                    'width': '150px !important',
-                    'background-position': '2px 0 !important'
-                });
-            }
+        layer.load(1, {
+            shade: [0.6, '#fff']
         });
 
         $.ajax({
@@ -233,6 +223,8 @@
         $(document).on("click", "#submitBtn", function (event) {
 
             let index = 0;
+
+            let submit = true;
 
             //遍历题目，如果还有题目没有选择答案，就不让提交
             for (; index < questionList.length; index++) {

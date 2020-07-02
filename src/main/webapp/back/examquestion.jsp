@@ -50,6 +50,7 @@
             </div>
         </div>
     </form>
+
     <button class="layui-btn layui-btn-sm" lay-event="getCheckData">更新题库</button>
 </script>
 
@@ -88,6 +89,7 @@
             switch (obj.event) {
                 case 'getCheckData':
                     var level = $("#level").val();
+                    layer.load();
                     $.ajax({
                         type: 'POST',
                         data: {
@@ -97,6 +99,7 @@
                         success: function (resmsg) {
                             if (resmsg.code == 1) {
                                 layer.msg(resmsg.msg);
+                                layer.closeAll('loading');
                                 $table.reload();
                             }else{
                                 layer.msg(resmsg.msg);

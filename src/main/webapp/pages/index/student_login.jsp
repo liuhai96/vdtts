@@ -30,14 +30,14 @@
             <ul class="reg-box">
                 <li>
                     <label style="letter-spacing: 3px;">学员账号：</label>
-                    <input name="aAccount" type="text" value="yw76CiYS8F"
+                    <input name="aAccount" type="text"
                            placeholder="请输入你的账号"
                            style="margin-left: 2px;" class="account accounts"
                            onblur="textBlur(this)" onfocus="textFocus(this)">
                     <span class="error error5"></span>
                 <li>
                     <label style="letter-spacing: 3px;">登录密码：</label>
-                    <input name="aPassword" type="password" value="123456"
+                    <input name="aPassword" type="password"
                            placeholder="请输入登录密码"
                            style="margin-left: 2px;" class="idcard"
                            onblur="textBlur(this)" onfocus="textFocus(this)">

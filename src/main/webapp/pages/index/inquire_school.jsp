@@ -88,7 +88,7 @@
 				<img src="<%=path+"/image/pages/index/menu_publicity1.png"%>">
 				<a href="<%=path+"/publicity/notice/1/-1"%>">公开公示</a>
 			</li>
-			<li id="menu-title-three" class="layui-this menu-title-bg" style="display: block;cursor:hand;">
+			<li id="menu-title-three" class="layui-this menu-title-bg" style="display: block;cursor:pointer;">
 				<form id="jumpToInquire" action="<%=path+"/inquire"%>" method="post">
 					<img src="<%=path+"/image/pages/index/menu_inquire1.png"%>">
 					<a onclick="document:jumpToInquire.submit()">信息查询</a>
@@ -115,7 +115,7 @@
 	<DIV class="del-lun">
 	</DIV>
 	<DIV style="float: left">
-		<IMG style="height: 300px; width: 700px;" src="<%=path%>/static/layui/images/photo/06.png">
+		<IMG style="height: 300px; width: 700px;" src="<%=path%>${pic}">
 	</DIV>
 	<DIV class="del-schinf">
 		<P class="del-p"><span id="schoolName">${name}</span><IMG src="<%=path%>/image/pages/index/tower.png"></P>
@@ -154,7 +154,7 @@
 				</div>
 				<span style="font-size: 17px;color: #65B0F1;">${score}</span>
 			</div>
-			<form action="<%=path+"/../../../../../evaluate"%>" method="get" class="layui-elem-field site-demo-button" id="layerDemo" style="margin-bottom: 0; text-align: center">
+			<form action="<%=path+"/../../../../../evaluate"%>" method="get" class="layui-elem-field site-demo-button" id="layerDemo" style="float:left;margin-top: 9px;margin-bottom: 0; text-align: center">
 				<button type="button" data-method="notice" class="layui-btn">学生报名</button>
 				<button type="submit" class="layui-btn">评价驾校</button>
 				<input type="hidden" name="toId" value="${sid}">

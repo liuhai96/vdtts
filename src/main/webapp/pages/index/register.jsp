@@ -1925,14 +1925,14 @@
                         <div class="layui-form-item" style="margin-left: -25px;">
                             <label class="layui-form-label">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名</label>
                             <div class="layui-input-inline">
-                                <input id="sname" value="${username}" type="text" style="width: 285px" name="username" lay-verify="required|name" placeholder="请输入姓名" autocomplete="off" class="layui-input">
+                                <input id="sname" value="${username}" type="text" style="width: 285px" name="username" lay-verify="name" placeholder="请输入姓名" autocomplete="off" class="layui-input">
                             </div>
                         </div>
 
                         <div class="layui-form-item" style="margin-left: -25px;">
                             <label class="layui-form-label">身份证号码</label>
                             <div class="layui-input-inline">
-                                <input id="ssfz" value="${sfz}" type="text" style="width: 285px" name="sfz" lay-verify="required|id" placeholder="请输入身份证号码" autocomplete="off" class="layui-input">
+                                <input id="ssfz" value="${sfz}" type="text" style="width: 285px" name="sfz" lay-verify="id" placeholder="请输入身份证号码" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                     </div>
@@ -1940,21 +1940,21 @@
                     <div class="layui-form-item" style="margin-left: -28px;">
                         <label class="layui-form-label" style="margin-top: 0px;">账&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号</label>
                         <div class="layui-input-block">
-                            <input value="${account}" type="text" style="width: 285px" lay-verify="required|account" name="account" placeholder="请输入账号" autocomplete="off" class="layui-input">
+                            <input id="sacount" value="${account}" type="text" style="width: 285px" lay-verify="account" name="account" placeholder="请输入账号" autocomplete="off" class="layui-input">
                         </div>
                     </div>
 
                     <div class="layui-form-item" style="margin-left: -28px;">
                         <label class="layui-form-label" style="margin-top: 0px;">输&nbsp;入&nbsp;密&nbsp;码</label>
                         <div class="layui-input-block">
-                            <input value="${password}" type="password" id="firstPassword" style="width: 285px" lay-verify="required|firstPwd" name="password" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                            <input value="${password}" type="password" id="firstPassword" style="width: 285px" lay-verify="firstPwd" name="password" placeholder="请输入密码" autocomplete="off" class="layui-input">
                         </div>
                     </div>
 
                     <div class="layui-form-item" style="margin-left: -28px;">
                         <label class="layui-form-label" style="margin-top: 0px;">确&nbsp;认&nbsp;密&nbsp;码</label>
                         <div class="layui-input-block">
-                            <input value="${password}" type="password" style="width: 285px" lay-verify="required|secondPwd" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                            <input value="${password}" type="password" id="secondPassword" style="width: 285px" lay-verify="secondPwd" placeholder="请输入密码" autocomplete="off" class="layui-input">
                         </div>
                     </div>
 
@@ -1968,7 +1968,7 @@
                         <i></i>
                     </div>
                     <div class="code-block div-wrap">
-                        <input type="text" name="code" lay-verify="required" class="register-code" maxlength="6" autocomplete="off"
+                        <input id="codeInput" type="text" name="code" lay-verify="required" class="register-code" maxlength="6" autocomplete="off"
                                placeholder="请输入验证码">
                         <input id="codeBtn" class="register-code-btn" data-send="true" type="button" value="获取验证码">
                         <p class="iconfont icon-jinggao">
@@ -2013,6 +2013,13 @@
 
         let msg = $("#zjh_msg").val();
         let ssfz = $("#ssfz").val("");
+        $("#ssfz").val("");
+        $("#sname").val("");
+        $("#sacount").val("");
+        $("#firstPassword").val("");
+        $("#secondPassword").val("");
+        $("#phone").val("");
+        $("#codeInput").val("");
         if(msg.length>0){
             layer.msg(msg);
         }
@@ -2090,10 +2097,9 @@
 
         $(document).on('click',"#codeBtn",function(){
             if(checkPhone()){
-                $.cookie("total",5);
+                $.cookie("total",60);
                 timekeeping();
                 $.get(path + "/api/sms/register/", { phone: $("#phone").val()});
-                alert("模拟验证码为：000000     6个零")
             }
         })
 

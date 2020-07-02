@@ -16,6 +16,8 @@
     <meta name="baidu-site-verification" content="JU12JdpLM3">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
     <link rel="stylesheet" href="<%=path+"/css/pages/student/reset.css"%>">
     <link rel="stylesheet" href="<%=path+"/css/pages/student/idangerous.swiper.css"%>">
     <link rel="stylesheet" href="<%=path+"/css/pages/student/jx_index.css"%>">
@@ -26,23 +28,26 @@
     <link rel="stylesheet" href="<%=path+"/css/pages/student/bootstrap.min.css"%>">
     <link rel="stylesheet" href="<%=path+"/css/pages/student/comm_style.css"%>">
     <link rel="stylesheet" href="<%=path+"/css/pages/student/footer.css"%>">
+
 </head>
 <body>
 <input type="hidden" id="userToken" value="${sessionScope.student.getSId()}">
 <input type="hidden" id="zjh_msg" value="${zjh_msg}">
 <div class="commonhead_line" style="border-top: 1px solid rgb(0, 195, 86); display: none;"></div>
 <div class="home">
+    <input hidden id="path" value="<%=path%>">
     <div class="banner banner_top">
-        <div class="swiper-container-banner" style="display: block;">
+        <div class="swiper-container-banner" onclick="gotu" style="display: block; background-image:
+                url(<%=path+"/image/pages/student/n_v2f0e76515e929459b8515e270b9abfed1_5725c6ad31bf6884.png"%>);"  id="lb">
             <div class="swiper-wrapper"
-                 style="width: 7596px; height: 360px; transform: translate3d(-3038.4px, 0px, 0px); transition-duration: 0s;">
-                <div class="swiper-slide swiper-slide-duplicate" style="width: 1519.2px; height: 360px;">
-                    <a href="https://www.58.com/?path=ershouche/pve_5864_3_20?listfrom=dspadvert%26utm_source%3dmarket%26spm%3du-2cq4wx1yn3v43nkdq9g.jiaxiaoyidiantong_banner2"
-                       target="_blank">
-                        <img data-src="//pic1.58cdn.com.cn//brandads/n_v2318f1ceacae04644b526721382a99096_eb10e259f207b2ee.jpg?h=360&amp;w=1519&amp;ss=1&amp;crop=1&amp;cpos=middle"
-                             src="http://www.jxedt.com/xiamen/" alt="">
-                    </a>
-                </div>
+                 style="width: 7596px; height: 360px; transform: translate3d(-3038.4px, 0px, 0px); transition-duration: 3s;">
+<%--                <div class="swiper-slide swiper-slide-visible" style="width: 1519.2px; height: 360px;">--%>
+<%--                    <a href="https://www.58.com/?path=ershouche/pve_5864_3_20?listfrom=dspadvert%26utm_source%3dmarket%26spm%3du-2cq4wx1yn3v43nkdq9g.jiaxiaoyidiantong_banner2"--%>
+<%--                       target="_blank">--%>
+<%--                        <img data-src="//pic1.58cdn.com.cn//brandads/n_v2318f1ceacae04644b526721382a99096_eb10e259f207b2ee.jpg?h=360&amp;w=1519&amp;ss=1&amp;crop=1&amp;cpos=middle"--%>
+<%--                             src="http://www.jxedt.com/xiamen/" alt="">--%>
+<%--                    </a>--%>
+<%--                </div>--%>
                 <div class="swiper-slide" style="width: 1519.2px; height: 360px;">
                     <a href="http://api.jxedt.com/jump/eJibgWga" target="_blank">
                         <img data-src="//pic1.58cdn.com.cn//brandads/n_v24ee9b36af8d448738d78004896acb019_e0e156c5104f12f8.png?h=360&amp;w=1519&amp;ss=1&amp;crop=1&amp;cpos=middle"
@@ -50,14 +55,14 @@
                              alt="">
                     </a>
                 </div>
-                <div class="swiper-slide swiper-slide-visible swiper-slide-active"
-                     style="width: 1519.2px; height: 360px;">
-                    <a href="javascript:void(0);">
-                        <img data-src="//pic1.58cdn.com.cn//brandads/n_v2f0e76515e929459b8515e270b9abfed1_5725c6ad31bf6884.png?h=360&amp;w=1519&amp;ss=1&amp;crop=1&amp;cpos=middle"
-                             src="<%=path+"/image/pages/student/n_v2f0e76515e929459b8515e270b9abfed1_5725c6ad31bf6884.png"%>"
-                             alt="">
-                    </a>
-                </div>
+<%--                <div class="swiper-slide swiper-slide-visible swiper-slide-active"--%>
+<%--                     style="width: 1519.2px; height: 360px;">--%>
+<%--                    <a href="javascript:void(0);">--%>
+<%--                        <img data-src="//pic1.58cdn.com.cn//brandads/n_v2f0e76515e929459b8515e270b9abfed1_5725c6ad31bf6884.png?h=360&amp;w=1519&amp;ss=1&amp;crop=1&amp;cpos=middle"--%>
+<%--                             src="<%=path+"/image/pages/student/n_v2f0e76515e929459b8515e270b9abfed1_5725c6ad31bf6884.png"%>"--%>
+<%--                             alt="">--%>
+<%--                    </a>--%>
+<%--                </div>--%>
                 <div class="swiper-slide" style="width: 1519.2px; height: 360px;">
                     <a href="https://www.58.com/?path=ershouche/pve_5864_3_20?listfrom=dspadvert%26utm_source%3dmarket%26spm%3du-2cq4wx1yn3v43nkdq9g.jiaxiaoyidiantong_banner2"
                        target="_blank">
@@ -66,19 +71,19 @@
                              alt="">
                     </a>
                 </div>
-                <div class="swiper-slide swiper-slide-duplicate" style="width: 1519.2px; height: 360px;">
-                    <a href="http://api.jxedt.com/jump/eJibgWga" target="_blank">
-                        <img data-src="//pic1.58cdn.com.cn//brandads/n_v24ee9b36af8d448738d78004896acb019_e0e156c5104f12f8.png?h=360&amp;w=1519&amp;ss=1&amp;crop=1&amp;cpos=middle"
-                             src="<%=path+"/image/pages/student/n_v24ee9b36af8d448738d78004896acb019_e0e156c5104f12f8(1).png"%>"
-                             alt="">
-                    </a>
-                </div>
+<%--                <div class="swiper-slide swiper-slide-duplicate" style="width: 1519.2px; height: 360px;">--%>
+<%--                    <a href="http://api.jxedt.com/jump/eJibgWga" target="_blank">--%>
+<%--                        <img data-src="//pic1.58cdn.com.cn//brandads/n_v24ee9b36af8d448738d78004896acb019_e0e156c5104f12f8.png?h=360&amp;w=1519&amp;ss=1&amp;crop=1&amp;cpos=middle"--%>
+<%--                             src="<%=path+"/image/pages/student/n_v24ee9b36af8d448738d78004896acb019_e0e156c5104f12f8(1).png"%>"--%>
+<%--                             alt="">--%>
+<%--                    </a>--%>
+<%--                </div>--%>
             </div>
             <div class="swiper-pagination"><span class="swiper-pagination-switch"></span><span
                     class="swiper-pagination-switch swiper-visible-switch swiper-active-switch"></span><span
-                    class="swiper-pagination-switch"></span></div>
+                    class="swiper-pagination-switch"></span>
+            </div>
         </div>
-
         <div class="banner_process">
             <ul>
                 <h3>学车流程</h3>
@@ -247,5 +252,20 @@
 
 <script src="https://www.layuicdn.com/layui/layui.js"></script>
 <script src="<%=path+"/js/pages/student/home.js"%>"></script>
+<script>
+    let i = 0;
+    setInterval(function () {
+        let back;
+        if (i == 0){
+            back = "<%=path+"/image/pages/student/n_v2f0e76515e929459b8515e270b9abfed1_5725c6ad31bf6884.png"%>";
+        } else if (i == 1){
+            back = "<%=path+"/image/pages/student/n_v24ee9b36af8d448738d78004896acb019_e0e156c5104f12f8.png"%>";
+        } else if (i == 2){
+            back = "<%=path+"/image/pages/student/n_v2318f1ceacae04644b526721382a99096_eb10e259f207b2ee.jpg"%>";
+        }
+        if (i >= 2){i = 0;} else {i++;}
+        $("#lb").css({'background-image':'url('+back+')'});
+    },3000);
+</script>
 </body>
 </html>
