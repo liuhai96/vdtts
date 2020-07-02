@@ -12,6 +12,7 @@ import com.lsjbc.vdtts.pojo.vo.LayuiTableData;
 import com.lsjbc.vdtts.pojo.vo.ResultData;
 import com.lsjbc.vdtts.service.intf.StudentService;
 import com.lsjbc.vdtts.service.intf.TeacherService;
+import com.lsjbc.vdtts.utils.CustomTimeUtils;
 import com.lsjbc.vdtts.utils.Tool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -61,6 +62,8 @@ public class TeacherController {
         Tool tool = new Tool();
         String tPwd = tool.createMd5(teacherAccount.getAPassword());
         teacherAccount.setAPassword(tPwd);
+        String tBirthday = CustomTimeUtils.getTimeFromSFZ(teacher.getTSfz());
+        teacher.setTBirthday(tBirthday);
         LayuiTableData LayuiTableData = teacherService.addTeacher(teacher, teacherAccount, request);
         return JSON.toJSONString(LayuiTableData);
     }

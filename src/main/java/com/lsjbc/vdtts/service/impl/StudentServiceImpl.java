@@ -220,7 +220,7 @@ public class StudentServiceImpl implements StudentService {
 		LayuiTableData layuiTableData = new LayuiTableData();
 		List<Student> studentList = studentMapper.findStudenList(school.getSId(),start,pageSize,sName);
 		System.out.println("studentList"+studentList);
-		int count = studentMapper.findStudentCount(1,sName);
+		int count = studentMapper.findStudentCount(school.getSId(),sName);
 		layuiTableData.setData(studentList);
 		layuiTableData.setCount(count);
 		return layuiTableData;

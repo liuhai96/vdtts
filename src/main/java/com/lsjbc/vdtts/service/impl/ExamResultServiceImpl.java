@@ -144,7 +144,7 @@ public class ExamResultServiceImpl implements ExamResultService {
                 }else if(examResult.getErState4()==1){
                     resultData = ResultData.error(-1,"该学员的科目四已通过");
                 }else{
-                    if(examResult.getErState4()==1){
+                    if(examResult.getErState3() ==1){
                             count = examResultMapper.findSubjectExamCount(teacherId,examSujectId);
                             if(count>=5){
                                 resultData = ResultData.error(-1,"该科目考试人数已满请重新选择考试科目");

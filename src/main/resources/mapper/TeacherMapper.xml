@@ -40,8 +40,8 @@
 
 <!--    添加教练-->
     <insert id="addTeacher" parameterType="com.lsjbc.vdtts.entity.Teacher">
-    insert into tb_teacher(t_account_id, t_school_id, t_sfz, t_name, t_sex, t_birthday, t_phone,t_license_time)  values
-    (#{tAccountId},#{tSchoolId},#{tSfz},#{tName},#{tSex},#{tBirthday},#{tPhone},#{tLicenseTime})
+    insert into tb_teacher(t_account_id, t_school_id, t_sfz, t_name, t_sex, t_birthday, t_phone,t_license_time,t_birthday)  values
+    (#{tAccountId},#{tSchoolId},#{tSfz},#{tName},#{tSex},#{tBirthday},#{tPhone},#{tLicenseTime},#{tBirthday})
     </insert>
 
 <!--    查询教练的账号id-->

@@ -189,7 +189,6 @@
                 case 'findCar':
                     var data = checkStatus.data;
                     var inputname = $("input[name='inputname']").val();
-                    alert(inputname);
                     table.reload('test',{
                         url:'<%=path%>/carControl/findCarList',
                         page:{
@@ -210,13 +209,11 @@
             var data = obj.data;
             var $ = layui.jquery;
             var teacherId="";
-            //console.log(obj)
             if(obj.event === 'del'){
                 var cId = data.cId;
                 layer.confirm('真的删除行么',{
                     btn:["确定","取消"],
                     btn2:function (index) {
-                        alert(data.tId);
                         layer.close(index);
                     },
                     btn1:function () {

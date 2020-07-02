@@ -123,7 +123,7 @@ public class AccountServiceImp implements AccountService {
                     case "teacher"://教练登录界面地址
                         //教练的对象
                         Teacher teacher = teacherMapper.findAccount(account);
-                        if(teacher.getTLock().equals("true")){
+                        if(teacher.getTLock().equals("false")){
                             resultData.setMsg("您的账号已被锁定，请找驾校询问具体原因");
                             nextJsp = "transfer?logo=institutionLogin";
                         }else{
