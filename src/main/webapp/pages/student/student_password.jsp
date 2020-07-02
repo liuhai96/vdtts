@@ -281,7 +281,7 @@
 
 	$(document).on('click',"#codeBtn",function(){
 		if(checkPhone()){
-			$.cookie("total",5);
+			$.cookie("total",60);
 			timekeeping();
 			$.get(path + "/api/sms/update/", {
 				phone: $("#phone").val()
@@ -294,7 +294,6 @@
 					}
 				})
 			});
-			alert("模拟验证码为：000000     6个零")
 		}
 	});
 
