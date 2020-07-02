@@ -92,17 +92,14 @@ public class StudentRegister {
     /**
      * 生成一个学生对象
      *
-     * @param accountId 账号ID
      * @return 学生对象
      * @author JX181114 --- 郑建辉
      */
-    public Student generateStudent(Integer accountId) {
+    public Student generateStudent() {
 
-        Student student = Student.builder().sName(username).sSfz(sfz).sPhone(phone).build();
+        Student student = Student.builder().sName(username).sSfz(sfz.toLowerCase()).sPhone(phone).build();
 
         student.setSRegTime(tool.getDate("yyyy/MM/dd"));
-
-        student.setSAccountId(accountId);
 
         Integer sex = Integer.parseInt(sfz.charAt(sfz.length() - 2) + "");
         if (sex % 2 == 0) {
