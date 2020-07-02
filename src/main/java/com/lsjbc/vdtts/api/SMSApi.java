@@ -36,7 +36,7 @@ public class SMSApi {
         //模拟验证码登录
         request.getSession().setAttribute("phone", phone);
         request.getSession().setAttribute("r_vc", "000000");
-//        sms.registerVC(phone, request);
+        sms.registerVC(phone, request);
     }
 
     /**
@@ -60,7 +60,7 @@ public class SMSApi {
         //模拟验证码修改
         request.getSession().setAttribute("phone", phone);
         request.getSession().setAttribute("r_vc", "000000");
-//        sms.updateVC(phone, request);
+        sms.updateVC(phone, request);
 
         return ResultData.success();
     }

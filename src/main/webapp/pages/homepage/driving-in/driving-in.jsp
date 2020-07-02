@@ -203,6 +203,7 @@
                         "&sPhone=" +sPhone.val()+"&sRegisteryFee="+$("input[name='sRegisteryFee']").val()+"&aPassword="
                         +aPassword.val(), function (mag) {
                         alert(mag.data.result);
+                        history.go(0);
                     });
                 }
 

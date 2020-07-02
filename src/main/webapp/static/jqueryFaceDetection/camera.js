@@ -45,6 +45,8 @@ $(function () {
 
 
 
+
+
 	var canvas=document.getElementById("myCanvas");
 	var ctx=canvas.getContext("2d");
 
@@ -57,7 +59,11 @@ $(function () {
 		var clock1=setInterval(function () {
 			ctx.clearRect(0, 0, canvas.width, canvas.height);
 			ctx.drawImage(video, 0, 0);
-			$("#image").attr("src",canvas.toDataURL('imnage/pg'));
+			$("#image").attr("src",canvas.toDataURL('image/png'));
 		}, 60);
 	})
 })
+
+function closeVideo() {
+    mediaStreamTrack && mediaStreamTrack.stop();
+}

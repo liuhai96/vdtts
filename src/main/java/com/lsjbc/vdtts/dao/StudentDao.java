@@ -134,4 +134,21 @@ public class StudentDao implements BaseDao<Student> {
     public Integer deleteById(Integer id) {
         return null;
     }
+
+    /**
+     * 获取这个身份证是否注册过
+     *
+     * @param sfz 身份证号
+     * @return 注册过来：true  没注册过：false
+     * @author JX181114 --- 郑建辉
+     */
+    public Boolean sfzHasExist(String sfz) {
+        Example example = new Example(Student.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("sSfz", sfz.toLowerCase());
+        if (mapper.selectCountByExample(example) > 0) {
+            return true;
+        }
+        return false;
+    }
 }

@@ -12,7 +12,6 @@
 %>
 <html>
 <head>
-
     <meta charset="utf-8">
     <title>人脸识别</title>
     <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
@@ -30,26 +29,6 @@
 </head>
 <body style="text-align: center;">
 <input hidden="hidden" value="<%=path%>" id="path">
-<c:if test="${ll == 0}">
-<script>
-    alert("登录成功");
-    <%request.getSession().setAttribute("ll", null);%>
-    skipAbsolute("/student");
-</script>
-</c:if>
-<c:if test="${ll == -1}">
-    <script>
-        alert("人脸识别不成功！登录失败");
-        <%request.getSession().setAttribute("ll", null);%>
-    </script>
-</c:if>
-<script>
-    if (${ll ne null}){
-        setInterval(function () {
-            history.go(0);
-        },10000);
-    }
-</script>
 <a onclick="history.go(-1)" style="font-size: 20px" href="javascript:void(0);">返回</a>
     <div style="text-align: start">
         &nbsp;&nbsp;
@@ -76,6 +55,21 @@
         </div>
     </div>
     <script type="text/javascript">
+        if (${sessionScope.ll ne null}){
+            setInterval(function () {
+                if (${sessionScope.ll == 0}){
+                    alert("登录成功");
+                    <%request.getSession().setAttribute("ll", null);%>
+                    skipAbsolute("/student");
+                    return;
+                } else if (${sessionScope.ll == -1}){
+                    alert("人脸识别不成功！登录失败");
+                    <%request.getSession().setAttribute("ll", null);%>
+                    return;
+                }
+            },5000);
+        }
+
         //人脸识别js
         var layer;
         var form;
@@ -85,9 +79,7 @@
             var $ = layui.$;
             layer = layui.layer;
             upload=layui.upload;
-
             $("#iframe",window.parent.document).attr("style","height:"+Number(document.body.scrollHeight)+"px;width:100%;");
-
             $("#openCamera").on("click",function () {
                 var clock2=setInterval(function () {
                     $('#image').faceDetection({
@@ -99,15 +91,17 @@
                                 let base64 = $('#image').attr("src");
                                 $("#faceImg").attr("value",base64);
                                 $("#userInCameraForm").submit();
-                                alert("已识别，服务器正在为你疯狂处理！");
-                                history.go(0);//刷新此一页
+                                setTimeout(function () {
+                                    alert("已识别，服务器正在为你疯狂处理！");
+                                },1000);
+                                return;
                             }
                         },
                         error: function (code, message) {
                             console.log("complete回调函数出错");
                         }
                     });
-                }, 5);
+                }, 500);
             });
         });
     </script>

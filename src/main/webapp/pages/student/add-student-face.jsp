@@ -26,22 +26,17 @@
     <script type="text/javascript" src=<%=path + "/static/jqueryFaceDetection/ccv.js"%>></script>
     <script type="text/javascript" src=<%=path + "/static/jqueryFaceDetection/jquery.facedetection.js"%>></script>
     <script type="text/javascript" src="<%=path+"/static/custom_tool.js"%>"></script>
+    <script>
+        if (${sessionScope.student.getSId() eq null}){
+            alert("请先登录！");
+        }
+    </script>
 </head>
 <body style="text-align: center;">
 <input hidden="hidden" value="<%=path%>" id="path">
-<c:if test="${sessionScope.student.getSId() eq null}">
-    <script>alert("请先登录！");</script>
-</c:if>
-<c:if test="${xx == 1}">
-    <script>
-        setTimeout(function () {
-            history.go(0);
-        },15000);
-    </script>
-</c:if>
+
 <c:if test="${resultAddFace == 1}">
-    <script>alert("你已经成功录入！");</script>
-    <%request.getSession().setAttribute("resultAddFace",null);%>
+
 </c:if>
 <c:if test="${resultAddFace == -1}">
     <script>alert("人脸录入失败！");</script>
@@ -72,6 +67,29 @@
         </div>
     </div>
     <script type="text/javascript">
+        if (${sessionScope.xx ne null}){
+            setInterval(function () {
+                if (${sessionScope.xx == 1}){
+                    <%request.getSession().setAttribute("xx",null);%>
+                    history.go(0);
+                    <%request.getSession().setAttribute("xx",null);%>
+                    return;
+                }
+                if (${sessionScope.resultAddFace == 1}){
+                    alert("你已经成功录入！");
+                    <%request.getSession().setAttribute("xx",null);%>
+                    <%request.getSession().setAttribute("resultAddFace",null);%>
+                    return;
+                } else if (${sessionScope.resultAddFace == -1}){
+                    alert("人脸录入失败！");
+                    <%request.getSession().setAttribute("xx",null);%>
+                    <%request.getSession().setAttribute("resultAddFace",null);%>
+                    return;
+                }
+
+            },10000);
+        }
+
         //人脸识别js
         var layer;
         var form;
@@ -81,7 +99,7 @@
             var $ = layui.$;
             layer = layui.layer;
             upload=layui.upload;
-
+            $("#iframe",window.parent.document).attr("style","height:"+Number(document.body.scrollHeight)+"px;width:100%;");
             $("#openCamera").on("click",function () {
                 var clock2=setInterval(function () {
                     $('#image').faceDetection({
@@ -93,8 +111,10 @@
                                 let base64 = $('#image').attr("src");
                                 $("#faceImg").attr("value",base64);
                                 $("#userInCameraForm").submit();
-                                alert("已识别到人脸！服务器正在为了存储......");
-                                history.go(0);
+                                setTimeout(function () {
+                                    alert("已识别到人脸！服务器正在为了存储......");
+                                },1000);
+                                return;
                             }
                         },
                         error: function (code, message) {

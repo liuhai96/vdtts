@@ -194,16 +194,17 @@ public class StudentServiceImpl implements StudentService {
 		String sPic = request.getParameter("sPic");
 //				parseInt(request.getParameter("sPic"));
         System.out.println(JSON.toJSONString(student));
-        if(student.getSPic() != sPic){
+//        if(student.getSPic() != sPic){
         int num =studentMapper.xiuphone(student);
 		if (num > 0) { //查询
             return ResultData.success("修改头像成功");
 		} else {
             return ResultData.success("修改头像失败");
 		}
-        }else{
-	        return ResultData.success("还未上传要修改的头像");
-        }
+//        }
+//        else{
+//	        return ResultData.success("还未上传要修改的头像");
+//        }
 	}
     /*
      *@Description:查询驾校内学员的
@@ -267,7 +268,7 @@ public class StudentServiceImpl implements StudentService {
 		Student student = studentMapper.findTeacher(sId);
 		Teacher teacher = teacherDao.getById(sTeacherId);
 		ResultData resultData = null;
-		if(teacher.getTTeach().equals("true")||teacher.getTLock().equals("true")){
+		if(teacher.getTTeach().equals("true")){
 			if (sTeacherId != 0) {
 				if (student.getSTeacherId() != null) {
 					resultData = ResultData.error(-2, "该学员已分配教练，不能重新分配");
@@ -352,6 +353,14 @@ public class StudentServiceImpl implements StudentService {
 			return "/pages/index/register";
 		}
 
+		//根据提供的信息和账号ID来生成学生对象
+		Student student = register.generateStudent();
+
+		if(!studentDao.sfzHasExist(student.getSSfz())){
+			register.putInfoAndMsgToMap(map,"该身份证已经被注册，注册失败");
+			return "/pages/index/register";
+		}
+
 		//更具提供的信息生成Account对象
 		Account token = register.generateAccount();
 
@@ -368,8 +377,8 @@ public class StudentServiceImpl implements StudentService {
 		request.getSession().removeAttribute(SMS.PHONE);
 		request.getSession().removeAttribute(SMS.VC_TYPE_REGISTER);
 
-		//根据提供的信息和账号ID来生成学生对象
-		Student student = register.generateStudent(token.getAId());
+		student.setSAccountId(token.getAId());
+
 
 		Integer row2 = studentDao.add(student);
 
@@ -452,19 +461,24 @@ public class StudentServiceImpl implements StudentService {
     public ResultData FaceLogin(HttpServletRequest request, String base64){
         ResultData resultData = new ResultData();
         int sId = searchFace.searchFace(base64.split(",")[1]);
-        try{
-            Student student = studentMapper.findTeacher(sId);
-            request.getSession().setAttribute("student",student);
-            request.getSession().setAttribute("ll", 0);
-            Account account = new Account();
-            account.setAId(student.getSAccountId());
-            account = accountMapper.selectAccount(account);
-            request.getSession().setAttribute("account",account);
-            request.getSession().setAttribute("aId",account.getAId());
-
-            resultData.setMsg("登录成功");
-        } catch (Exception e){
-            e.printStackTrace();
+        if(sId > 0){
+            try{
+                Student student = studentMapper.findTeacher(sId);
+                request.getSession().setAttribute("student",student);
+                request.getSession().setAttribute("ll", 0);
+                Account account = new Account();
+                account.setAId(student.getSAccountId());
+                account = accountMapper.selectAccount(account);
+                request.getSession().setAttribute("account",account);
+                request.getSession().setAttribute("aId",account.getAId());
+                resultData.setMsg("登录成功");
+            } catch (Exception e){
+                e.printStackTrace();
+                request.getSession().setAttribute("account",null);
+                resultData.setMsg("登录失败");
+            }
+        } else{
+            request.getSession().setAttribute("account",null);
             resultData.setMsg("登录失败");
         }
 	    return resultData;

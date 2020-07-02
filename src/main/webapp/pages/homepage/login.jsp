@@ -98,7 +98,7 @@
                 //账号验证
                 if (aAccount.length < 1) {idNotify.html("*请输入账号！");isStop = true;}
                 else if (aAccount.length < 6) {idNotify.html("*账号长度应大于5位！");isStop = true;}
-                else if (!done(aAccount,0,aAccount.length)){idNotify.html("*账号中含有法字符！");isStop = true;}
+                // else if (!done(aAccount,0,aAccount.length)){idNotify.html("*账号中含有法字符！");isStop = true;}
                 else idNotify.html("");
                 //密码验证
                 if (aPassword.length < 1) {passNotify.html("*请输入密码！");isStop = true;}

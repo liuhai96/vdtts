@@ -43,7 +43,6 @@ public class HumanFaceController {
     private boolean loginKey = true;
     @Autowired
     private SearchFace searchFace;
-    @RequestMapping(value = "/lookFace")
     /*
      *@Description://人脸识别登录
      *@Author:李浪_191019
@@ -51,23 +50,27 @@ public class HumanFaceController {
      *@return:java.lang.String
      *@Date:2020/6/22 21:57
      **/
+    @RequestMapping(value = "/lookFace")
     public String lookAtTheFace(String base64, HttpServletRequest request){
         String nextJsp;
         if(loginKey){
             loginKey = false;
             request.getSession().setAttribute("ll", "1");
             try {
-                request.getSession().setAttribute("result",studentService.FaceLogin(request,base64));
+                try{
+                    request.getSession().setAttribute("result",studentService.FaceLogin(request,base64));
+                } catch (Exception e) {}
                 if (request.getSession().getAttribute("account") != null){//人脸识别成功
                     nextJsp = "redirect:/student/main"; //redirect:重定向到index的后台
                     request.getSession().setAttribute("ll", 0);
                 } else {
-                    nextJsp = "/pages/index/student_login"; //redirect:重定向到学生登录的后台
+                    nextJsp = "redirect:/student/main"; //redirect:重定向到学生登录的后台
                     request.getSession().setAttribute("ll", -1);
                 }
             } catch (Exception e){
+                e.printStackTrace();
                 request.getSession().setAttribute("ll", -1);
-                nextJsp = "/pages/index/student_login";//redirect:重定向到学生登录的后台
+                nextJsp = "redirect:/student/main";//redirect:重定向到学生登录的后台
             }
             loginKey = true;
         } else {
