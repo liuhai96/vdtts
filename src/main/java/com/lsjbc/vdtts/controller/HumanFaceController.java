@@ -43,7 +43,6 @@ public class HumanFaceController {
     private boolean loginKey = true;
     @Autowired
     private SearchFace searchFace;
-    @RequestMapping(value = "/lookFace")
     /*
      *@Description://人脸识别登录
      *@Author:李浪_191019
@@ -51,6 +50,7 @@ public class HumanFaceController {
      *@return:java.lang.String
      *@Date:2020/6/22 21:57
      **/
+    @RequestMapping(value = "/lookFace")
     public String lookAtTheFace(String base64, HttpServletRequest request){
         String nextJsp;
         if(loginKey){
