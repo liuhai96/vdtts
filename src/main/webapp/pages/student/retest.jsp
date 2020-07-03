@@ -79,12 +79,14 @@
         let $ = layui.$;
         let layer = layui.layer;
 
-        $("#iframe",window.parent.document).removeAttr("style");
-        $("#iframe",window.parent.document).attr("style","height:"+(Number(document.body.scrollHeight))+"px;");
 
         let path = window.document.location.href.substring(0, (window.document.location.href).indexOf(window.document.location.pathname));
 
         let questionList = null;
+
+        layer.load(1, {
+            shade: [0.6, '#fff']
+        });
 
         $.ajax({
             type: "get",
@@ -124,8 +126,14 @@
 
                 $(table).html(str);
 
+                layer.closeAll('loading');
+
                 //显示第一题
                 showQuestion(0);
+
+
+                $("#iframe",window.parent.document).removeAttr("style");
+                $("#iframe",window.parent.document).attr("style","height:"+(Number(document.body.scrollHeight))+"px;");
             }
         });
 

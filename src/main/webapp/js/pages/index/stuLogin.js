@@ -78,7 +78,7 @@ $(function(){
         });
     })();
 
-    $("form").submit(function (e) {
+    $("#accountLogin").submit(function (e) {
         e.preventDefault();
         var key = $("span.phoKey").text().toLowerCase();
         var code = $("input[name=vcode]").val().toLowerCase();

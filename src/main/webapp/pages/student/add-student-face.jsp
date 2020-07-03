@@ -26,25 +26,25 @@
     <script type="text/javascript" src=<%=path + "/static/jqueryFaceDetection/ccv.js"%>></script>
     <script type="text/javascript" src=<%=path + "/static/jqueryFaceDetection/jquery.facedetection.js"%>></script>
     <script type="text/javascript" src="<%=path+"/static/custom_tool.js"%>"></script>
+    <script>
+        if (${sessionScope.student.getSId() eq null}){
+            alert("请先登录！");
+        }
+    </script>
 </head>
 <body style="text-align: center;">
 <input hidden="hidden" value="<%=path%>" id="path">
-    <c:if test="${result2 ne null}">
-        <script>
-            if (${result2.code > 0}){
-                if (${result2.code < 20}){
-                    alert("          ${result2.msg}\n你已成功添加人脸库图片 ${result2.code} 张\n");
-                } else {
-                    alert("          ${result2.msg} \n  你当前人脸库人已经有 20 张 \n        无需再上传了！");
-                }
-            }
-        </script>
 
-    </c:if>
+<c:if test="${resultAddFace == 1}">
+
+</c:if>
+<c:if test="${resultAddFace == -1}">
+    <script>alert("人脸录入失败！");</script>
+    <%request.getSession().setAttribute("resultAddFace",null);%>
+</c:if>
     <div style="text-align: start">
         <div class="alone-buy layui-btn-container" style="text-align: center;">
             <button id="openCamera" type="button" class="layui-btn" style="position: relative;">开启录入</button>
-            <button type="button" class="layui-btn" onclick="skipPage('')">关闭摄像头</button>
         </div>
     </div>
     <label style="font-size: 20px;color: coral">人脸录入</label><br>
@@ -66,6 +66,28 @@
         </div>
     </div>
     <script type="text/javascript">
+        if (${sessionScope.xx ne null}){
+            let inte2 = setInterval(function () {
+                if (${sessionScope.xx == 1}){
+                    <%request.getSession().setAttribute("xx",null);%>
+                    history.go(0);
+                    clearInterval(inte2);
+                }
+                if (${sessionScope.resultAddFace == 1}){
+                    alert("你已经成功录入！");
+                    <%request.getSession().setAttribute("xx",null);%>
+                    <%request.getSession().setAttribute("resultAddFace",null);%>
+                    clearInterval(inte2);
+                } else if (${sessionScope.resultAddFace == -1}){
+                    alert("人脸录入失败！");
+                    <%request.getSession().setAttribute("xx",null);%>
+                    <%request.getSession().setAttribute("resultAddFace",null);%>
+                    clearInterval(inte2);
+                }
+
+            },2000);
+        }
+
         //人脸识别js
         var layer;
         var form;
@@ -75,7 +97,7 @@
             var $ = layui.$;
             layer = layui.layer;
             upload=layui.upload;
-
+            $("#iframe",window.parent.document).attr("style","height:"+Number(document.body.scrollHeight)+"px;width:100%;");
             $("#openCamera").on("click",function () {
                 var clock2=setInterval(function () {
                     $('#image').faceDetection({
@@ -84,16 +106,21 @@
                                 console.log("无人脸");
                             } else {
                                 console.log("识别到人脸");
+
+                                clearInterval(clock2);
                                 let base64 = $('#image').attr("src");
                                 $("#faceImg").attr("value",base64);
                                 $("#userInCameraForm").submit();
+                                setTimeout(function () {
+                                    alert("已识别到人脸！服务器正在为了存储......");
+                                },1000);
                             }
                         },
                         error: function (code, message) {
                             console.log("complete回调函数出错");
                         }
                     });
-                }, 5);
+                }, 100);
             });
         });
     </script>

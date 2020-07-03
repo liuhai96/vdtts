@@ -142,7 +142,7 @@
                             },
                             success: function (msg) {
                                 if (msg.code == 1) {
-                                    layer.msg("禁止报名成功");
+                                    layer.msg("操作成功");
                                     $table.reload();
                                 } else {
                                     layer.msg("未找到教练相关信息");
@@ -169,7 +169,7 @@
                                     },
                                     success: function (msg) {
                                         if(msg.code==1){
-                                            layer.msg("您已成功锁定该教练账号,该教练下的学员需要您重新分配教练");
+                                            layer.msg("操作成功");
                                             $table.reload();
                                         }else{
                                             layer.msg("未找到该教练信息");

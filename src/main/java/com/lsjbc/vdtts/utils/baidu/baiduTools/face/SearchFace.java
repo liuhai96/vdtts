@@ -47,7 +47,11 @@ public class SearchFace {
         try {
             ArrayList<Map<String, Object>> userList = (ArrayList<Map<String, Object>>) resultMap.get("user_list");
             if (userList.size()==1){
-                aId = Integer.parseInt(String.valueOf(userList.get(0).get("user_id")));
+                if(Integer.parseInt(String.valueOf(userList.get(0).get("score")).substring(0, 2)) > 80){//匹配得分大于70才可登录成功
+                    aId = Integer.parseInt(String.valueOf(userList.get(0).get("user_id")));
+                } else {
+                    aId = -1;
+                }
             }
         } catch (NullPointerException e){
             aId=-1;

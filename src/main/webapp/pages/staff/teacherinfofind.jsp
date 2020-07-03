@@ -96,7 +96,7 @@
     <div class="layui-inline">
         <label class="layui-form-label">获取驾照日期</label>
         <div class="layui-input-inline">
-            <input type="text" name="tLicenseTime" id="date" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input">
+            <input type="text" name="tLicenseTime" id="date" lay-verify="date" placeholder="yyyy-MM-dd"  class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
@@ -163,9 +163,10 @@
 </form>
 </body>
 <script>
-    layui.use('table',function(){
+    layui.use(['form','laydate','layer','table'],function(){
 
         var table = layui.table;
+
         var $table =  table.render({
             elem: '#test'
             ,url:'<%=path%>/teacherController/findTeacherList'
@@ -197,11 +198,14 @@
         table.on('toolbar(test)', function(obj){
                         var checkStatus = table.checkStatus(obj.config.id);
                         var $ = layui.jquery;
+                        var laydate = layui.laydate;
+                        var form = layui.form;
+                        var layer = layui.layer;
                         switch(obj.event){
                             case 'addTeacher':
-                             index  =   layer.open({
+                             index  = layer.open({
                                     type: 1,
-                                    area:["400","800px"],
+                                    area:["400","600px"],
                                     skin: 'layui-layer-rim',
                                     shadeClose: true,//点击其他地方关闭
                                     content:$("#addTeacher"),
@@ -209,12 +213,10 @@
                                         layer.close(index);
                                     }
                 });
-                 layui.use(['form','laydate','layer'],function(){
-                     var laydate = layui.laydate;
-                     var form = layui.form;
-                     var layer = layui.layer;
+
                      laydate.render({
                          elem: '#date'
+
                      });
                      form.on('submit(demo1)', function(data){
                          $.ajax({
@@ -239,7 +241,6 @@
 
                          return false;
                      });
-                 });
                  break;
                  case 'findTeacher':
                      var data = checkStatus.data;
@@ -306,7 +307,6 @@
                         layer.close(index);
                     }
                 });
-                layui.use(['form','layer'], function(){
                     var form = layui.form;
                     var layer = layui.layer;
                     form.on('submit(demo2)', function(data){
@@ -329,7 +329,7 @@
                         });
                         return false;
                     });
-                });
+
             }else if (obj.event === 'update'){
                 $("#teacherId1").val(data.tId);
                 var index1 = layer.open({
@@ -342,9 +342,6 @@
                         layer.close(index);
                     }
                 });
-                layui.use(['form','layer'], function(){
-                    var form = layui.form;
-                    var layer = layui.layer;
                     form.on('submit(demo2)', function(data){
                         $.ajax({
                             type: 'POST',
@@ -363,7 +360,6 @@
                         });
                         return false;
                     });
-                });
             }
         });
     });

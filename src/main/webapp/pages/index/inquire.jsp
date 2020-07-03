@@ -80,7 +80,7 @@
                 <img src="<%=path+"/../../../../../../image/pages/index/menu_publicity1.png"%>">
                 <a href="<%=path+"/../../../../../../publicity/notice/1/-1"%>">公开公示</a>
             </li>
-            <li id="menu-title-three" class="layui-this menu-title-bg" style="display: block;cursor:hand;">
+            <li id="menu-title-three" class="layui-this menu-title-bg" style="display: block;cursor:pointer;">
                 <form id="jumpToInquire" action="<%=path+"/../../../../../../inquire"%>" method="post">
                     <img src="<%=path+"/../../../../../../image/pages/index/menu_inquire1.png"%>">
                     <a onclick="document:jumpToInquire.submit()">信息查询</a>
@@ -151,7 +151,7 @@
                                     <input type="hidden" name="teachercount" value="{{ item.teacherCount }}">
                                     <input type="hidden" name="carcount" value="{{ item.carCount }}">
                                     <a href="javascript:;" onclick="document:schoolForm{{ item.id }}.submit()">
-                                        <img src="<%=path+"/../../../../../../image/pages/index/sch6.jpg"%>">
+                                        <img src="<%=path+"{{ item.pic }}"%>">
                                     </a>
                                     <div class="inf-school">
                                         <a href="javascript:;" onclick="document:schoolForm{{ item.id }}.submit()">
@@ -209,7 +209,7 @@
                             </li>
                             <li id="coaSexParent">
                                 <span class="title-area">性　　别：</span>
-                                <button class="sexBtn" value="">不限</button>
+                                <button class="sexBtn" style="background-color: cornsilk;" value="">不限</button>
                                 <button class="sexBtn" value="男">男</button>
                                 <button class="sexBtn" value="女">女</button>
                             </li>
@@ -225,12 +225,12 @@
                                 <input type="hidden" name="school" value="{{ item.schoolName }}">
                                 <a href="javascript:;" onclick="document:teacherForm{{ item.id }}.submit()">
                                     <img width="142px;" height="191px;"
-                                         src="<%=path+"/../../../../../../image/pages/index/53461368581418814_23418.jpg"%>">
+                                         src="<%=path%>{{ item.pic }}">
                                 </a>
                                 <div class="inf-student">
                                     <a href="javascript:;" onclick="document:teacherForm{{ item.id }}.submit()">
                                         <p class="word-1">{{ item.name }}</p>
-                                    </a>>
+                                    </a>
                                     <p style="float: left;">综合星级：</p>
                                     <div class="atar_Show" style="display:inline;">
                                         <p class="scoreStar" tip="{{ item.score }}"></p>

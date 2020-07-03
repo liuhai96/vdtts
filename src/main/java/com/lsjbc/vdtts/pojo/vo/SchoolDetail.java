@@ -52,6 +52,11 @@ public class SchoolDetail {
      */
     private Integer studentCount;
 
+    /**
+     * 驾校图片
+     */
+    private String pic;
+
     private String urlInfo;
 
     /**

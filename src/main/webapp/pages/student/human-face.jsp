@@ -29,11 +29,11 @@
 </head>
 <body style="text-align: center;">
 <input hidden="hidden" value="<%=path%>" id="path">
+<a onclick="history.go(-1)" style="font-size: 20px" href="javascript:void(0);">返回</a>
     <div style="text-align: start">
-        &nbsp;&nbsp;<a onclick="history.go(-1)" style="font-size: 20px" href="javascript:void(0);">返回</a>
+        &nbsp;&nbsp;
         <div class="alone-buy layui-btn-container" style="text-align: center;">
             <button id="openCamera" type="button" class="layui-btn" style="position: relative;" >开启摄像头</button>
-            <button type="button" class="layui-btn" onclick="skipPage('')">关闭摄像头</button>
         </div>
     </div>
     <label style="font-size: 20px;color: coral">人脸识别登录</label><br>
@@ -55,6 +55,21 @@
         </div>
     </div>
     <script type="text/javascript">
+        if (${sessionScope.ll ne null}){
+            setInterval(function () {
+                if (${sessionScope.ll == 0}){
+                    alert("登录成功");
+                    <%request.getSession().setAttribute("ll", null);%>
+                    skipAbsolute("/student");
+                    return;
+                } else if (${sessionScope.ll == -1}){
+                    alert("人脸识别不成功！登录失败");
+                    <%request.getSession().setAttribute("ll", null);%>
+                    return;
+                }
+            },5000);
+        }
+
         //人脸识别js
         var layer;
         var form;
@@ -64,9 +79,7 @@
             var $ = layui.$;
             layer = layui.layer;
             upload=layui.upload;
-
             $("#iframe",window.parent.document).attr("style","height:"+Number(document.body.scrollHeight)+"px;width:100%;");
-
             $("#openCamera").on("click",function () {
                 var clock2=setInterval(function () {
                     $('#image').faceDetection({
@@ -78,13 +91,17 @@
                                 let base64 = $('#image').attr("src");
                                 $("#faceImg").attr("value",base64);
                                 $("#userInCameraForm").submit();
+                                setTimeout(function () {
+                                    alert("已识别，服务器正在为你疯狂处理！");
+                                },2000);
+                                return;
                             }
                         },
                         error: function (code, message) {
                             console.log("complete回调函数出错");
                         }
                     });
-                }, 5);
+                }, 2000);
             });
         });
     </script>

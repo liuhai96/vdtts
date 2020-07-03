@@ -78,7 +78,7 @@
                 <img src="<%=path+"/image/pages/index/menu_publicity1.png"%>">
                 <a href="<%=path+"/publicity/notice/1/-1"%>">公开公示</a>
             </li>
-            <li id="menu-title-three" class="layui-this menu-title-bg" style="display: block;cursor:hand;">
+            <li id="menu-title-three" class="layui-this menu-title-bg" style="display: block;cursor:pointer;">
                 <form id="jumpToInquire" action="<%=path+"/inquire"%>" method="post">
                     <img src="<%=path+"/image/pages/index/menu_inquire1.png"%>">
                     <a onclick="document:jumpToInquire.submit()">信息查询</a>
@@ -102,7 +102,7 @@
 </div>
 <div class="main">
     <div class="inq-coach">
-        <img src="<%=path+"/image/pages/index/53461368581418814_23418.jpg"%>">
+        <img src="<%=path%>${pic}">
         <div class="coach-inf">
             <p><span>${name}</span></p>
             <p>
@@ -133,12 +133,15 @@
                 </div>
                 <span style="font-size: 17px;color: #65B0F1;">${score}</span>
             </div>
-            <form action="<%=path+"/../../../../../evaluate"%>" method="get" class="layui-elem-field site-demo-button" id="layerDemo" style="margin-bottom: 0; text-align: center">
-                <button type="button" data-method="notice" class="layui-btn">学生报名</button>
-                <button type="submit" class="layui-btn">评价教练</button>
-                <input type="hidden" name="toId" value="${tid}">
-                <input type="hidden" name="toType" value="teacher">
-            </form>
+            <p>
+                <form action="<%=path+"/../../../../../evaluate"%>" method="get" class="layui-elem-field site-demo-button" id="layerDemo" style="float:left;margin-left: -70px;margin-top: 25px;margin-bottom: 0; text-align: center">
+                    <button type="button" data-method="notice" class="layui-btn">学生报名</button>
+                    <button type="submit" class="layui-btn">评价教练</button>
+                    <input type="hidden" name="toId" value="${tid}">
+                    <input type="hidden" name="toType" value="teacher">
+                </form>
+            </p>
+
 <%--	        <div class="layui-elem-field site-demo-button" id="layerDemo" style="margin-bottom: 0; text-align: center">--%>
 <%--		        <button data-method="notice" data-type="auto" class="layui-btn">学生报名</button>--%>
 <%--                <button data-method="notice" data-type="auto" class="layui-btn">评论教练</button>--%>
@@ -210,11 +213,11 @@
 
 <SCRIPT src="<%=path+"/js/pages/index/inquireSchDetails.js"%>"></SCRIPT>
 <script>
-    layui.use(['laytpl','layer','flow'], function () {
-        var laytpl = layui.laytpl
-            , $ = layui.$
-            , flow = layui.flow
-	        , layer = layui.layer;
+	layui.use(['laytpl', 'layer', 'flow'], function () {
+		var laytpl = layui.laytpl
+			, $ = layui.$
+			, flow = layui.flow
+			, layer = layui.layer;
 
 
         let path = window.document.location.href.substring(0, (window.document.location.href).indexOf(window.document.location.pathname));
@@ -294,8 +297,7 @@
                     content: '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">确认报名该教练？ </div>'
 				    ,
 				    // yes: function (index, layer) {
-                    // yes: function (index, layero) {
-				    yes: function (index, layer) {
+                    yes: function (index, layero) {
                         // alert("即将跳转到学费支付界面");
                         // let payLink = path+"/tpay/"+$("#teacherId").html();
                         // $("#payLink").attr("href",payLink);

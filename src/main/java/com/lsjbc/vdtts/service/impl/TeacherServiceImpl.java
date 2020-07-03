@@ -305,6 +305,7 @@ public class TeacherServiceImpl implements TeacherService {
             detail.setScore(evaluateDao.getAvgByTypeAndId(EvaluateType.TYPE_TEACHER, item.getTId()));
             detail.setSchoolName(schoolDao.getById(item.getTSchoolId()).getSName());
             detail.setStudentCount(studentDao.getStudentCountByTeacherId(item.getTId()));
+            detail.setPic(item.getTPic());
 
             details.getResult().add(detail);
         });

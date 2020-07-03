@@ -25,6 +25,7 @@
 
     <link rel="stylesheet" href="<%=path+"/css/pages/index/style.css"%>">
 </head>
+<body>
 <div class="login-inf">
     <div class="inf-box">
         <div class="inf-time">
@@ -77,7 +78,7 @@
                 <img src="<%=path+"/image/pages/index/menu_publicity1.png"%>">
                 <a href="<%=path+"/publicity/notice/1/-1"%>">公开公示</a>
             </li>
-            <li id="menu-title-three" style="display: block;cursor:hand;">
+            <li id="menu-title-three" style="display: block;cursor:pointer;">
                 <form id="jumpToInquire" action="<%=path+"/inquire"%>" method="post">
                     <img src="<%=path+"/image/pages/index/menu_inquire1.png"%>">
                     <a onclick="document:jumpToInquire.submit()">信息查询</a>
@@ -100,14 +101,13 @@
     <a href="javascript:void(0)" title="刷新" class="tencent" onclick="history.go(0);"></a>
 </div>
 <div class="main">
-    <iframe src="<%=path+"/pages/homepage/login.jsp"%>" style="width: 100%;height: 100%"></iframe>
+    <iframe src="<%=path+"/transfer?logo=institutionLogin2"%>" style="width: 100%;height: 100%"></iframe>
 </div>
 
 <div class="footer">
     <div class="footer-box">
         <p class="footer-p" style="text-align: center;">友情链接</p>
         <div class="footer-friend">
-
             <c:forEach items="${linkList}" varStatus="item" var="link">
                 <c:if test="${item.index % 5 == 0}">
                     <br><br>
@@ -116,7 +116,7 @@
                     <img class="footer-img" src='<%=path%>${link.lkPic}'>
                 </a>
             </c:forEach>
-
+            <%request.getSession().setAttribute("linkList",null);%>
         </div>
     </div>
 

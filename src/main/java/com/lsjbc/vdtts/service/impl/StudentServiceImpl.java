@@ -186,17 +186,25 @@ public class StudentServiceImpl implements StudentService {
 	    return studentMapper.addStudentMessage(student);
     }
 
-	@Override//修改信息照片上传
+	//修改信息照片上传
+	//陈竑霖
+	@Override
 	public ResultData studentToProduct(Student student, HttpServletRequest request){
 		ResultData resultData = ResultData.success();
-		//		Integer sStudentId = Integer.parseInt(request.getParameter("sId"));
+		String sPic = request.getParameter("sPic");
+//				parseInt(request.getParameter("sPic"));
         System.out.println(JSON.toJSONString(student));
+//        if(student.getSPic() != sPic){
         int num =studentMapper.xiuphone(student);
 		if (num > 0) { //查询
             return ResultData.success("修改头像成功");
 		} else {
             return ResultData.success("修改头像失败");
 		}
+//        }
+//        else{
+//	        return ResultData.success("还未上传要修改的头像");
+//        }
 	}
     /*
      *@Description:查询驾校内学员的
@@ -213,7 +221,7 @@ public class StudentServiceImpl implements StudentService {
 		LayuiTableData layuiTableData = new LayuiTableData();
 		List<Student> studentList = studentMapper.findStudenList(school.getSId(),start,pageSize,sName);
 		System.out.println("studentList"+studentList);
-		int count = studentMapper.findStudentCount(1,sName);
+		int count = studentMapper.findStudentCount(school.getSId(),sName);
 		layuiTableData.setData(studentList);
 		layuiTableData.setCount(count);
 		return layuiTableData;
@@ -254,12 +262,13 @@ public class StudentServiceImpl implements StudentService {
 		return resultData;
 	}
 
+//   陈竑霖 教练练报名
 	@Override
 	public ResultData updateStudentTeacherId(Integer sTeacherId, Integer sId) {
 		Student student = studentMapper.findTeacher(sId);
 		Teacher teacher = teacherDao.getById(sTeacherId);
 		ResultData resultData = null;
-		if(teacher.getTTeach().equals("true")||teacher.getTLock().equals("true")){
+		if(teacher.getTTeach().equals("true")){
 			if (sTeacherId != 0) {
 				if (student.getSTeacherId() != null) {
 					resultData = ResultData.error(-2, "该学员已分配教练，不能重新分配");
@@ -344,6 +353,14 @@ public class StudentServiceImpl implements StudentService {
 			return "/pages/index/register";
 		}
 
+		//根据提供的信息和账号ID来生成学生对象
+		Student student = register.generateStudent();
+
+		if(!studentDao.sfzHasExist(student.getSSfz())){
+			register.putInfoAndMsgToMap(map,"该身份证已经被注册，注册失败");
+			return "/pages/index/register";
+		}
+
 		//更具提供的信息生成Account对象
 		Account token = register.generateAccount();
 
@@ -360,8 +377,8 @@ public class StudentServiceImpl implements StudentService {
 		request.getSession().removeAttribute(SMS.PHONE);
 		request.getSession().removeAttribute(SMS.VC_TYPE_REGISTER);
 
-		//根据提供的信息和账号ID来生成学生对象
-		Student student = register.generateStudent(token.getAId());
+		student.setSAccountId(token.getAId());
+
 
 		Integer row2 = studentDao.add(student);
 
@@ -411,11 +428,12 @@ public class StudentServiceImpl implements StudentService {
                     } else{
                         resultData.setCode(list.size()+1);//人脸张数
                     }
-
+                    resultData.put("result",1);
                 } else {
                     System.out.println("加入人脸识别失败");
                     resultData.setMsg("加入人脸识别失败");
                     resultData.setCode(list.size());
+                    resultData.put("result",-1);
                 }
             } catch (Exception e){
                 e.printStackTrace();
@@ -441,20 +459,27 @@ public class StudentServiceImpl implements StudentService {
      **/
     @Override
     public ResultData FaceLogin(HttpServletRequest request, String base64){
-        ResultData resultData = new ResultData();
+        ResultData resultData = null;
         int sId = searchFace.searchFace(base64.split(",")[1]);
-        try{
-            Student student = studentMapper.findTeacher(sId);
-            request.getSession().setAttribute("student",student);
-            Account account = new Account();
-            account.setAId(student.getSAccountId());
-            account = accountMapper.selectAccount(account);
-            request.getSession().setAttribute("account",account);
-            request.getSession().setAttribute("aId",account.getAId());
-            resultData.setMsg("登录成功");
-        } catch (Exception e){
-            e.printStackTrace();
-            resultData.setMsg("登录失败");
+        if(sId > 0){
+            try{
+                Student student = studentMapper.findTeacher(sId);
+                request.getSession().setAttribute("student",student);
+                request.getSession().setAttribute("ll", 0);
+                Account account = new Account();
+                account.setAId(student.getSAccountId());
+                account = accountMapper.selectAccount(account);
+                request.getSession().setAttribute("account",account);
+                request.getSession().setAttribute("aId",account.getAId());
+				resultData = ResultData.success("登录成功");
+            } catch (Exception e){
+                e.printStackTrace();
+                request.getSession().setAttribute("account",null);
+				resultData = ResultData.error("登录失败");
+            }
+        } else{
+            request.getSession().setAttribute("account",null);
+			resultData = ResultData.error("登录失败");
         }
 	    return resultData;
     }

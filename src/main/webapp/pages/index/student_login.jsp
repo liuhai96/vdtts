@@ -14,7 +14,10 @@
     <link href="https://www.layuicdn.com/layui/css/layui.css" rel="stylesheet" type="text/css"/>
     <link href="<%=path+"/css/pages/index/login.css"%>" rel="stylesheet" type="text/css">
     <script src="<%=path+"/js/pages/index/stuLogin.js"%>" type="text/javascript"></script>
-    <script src="<%=path+"/static/custom_tool.js"%>"></script>
+    <script type="text/javascript" src=<%=path + "/static/jqueryFaceDetection/camera.js"%>></script>
+    <script type="text/javascript" src=<%=path + "/static/jqueryFaceDetection/cascade.js"%>></script>
+    <script type="text/javascript" src=<%=path + "/static/jqueryFaceDetection/ccv.js"%>></script>
+    <script type="text/javascript" src=<%=path + "/static/jqueryFaceDetection/jquery.facedetection.js"%>></script>
 </head>
 <body>
 
@@ -24,20 +27,50 @@
 <p style="font-family: newword;color: #274472;font-size: 26px;text-align: center;height: 80px; margin-left: -230px;line-height: 110px;">
     欢迎登录驾驶培训公共服务平台！</p>
 <div class="main-box">
-    <form action="<%=path+"/api/login/student"%>" method="post" style="width: 100%;height: 223px;">
+
+    <form id="faceLogin" action="<%=path+"/login/student/face"%>" method="post" style="display: none;">
+        <input id="faceImg" type="hidden" name="base64">
         <p style="">学员登录</p>
-        <div id="accountLogin" style="display: block;">
+        <div class="reg-box">
+            <div class="reg-box" style="width: 585px;">
+                <div class="alone-buy layui-btn-container" style="display: none;">
+                    <button id="openCamera" type="button" class="layui-btn" style="position: relative;" >开启摄像头</button>
+                    <button id="closeCamera" type="button" class="layui-btn" style="position: relative;" >关闭摄像头</button>
+                    <div id="videoDiv" style="">
+                        <video id="video" ></video>
+                    </div>
+                    <img id="image">
+
+                </div>
+                <div class="layui-main alone-items">
+                    <div class="methodContent">
+                        <div id="cameraDiv">
+                            <canvas id="myCanvas" style="display: block;background-color: black" width="500px" height=350px"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="sub space" style="margin-right: 50px;">
+                <br>
+                <a id="useAccount" href="JavaScript:;" style="float: right;margin-top: 10px;">使用账号登录</a>
+            </div>
+        </div>
+    </form>
+
+    <form id="accountLogin" action="<%=path+"/api/login/student"%>" method="post" style="width: 100%;">
+        <p style="">学员登录</p>
+        <div style="display: block;">
             <ul class="reg-box">
                 <li>
                     <label style="letter-spacing: 3px;">学员账号：</label>
-                    <input name="aAccount" type="text" value="yw76CiYS8F"
+                    <input name="aAccount" type="text"
                            placeholder="请输入你的账号"
                            style="margin-left: 2px;" class="account accounts"
                            onblur="textBlur(this)" onfocus="textFocus(this)">
                     <span class="error error5"></span>
                 <li>
                     <label style="letter-spacing: 3px;">登录密码：</label>
-                    <input name="aPassword" type="password" value="123456"
+                    <input name="aPassword" type="password"
                            placeholder="请输入登录密码"
                            style="margin-left: 2px;" class="idcard"
                            onblur="textBlur(this)" onfocus="textFocus(this)">
@@ -62,28 +95,9 @@
                 <button class="" id="cc" onclick="resetMsg();" style="display: block;" type="button">重置</button>
                 <br>
                 <br>
-                <a id="useFace" href="JavaScript:;" style="float: right;" onclick="skipPage
-                ('/studentController/studentTransfer?logo=face')">使用人脸登录</a>
+                <a id="useFace" href="JavaScript:;" style="float: right;">使用人脸登录</a>
             </div>
         </div>
-
-        <div id="faceLogin" class="reg-box" style="display: none;">
-            <div class="reg-box" style="width: 585px;">
-                人脸登录
-            </div>
-            <div class="sub space" style="margin-right: 50px;">
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <a id="useAccount" href="JavaScript:;" style="float: right;margin-top: 10px;">使用账号登录</a>
-            </div>
-        </div>
-
     </form>
 </div>
 <div class="layui-layer-move"></div>
@@ -92,6 +106,8 @@
     layui.use(['form', 'table', 'element', 'layer'], function () {
         let $ = layui.$;
         let layer = layui.layer;
+
+        let clock2;
 
         $("#iframe",window.parent.document).attr("style","height:"+Number(document.body.scrollHeight)+"px;");
 
@@ -104,19 +120,46 @@
         $("#useAccount").on("click",function (event) {
             $("#faceLogin").attr("style","display:none;width: 585px;");
             $("#accountLogin").attr("style","display:block;");
-            inputByHand = false;
+            $("#closeCamera").click();
+            clearInterval(clock2);
         });
 
         $("#useFace").on("click",function (event) {
             $("#faceLogin").attr("style","display:block;width: 585px;");
             $("#accountLogin").attr("style","display:none;");
-            inputByHand = true;
+            $("#openCamera").click();
         });
 
         let path = window.document.location.href.substring(0, (window.document.location.href).indexOf(window.document.location.pathname));
 
         $("#registerLink").on("click",function (event) {
            top.location.href=path+"/student/register";
+        });
+
+
+        $("#openCamera").on("click",function () {
+            clock2=setInterval(function () {
+                $('#image').faceDetection({
+                    complete: function (faces) {
+                        if (faces.length == 0) { //说明没有检测到人脸
+                            console.log("无人脸");
+                        } else {
+                            console.log("识别到人脸");
+
+                            $("#closeCamera").click();
+
+                            clearInterval(clock2);
+
+                            let base64 = $('#image').attr("src");
+                            $("#faceImg").attr("value",base64);
+                            $("#faceLogin").submit();
+                        }
+                    },
+                    error: function (code, message) {
+                        console.log("complete回调函数出错");
+                    }
+                });
+            }, 60);
         });
 
     });

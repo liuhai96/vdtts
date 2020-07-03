@@ -180,9 +180,11 @@
 	<div class="layui-form-item">
 		<a>确认通过审核？</a>
 	</div>
-	<div class="layui-form-item">
-		<div class="layui-input-block">
-			<button type="submit" class="layui-btn" lay-submit="" lay-filter="demo2">通过审核</button>
+	<div class="layui-form-item" style="text-align: center">
+		<div class="layui-input-block" >
+			<button style="padding-right:-50px"type="submit" class="layui-btn" lay-submit="" lay-filter="demo2">通过审核</button>
+<%--			<button type="submit" class="layui-btn" lay-submit="" lay-filter="das">取消</button>--%>
+<%--			<button type="submit" class="layui-btn" lay-submit="" lay-filter="das">取消</button>--%>
 		</div>
 	</div>
  </form>

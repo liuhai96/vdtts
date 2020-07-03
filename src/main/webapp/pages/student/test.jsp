@@ -115,6 +115,10 @@
 
         let questionList = null;
 
+        layer.load(1, {
+            shade: [0.6, '#fff']
+        });
+
         $.ajax({
             type: "get",
             url: path + "/api/exam/text?level=" + $("#level").val(),
@@ -151,6 +155,8 @@
                 }
 
                 $(table).html(str);
+
+                layer.closeAll('loading');
 
                 //显示第一题
                 showQuestion(0);
@@ -217,6 +223,8 @@
         $(document).on("click", "#submitBtn", function (event) {
 
             let index = 0;
+
+            let submit = true;
 
             //遍历题目，如果还有题目没有选择答案，就不让提交
             for (; index < questionList.length; index++) {

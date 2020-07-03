@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.lsjbc.vdtts.entity.Account;
 import com.lsjbc.vdtts.pojo.vo.ResultData;
 import com.lsjbc.vdtts.service.intf.AccountService;
+import com.lsjbc.vdtts.service.intf.LinkService;
 import com.lsjbc.vdtts.utils.Tool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -80,6 +81,8 @@ public class AccountController {
         return accountService.updateSchoolPwd(oldPwd, newPwd, repeatPwd, request);
     }
 
+    @Autowired
+    private LinkService linkServive;
     @RequestMapping(value = "/transfer")
     /*
      *@Description: 主要用于界面中转
@@ -88,9 +91,8 @@ public class AccountController {
      *@return:org.springframework.web.servlet.ModelAndView
      *@Date:2020/6/18 14:40
      **/
-    public ModelAndView Transfer(String logo, HttpServletRequest request) {
+    public String Transfer(String logo, HttpServletRequest request) {
         String goal;//去的目的地
-        ModelAndView modelAndView = new ModelAndView();
         switch (logo) {
             case "institutionIndex"://去机构首页
                 goal = "/pages/backhomepage/index";
@@ -103,15 +105,18 @@ public class AccountController {
                 request.getSession().invalidate();
             case "institutionLogin"://去机构登录页
                 goal = "/pages/index/institution";
+                request.getSession().setAttribute("linkList",linkServive.getFooterFriendLink());
+                break;
+            case "institutionLogin2":
+                goal = "/pages/homepage/login";
                 break;
             case "alterpass"://学生修改信息页
                 goal = "/pages/student/student_password";
                 break;
             default://回系统首页
-                goal = "/pages/index/index";
+                goal = "redirect:/index";//后台重定向到首页
                 break;
         }
-        modelAndView.setViewName(goal);
-        return modelAndView;
+        return goal;
     }
 }

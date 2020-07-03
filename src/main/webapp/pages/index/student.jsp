@@ -32,7 +32,7 @@
         <div class="inf-time">
             今天是<%=today%>
         </div>
-        <div class="inf-login" id="studentName">
+        <div class="inf-login" id="studentOption">
             <c:if test="${sessionScope.student == null }">
                 <a target="_blank" href="<%=path+"/back/adminlogin.jsp"%>">管理登录</a> |
                 <a target="_blank" href="<%=path+"/transfer?logo=institutionLogin"%>">机构登录</a> |
@@ -79,7 +79,7 @@
                 <img src="<%=path+"/image/pages/index/menu_publicity1.png"%>">
                 <a href="<%=path+"/publicity/notice/1/-1"%>">公开公示</a>
             </li>
-            <li id="menu-title-three" style="display: block;cursor:hand;">
+            <li id="menu-title-three" style="display: block;cursor:pointer;">
                 <form id="jumpToInquire" action="<%=path+"/inquire"%>" method="post">
                     <img src="<%=path+"/image/pages/index/menu_inquire1.png"%>">
                     <a onclick="document:jumpToInquire.submit()">信息查询</a>
