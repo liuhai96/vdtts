@@ -149,12 +149,12 @@
             else if(layEvent === 'resetpwd'){       //重置密码
                 var accountId = data.sAccountId;
                 var studentName= data.sName;
-                layer.alert('accountId='+accountId);
+                // alert('accountId='+accountId);
                 var data ={
                     accountId: accountId,
-                    dealtype: "delete"
+                    dealtype: "resetpwd"
                 }
-                layer.alert('data='+JSON.stringify(data));
+                // layer.alert('data='+JSON.stringify(data));
                 layer.confirm('确认重置密码？', function(index){
                     obj.del(); //删除对应行（tr）的DOM结构
                     layer.close(index);
@@ -165,11 +165,11 @@
                         data: data,
                         success: function (msg) {
                             if (msg.trim() == "success") {
-                                alert("学员"+studentName+"重置密码成功！");
+                                alert("学员"+studentName+"重置密码成功！重置密码为：123456");
                                 layer.close(addstudent);
                                 // location.href = "userlogin.jsp";
                             } else {
-                                alert(msg)
+                                alert("重置密码失败！")
                             }
                         }
                     });
@@ -230,7 +230,7 @@
                 , form = layui.form;
             var $ = layui.jquery;
             form.on('submit(formDemo1)', function (data) {//添加学员
-                alert(JSON.stringify(data.field));
+                // alert(JSON.stringify(data.field));
                 var account = $("input[name='account']").val();
                 var pwd = $("input[name='pwd']").val();
                 var pwd2 = $("input[name='pwd2']").val();
@@ -250,7 +250,7 @@
                                 layer.close(addstudent);
                                 // location.href = "userlogin.jsp";
                             } else {
-                                alert(msg)
+                                alert("学员添加失败！")
                             }
                         }
                     });

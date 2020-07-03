@@ -37,7 +37,7 @@ public interface StudentMapper extends CustomBaseMapper<Student> {
 
     int selectStudentCount(@Param("student") Student student);
 
-    int resetPwd(String studentId);
+    int resetPwd(Account account);
 
     int insertstudent(Student student);
 

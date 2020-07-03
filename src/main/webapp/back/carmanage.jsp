@@ -134,7 +134,7 @@
 
             else if(layEvent === 'delete'){       //删除驾校
                 var carId = data.cId;
-               alert('carId='+carId);
+               // alert('carId='+carId);
                 var data ={
                     cId: carId,
                     dealtype: "delete"
@@ -185,7 +185,7 @@
                 , form = layui.form;
             var $ = layui.jquery;
             form.on('submit(formDemo)', function (data) {//添加驾校
-                alert(JSON.stringify(data.field));
+                // alert(JSON.stringify(data.field));
                 // var account = $("input[name='account']").val();
                 // var pwd = $("input[name='pwd']").val();
                 // var pwd2 = $("input[name='pwd2']").val();
@@ -204,7 +204,7 @@
                                 layer.close(addschool);
                                 location.reload();
                             } else {
-                                alert(msg)
+                                alert("添加失败！")
                             }
                         }
                     });

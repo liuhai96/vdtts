@@ -137,12 +137,12 @@
             else if(layEvent === 'delete'){       //删除驾校
                 var schoolId = data.sId;
                 var sName= data.sName;
-                layer.alert('schoolId='+schoolId);
+                // layer.alert('schoolId='+schoolId);
                 var data ={
                     schoolId: schoolId,
                     dealtype: "delete"
                 }
-                layer.alert('data='+JSON.stringify(data));
+                // layer.alert('data='+JSON.stringify(data));
                 layer.confirm('确认删除此驾校？', function(index){
                     obj.del(); //删除对应行（tr）的DOM结构
                     layer.close(index);
@@ -218,7 +218,7 @@
                 , form = layui.form;
             var $ = layui.jquery;
             form.on('submit(formDemo)', function (data) {//添加驾校
-                alert(JSON.stringify(data.field));
+                // alert(JSON.stringify(data.field));
                 // var account = $("input[name='account']").val();
                 // var pwd = $("input[name='pwd']").val();
                 // var pwd2 = $("input[name='pwd2']").val();

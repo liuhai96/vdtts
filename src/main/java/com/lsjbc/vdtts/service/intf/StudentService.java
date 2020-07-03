@@ -25,7 +25,7 @@ public interface StudentService {
 
     public int selectStudentCount(@Param("student") Student student);
 
-    public int resetPwd(String studentId);
+    public int resetPwd(Account account);
 
     public int insertstudent(Student student);
 
