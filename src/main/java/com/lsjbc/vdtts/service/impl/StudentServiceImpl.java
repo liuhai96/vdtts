@@ -99,8 +99,8 @@ public class StudentServiceImpl implements StudentService {
 	 *@Date:2020/6/8 15860799877
 	 **/
 	@Override
-	public int resetPwd(String studentId) {
-		int resetPwd = studentMapper.resetPwd(studentId);
+	public int resetPwd(Account account) {
+		int resetPwd = studentMapper.resetPwd(account);
 		return resetPwd;
 	}
 	@Override

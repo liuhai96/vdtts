@@ -31,7 +31,7 @@
 </script>
 
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-xs" lay-event="updateinfo">信息修改</a>
+<%--    <a class="layui-btn layui-btn-xs" lay-event="updateinfo">信息修改</a>--%>
 </script>
 
 <script>

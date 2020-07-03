@@ -33,7 +33,7 @@
 
     <!--  周永哲，学员重置密码-->
     <update id="resetPwd" parameterType="com.lsjbc.vdtts.entity.Account">
-        update tb_account set a_password = '1234' where a_id = #{aAccount}
+        update tb_account set a_password = #{aPassword} where a_id = #{aId}
     </update>
 
     <insert id="insertstudent"  parameterType="com.lsjbc.vdtts.entity.Student">

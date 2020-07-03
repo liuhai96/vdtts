@@ -149,10 +149,10 @@
             else if(layEvent === 'resetpwd'){       //重置密码
                 var accountId = data.sAccountId;
                 var studentName= data.sName;
-                layer.alert('accountId='+accountId);
+                // alert('accountId='+accountId);
                 var data ={
                     accountId: accountId,
-                    dealtype: "delete"
+                    dealtype: "resetpwd"
                 }
                 layer.alert('data='+JSON.stringify(data));
                 layer.confirm('确认重置密码？', function(index){
@@ -165,11 +165,11 @@
                         data: data,
                         success: function (msg) {
                             if (msg.trim() == "success") {
-                                alert("学员"+studentName+"重置密码成功！");
+                                alert("学员"+studentName+"重置密码成功！重置密码为：123456");
                                 layer.close(addstudent);
                                 // location.href = "userlogin.jsp";
                             } else {
-                                alert(msg)
+                                alert("重置密码失败~")
                             }
                         }
                     });

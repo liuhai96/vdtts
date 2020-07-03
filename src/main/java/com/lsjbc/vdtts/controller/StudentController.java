@@ -27,11 +27,10 @@ import java.util.List;
 public class StudentController {
     @Autowired
     private StudentService studentService;
-
-
     @Autowired
     private AccountService accountService;
     private  Student student = new Student();
+    private  Account account = new Account();
 
     /*
      *@Description:
@@ -60,7 +59,13 @@ public class StudentController {
     public String resetPwd(HttpServletRequest request, HttpServletResponse response,
                               @RequestParam(value = "accountId") String accountId ) {
         System.out.println(" accountId:"+accountId);
-        int i=studentService.resetPwd(accountId);
+//        if(accountId==null||accountId.equals("")){
+//            return "null";
+//        }
+        account.setAId(Integer.parseInt(accountId));
+        account.setAPassword(new Tool().createMd5("123456"));
+        int i=studentService.resetPwd(account);
+       //转MD5码（加密）
         String res = "";
         if(i>0){
             res="success";
