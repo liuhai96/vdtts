@@ -127,7 +127,7 @@
                 , form = layui.form;
             var $ = layui.jquery;
             form.on('submit(formDemo)', function (data) {//添加驾校
-                alert(JSON.stringify(data.field));
+                // alert(JSON.stringify(data.field));
                 // var account = $("input[name='account']").val();
                 // var pwd = $("input[name='pwd']").val();
                 // var pwd2 = $("input[name='pwd2']").val();
@@ -190,7 +190,7 @@
                         , form = layui.form;
                     var $ = layui.jquery;
                     form.on('submit(formDemo2)', function (data) {//修改驾校信息
-                        alert(JSON.stringify(data.field)+"schoolid="+schoolId);
+                        // alert(JSON.stringify(data.field)+"schoolid="+schoolId);
                         $.ajax({
                             url: "/schoolController/updateSchool",
                             type: "POST",
@@ -251,7 +251,7 @@
                 //     cColor:cColor,
                 //     cNumber:cNumber,
                 // }
-                alert("data="+JSON.stringify(data));
+                // alert("data="+JSON.stringify(data));
                     $.ajax({
                         url: "/carControl/insertCar",
                         type: "POST",

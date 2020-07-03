@@ -130,7 +130,7 @@
                         , form = layui.form;
                     var $ = layui.jquery;
                     form.on('submit(formDemo2)', function (data) {//修改参数信息
-                        alert(JSON.stringify(data.field)+"pmId="+pmId);
+                        // alert(JSON.stringify(data.field)+"pmId="+pmId);
                         // var updatedata={
                         //     sName:data.field.sName,
                         //     sAddress:data.field.sAddress,
