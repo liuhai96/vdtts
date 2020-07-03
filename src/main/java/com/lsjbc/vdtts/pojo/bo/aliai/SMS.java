@@ -199,8 +199,7 @@ public class SMS {
             HttpSession session = request.getSession();
             //把Session中有用的信息拿出来
             String sessionPhone = session.getAttribute(PHONE).toString();
-//            String sessionCode = session.getAttribute(vcKey).toString();
-            String sessionCode = "000000";
+            String sessionCode = session.getAttribute(vcKey).toString();
 
             //如果Session中的数据和用户提交的信息相同，就验证通过
             if (sessionPhone.equals(phone) && sessionCode.equals(code)) {
