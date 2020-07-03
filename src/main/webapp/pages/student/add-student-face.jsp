@@ -45,7 +45,6 @@
     <div style="text-align: start">
         <div class="alone-buy layui-btn-container" style="text-align: center;">
             <button id="openCamera" type="button" class="layui-btn" style="position: relative;">开启录入</button>
-            <button type="button" class="layui-btn" onclick="history.go(0)">关闭摄像头</button>
         </div>
     </div>
     <label style="font-size: 20px;color: coral">人脸录入</label><br>
@@ -68,25 +67,25 @@
     </div>
     <script type="text/javascript">
         if (${sessionScope.xx ne null}){
-            setInterval(function () {
+            let inte2 = setInterval(function () {
                 if (${sessionScope.xx == 1}){
                     <%request.getSession().setAttribute("xx",null);%>
                     history.go(0);
-                    return;
+                    clearInterval(inte2);
                 }
                 if (${sessionScope.resultAddFace == 1}){
                     alert("你已经成功录入！");
                     <%request.getSession().setAttribute("xx",null);%>
                     <%request.getSession().setAttribute("resultAddFace",null);%>
-                    return;
+                    clearInterval(inte2);
                 } else if (${sessionScope.resultAddFace == -1}){
                     alert("人脸录入失败！");
                     <%request.getSession().setAttribute("xx",null);%>
                     <%request.getSession().setAttribute("resultAddFace",null);%>
-                    return;
+                    clearInterval(inte2);
                 }
 
-            },5000);
+            },2000);
         }
 
         //人脸识别js
@@ -107,20 +106,21 @@
                                 console.log("无人脸");
                             } else {
                                 console.log("识别到人脸");
+
+                                clearInterval(clock2);
                                 let base64 = $('#image').attr("src");
                                 $("#faceImg").attr("value",base64);
                                 $("#userInCameraForm").submit();
                                 setTimeout(function () {
                                     alert("已识别到人脸！服务器正在为了存储......");
-                                },2000);
-                                return;
+                                },1000);
                             }
                         },
                         error: function (code, message) {
                             console.log("complete回调函数出错");
                         }
                     });
-                }, 2000);
+                }, 100);
             });
         });
     </script>
