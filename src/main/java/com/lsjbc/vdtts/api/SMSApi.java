@@ -33,9 +33,6 @@ public class SMSApi {
      */
     @GetMapping("register")
     public void register(String phone, HttpServletRequest request) {
-        //模拟验证码登录
-        request.getSession().setAttribute("phone", phone);
-        request.getSession().setAttribute("r_vc", "000000");
         sms.registerVC(phone, request);
     }
 

@@ -356,7 +356,7 @@ public class StudentServiceImpl implements StudentService {
 		//根据提供的信息和账号ID来生成学生对象
 		Student student = register.generateStudent();
 
-		if(!studentDao.sfzHasExist(student.getSSfz())){
+		if(studentDao.sfzHasExist(student.getSSfz())){
 			register.putInfoAndMsgToMap(map,"该身份证已经被注册，注册失败");
 			return "/pages/index/register";
 		}
