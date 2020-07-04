@@ -129,7 +129,7 @@ function submit($, params) {
             newString += "<a href='"+baseUrl+"/transfer?logo=alterpass'>修改信息</a>";
             newString += "&nbsp;&nbsp;&nbsp;";
             newString += "<a href='" + baseUrl + "/logout/student'>退出</a>";
-            $("#studentName", window.parent.document).html(newString);
+            $("#studentOption", window.parent.document).html(newString);
         } else {
             layer.msg(res.msg, {icon: 2});
         }
