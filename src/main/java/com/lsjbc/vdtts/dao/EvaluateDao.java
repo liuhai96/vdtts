@@ -58,10 +58,8 @@ public class EvaluateDao implements BaseDao<Evaluate> {
      * @author JX181114 --- 郑建辉
      */
     public Double getAvgByTypeAndId(String type, Integer id) {
-
         //获取出所有查询出来的记录
         List<Evaluate> evaluates = getByTypeAndId(type, id);
-
         //如果没有记录，直接返回0
         if (evaluates.size() == 0) {
             return Double.valueOf(0);
